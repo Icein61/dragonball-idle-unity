@@ -2,7 +2,7 @@
 
 ## 事实与范围
 本项目与相邻“灰烬边境/ember-hunt-unity”独立。不得把它的Unity代码、版本号、PC包或GitHub Release误称为本项目产物。
-本轮只建立文档仓库。尚未固定Unity版本、包版本或渲染管线，尚无Assets/Packages/ProjectSettings工程配置。
+v0.1.0已建立Unity 2022.3.62f3技术Demo，使用内置渲染与临时IMGUI表现；最终美术路线仍待样片选择。
 未来选定Unity版本后，在ProjectSettings/ProjectVersion.txt锁定，并提交Packages/manifest.json与packages-lock.json；不要只在口头提及版本。
 默认Windows x64构建；离线游戏不需要用户登录开发账号。
 

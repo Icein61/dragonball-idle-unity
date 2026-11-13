@@ -1,0 +1,10 @@
+name: Battle core checks
+on: [push, pull_request]
+jobs:
+  core:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile and verify pure C# combat
+        shell: pwsh
+        run: ./Tools/validate-core.ps1

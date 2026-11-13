@@ -1,32 +1,46 @@
-# 龙珠长期养成游戏 · Unity 项目筹备
-工作目录代号：dragonball-idle-unity。正式游戏名尚未决定。
-规则基线日期：2026-11-13（Asia/Shanghai）。
+# 龙珠 · 试炼前线 — Unity 技术 Demo
+当前版本 **v0.1.0**。个人离线养成游戏的首个战斗核心与基础流程版本。
+GitHub：https://github.com/Icein61/dragonball-idle-unity
 
-GitHub仓库：https://github.com/Icein61/dragonball-idle-unity
-默认分支：main。克隆后从本文件和AGENTS.md开始接手。
+## 下载与试玩
+[下载 Windows x64 Demo](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.1.0)。
+下载Release附件中的DragonIdle-v0.1.0-Windows-x64.zip，完整解压后运行DragonIdle.exe。
+需要Windows，不需要Unity、开发账号或联网。请保留Data目录及附带运行库，不要只复制EXE。
 
-当前阶段：设计规范与工程准备。尚未创建本项目的 Unity 游戏工程、角色素材或可运行 PC 包。本文档不是已经实现的功能清单。
+点击“开始挑战”观看自动战斗；胜利后获得资源与装备，再到“养成”“装备”调整搭配。
+“编队”中点击两个位置交换角色，可以设置队长；“召唤”抽取测试卡，重复卡转专属资源。
+“说明”中领取首胜和离线素材。空格/ESC暂停，提供1/2/4倍演出与自动重复挑战。
+进度自动保存在用户Unity persistentDataPath；可通过界面打开存档目录，备份profile-v1.json。
 
-## 新环境从这里开始
-1. 阅读 [AGENTS.md](AGENTS.md)，遵守已确认设计和协作授权。
-2. 阅读 [确认设计](docs/design/confirmed.md)，不要根据缺失的聊天上下文重猜规则。
-3. 阅读 [默认方案](docs/design/defaults.md)，其中参数可调，不能冒充用户明确选择。
-4. 阅读 [状态与下一步](docs/STATUS.md) 和 [跨环境接手及交付](docs/engineering/handoff.md)。
-5. 开发前检查工作区、分支、未提交修改及 Unity 环境；不要使用相邻其他游戏的文件代替本项目。
+## 当前可玩范围
+- 7v7、三前四后、速度行动条、严格同刻阵位顺序、独立怒气必杀。
+- 独立状态贡献期限、护盾、治疗、控制、暴击闪避、队长独立乘区。
+- 七张初始测试卡与一张可召唤卡、四个逐步开放的试炼。
+- 修炼、共鸣、三装备槽、两技能槽、珠子镶嵌、基础任务与离线素材。
+- 本地存档/备份、核心自动化测试、Windows打包脚本。
 
-## 项目方向
-Unity / Windows PC / 16:9 / 离线单机。龙珠角色收藏、队伍构筑、自动时间轴战斗、原著篇章与独立副本、装备和技能及珠子刷取、稀有抽卡、任务与挂机。
-画面是核心质量要求：偏好精美手绘感 3 渲 2，也接受高质量 2D；最终路线需要同角色视觉样片和动作验证。
+本版为技术切片：画面是临时角色卡和攻击轨迹，尚无正式角色立绘、动作、美术路线或长期数值定稿。
+角色名不代表已确定原著阶段；dokkaninfo本次无法读取，没有导入其素材。
+完整技能掉落池、分支成长、变身、多波副本、更多任务及音乐/音效将在后续版本扩展。
+详见 [版本说明](Releases/v0.1.0.md) 与 [实现范围](docs/engineering/demo-implementation.md)。
 
-## 文档导航
-- [已确认玩法](docs/design/confirmed.md)
-- [代理自主采用的默认方案](docs/design/defaults.md)
-- [关键决策及已废弃解释](docs/design/decisions.md)
-- [美术方向与素材流程](docs/production/art-direction.md)
-- [工程、存档与发布约定](docs/engineering/handoff.md)
-- [规则验收场景](docs/verification/acceptance.md)
-- [当前状态](docs/STATUS.md)
+## 开发与验证
+1. 用Unity Hub打开此目录，使用 **Unity 2022.3.62f3** 与Windows构建模块。
+2. 打开Assets/DragonIdle/Scenes/Demo.unity并Play。
+3. Windows PowerShell运行 ./Tools/validate-core.ps1 验证纯C#逻辑。
+4. 使用Unity菜单 Dragon Idle > Build Windows Demo，或 ./Tools/build-windows.ps1。
+5. 提交源码后运行 ./Tools/package-windows.ps1 -VisibleSmoke 重新构建、短暂显示独立测试窗口并打包。
+6. Unity路径不同可传 -UnityPath；打包输出在Builds/Releases/v0.1.0。
 
-## 版本约定
-后续每个可玩交付版本须对应源码提交、同版本标签、更新说明及可运行 Windows x64 ZIP。PC 包通过该项目 GitHub Releases 分发，不把 Unity 缓存或生成的 PC 包提交到源码历史。
-本次为文档基线，不应伪造游戏版本、构建结果或 PC Release。
+模拟核心独立于Unity帧率，GitHub Actions只运行核心检查；Unity构建在有编辑器许可证的本机进行。
+测试窗口使用独立测试存档，不修改正式存档。
+
+## 换环境接手
+先读 [AGENTS.md](AGENTS.md)、[当前状态](docs/STATUS.md)、[确认设计](docs/design/confirmed.md)。
+[默认方案](docs/design/defaults.md)可调整，不能冒充用户明确确认；[纠正记录](docs/design/decisions.md)防止恢复旧解释。
+- [美术方向](docs/production/art-direction.md)
+- [工程与发布约定](docs/engineering/handoff.md)
+- [完整目标验收场景](docs/verification/acceptance.md)
+- [本版本验证结果](docs/verification/v0.1.0.md)
+
+后续每个可玩版本仍需对应源码提交、标签、版本说明与可运行PC包。不要提交Library或Builds缓存。

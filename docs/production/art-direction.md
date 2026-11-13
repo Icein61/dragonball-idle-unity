@@ -30,4 +30,4 @@
 - 参考站点：https://dokkaninfo.com/
 - 官方游戏介绍：https://play.google.com/store/apps/details?id=com.bandainamcogames.dbzdokkanww
 - 讨论时dokkaninfo页面抓取失败；不得声称已导入或校验其全站数据。
-- 本项目目前没有角色样片、游戏素材或已选定的渲染管线。
+- v0.1.0有程序绘制的技术占位表现，没有正式角色样片或已选定的最终美术管线。
