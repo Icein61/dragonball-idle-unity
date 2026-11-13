@@ -10,7 +10,7 @@ namespace DragonIdle {
   }
  }
  public static class Data {
-  public const string Version="0.1.0";
+  public const string Version="0.1.1";
   public static Card[] Cards={
    new Card("goku-test","孙悟空","fighter","赛亚人","龟派气功","全力冲击","FF9F43",1050,116,42,110,.08),
    new Card("vegeta-test","贝吉塔","sniper","赛亚人","伽力克炮","全力爆发","599AFF",940,124,36,116,.09,4),
@@ -27,7 +27,8 @@ namespace DragonIdle {
   public static Unit Make(string id,int side,int slot,int training,int resonance,string skill,double scale) {
    var c=Card(id);double growth=1+training*.001+resonance*.004;
    var u=new Unit {CardId=id,Name=c.Name,Role=c.Role,Side=side,Slot=slot,MaxHP=c.HP*growth*scale,HP=c.HP*growth*scale,Attack=c.Attack*growth*scale,Defense=c.Defense*growth,Speed=c.Speed,SpecialName=c.Special,UltimateName=c.Ultimate,CooldownLength=c.Cooldown};
-   if(skill=="pierce"){u.Role="sniper";u.SpecialName="贯穿气弹";u.CooldownLength=4;}
+   u.SpecialRole=c.Role;
+   if(skill=="pierce"){u.SpecialRole="sniper";u.SpecialName="贯穿气弹";u.CooldownLength=4;}
    if(skill=="focus")u.Crit+=.035;
    return u;
   }

@@ -7,7 +7,7 @@ namespace DragonIdle {
   public string Type, Source; public double Value; public int Expires;
  }
  public class Unit {
-  public string CardId, Name, Role, SpecialName, UltimateName;
+  public string CardId, Name, Role, SpecialRole, SpecialName, UltimateName;
   public int Side, Slot, Cooldown, CooldownLength=3, Opportunities, StunUntil, SealUntil;
   public int UltimatePolicy; // 0 ready; 1 HP <= 60%; 2 enemy HP <= 50%
   public double MaxHP, HP, Attack, Defense, Speed, Progress, Rage, Shield, LeaderAttack;
@@ -93,7 +93,8 @@ namespace DragonIdle {
   }
   BattleEvent Act(Unit actor,Move move) {
    Events++;
-   var target=Target(actor,move==Move.Special&&actor.Role=="sniper");
+   string specialRole=actor.SpecialRole??actor.Role;
+   var target=Target(actor,move==Move.Special&&specialRole=="sniper");
    var e=new BattleEvent {Actor=actor,Target=target,Move=move,Time=Time};
    if(target==null)return e;
    double power=move==Move.Basic?1:move==Move.Special?1.14:1.3;
@@ -105,11 +106,11 @@ namespace DragonIdle {
     e.Damage=Math.Round(damage);e.ShieldDamage=Math.Min(target.Shield,e.Damage);
     target.Shield-=e.ShieldDamage;e.HealthDamage=Math.Min(target.HP,e.Damage-e.ShieldDamage);target.HP-=e.HealthDamage;
     target.Rage=Math.Min(100,target.Rage+7);
-    if(move==Move.Special&&actor.Role=="control")target.Stun(1);
+    if(move==Move.Special&&specialRole=="control")target.Stun(1);
    }
    string extra="";
-   if(move==Move.Special&&actor.Role=="tank") {actor.Shield+=actor.MaxHP*.15;extra=" · 自身获得护盾";}
-   if(move==Move.Special&&actor.Role=="healer") {
+   if(move==Move.Special&&specialRole=="tank") {actor.Shield+=actor.MaxHP*.15;extra=" · 自身获得护盾";}
+   if(move==Move.Special&&specialRole=="healer") {
     var ally=Units.Where(x=>x.Side==actor.Side&&x.Alive).OrderBy(x=>x.HP/x.MaxHP).First();
     ally.HP=Math.Min(ally.MaxHP,ally.HP+ally.MaxHP*.14);extra=" · 治疗 "+ally.Name;
    }

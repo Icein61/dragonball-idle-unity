@@ -50,7 +50,11 @@ class CoreChecks {
   Check(!p.Equip("x",1,3),"T34 reject fourth slot");p.Equip("x",2,0);Check(p.Items.Count(x=>x.id=="x"&&x.owner==2)==1,"T36 single item owner");
   Check(p.SetSkill(0,0,"focus")&&p.SetSkill(0,1,"pierce"),"T34 two skill slots coexist");
   Check(!p.SetSkill(0,0,"pierce"),"T34 prevent duplicate replacement");
-  Check(p.CreateTeam()[0].Role=="sniper"&&Near(p.CreateTeam()[0].Crit,.115),"T35 replacement and passive both effective");
+  Check(p.CreateTeam()[0].SpecialRole=="sniper"&&Near(p.CreateTeam()[0].Crit,.115),"T35 replacement and passive both effective");
+  var supportProfile=new Profile();supportProfile.SetSkill(4,0,"pierce");var supportBattle=supportProfile.NewBattle(0,55);
+  var support=supportBattle.Units.First(x=>x.Side==0&&x.Slot==4);support.Rage=100;
+  Check(support.Role=="support"&&support.SpecialRole=="sniper","T35 replacement preserves original role");
+  supportBattle.Step();Check(supportBattle.Units.First(x=>x.Side==0&&x.Slot==1).Effects.Any(x=>x.Source==support.CardId&&Near(x.Value,.06)),"T35 replacement preserves ultimate support effect");
   string tag=Data.Cards[0].Tag;p.Skill[0]="pierce";var changed=p.CreateTeam()[0];Check(changed.SpecialName=="贯穿气弹"&&changed.UltimateName==Data.Cards[0].Ultimate&&Data.Cards[0].Tag==tag,"T31 T35 replacement preserves identity");
   p=new Profile();int owned=p.Owned.Count(x=>x);p.Crystals=10000;for(int i=0;i<20;i++)p.Summon(i);Check(p.Owned[7],"summon guaranteed twentieth");Check(p.Shards.Sum()>=20-(8-owned),"T33 duplicates convert");
   p=new Profile();int mat=p.Materials;p.Train(0);Check(p.Materials==mat-30&&p.Training[0]==1,"training transaction");

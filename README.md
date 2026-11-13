@@ -1,10 +1,10 @@
 # 龙珠 · 试炼前线 — Unity 技术 Demo
-当前版本 **v0.1.0**。个人离线养成游戏的首个战斗核心与基础流程版本。
+当前版本 **v0.1.1**。个人离线养成游戏的首个战斗核心与基础流程版本。
 GitHub：https://github.com/Icein61/dragonball-idle-unity
 
 ## 下载与试玩
-[下载 Windows x64 Demo](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.1.0)。
-下载Release附件中的DragonIdle-v0.1.0-Windows-x64.zip，完整解压后运行DragonIdle.exe。
+[下载 Windows x64 Demo](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.1.1)。
+下载Release附件中的DragonIdle-v0.1.1-Windows-x64.zip，完整解压后运行DragonIdle.exe。
 需要Windows，不需要Unity、开发账号或联网。请保留Data目录及附带运行库，不要只复制EXE。
 
 点击“开始挑战”观看自动战斗；胜利后获得资源与装备，再到“养成”“装备”调整搭配。
@@ -22,7 +22,7 @@ GitHub：https://github.com/Icein61/dragonball-idle-unity
 本版为技术切片：画面是临时角色卡和攻击轨迹，尚无正式角色立绘、动作、美术路线或长期数值定稿。
 角色名不代表已确定原著阶段；dokkaninfo本次无法读取，没有导入其素材。
 完整技能掉落池、分支成长、变身、多波副本、更多任务及音乐/音效将在后续版本扩展。
-详见 [版本说明](Releases/v0.1.0.md) 与 [实现范围](docs/engineering/demo-implementation.md)。
+详见 [版本说明](Releases/v0.1.1.md) 与 [实现范围](docs/engineering/demo-implementation.md)。
 
 ## 开发与验证
 1. 用Unity Hub打开此目录，使用 **Unity 2022.3.62f3** 与Windows构建模块。
@@ -30,7 +30,7 @@ GitHub：https://github.com/Icein61/dragonball-idle-unity
 3. Windows PowerShell运行 ./Tools/validate-core.ps1 验证纯C#逻辑。
 4. 使用Unity菜单 Dragon Idle > Build Windows Demo，或 ./Tools/build-windows.ps1。
 5. 提交源码后运行 ./Tools/package-windows.ps1 -VisibleSmoke 重新构建、短暂显示独立测试窗口并打包。
-6. Unity路径不同可传 -UnityPath；打包输出在Builds/Releases/v0.1.0。
+6. Unity路径不同可传 -UnityPath；打包输出在Builds/Releases/v0.1.1。
 
 模拟核心独立于Unity帧率，GitHub Actions只运行核心检查；Unity构建在有编辑器许可证的本机进行。
 测试窗口使用独立测试存档，不修改正式存档。
