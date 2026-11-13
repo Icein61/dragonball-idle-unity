@@ -1,0 +1,16 @@
+---
+description: 龙珠长期养成项目的常驻设计与交付规则
+alwaysApply: true
+---
+
+# 项目上下文
+- 开始工作先读根目录 AGENTS.md、docs/STATUS.md。
+- 完整已确认规则在 docs/design/confirmed.md；默认方案在 docs/design/defaults.md。
+- 用户授权代理自主处理合理默认细节，避免逐项反复确认。
+- docs/design/decisions.md 记录纠正；以最新规则为准。
+- 同名加成仅合计数值，每份独立到期；不共享最长时长。
+- 队长技是独立乘区；角色身份标签不可被装备技能替换。
+- 普攻/绝招使用正常行动，必杀走怒气额外行动。
+- 同时到达终点严格按我1、敌1、我2、敌2顺序。
+- 文档变更须与实现和验收同步，不虚报测试或可运行包。
+- docs/engineering/handoff.md 定义跨环境、Git与Windows包交付流程。

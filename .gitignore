@@ -1,0 +1,40 @@
+# Unity generated files
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Bb]uilds/
+[Bb]uild/
+MemoryCaptures/
+Recordings/
+.vs/
+.idea/
+*.csproj
+*.sln
+*.suo
+*.user
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+# Generated validation / releases
+.validation/
+artifacts/
+*.zip
+*.tar.gz
+# Secrets and personal saves
+.env
+.env.*
+!.env.example
+*.keystore
+*.pfx
+*.p12
+*.ulf
+LocalSaves/
+# OS
+.DS_Store
+Thumbs.db
