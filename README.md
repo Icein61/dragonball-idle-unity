@@ -41,6 +41,6 @@ GitHub：https://github.com/Icein61/dragonball-idle-unity
 - [美术方向](docs/production/art-direction.md)
 - [工程与发布约定](docs/engineering/handoff.md)
 - [完整目标验收场景](docs/verification/acceptance.md)
-- [本版本验证结果](docs/verification/v0.1.0.md)
+- [本版本验证结果](docs/verification/v0.1.1.md)
 
 后续每个可玩版本仍需对应源码提交、标签、版本说明与可运行PC包。不要提交Library或Builds缓存。
