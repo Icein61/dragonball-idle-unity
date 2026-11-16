@@ -70,7 +70,7 @@ namespace DragonIdle {
    UPanel(galleryRoot,"Header",0,0,1600,90,new Color(.065f,.09f,.12f));
    UPanel(galleryRoot,"Sidebar",0,90,190,810,new Color(.055f,.075f,.10f));
    UPanel(galleryRoot,"HeaderLine",218,87,1344,2,uiAccent);
-   UText(galleryRoot,"Brand","试炼前线",25,20,180,40,29,uiPaper);
+   UText(galleryRoot,"Brand",Data.GameTitle,25,20,180,40,26,uiPaper);
    UText(galleryRoot,"Section","龙珠  /  角色收藏",232,28,500,40,22,uiDim);
    galleryResources=UText(galleryRoot,"Resources","",900,27,650,40,19,uiPaper,TextAnchor.MiddleRight);
    string[] names={"挑战","角色","编队","养成","装备","召唤","说明"};

@@ -36,15 +36,15 @@ namespace DragonIdle {
    if(kind==BattleVisualKind.SpiritBomb)from=feet+new Vector2(0,-112);
    if(kind==BattleVisualKind.Disc||kind==BattleVisualKind.Masenko)from=feet+new Vector2(sign*8,-88);
    Color color=EffectColor(kind);float intensity=ReducedBattleMotion?.55f:1;
-   if(p<.43f&&!action.Melee){
-    float r=(kind==BattleVisualKind.SpiritBomb?31:12)*(p/.43f+.25f);
+   if(action.Elapsed<action.ReleaseAt&&!action.Melee){
+    float r=(kind==BattleVisualKind.SpiritBomb?31:12)*((float)(action.Elapsed/action.ReleaseAt)+.25f);
     Orb(from,r,new Color(color.r,color.g,color.b,.7f*intensity));Ring(from,r+10,r+6,new Color(color.r,color.g,color.b,.5f*intensity));
     if(!ReducedBattleMotion)for(int i=0;i<5;i++){float a=i*Mathf.PI*.4f+p*8;Vector2 d=new Vector2(Mathf.Cos(a),Mathf.Sin(a));Line(from+d*(r+24),from+d*(r+12),2,new Color(color.r,color.g,color.b,.5f));}
    }
    if(kind==BattleVisualKind.KaiokenRush&&p>.12f&&p<.76f){Ring(feet+new Vector2(0,-43),40,62,new Color(1,.2f,.25f,.5f));if(!ReducedBattleMotion)Line(feet+new Vector2(-sign*90,-35),feet+new Vector2(-sign*20,-35),8,new Color(1,.2f,.25f,.25f));}
    for(int i=0;i<last.Hits.Count;i++){
     var hit=last.Hits[i];var to=FighterFeet(hit.Target)+new Vector2(0,-42);float impact=(float)action.ImpactAt(i),t=(float)action.Elapsed;
-    float travel=Mathf.Clamp01((t-impact+.28f)/.28f);bool release=t>=impact-.28f&&t<=impact+.25f;
+    float travelSeconds=(float)action.TravelDuration;float travel=Mathf.Clamp01((t-impact+travelSeconds)/travelSeconds);bool release=t>=impact-travelSeconds&&t<=impact+.25f;
     if(release){
      Vector2 tip=Vector2.Lerp(from,to,travel);Color c=new Color(color.r,color.g,color.b,intensity);
      switch(kind){
@@ -63,6 +63,7 @@ namespace DragonIdle {
       case BattleVisualKind.Psychic:
        Ring(to,25+travel*18,44,c);Ring(to,42,12,c);Line(from,tip,2,new Color(c.r,c.g,c.b,.3f));break;
       case BattleVisualKind.Slash:
+       if(t<impact)break;
        for(int j=0;j<3;j++){Vector2 prev=to+new Vector2(-34,22-j*7);for(int n=1;n<=12;n++){float q=n/12f;Vector2 point=to+new Vector2(-34+q*68,22-j*7-40*Mathf.Sin(q*Mathf.PI*.7f));Line(prev,point,3-j*.6f,new Color(1,1,1,(1-j*.2f)*intensity));prev=point;}}break;
       case BattleVisualKind.Acid:
        for(int j=0;j<4;j++){var drop=Vector2.Lerp(from,to,Mathf.Clamp01(travel-j*.06f));drop.y-=Mathf.Sin(travel*Mathf.PI)*28;Orb(drop,5-j*.7f,c);}break;

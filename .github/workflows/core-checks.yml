@@ -11,3 +11,6 @@ jobs:
       - name: Verify transparent atlases and sprite import rectangles
         shell: pwsh
         run: ./Tools/validate-art.ps1
+      - name: Verify packaged logo source
+        shell: pwsh
+        run: ./Tools/validate-branding.ps1

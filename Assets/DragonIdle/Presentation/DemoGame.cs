@@ -20,7 +20,7 @@ namespace DragonIdle {
    gradient=new Texture2D(1,256);for(int i=0;i<256;i++)gradient.SetPixel(0,i,Color.Lerp(new Color(.025f,.04f,.07f),new Color(.12f,.19f,.25f),i/255f));gradient.Apply();
    disc=new Texture2D(64,64);for(int y=0;y<64;y++)for(int x=0;x<64;x++)disc.SetPixel(x,y,Vector2.Distance(new Vector2(x,y),new Vector2(31.5f,31.5f))<31?Color.white:Color.clear);disc.Apply();
    string[] args=Environment.GetCommandLineArgs();
-   int saveArg=Array.IndexOf(args,"-savePath");savePath=saveArg>=0&&saveArg+1<args.Length?args[saveArg+1]:Path.Combine(Application.persistentDataPath,"profile-v1.json");
+   int saveArg=Array.IndexOf(args,"-savePath");savePath=saveArg>=0&&saveArg+1<args.Length?args[saveArg+1]:Data.DefaultSavePath(Application.persistentDataPath);
    if(args.Contains("-logicSmoke")&&saveArg<0){Debug.LogError("Smoke requires isolated -savePath");Application.Quit(1);return;}
    Load();
    if(saveError=="")Change(()=>{profile.OfflineBank+=profile.Offline(DateTime.UtcNow.Ticks);profile.LastClaimTicks=DateTime.UtcNow.Ticks;});
@@ -107,7 +107,7 @@ namespace DragonIdle {
    GUI.matrix=Matrix4x4.TRS(new Vector3((Screen.width-1600*scale)/2,(Screen.height-900*scale)/2,0),Quaternion.identity,new Vector3(scale,scale,1));
    GUI.DrawTexture(new Rect(0,0,1600,900),gradient);
    Box(0,0,1600,90,bg);Box(0,90,190,810,new Color(.045f,.07f,.11f));Box(0,88,1600,2,new Color(.25f,.22f,.16f));
-   Label(26,20,390,40,"龙珠 · 试炼前线",29,gold);Label(360,34,350,30,"技术 DEMO  /  v"+Data.Version,16,muted);
+   Label(26,20,320,40,Data.GameTitle,29,gold);Label(360,34,350,30,"技术 DEMO  /  v"+Data.Version,16,muted);
    Label(890,30,670,36,"素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems+"     胜场  "+profile.Wins,19);
    string[] pages={"挑战","角色","编队","养成","装备","召唤","说明"};
    for(int i=0;i<pages.Length;i++)if(Button(18,126+i*68,154,50,pages[i],page==pages[i],!running||pages[i]=="挑战")){page=pages[i];notice="";if(page!="挑战")autoRepeat=false;}

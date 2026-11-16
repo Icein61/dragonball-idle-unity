@@ -10,6 +10,9 @@ class CoreChecks {
  static Battle Pair(Unit a,Unit b){return new Battle(new[]{a,b},42);}
  static void Main(){try{Run();}catch(Exception ex){Console.WriteLine("FAIL "+ex.Message);Environment.Exit(1);}}
  static void Run(){
+  string legacySave=System.IO.Path.GetFullPath(System.IO.Path.Combine("profiles","Icein61","Dragon Idle Demo","profile-v1.json"));
+  Check(Data.DefaultSavePath(System.IO.Path.Combine("profiles","Icein61",Data.GameTitle))==legacySave,"Rename preserves existing profile and audio storage directory");
+  Check(Data.DefaultSavePath(System.IO.Path.Combine("profiles","Icein61","Dragon Idle Demo"))==legacySave,"Legacy product storage remains stable");
   var u=U(0);u.Add("attack",.2,0,"passive");u.Add("attack",.1,3,"equipment");u.Add("attack",.15,2,"ally");
   double[] expected={.45,.45,.30,.35,.35,.20};
   for(int turn=1;turn<=6;turn++){if(turn==4)u.Add("attack",.15,2,"ultimate");Check(Near(u.Sum("attack"),expected[turn-1]),"T19 turn "+turn);u.Opportunities++;u.Expire();}

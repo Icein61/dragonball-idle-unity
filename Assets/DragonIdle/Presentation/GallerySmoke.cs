@@ -9,6 +9,8 @@ namespace DragonIdle {
   void RunGallerySmoke(string dir){
    savePath=Path.Combine(dir,"gallery-save.json");profile=new Profile();Save();page="角色";selectedCard=0;
    EnsureGallery();galleryCanvas.SetActive(true);catalog.OwnedOnly=true;ResetGalleryFilters();
+   var brand=galleryRoot.GetComponentsInChildren<UI.Text>().Single(t=>t.name=="Brand");
+   AssertSmoke(brand.text==Data.GameTitle&&brand.preferredWidth<=brand.rectTransform.rect.width&&brand.preferredHeight<=brand.rectTransform.rect.height,"New game title clipped or missing");
    AssertSmoke(cardButtons.Count==8&&selectedCard==0,"Owned gallery failed");
    allTab.onClick.Invoke();AssertSmoke(cardButtons.Count==15&&!catalog.OwnedOnly,"All gallery tab failed");
    Canvas.ForceUpdateCanvases();AssertSmoke(gridRoot.GetComponentsInChildren<UI.Text>().Where(t=>t.name=="Theme"||t.name=="Keywords").All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Card form/title text clipped");

@@ -22,7 +22,14 @@ namespace DragonIdle {
   public double Progress {get{return Math.Min(1,Elapsed/Duration);}}
   public bool Complete {get{return Elapsed>=Duration;}}
   public bool Melee {get{return Kind==BattleVisualKind.Impact||Kind==BattleVisualKind.Combo||Kind==BattleVisualKind.KaiokenRush||Kind==BattleVisualKind.Slash;}}
-  public double ImpactAt(int hit){return Duration*.52+hit*.09;}
+  // Poses, travel and reactions share one action-local clock.
+  public double ReleaseAt {get{return Duration*(Melee?.40:Kind==BattleVisualKind.SpiritBomb?.56:Kind==BattleVisualKind.Disc?.46:.38);}}
+  public double TravelDuration {get{return Melee?Duration*.12:Kind==BattleVisualKind.SpiritBomb?.38:Kind==BattleVisualKind.SpiritBall?.34:.22;}}
+  public double ImpactAt(int hit){return ReleaseAt+TravelDuration+Math.Max(0,hit)*.09;}
+  public double ReactionAge(int hit){return Elapsed-ImpactAt(hit);}
+  public double RecoveryAt {get{return Math.Min(Duration-.16,Math.Max(Duration*.76,ImpactAt(Math.Max(0,Event.Hits.Count-1))+.22));}}
+  public double Approach {get{return Math.Max(0,Math.Min(1,Elapsed/ReleaseAt));}}
+  public double Return {get{return Math.Max(0,Math.Min(1,(Elapsed-RecoveryAt)/(Duration-RecoveryAt)));}}
   public void Tick(double seconds,bool paused){if(!paused&&seconds>0&&!double.IsNaN(seconds))Elapsed=Math.Min(Duration,Elapsed+seconds);}
   public bool HitVisible(int i){return Elapsed>=ImpactAt(i);}
   public VisualVitals Vitals(Unit u){
@@ -34,15 +41,16 @@ namespace DragonIdle {
   public int Pose(Unit u){
    double p=Progress;int hit=Event.Hits.FindIndex(h=>h.Target==u);
    if(hit>=0&&HitVisible(hit)){
-    if(after[u].HP<=0)return p<.78?8:10;
-    if(p<.84)return Event.Hits[hit].Dodged?7:Event.Hits[hit].ShieldDamage>0&&Event.Hits[hit].HealthDamage<=0?6:8;
+    if(after[u].HP<=0)return ReactionAge(hit)<.24?8:10;
+    if(ReactionAge(hit)<.34)return Event.Hits[hit].Dodged?7:Event.Hits[hit].ShieldDamage>0&&Event.Hits[hit].HealthDamage<=0?6:8;
    }
    if(u==Event.Actor&&!Complete){
     if(Event.Move==Move.Stunned)return 9;
-    if(Melee){if(p<.10)return 0;if(p<.43)return Kind==BattleVisualKind.Slash&&p>.22?4:1;if(p<.62)return Kind==BattleVisualKind.Slash?5:2;if(p<.76)return Kind==BattleVisualKind.Slash?5:3;return 11;}
-    if(Kind==BattleVisualKind.SolarFlare||Kind==BattleVisualKind.TriBeam)return p<.82?4:11;
-    if(Kind==BattleVisualKind.Disc)return p<.82?5:11;
-    return p<.40?4:p<.82?5:11;
+    if(Melee){if(p<.10)return 0;if(Elapsed<ReleaseAt)return Kind==BattleVisualKind.Slash&&p>.22?4:1;if(Elapsed<RecoveryAt)return Kind==BattleVisualKind.Slash?5:Kind==BattleVisualKind.Combo&&Elapsed>ImpactAt(0)+.08?3:2;return 11;}
+    if(Elapsed>=RecoveryAt)return 11;
+    if(Kind==BattleVisualKind.SolarFlare||Kind==BattleVisualKind.TriBeam)return 4;
+    if(Kind==BattleVisualKind.Disc)return 5;
+    return Elapsed<ReleaseAt?4:5;
    }
    var v=Vitals(u);return v.HP<=0?10:v.HP/u.MaxHP<.25?9:0;
   }

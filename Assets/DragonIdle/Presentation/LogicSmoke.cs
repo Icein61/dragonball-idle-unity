@@ -9,6 +9,7 @@ namespace DragonIdle {
    int o=Array.IndexOf(args,"-smokeOut");string dir=o>=0&&o+1<args.Length?args[o+1]:Path.GetDirectoryName(savePath);
    try{
     AssertSmoke(args.Contains("-savePath"),"Smoke requires isolated save path");Directory.CreateDirectory(dir);
+    AssertSmoke(Application.productName==Data.GameTitle,"Packaged game title incorrect");
     AssertSmoke(saveError=="","Profile load failed: "+saveError);
     AssertSmoke(Data.Cards.Length==15&&profile.Owned.Count(x=>x)==8,"Catalog initialization failed");
     var art=Resources.Load<Texture2D>("Art/goku-raditz-c-v030");AssertSmoke(art!=null&&art.width==1024&&art.height==1536,"Character sample resource missing or aspect changed");

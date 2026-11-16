@@ -10,6 +10,10 @@ static class PresentationChecks {
    var e=new BattleEvent{Actor=a,Target=b,Move=move};e.Hits.Add(new BattleHit{Target=b,Damage=100,HealthDamage=100});
    var p=new ActionPresentation(e,before,new[]{a,b});kinds.Add(p.Kind);
    check(p.Vitals(b).HP==1000&&!p.HitVisible(0),"P01 damage withheld until impact "+card.Id+move);
+   check(p.ReleaseAt<p.ImpactAt(0)&&p.ImpactAt(0)+.16<p.Duration&&p.RecoveryAt>p.ImpactAt(0),"P14 release impact recovery remain ordered "+card.Id+move);
+   p.Tick(p.ReleaseAt-.001,false);check(!p.HitVisible(0)&&p.Vitals(b).HP==1000,"P15 charge cannot reveal damage "+card.Id+move);
+   // Start a fresh clock for pause and impact checks below.
+   p=new ActionPresentation(e,before,new[]{a,b});
    p.Tick(.2,true);check(p.Elapsed==0,"P02 pause freezes presentation "+card.Id+move);
    p.Tick(p.ImpactAt(0)+.2,false);check(p.Vitals(b).HP==900&&p.Pose(a)>=0&&p.Pose(a)<12,"P03 impact and valid pose "+card.Id+move);
    p.Tick(10,false);check(p.Complete&&p.Vitals(b).HP==900&&b.HP==900&&p.Pose(a)==0,"P04 completion never reapplies damage "+card.Id+move);
@@ -24,6 +28,7 @@ static class PresentationChecks {
   var seq=new ActionPresentation(multi,snapshot,new[]{actor,t1,t2});seq.Tick(seq.ImpactAt(0)+.01,false);
   check(seq.HitVisible(0)&&!seq.HitVisible(1)&&seq.Pose(t1)==8,"P09 multiple targets stagger and lethal impact recoils first");
   seq.Tick(.1,false);check(seq.Pose(t2)==7&&seq.Vitals(t2).HP==1000,"P10 dodge has pose and no lost HP");
+  check(seq.ReactionAge(0)>seq.ReactionAge(1)&&seq.ReactionAge(1)>=0,"P16 each target reacts from its own contact time");
   seq.Tick(4,false);check(seq.Pose(t1)==10&&seq.Vitals(t1).HP==0,"P11 lethal action ends with defeated pose");
   var shielded=Actor("shield",1);shielded.Shield=30;snapshot=ActionPresentation.Capture(new[]{actor,shielded});shielded.Shield=10;
   var block=new BattleEvent{Actor=actor,Target=shielded,Move=Move.Basic};block.Hits.Add(new BattleHit{Target=shielded,Damage=20,ShieldDamage=20});seq=new ActionPresentation(block,snapshot,new[]{actor,shielded});seq.Tick(seq.ImpactAt(0)+.2,false);

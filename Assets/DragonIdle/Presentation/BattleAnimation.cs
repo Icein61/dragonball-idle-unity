@@ -23,14 +23,14 @@ namespace DragonIdle {
   Vector2 FighterFeet(Unit u){return new Vector2(u.Side==0?(u.Slot<3?560:360):(u.Slot<3?935:1135),u.Slot<3?407+u.Slot*120:390+(u.Slot-3)*96);}
   Vector2 AnimatedFeet(Unit u){
    var p=FighterFeet(u);if(action==null||action.Complete||ReducedBattleMotion)return p;
-   float progress=(float)action.Progress,sign=u.Side==0?1:-1;
+   float sign=u.Side==0?1:-1;
    if(u==action.Event.Actor&&action.Melee&&action.Event.Target!=null){
     var end=FighterFeet(action.Event.Target)+new Vector2(-sign*66,0);
-    float blend=progress<.42f?Mathf.SmoothStep(0,1,progress/.42f):progress<.72f?1:1-Mathf.SmoothStep(0,1,(progress-.72f)/.28f);
+    float blend=Mathf.SmoothStep(0,1,(float)action.Approach)*(1-Mathf.SmoothStep(0,1,(float)action.Return));
     p=Vector2.Lerp(p,end,blend);p.y-=Mathf.Sin(blend*Mathf.PI)*18;
    }else{
     int hit=action.Event.Hits.FindIndex(h=>h.Target==u);
-    if(hit>=0&&action.HitVisible(hit)&&progress<.85f)p.x-=sign*(action.Event.Hits[hit].Dodged?22:8)*Mathf.Sin((progress-.52f)/.33f*Mathf.PI);
+    if(hit>=0){float age=(float)action.ReactionAge(hit);if(age>=0&&age<.34f)p.x-=sign*(action.Event.Hits[hit].Dodged?22:8)*Mathf.Sin(age/.34f*Mathf.PI);}
    }
    return p;
   }

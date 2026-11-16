@@ -1,0 +1,12 @@
+{
+  "asset": "Assets/DragonIdle/Branding/goku-kame-island-icon-v052-reference-v2.png",
+  "tool": "built-in imagegen",
+  "output": "exec-673966d2-8f07-471a-8169-dafa6c0cbbd0.png",
+  "previousOutput": "exec-a2098d7e-8c8a-4a41-857e-509d433245a2.png",
+  "sha256": "3d3eb8ca63ec17c67b9789e1c18741ed73107ca2f35921854c2123765df44123",
+  "originalSize": "1254x1254",
+  "unityMaxTextureSize": 1024,
+  "pixelPostprocessing": false,
+  "referenceUrl": "https://dokkaninfo.com/assets/global/en/character/card/1022760/card_1022760_cutin.png",
+  "originalVariant": "Assets/DragonIdle/Branding/goku-kame-island-icon-v052.png"
+}

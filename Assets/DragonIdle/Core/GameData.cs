@@ -4,7 +4,10 @@ using System.Linq;
 namespace DragonIdle {
  // Card identity and the expanded catalog live in CharacterCatalog.cs.
  public static partial class Data {
-  public const string Version="0.5.1";
+  public const string Version="0.5.2";
+  public const string GameTitle="龙珠爆裂激斗";
+  // Keep the original storage identity when the public game title changes.
+  public static string DefaultSavePath(string persistentDirectory){return System.IO.Path.Combine(System.IO.Directory.GetParent(persistentDirectory).FullName,"Dragon Idle Demo","profile-v1.json");}
   public static Card Card(string id){return Cards.First(x=>x.Id==id);}
   public static string[] Stages={"荒野修炼","防线试炼","后排突破","极限演武"};
   public static double[] StageScale={.68,.84,1.0,1.17};

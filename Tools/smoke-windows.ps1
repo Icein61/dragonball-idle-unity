@@ -1,7 +1,7 @@
 ﻿param([string]$Executable, [string]$OutputDirectory)
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
-if(!$Executable){$Executable=Join-Path $root 'Builds/Windows/DragonIdle.exe'}
+if(!$Executable){$Executable=Join-Path $root 'Builds/Windows/龙珠爆裂激斗.exe'}
 if(!$OutputDirectory){$OutputDirectory=Join-Path $root ('.validation/headless-smoke-'+(Get-Date -Format 'yyyyMMddHHmmssfff'))}
 New-Item -ItemType Directory -Force $OutputDirectory | Out-Null
 $argsList=@('-batchmode','-nographics','-logicSmoke','-smokeOut',('"'+$OutputDirectory+'"'),'-savePath',('"'+$OutputDirectory+'/test-save.json"'),'-logFile',('"'+$OutputDirectory+'/player.log"'))
