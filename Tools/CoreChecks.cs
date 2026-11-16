@@ -71,6 +71,7 @@ class CoreChecks {
   Console.WriteLine("Baseline win counts /30: "+string.Join(",",wins.Select(x=>x.ToString()).ToArray()));
   CharacterChecks.Run(Check);
   ChapterChecks.Run(Check);
+  CatalogChecks.Run(Check);
   Console.WriteLine("ALL PASS "+count);
  }
 }

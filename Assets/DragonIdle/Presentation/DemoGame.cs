@@ -7,7 +7,7 @@ using UnityEngine;
 namespace DragonIdle {
  public partial class DemoGame:MonoBehaviour {
   Profile profile;Battle battle;BattleEvent last;
-  string page="挑战",notice="",reward="",savePath,saveError="";
+  string page="角色",notice="",reward="",savePath,saveError="";
   int selectedCard,selectedSlot,selectedSkillSlot,seed=1024,rate=1;bool running,settled,autoRepeat,paused;
   float clock,fx,repeatTimer,saveClock;Font font;Texture2D gradient,disc;
   List<string> log=new List<string>();Vector2 bagScroll;
@@ -24,7 +24,9 @@ namespace DragonIdle {
    if(args.Contains("-logicSmoke")&&saveArg<0){Debug.LogError("Smoke requires isolated -savePath");Application.Quit(1);return;}
    Load();
    if(saveError=="")Change(()=>{profile.OfflineBank+=profile.Offline(DateTime.UtcNow.Ticks);profile.LastClaimTicks=DateTime.UtcNow.Ticks;});
+   InitializeMenuAudio(args.Contains("-logicSmoke")||Application.isBatchMode);
    if(args.Contains("-logicSmoke")){RunLogicSmoke(args);return;}
+   EnsureGallery();
    if(args.Contains("-smoke"))StartCoroutine(Smoke(args));
   }
   void Load(){
@@ -43,7 +45,7 @@ namespace DragonIdle {
   }
   bool Change(Action change){
    string before=JsonUtility.ToJson(profile);
-   try{change();Save();return true;}catch(Exception ex){profile=JsonUtility.FromJson<Profile>(before);notice="保存失败，本次操作已撤回："+ex.Message;return false;}
+   try{change();Save();galleryDirty=true;return true;}catch(Exception ex){profile=JsonUtility.FromJson<Profile>(before);notice="保存失败，本次操作已撤回："+ex.Message;return false;}
   }
   void StartBattle(){
    if(saveError!=""){notice=saveError;return;}
@@ -60,6 +62,7 @@ namespace DragonIdle {
    }
   }
   void Update(){
+   UpdateGallery();UpdateMenuAudio();
    saveClock+=Time.unscaledDeltaTime;if(saveClock>60&&saveError==""){saveClock=0;Change(()=>profile.LastClaimTicks=DateTime.UtcNow.Ticks);}
    fx=Math.Max(0,fx-Time.unscaledDeltaTime*rate*1.4f);
    if(running&&!paused){clock+=Time.unscaledDeltaTime*rate;if(clock>=.85f){clock-=.85f;Advance();}}
@@ -67,7 +70,7 @@ namespace DragonIdle {
    if(Input.GetKeyDown(KeyCode.Space)&&running)paused=!paused;
    if(Input.GetKeyDown(KeyCode.Escape)&&running)paused=!paused;
   }
-  void OnApplicationQuit(){if(profile!=null&&saveError==""){try{profile.LastClaimTicks=DateTime.UtcNow.Ticks;Save();}catch(Exception ex){Debug.LogWarning(ex.Message);}}}
+  void OnApplicationQuit(){FlushAudioSettings();if(profile!=null&&saveError==""){try{profile.LastClaimTicks=DateTime.UtcNow.Ticks;Save();}catch(Exception ex){Debug.LogWarning(ex.Message);}}}
   void Styles(){
    if(text!=null)return;
    text=new GUIStyle(GUI.skin.label){font=font,fontSize=18,wordWrap=true,richText=false};
@@ -80,7 +83,7 @@ namespace DragonIdle {
   void Label(float x,float y,float w,float h,string s,int size=18,Color? c=null){text.fontSize=size;text.normal.textColor=c??ink;GUI.Label(new Rect(x,y,w,h),s,text);}
   bool Button(float x,float y,float w,float h,string s,bool active=false,bool enabled=true){
    bool old=GUI.enabled;GUI.enabled=old&&enabled;GUI.backgroundColor=active?new Color(.63f,.36f,.10f):new Color(.13f,.19f,.27f);
-   bool clicked=GUI.Button(new Rect(x,y,w,h),s,button);GUI.enabled=old;GUI.backgroundColor=Color.white;return clicked;
+   bool clicked=GUI.Button(new Rect(x,y,w,h),s,button);GUI.enabled=old;GUI.backgroundColor=Color.white;if(clicked)PlayUISound(0);return clicked;
   }
   void Bar(float x,float y,float w,float h,double value,Color c){Box(x,y,w,h,new Color(.02f,.035f,.055f));Box(x,y,w*(float)Math.Max(0,Math.Min(1,value)),h,c);}
   Color CardColor(int i){Color c;ColorUtility.TryParseHtmlString("#"+Data.Cards[i].Color,out c);return c;}
@@ -91,7 +94,9 @@ namespace DragonIdle {
    Matrix4x4 m=GUI.matrix;float angle=Mathf.Atan2(b.y-a.y,b.x-a.x)*Mathf.Rad2Deg;GUIUtility.RotateAroundPivot(angle,a);Box(a.x,a.y,(b-a).magnitude,width,c);GUI.matrix=m;
   }
   void OnGUI(){
-   Styles();GUI.matrix=Matrix4x4.TRS(Vector3.zero,Quaternion.identity,new Vector3(Screen.width/1600f,Screen.height/900f,1));
+   if(page=="角色")return;
+   Styles();float scale=Math.Min(Screen.width/1600f,Screen.height/900f);
+   GUI.matrix=Matrix4x4.TRS(new Vector3((Screen.width-1600*scale)/2,(Screen.height-900*scale)/2,0),Quaternion.identity,new Vector3(scale,scale,1));
    GUI.DrawTexture(new Rect(0,0,1600,900),gradient);
    Box(0,0,1600,90,bg);Box(0,90,190,810,new Color(.045f,.07f,.11f));Box(0,88,1600,2,new Color(.25f,.22f,.16f));
    Label(26,20,390,40,"龙珠 · 试炼前线",29,gold);Label(360,34,350,30,"技术 DEMO  /  v"+Data.Version,16,muted);
@@ -101,7 +106,6 @@ namespace DragonIdle {
    Label(22,620,144,130,"自动行动\n战前构筑\n离线单机",18,muted);
    Label(22,810,145,70,"临时角色表现\n非最终美术",14,gold);
    if(page=="挑战")DrawBattle();
-   else if(page=="角色")DrawCharacters();
    else if(page=="编队")DrawTeam();
    else if(page=="养成")DrawTraining();
    else if(page=="装备")DrawEquipment();
@@ -173,11 +177,11 @@ namespace DragonIdle {
   }
   void CardTabs(){
    var owned=Enumerable.Range(0,Data.Cards.Length).Where(i=>profile.Owned[i]).ToArray();
-   if(!profile.Owned[selectedCard])selectedCard=owned[0];int pos=Array.IndexOf(owned,selectedCard);
+   if(selectedCard<0||selectedCard>=profile.Owned.Length||!profile.Owned[selectedCard])selectedCard=owned[0];int pos=Array.IndexOf(owned,selectedCard);
    if(Button(224,214,150,42,"上一位"))selectedCard=owned[(pos+owned.Length-1)%owned.Length];
    Label(395,220,700,36,Data.Cards[selectedCard].DisplayName+"  /  "+(pos+1)+" / "+owned.Length,22,gold);
    if(Button(1100,214,150,42,"下一位"))selectedCard=owned[(pos+1)%owned.Length];
-   if(Button(1270,214,290,42,"从角色图鉴选择"))page="角色";
+   if(Button(1270,214,290,42,"返回角色与图鉴"))page="角色";
   }
   void DrawTraining(){
    Heading("角色养成","每次修炼提供细小积累；演示数值尚未完成长期平衡。所有角色均为机制测试卡。");CardTabs();

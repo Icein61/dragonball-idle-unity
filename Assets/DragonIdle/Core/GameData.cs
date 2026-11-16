@@ -4,7 +4,7 @@ using System.Linq;
 namespace DragonIdle {
  // Card identity and the expanded catalog live in CharacterCatalog.cs.
  public static partial class Data {
-  public const string Version="0.3.0";
+  public const string Version="0.4.0";
   public static Card Card(string id){return Cards.First(x=>x.Id==id);}
   public static string[] Stages={"荒野修炼","防线试炼","后排突破","极限演武"};
   public static double[] StageScale={.68,.84,1.0,1.17};
@@ -42,19 +42,7 @@ namespace DragonIdle {
   public bool FirstMission;
   public Profile() {Items.Add(new Item{id="starter-bracer",kind=0,owner=0,slot=0});}
   public List<Unit> CreateTeam(int side=0) {
-   Validate();var result=new List<Unit>();var leader=Data.Cards[Team[Leader]];
-   for(int s=0;s<7;s++){
-    int i=Team[s];string replacement=Skill[i]=="pierce"||Skill2[i]=="pierce"?"pierce":"";
-    var u=Data.Make(Data.Cards[i].Id,side,s,Training[i],Resonance[i],replacement,1);
-    if(Skill[i]=="focus"||Skill2[i]=="focus")u.Crit+=.035;
-    if(Skill[i]=="guard"||Skill2[i]=="guard")u.Shield+=u.MaxHP*.04;
-    u.LeaderAttack=Data.Cards[i].HasTag(leader.LeaderTag)?leader.Leader:0;u.UltimatePolicy=Policy[i];
-    foreach(var item in Items.Where(x=>x.owner==i)){
-     if(item.kind==1)u.Add("defense",item.Bonus,0,item.id);else u.Add("attack",item.Bonus,0,item.id);
-     if(item.gem)u.Add("attack",.008,0,item.id+":gem");
-    }
-    result.Add(u);
-   }return result;
+   Validate();return Team.Select((i,s)=>BuildCharacter(i,side,s,true)).ToList();
   }
   public Battle NewBattle(int stage,int seed){
    if(stage<0||stage>Unlocked||stage>=Data.Stages.Length)throw new ArgumentException("Stage locked");

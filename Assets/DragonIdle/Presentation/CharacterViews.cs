@@ -3,53 +3,14 @@ using System.Linq;
 using UnityEngine;
 namespace DragonIdle {
  public partial class DemoGame {
-  string characterSearch="";int ownershipFilter,rarityFilter,roleFilter,tagFilter,bagKind,bagOwner,bagLock;
-  Vector2 characterScroll,reserveScroll;
+  int bagKind,bagOwner,bagLock;
+  Vector2 reserveScroll;
   void DrawPortrait(int index,Rect rect){
    var art=PortraitTexture(index);
    if(art!=null){GUI.DrawTexture(rect,art,ScaleMode.ScaleToFit,true);return;}
    float size=Math.Min(rect.width,rect.height)*.65f;
    Circle(rect.x+(rect.width-size)/2,rect.y+(rect.height-size)/2,size,CardColor(index));
    Label(rect.x+rect.width/2-23,rect.y+rect.height/2-31,65,65,Data.Cards[index].Name.Substring(0,1),42,bg);
-  }
-  void DrawCharacters(){
-   Heading("角色图鉴","已收藏 "+profile.Owned.Count(x=>x)+" / "+Data.Cards.Length+" · 角色与阶段为可调整原型 · 点击卡片查看完整技能和队长条件");
-   GUIStyle input=new GUIStyle(GUI.skin.textField){font=font,fontSize=18};
-   characterSearch=GUI.TextField(new Rect(224,211,290,42),characterSearch,input);
-   if(characterSearch=="")Label(234,220,275,28,"搜索名字 / 阶段 / 称号",16,muted);
-   string[] ownedNames={"全部收藏","已拥有","未拥有"};
-   if(Button(530,211,150,42,ownedNames[ownershipFilter])){ownershipFilter=(ownershipFilter+1)%3;characterScroll=Vector2.zero;}
-   if(Button(694,211,145,42,rarityFilter==0?"所有稀有度":Data.Rarities[rarityFilter-1])){rarityFilter=(rarityFilter+1)%4;characterScroll=Vector2.zero;}
-   if(Button(853,211,170,42,roleFilter==0?"所有定位":RoleText(Data.Roles[roleFilter-1]))){roleFilter=(roleFilter+1)%7;characterScroll=Vector2.zero;}
-   var tags=Data.Cards.SelectMany(c=>c.Tags).Distinct().ToArray();
-   if(Button(1037,211,330,42,tagFilter==0?"所有身份标签":tags[tagFilter-1])){tagFilter=(tagFilter+1)%(tags.Length+1);characterScroll=Vector2.zero;}
-   if(Button(1381,211,180,42,"清空筛选")){characterSearch="";ownershipFilter=rarityFilter=roleFilter=tagFilter=0;characterScroll=Vector2.zero;}
-   var filtered=Enumerable.Range(0,Data.Cards.Length).Where(i=>{
-    var c=Data.Cards[i];return (ownershipFilter==0||(ownershipFilter==1)==profile.Owned[i])&&(rarityFilter==0||c.Rarity==Data.Rarities[rarityFilter-1])&&(roleFilter==0||c.Role==Data.Roles[roleFilter-1])&&(tagFilter==0||c.HasTag(tags[tagFilter-1]))&&(c.DisplayName+c.Stage+c.Form+string.Join(" ",c.Tags)).IndexOf(characterSearch,StringComparison.OrdinalIgnoreCase)>=0;
-   }).ToArray();
-   characterScroll=GUI.BeginScrollView(new Rect(224,276,745,518),characterScroll,new Rect(0,0,720,Math.Max(500,((filtered.Length+2)/3)*174)));
-   for(int n=0;n<filtered.Length;n++){
-    int i=filtered[n];var c=Data.Cards[i];float x=n%3*239,y=n/3*174;
-    Box(x,y,226,160,i==selectedCard?new Color(.17f,.20f,.24f):panel);Box(x,y,226,3,CardColor(i));
-    Label(x+12,y+12,205,30,c.Rarity+"  "+c.Name,21,profile.Owned[i]?ink:muted);
-    Label(x+12,y+46,205,52,c.Title+"\n"+c.Stage+" · "+RoleText(c.Role),15,muted);
-    if(Button(x+12,y+111,202,37,profile.Owned[i]?"查看角色":"未拥有 · 查看",selectedCard==i))selectedCard=i;
-   }
-   if(filtered.Length==0)Label(20,20,680,60,"没有符合筛选的角色。清空筛选可查看全部卡片。",20,muted);
-   GUI.EndScrollView();DrawCharacterDetail(selectedCard);
-  }
-  void DrawCharacterDetail(int i){
-   var c=Data.Cards[i];Box(990,276,574,518,panel);
-   DrawPortrait(i,new Rect(1004,289,155,204));
-   Label(1172,292,368,68,c.Rarity+"  "+c.DisplayName,24,gold);
-   Label(1172,363,365,100,c.Stage+" / "+c.Form+"\n"+string.Join(" · ",c.Tags)+"\n"+(profile.Owned[i]?"已拥有 · 专属资源 "+profile.Shards[i]:c.Id=="piccolo-raditz-v030"?"获取：章节第1关首通 / 赛亚人池":c.Id=="raditz-arrival-v030"?"获取：章节第4关首通 / 赛亚人池":Data.InSaiyanPool(c)?"获取：赛亚人篇召唤":"获取：旧版常驻召唤"),16,muted);
-   Label(1008,489,535,37,"基础：生命 "+c.HP+" / 攻击 "+c.Attack+" / 防御 "+c.Defense+" / 速度 "+c.Speed,15);
-   Label(1008,526,535,47,"普攻：单体 1.00 倍攻击。"+c.PassiveText,16);
-   Label(1008,574,535,60,c.SpecialText,16);
-   Label(1008,638,535,78,c.UltimateText,16);
-   Label(1008,718,535,37,c.LeaderText,15,gold);
-   if(Button(1008,757,256,31,"养成此卡",false,profile.Owned[i]))page="养成";
-   if(Button(1275,757,270,31,"换入阵位 "+(selectedSlot+1),false,profile.Owned[i]))Change(()=>{profile.SetMember(selectedSlot,i);battle=null;notice="已将 "+c.DisplayName+" 换入阵位 "+(selectedSlot+1);});
   }
   void DrawTeam(){
    Heading("队伍编成","先选阵位，再点下方角色换入；点已上阵角色会交换位置。预设保存阵位与队长，装备和策略跟随角色。");

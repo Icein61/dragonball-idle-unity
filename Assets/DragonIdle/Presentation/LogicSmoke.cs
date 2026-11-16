@@ -27,7 +27,8 @@ namespace DragonIdle {
     Load();AssertSmoke(saveError==""&&profile.schemaVersion==2&&profile.Training[0]==23&&profile.Shards[7]==9&&profile.Items[0].owner==7&&profile.Team[6]==7&&profile.Materials==481&&profile.OfflineBank==24&&profile.Pulls==19,"Unity v1 migration failed: "+saveError);
     AssertSmoke(Directory.GetFiles(dir,"legacy-save.json.pre-v020-*.bak").Length==1,"Pre-migration backup missing");
     Save();Load();AssertSmoke(profile.schemaVersion==2&&profile.Owned.Count(x=>x)==11&&profile.Shards[7]==9,"Migrated save second load failed");
-    File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"version\":\""+Data.Version+"\",\"battleWon\":true,\"saveRoundTrip\":true,\"legacyMigration\":true,\"characterPersistence\":true,\"chapterFlow\":true,\"v020Migration\":true,\"artResourceLoaded\":true,\"visualVerified\":false,\"events\":"+events+"}");
+    RunGallerySmoke(dir);
+    File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"version\":\""+Data.Version+"\",\"battleWon\":true,\"saveRoundTrip\":true,\"legacyMigration\":true,\"characterPersistence\":true,\"chapterFlow\":true,\"v020Migration\":true,\"artResourceLoaded\":true,\"galleryFlow\":true,\"audioSettings\":true,\"visualVerified\":false,\"events\":"+events+"}");
     Debug.Log("DRAGON_IDLE_LOGIC_SMOKE_SUCCESS");Application.Quit(0);
    }catch(Exception ex){File.WriteAllText(Path.Combine(dir,"smoke-failure.txt"),ex.ToString());Debug.LogError(ex);Application.Quit(1);}
   }
