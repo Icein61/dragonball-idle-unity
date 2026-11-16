@@ -8,7 +8,8 @@ class CoreChecks {
  static bool Near(double a,double b){return Math.Abs(a-b)<.000001;}
  static Unit U(int side,int slot=0){return new Unit{CardId="test"+slot,Name="test"+slot,Side=side,Slot=slot,MaxHP=100000,HP=100000,Attack=10,Defense=10,Speed=100,SpecialName="special",UltimateName="ult",Role="fighter",Crit=0,Dodge=0};}
  static Battle Pair(Unit a,Unit b){return new Battle(new[]{a,b},42);}
- static void Main(){
+ static void Main(){try{Run();}catch(Exception ex){Console.WriteLine("FAIL "+ex.Message);Environment.Exit(1);}}
+ static void Run(){
   var u=U(0);u.Add("attack",.2,0,"passive");u.Add("attack",.1,3,"equipment");u.Add("attack",.15,2,"ally");
   double[] expected={.45,.45,.30,.35,.35,.20};
   for(int turn=1;turn<=6;turn++){if(turn==4)u.Add("attack",.15,2,"ultimate");Check(Near(u.Sum("attack"),expected[turn-1]),"T19 turn "+turn);u.Opportunities++;u.Expire();}
@@ -44,7 +45,7 @@ class CoreChecks {
   f.HP=100;battle=new Battle(new[]{a,f,rear},2);Check(battle.Target(a,true)==rear,"T14 explicit rear skill");
   a=U(0);b=U(1);a.Rage=100;a.SealUntil=1;a.Progress=1;battle=Pair(a,b);ev=battle.Step();Check(ev.Move==Move.Basic&&a.Rage==100,"T10 sealed unit cannot ultimate/special");
   a=U(0);b=U(1);a.Rage=100;a.UltimatePolicy=1;a.Progress=1;battle=Pair(a,b);Check(battle.Step().Move!=Move.Ultimate,"strategy holds ultimate");
-  var p=new Profile();Check(p.CreateTeam().Count==7&&p.CreateTeam().All(x=>x.Rage==0&&x.Cooldown==0),"T11 start state");
+  var p=new Profile();Check(p.CreateTeam().Count==7&&p.CreateTeam().All(x=>x.Progress==0&&x.Cooldown==0&&x.Rage==(Data.Card(x.CardId).Passive=="resolve"?12:0)),"T11 start state with declared opening passives");
   p.Team[1]=p.Team[0];bool rejected=false;try{p.CreateTeam();}catch{rejected=true;}Check(rejected,"T30 duplicate card rejected");
   p=new Profile();p.Items.Add(new Item{id="x",kind=0});Check(p.Equip("x",1,2)&&p.Items.Last().owner==1,"T34 equip valid slot");
   Check(!p.Equip("x",1,3),"T34 reject fourth slot");p.Equip("x",2,0);Check(p.Items.Count(x=>x.id=="x"&&x.owner==2)==1,"T36 single item owner");
@@ -55,8 +56,8 @@ class CoreChecks {
   var support=supportBattle.Units.First(x=>x.Side==0&&x.Slot==4);support.Rage=100;
   Check(support.Role=="support"&&support.SpecialRole=="sniper","T35 replacement preserves original role");
   supportBattle.Step();Check(supportBattle.Units.First(x=>x.Side==0&&x.Slot==1).Effects.Any(x=>x.Source==support.CardId&&Near(x.Value,.06)),"T35 replacement preserves ultimate support effect");
-  string tag=Data.Cards[0].Tag;p.Skill[0]="pierce";var changed=p.CreateTeam()[0];Check(changed.SpecialName=="贯穿气弹"&&changed.UltimateName==Data.Cards[0].Ultimate&&Data.Cards[0].Tag==tag,"T31 T35 replacement preserves identity");
-  p=new Profile();int owned=p.Owned.Count(x=>x);p.Crystals=10000;for(int i=0;i<20;i++)p.Summon(i);Check(p.Owned[7],"summon guaranteed twentieth");Check(p.Shards.Sum()>=20-(8-owned),"T33 duplicates convert");
+  string tag=Data.Cards[0].Tag;p.Skill2[0]="";p.Skill[0]="pierce";var changed=p.CreateTeam()[0];Check(changed.SpecialName=="贯穿气弹"&&changed.UltimateName==Data.Cards[0].Ultimate&&Data.Cards[0].Tag==tag,"T31 T35 replacement preserves identity");
+  p=new Profile();int owned=p.Owned.Count(x=>x);p.Crystals=10000;string pull="";for(int i=0;i<20;i++)pull=p.Summon(i);Check(pull.StartsWith("[SSR]"),"summon guaranteed twentieth SSR");Check(p.Shards.Sum()==20-(p.Owned.Count(x=>x)-owned),"T33 duplicates convert");
   p=new Profile();int mat=p.Materials;p.Train(0);Check(p.Materials==mat-30&&p.Training[0]==1,"training transaction");
   p.LastClaimTicks=DateTime.UtcNow.Ticks;p.Wins=1;Check(p.Offline(p.LastClaimTicks-TimeSpan.TicksPerHour)==0,"T39 backwards clock");
   Check(p.Offline(p.LastClaimTicks+24*TimeSpan.TicksPerHour)==144,"T39 offline cap");
@@ -68,6 +69,7 @@ class CoreChecks {
    Check(battle.Result!=0,"terminates stage "+stage+" seed "+n);if(battle.Result==1)wins[stage]++;
   }
   Console.WriteLine("Baseline win counts /30: "+string.Join(",",wins.Select(x=>x.ToString()).ToArray()));
+  CharacterChecks.Run(Check);
   Console.WriteLine("ALL PASS "+count);
  }
 }

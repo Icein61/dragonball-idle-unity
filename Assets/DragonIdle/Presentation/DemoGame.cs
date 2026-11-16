@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace DragonIdle {
- public class DemoGame:MonoBehaviour {
+ public partial class DemoGame:MonoBehaviour {
   Profile profile;Battle battle;BattleEvent last;
   string page="挑战",notice="",reward="",savePath,saveError="";
   int selectedCard,selectedSlot,selectedSkillSlot,seed=1024,rate=1;bool running,settled,autoRepeat,paused;
@@ -21,17 +21,23 @@ namespace DragonIdle {
    disc=new Texture2D(64,64);for(int y=0;y<64;y++)for(int x=0;x<64;x++)disc.SetPixel(x,y,Vector2.Distance(new Vector2(x,y),new Vector2(31.5f,31.5f))<31?Color.white:Color.clear);disc.Apply();
    string[] args=Environment.GetCommandLineArgs();
    int saveArg=Array.IndexOf(args,"-savePath");savePath=saveArg>=0&&saveArg+1<args.Length?args[saveArg+1]:Path.Combine(Application.persistentDataPath,"profile-v1.json");
+   if(args.Contains("-logicSmoke")&&saveArg<0){Debug.LogError("Smoke requires isolated -savePath");Application.Quit(1);return;}
    Load();
    if(saveError=="")Change(()=>{profile.OfflineBank+=profile.Offline(DateTime.UtcNow.Ticks);profile.LastClaimTicks=DateTime.UtcNow.Ticks;});
+   if(args.Contains("-logicSmoke")){RunLogicSmoke(args);return;}
    if(args.Contains("-smoke"))StartCoroutine(Smoke(args));
   }
   void Load(){
-   try{if(File.Exists(savePath)){profile=JsonUtility.FromJson<Profile>(File.ReadAllText(savePath));if(profile==null||profile.schemaVersion!=1)throw new Exception("不支持的存档版本");if(profile.Skill2==null)profile.Skill2=new string[8];profile.CreateTeam();}else{profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;Save();}}
+   try{if(File.Exists(savePath)){
+    profile=JsonUtility.FromJson<Profile>(File.ReadAllText(savePath));if(profile==null)throw new Exception("空存档");
+    if(profile.schemaVersion==1){string backup=savePath+".pre-v020-"+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak";File.Copy(savePath,backup,false);}
+    profile.Normalize();profile.CreateTeam();
+   }else{profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;Save();}}
    catch(Exception ex){profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;saveError="存档读取失败，原文件保留。请检查备份："+ex.Message;}
   }
   void Save(){
    if(saveError!="")throw new IOException(saveError);
-   Directory.CreateDirectory(Path.GetDirectoryName(savePath));string tmp=savePath+".tmp";File.WriteAllText(tmp,JsonUtility.ToJson(profile,true));
+   profile.Validate();Directory.CreateDirectory(Path.GetDirectoryName(savePath));string tmp=savePath+".tmp";File.WriteAllText(tmp,JsonUtility.ToJson(profile,true));
    if(File.Exists(savePath))File.Replace(tmp,savePath,savePath+".bak");else File.Move(tmp,savePath);
   }
   bool Change(Action change){
@@ -78,8 +84,8 @@ namespace DragonIdle {
   void Bar(float x,float y,float w,float h,double value,Color c){Box(x,y,w,h,new Color(.02f,.035f,.055f));Box(x,y,w*(float)Math.Max(0,Math.Min(1,value)),h,c);}
   Color CardColor(int i){Color c;ColorUtility.TryParseHtmlString("#"+Data.Cards[i].Color,out c);return c;}
   string RoleText(string role){switch(role){case "tank":return "守护";case "healer":return "治疗";case "support":return "支援";case "control":return "控制";case "sniper":return "后排突破";default:return "均衡输出";}}
-  string SkillText(string id){return id=="pierce"?"贯穿气弹":id=="focus"?"专注":"空";}
-  string EffectText(string id){return id=="attack"?"攻击强化":id=="damage"?"伤害强化":id=="speed"?"速度修正":id=="amplify"?"增幅":id;}
+  string SkillText(string id){return Data.SkillName(id);}
+  string EffectText(string id){return id=="attack"?"攻击强化":id=="defense"?"防御强化":id=="damage"?"伤害强化":id=="speed"?"速度修正":id=="amplify"?"增幅":id;}
   void Line(Vector2 a,Vector2 b,float width,Color c){
    Matrix4x4 m=GUI.matrix;float angle=Mathf.Atan2(b.y-a.y,b.x-a.x)*Mathf.Rad2Deg;GUIUtility.RotateAroundPivot(angle,a);Box(a.x,a.y,(b-a).magnitude,width,c);GUI.matrix=m;
   }
@@ -89,11 +95,12 @@ namespace DragonIdle {
    Box(0,0,1600,90,bg);Box(0,90,190,810,new Color(.045f,.07f,.11f));Box(0,88,1600,2,new Color(.25f,.22f,.16f));
    Label(26,20,390,40,"龙珠 · 试炼前线",29,gold);Label(360,34,350,30,"技术 DEMO  /  v"+Data.Version,16,muted);
    Label(890,30,670,36,"素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems+"     胜场  "+profile.Wins,19);
-   string[] pages={"挑战","编队","养成","装备","召唤","说明"};
-   for(int i=0;i<pages.Length;i++)if(Button(18,126+i*68,154,50,pages[i],page==pages[i],!running||pages[i]=="挑战")){page=pages[i];notice="";}
+   string[] pages={"挑战","角色","编队","养成","装备","召唤","说明"};
+   for(int i=0;i<pages.Length;i++)if(Button(18,126+i*68,154,50,pages[i],page==pages[i],!running||pages[i]=="挑战")){page=pages[i];notice="";if(page!="挑战")autoRepeat=false;}
    Label(22,620,144,130,"自动行动\n战前构筑\n离线单机",18,muted);
    Label(22,810,145,70,"临时角色表现\n非最终美术",14,gold);
    if(page=="挑战")DrawBattle();
+   else if(page=="角色")DrawCharacters();
    else if(page=="编队")DrawTeam();
    else if(page=="养成")DrawTraining();
    else if(page=="装备")DrawEquipment();
@@ -106,14 +113,14 @@ namespace DragonIdle {
    Label(224,112,1000,44,title,30);Label(226,162,1280,45,subtitle,17,muted);
   }
   void DrawBattle(){
-   Heading("试炼挑战","普通副本不限次数 · 无需战斗操作 · 普攻与绝招使用行动条，必杀消耗怒气额外释放");
+   Heading("试炼挑战","掉落预览："+Data.LootDescriptions[profile.SelectedStage]);
    for(int i=0;i<4;i++){int stage=i;if(Button(224+i*265,214,250,46,(i+1).ToString("00")+"  "+Data.Stages[i]+(i>profile.Unlocked?" · 未解锁":""),profile.SelectedStage==i,!running&&i<=profile.Unlocked))Change(()=>profile.SelectedStage=stage);}
    Box(224,280,1045,440,new Color(.045f,.08f,.12f));
    // Scene framing and ground lines.
    for(int i=0;i<7;i++)Line(new Vector2(260,400+i*44),new Vector2(1230,400+i*44),1,new Color(.12f,.19f,.22f));
    for(int i=0;i<9;i++)Line(new Vector2(740,300),new Vector2(240+i*125,715),1,new Color(.10f,.16f,.20f));
    Label(250,291,290,30,"我方  /  Z 战士测试队",17,gold);Label(1015,291,230,30,"敌方  /  镜像试炼",17,new Color(.95f,.5f,.48f));
-   var units=battle!=null?battle.Units:profile.CreateTeam().Concat(Enumerable.Range(0,7).Select(i=>Data.Make(Data.Cards[i].Id,1,i,0,0,"",Data.StageScale[profile.SelectedStage]))).ToList();
+   var units=battle!=null?battle.Units:profile.CreateTeam().Concat(profile.CreateEnemies(profile.SelectedStage)).ToList();
    foreach(var u in units)DrawUnit(u);
    if(last!=null&&last.Target!=null&&fx>0){
     Vector2 a=Position(last.Actor)+new Vector2(65,30),b=Position(last.Target)+new Vector2(65,30);
@@ -159,34 +166,23 @@ namespace DragonIdle {
     Box(610,290,268,148,bg);Label(624,300,240,132,"生命 "+u.HP.ToString("0")+" / "+u.MaxHP.ToString("0")+"\n队长乘区 +"+(u.LeaderAttack*100).ToString("0")+"%\n"+buffs,13);
    }
   }
-  void DrawTeam(){
-   Heading("队伍编成","前排 1–3 · 后排 4–7 · 点击两个位置交换角色；所有角色标签保持不变");
-   for(int s=0;s<7;s++){
-    int i=profile.Team[s];float x=240+(s<3?s:s-3)*315,y=s<3?245:450;
-    Box(x,y,295,170,panel);Box(x,y,295,4,CardColor(i));
-    Label(x+15,y+18,260,32,(s+1)+"  "+Data.Cards[i].Name+(profile.Leader==s?"  [队长]":""),23);
-    Label(x+15,y+58,260,30,Data.Cards[i].Tag+" · "+RoleText(Data.Cards[i].Role),16,muted);
-    int slot=s;
-    if(Button(x+15,y+108,125,40,selectedSlot==s?"已选择":"交换位置",selectedSlot==s)){if(selectedSlot!=s)Change(()=>{int old=profile.Team[selectedSlot];profile.Team[selectedSlot]=profile.Team[slot];profile.Team[slot]=old;});selectedSlot=s;}
-    if(Button(x+150,y+108,125,40,"设为队长"))Change(()=>profile.Leader=slot);
-   }
-   Label(240,660,1100,35,"队长效果：全队攻击独立乘区 +"+(Data.Cards[profile.Team[profile.Leader]].Leader*100).ToString("0")+"%。",21,gold);
-   if(profile.Owned[7]&&Button(240,710,490,48,"将未上阵角色换入所选位置")){
-    int candidate=Enumerable.Range(0,8).First(i=>profile.Owned[i]&&!profile.Team.Contains(i));Change(()=>profile.Team[selectedSlot]=candidate);
-   }
-  }
   void CardTabs(){
-   for(int i=0;i<8;i++){int card=i;if(Button(224+i*166,214,153,42,Data.Cards[i].Name,selectedCard==i,profile.Owned[i]))selectedCard=card;}
+   var owned=Enumerable.Range(0,Data.Cards.Length).Where(i=>profile.Owned[i]).ToArray();
+   if(!profile.Owned[selectedCard])selectedCard=owned[0];int pos=Array.IndexOf(owned,selectedCard);
+   if(Button(224,214,150,42,"上一位"))selectedCard=owned[(pos+owned.Length-1)%owned.Length];
+   Label(395,220,700,36,Data.Cards[selectedCard].DisplayName+"  /  "+(pos+1)+" / "+owned.Length,22,gold);
+   if(Button(1100,214,150,42,"下一位"))selectedCard=owned[(pos+1)%owned.Length];
+   if(Button(1270,214,290,42,"从角色图鉴选择"))page="角色";
   }
   void DrawTraining(){
    Heading("角色养成","每次修炼提供细小积累；演示数值尚未完成长期平衡。所有角色均为机制测试卡。");CardTabs();
    int i=selectedCard;var c=Data.Cards[i];var u=Data.Make(c.Id,0,0,profile.Training[i],profile.Resonance[i],profile.Skill[i]=="pierce"||profile.Skill2[i]=="pierce"?"pierce":"",1);
-   Box(224,280,410,480,panel);Circle(345,320,150,CardColor(i));Label(393,359,90,75,c.Name.Substring(0,1),52,bg);
-   Label(250,495,360,45,c.Name,32);Label(250,547,360,90,c.Tag+"\n"+RoleText(c.Role)+" / 测试卡 · 非正式阶段设计",19,muted);
-   Label(250,668,360,60,"队长技：全队攻击 +"+(c.Leader*100).ToString("0")+"%\n独立乘区，队长阵亡后保留",17,gold);
+   Box(224,280,410,480,panel);DrawPortrait(i,new Rect(315,292,225,275));
+   Label(250,570,360,70,c.DisplayName,25);Label(250,635,360,40,c.Stage+" · "+c.Form,18,muted);
+   Label(250,680,360,70,c.LeaderText,16,gold);
    Box(655,280,910,480,panel);
    Label(680,305,840,45,"生命 "+u.MaxHP.ToString("0")+"    攻击 "+u.Attack.ToString("0.0")+"    防御 "+u.Defense.ToString("0.0")+"    速度 "+u.Speed.ToString("0"),23);
-   Label(680,365,840,80,"绝招："+u.SpecialName+" / 冷却 "+u.CooldownLength+" 次正常出手\n必杀："+u.UltimateName+" / 消耗 100 怒气，额外行动",20);
+   Label(680,360,840,98,"绝招："+u.SpecialName+" / 冷却 "+u.CooldownLength+" 次正常出手\n必杀："+u.UltimateName+" / 消耗 100 怒气，额外行动\n被动："+c.PassiveText,19);
    if(Button(680,475,400,48,"修炼 "+profile.Training[i]+" · 消耗 "+(30+profile.Training[i]/10)+" 素材")){
     Change(()=>notice=profile.Train(i)?"修炼完成：基础属性 +0.1%。":"素材不足");
    }
@@ -211,29 +207,29 @@ namespace DragonIdle {
    Label(224,457,480,34,"额外技能 · 最多 1 个绝招替换",20,gold);
    if(Button(750,451,390,36,"技能槽 1："+SkillText(profile.Skill[card]),selectedSkillSlot==0))selectedSkillSlot=0;
    if(Button(1160,451,390,36,"技能槽 2："+SkillText(profile.Skill2[card]),selectedSkillSlot==1))selectedSkillSlot=1;
-   string[] skillNames={"无额外技能","专注 · 暴击 +3.5%","贯穿气弹 · 替换绝招 / 优先后排"};
-   string[] skillIds={"","focus","pierce"};
-   for(int k=0;k<3;k++){string id=skillIds[k];if(Button(224+k*445,501,425,43,skillNames[k],(selectedSkillSlot==0?profile.Skill[card]:profile.Skill2[card])==id))Change(()=>notice=profile.SetSkill(card,selectedSkillSlot,id)?"技能已更新，角色标签保持不变。":"同一技能不能重复装备。");}
-   Label(224,568,1270,31,"背包 · 点击装备到对应槽位（可在其他角色间转移同一物品）",18,muted);
-   bagScroll=GUI.BeginScrollView(new Rect(224,610,1340,180),bagScroll,new Rect(0,0,1300,Math.Max(170,profile.Items.Count*50)));
-   for(int n=0;n<profile.Items.Count;n++){
-    var item=profile.Items[n];float y=n*50;Box(0,y,1290,44,panel);
-    Label(12,y+8,760,30,item.Name+"   "+(item.owner<0?"未装备":Data.Cards[item.owner].Name+" / 槽"+(item.slot+1))+(item.gem?" · 已镶珠":""),17,item.kind==2?gold:ink);
-    for(int s=0;s<3;s++){int slot=s;if(Button(820+s*150,y+5,140,34,"装到槽 "+(s+1)))Change(()=>profile.Equip(item.id,card,slot));}
-   }GUI.EndScrollView();
+   for(int k=0;k<4;k++){
+    int skill=k;string id=Data.SkillIds[k];bool unlocked=profile.CanUseSkill(id);
+    string title=k==0?"卸下技能":Data.SkillName(id)+(unlocked?" · 可装备":" · 残页 "+profile.SkillPages[k]+"/3 解锁");
+    if(Button(224+k*337,498,321,40,title,(selectedSkillSlot==0?profile.Skill[card]:profile.Skill2[card])==id,unlocked||profile.SkillPages[k]>=3))Change(()=>{
+     if(!unlocked){profile.UnlockSkill(skill);notice="已解锁 "+Data.SkillName(id)+"，点击可装备。";}
+     else notice=profile.SetSkill(card,selectedSkillSlot,id)?Data.SkillDescription(id):"同一技能不能重复装备。";
+    });
+    if(new Rect(224+k*337,498,321,40).Contains(Event.current.mousePosition))Label(224,541,1330,26,Data.SkillDescription(id),15,gold);
+   }
+   DrawInventory(card);
   }
   void DrawSummon(){
    Heading("时空召唤","Demo 测试卡池 · 完全离线 · 无付费入口");
    Box(224,230,1340,520,panel);
    Circle(740,282,180,new Color(.8f,.45f,.16f));Circle(758,300,144,gold);Label(796,337,150,100,"★",67,bg);
-   Label(290,510,1190,47,"每次 50 晶石 · 稀有测试卡 8% · 每第 20 次保证稀有卡",25,gold);
-   Label(290,570,1180,58,"其他 7 张测试卡均分剩余概率。重复卡转换为该卡专属成长资源。\n当前累计召唤 "+profile.Pulls+" 次；距离下一次保证 "+(20-profile.Pulls%20)+" 次。",20);
+   Label(290,510,1190,47,"每次 50 晶石 · R 72% / SR 20% / SSR 8% · 每第 20 次保证 SSR",24,gold);
+   Label(290,570,1180,70,"20 张原型卡，同稀有度内均分概率；保底不因提前抽到 SSR 重置。重复卡转本 CardId 专属资源。\n当前召唤 "+profile.Pulls+" 次；距下次保证 "+(20-profile.Pulls%20)+" 次。可在角色图鉴查看全部卡片。",19);
    if(Button(655,658,480,58,"召唤一次",true,profile.Crystals>=50))Change(()=>notice=profile.Summon(++seed));
   }
   void DrawAbout(){
    Heading("技术 Demo / 开发边界","先验证战斗规则和可玩循环，再迭代正式角色与美术");
    Box(224,225,1340,560,panel);
-   Label(250,250,1270,220,"已开放：7v7 自动战斗、三前四后、速度行动条、怒气必杀、独立状态期限、四个试炼、编队与队长、修炼、装备与珠子、测试召唤、本地存档。\n\n这是玩法技术切片，角色为临时测试卡，未锁定原著阶段，画面不是最终美术。正式角色样片、完整技能槽与分支、更多副本与长期数值将继续迭代。",21);
+   Label(250,250,1270,220,"已开放：20 张原型卡、角色图鉴、独立卡片身份、多标签队长、候补换人、3 组阵容预设、定向掉落、技能残页与收藏筛选。\n\n角色阶段、稀有度与技能数值是可调整默认。悟空卡面为 AI 生成视觉样片，其他角色仍用占位表现；尚无正式模型或招式动画。旧存档按 CardId 迁移，迁移前自动保留独立备份。",21);
    int offline=profile.OfflineBank;
    Label(250,510,1250,75,"离线素材：每小时 12，最多累计 12 小时；至少通关一次后开放。\n当前可领取 "+offline+"。本版本离线只提供素材，物品掉落后续扩展。",19,muted);
    if(Button(250,610,360,47,"领取离线素材",false,offline>0))Change(()=>{int count=profile.OfflineBank;profile.Materials+=count;profile.OfflineBank=0;notice="已领取离线素材 "+count;});

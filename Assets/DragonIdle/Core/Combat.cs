@@ -21,6 +21,7 @@ namespace DragonIdle {
   public double Sum(string type) { return Effects.Where(x=>x.Type==type).Sum(x=>x.Value); }
   public double AttackValue { get { return Attack*(1+LeaderAttack)*(1+Sum("attack"))*(1+Sum("amplify")); } }
   public double SpeedValue { get { return Math.Max(1,Speed*(1+Sum("speed"))); } }
+  public double DefenseValue {get{return Defense*(1+Sum("defense"));}}
   public bool Stunned { get {return StunUntil>Opportunities;} }
   public bool Sealed { get {return SealUntil>Opportunities;} }
   public void Stun(int turns) {if(!StunProtection) StunUntil=Math.Max(StunUntil,Opportunities+turns);}
@@ -101,7 +102,7 @@ namespace DragonIdle {
    e.Dodged=Random.NextDouble()<target.Dodge;
    e.Critical=!e.Dodged&&Random.NextDouble()<actor.Crit;
    if(!e.Dodged) {
-    double damage=Math.Max(1,actor.AttackValue*power*(1+actor.Sum("damage"))*100/(100+target.Defense)*(1-Math.Min(.9,target.Reduction))*(e.Critical?1.5:1));
+    double damage=Math.Max(1,actor.AttackValue*power*(1+actor.Sum("damage"))*100/(100+target.DefenseValue)*(1-Math.Min(.9,target.Reduction))*(e.Critical?1.5:1));
     if(double.IsInfinity(damage)||double.IsNaN(damage))throw new InvalidOperationException("Non-finite damage");
     e.Damage=Math.Round(damage);e.ShieldDamage=Math.Min(target.Shield,e.Damage);
     target.Shield-=e.ShieldDamage;e.HealthDamage=Math.Min(target.HP,e.Damage-e.ShieldDamage);target.HP-=e.HealthDamage;
