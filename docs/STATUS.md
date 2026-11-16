@@ -35,3 +35,4 @@ v0.5.1标志性动作立绘版已发布。按用户纠正，全15卡立绘结合
 最终本地交付：f90bb9d与本地v0.5.2标签对应，干净提交重新构建及release-smoke-20261116222417通过，完整包/manifest/校验和在Builds/Releases/v0.5.2。新启动入口Builds/Windows/龙珠爆裂激斗.exe。GitHub现有凭据失效，push被拒绝，尚未同步源码/标签或发布远端附件；需恢复认证。此前STATUS中的v0.5.1发布回执仅属于历史版本。
 
 首批三卡最终本地包已完成：v0.5.3源码480ded65bb4a7fdfcdd2df252efb2f2e57890ab2，干净提交重建/隔离静音Player通过，完整ZIP与manifest及SHA256SUMS在Builds/Releases/v0.5.3。观感/试听未验收，GitHub认证阻塞保持。
+`n补发回读完成：v0.5.2与v0.5.3均已发布预览版，各3个附件的远端大小/SHA256与本地一致；标签分别指向原构建源码f90bb9d与480ded6。源码main及两个版本标签CI均success。历史仅本地交付和认证阻塞结论已被本回执替代。
