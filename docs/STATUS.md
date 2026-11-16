@@ -1,9 +1,9 @@
-﻿# 当前状态
+# 当前状态
 更新：2026-11-16（Asia/Shanghai）。项目：https://github.com/Icein61/dragonball-idle-unity
 
 ## 当前优先级
 用户明确要求先打磨已有模块，再新增内容。当前重点是角色与图鉴；暂停新增角色、副本和成长系统。
-v0.4.0“角色与图鉴体验”预览版准备交付。用户已确认C手绘漫画画风，2D/3渲2动作技术仍待验证。
+v0.4.0“角色与图鉴体验”预览版已发布。用户已确认C手绘漫画画风，2D/3渲2动作技术仍待验证。
 
 ## 本轮实现
 - 角色页迁移到Unity uGUI：我的角色/全部图鉴、三列立绘卡面、大图详情、直接筛选、搜索与4种排序。
@@ -22,8 +22,8 @@ v0.4.0“角色与图鉴体验”预览版准备交付。用户已确认C手绘�
 ## 验证与交付
 454项纯C#检查通过，实际无图形Player已验证角色页事件、培养/编队保存、导航返回、文字布局、设置持久化及原战斗/迁移流程。
 可见画面、真实点击/键盘走查和音乐试听未执行，不把程序事件与高度测量当作体验验收。
-最终交付以GitHub Release实际附件为准；干净源码提交、哈希和检查结果写入build-manifest.json。
-预定本地包：Builds/Releases/v0.4.0/DragonIdle-v0.4.0-Windows-x64.zip。
+已发布[v0.4.0下载页](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.4.0)，包含完整PC包、build-manifest.json和SHA256SUMS.txt。源码与标签对应a2066b307fb61f0da7529c0e5460759f32adc513；main与tag的CI均成功。
+本地包：Builds/Releases/v0.4.0/DragonIdle-v0.4.0-Windows-x64.zip。
 上一版[v0.3.0](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.3.0)保留，源码bd22a5aeb031b98d8d2ebbdd46417b79320c3a19。更旧v0.1.1仍为未完成draft。
 
 ## 后续顺序
