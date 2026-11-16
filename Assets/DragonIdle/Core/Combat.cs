@@ -10,7 +10,7 @@ namespace DragonIdle {
   public string CardId, Name, Role, SpecialRole, SpecialName, UltimateName;
   public int Side, Slot, Cooldown, CooldownLength=3, Opportunities, StunUntil, SealUntil;
   public int UltimatePolicy; // 0 ready; 1 HP <= 60%; 2 enemy HP <= 50%
-  public double MaxHP, HP, Attack, Defense, Speed, Progress, Rage, Shield, LeaderAttack;
+  public double MaxHP, HP, Attack, Defense, Speed, Progress, Rage, Shield, LeaderAttack, LeaderHealth, LeaderDefense;
   public double Crit=.08, Dodge=.04, Reduction;
   public bool StunProtection, BasicOnly, SpecialReplaced;
   public List<Contribution> Effects=new List<Contribution>();
@@ -21,7 +21,7 @@ namespace DragonIdle {
   public double Sum(string type) { return Effects.Where(x=>x.Type==type).Sum(x=>x.Value); }
   public double AttackValue { get { return Attack*(1+LeaderAttack)*(1+Sum("attack"))*(1+Sum("amplify")); } }
   public double SpeedValue { get { return Math.Max(1,Speed*(1+Sum("speed"))); } }
-  public double DefenseValue {get{return Defense*(1+Sum("defense"));}}
+  public double DefenseValue {get{return Defense*(1+LeaderDefense)*(1+Sum("defense"));}}
   public bool Stunned { get {return StunUntil>Opportunities;} }
   public bool Sealed { get {return SealUntil>Opportunities;} }
   public void Stun(int turns) {if(!StunProtection) StunUntil=Math.Max(StunUntil,Opportunities+turns);}

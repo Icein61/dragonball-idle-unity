@@ -114,7 +114,7 @@ namespace DragonIdle {
    galleryResources.text="素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems;
    galleryCount.text="已收藏 "+profile.Owned.Count(x=>x)+" / "+Data.Cards.Length+"    ·    当前显示 "+results.Length+" 张";
    SetButtonActive(mineTab,catalog.OwnedOnly);SetButtonActive(allTab,!catalog.OwnedOnly);
-   string[] labels={catalog.Rarity==""?"全部稀有度":catalog.Rarity,catalog.Role==""?"全部定位":RoleText(catalog.Role),catalog.Tag==""?"全部身份":catalog.Tag,SortLabels[catalog.Sort]};
+   string[] labels={catalog.Rarity==""?"全部稀有度":catalog.Rarity,catalog.Role==""?"全部定位":catalog.Role,catalog.Tag==""?"全部身份":catalog.Tag,SortLabels[catalog.Sort]};
    for(int i=0;i<4;i++)filterButtons[i].GetComponentInChildren<UI.Text>().text=labels[i]+"  ▾";
    galleryFilterText.text=catalog.OwnedOnly?"管理已拥有的角色 · 点击卡面查看属性与搭配":"浏览全部卡片 · 未拥有角色也可查看完整形象与获取途径";
    float old=galleryScroll.verticalNormalizedPosition;ClearUI(gridRoot);cardButtons.Clear();
@@ -130,7 +130,7 @@ namespace DragonIdle {
     UArt(r,index,14,36,191,127);
     UText(r,"Name",c.Name,12,169,195,28,22,uiPaper);
     UText(r,"Theme",c.Title+" · "+c.Form,12,200,195,36,14,uiDim);
-    UText(r,"Stage",c.Stage,12,239,195,18,12,uiDim);
+    UText(r,"Keywords",c.KeywordText,12,239,195,18,11,uiAccent);
    }
    if(results.Length==0){
     UText(gridRoot,"EmptyTitle","没有符合条件的角色",30,100,620,45,25,uiPaper,TextAnchor.MiddleCenter);

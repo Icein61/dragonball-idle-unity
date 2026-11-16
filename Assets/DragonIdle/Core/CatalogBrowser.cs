@@ -9,8 +9,8 @@ namespace DragonIdle {
    string term=(Search??"").Trim();
    var q=Enumerable.Range(0,Data.Cards.Length).Where(i=>{
     var c=Data.Cards[i];
-    return (!OwnedOnly||p.Owned[i])&&(Rarity==""||c.Rarity==Rarity)&&(Role==""||c.Role==Role)&&(Tag==""||c.HasTag(Tag))&&
-     (c.Name+" "+c.Title+" "+c.Stage+" "+c.Form+" "+string.Join(" ",c.Tags)).IndexOf(term,StringComparison.OrdinalIgnoreCase)>=0;
+    return (!OwnedOnly||p.Owned[i])&&(Rarity==""||c.Rarity==Rarity)&&(Role==""||c.Keywords.Contains(Role))&&(Tag==""||c.HasTag(Tag))&&
+     (c.Name+" "+c.Title+" "+c.Stage+" "+c.Form+" "+string.Join(" ",c.Tags)+" "+string.Join(" ",c.Keywords)).IndexOf(term,StringComparison.OrdinalIgnoreCase)>=0;
    });
    if(Sort==1)return q.OrderByDescending(i=>Array.IndexOf(Data.Rarities,Data.Cards[i].Rarity)).ThenBy(i=>i).ToArray();
    if(Sort==2)return q.OrderBy(i=>Data.Cards[i].Name,StringComparer.Ordinal).ThenBy(i=>Data.Cards[i].Title,StringComparer.Ordinal).ThenBy(i=>i).ToArray();
@@ -30,9 +30,13 @@ namespace DragonIdle {
    string replacement=Skill[i]=="pierce"||Skill2[i]=="pierce"?"pierce":"";
    var u=Data.Make(Data.Cards[i].Id,side,slot,Training[i],Resonance[i],replacement,1);
    if(Skill[i]=="focus"||Skill2[i]=="focus")u.Crit+=.035;
-   if(Skill[i]=="guard"||Skill2[i]=="guard")u.Shield+=u.MaxHP*.04;
    var leader=Data.Cards[Team[Leader]];
-   u.LeaderAttack=includeCaptain&&Data.Cards[i].HasTag(leader.LeaderTag)?leader.Leader:0;u.UltimatePolicy=Policy[i];
+   if(includeCaptain&&leader.Captain.Applies(Data.Cards[i])){
+    u.LeaderAttack=leader.Captain.Attack;u.LeaderHealth=leader.Captain.Health;u.LeaderDefense=leader.Captain.Defense;
+    u.MaxHP*=1+u.LeaderHealth;u.HP=u.MaxHP;u.Shield*=1+u.LeaderHealth;
+   }
+   if(Skill[i]=="guard"||Skill2[i]=="guard")u.Shield+=u.MaxHP*.04;
+   u.UltimatePolicy=Policy[i];
    foreach(var item in Items.Where(x=>x.owner==i)){
     if(item.kind==1)u.Add("defense",item.Bonus,0,item.id);else u.Add("attack",item.Bonus,0,item.id);
     if(item.gem)u.Add("attack",.008,0,item.id+":gem");

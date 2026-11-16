@@ -72,6 +72,7 @@ class CoreChecks {
   CharacterChecks.Run(Check);
   ChapterChecks.Run(Check);
   CatalogChecks.Run(Check);
+  ScopeChecks.Run(Check);
   Console.WriteLine("ALL PASS "+count);
  }
 }

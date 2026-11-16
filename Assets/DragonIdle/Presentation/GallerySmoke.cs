@@ -9,9 +9,9 @@ namespace DragonIdle {
   void RunGallerySmoke(string dir){
    savePath=Path.Combine(dir,"gallery-save.json");profile=new Profile();Save();page="角色";selectedCard=0;
    EnsureGallery();galleryCanvas.SetActive(true);catalog.OwnedOnly=true;ResetGalleryFilters();
-   AssertSmoke(cardButtons.Count==10&&selectedCard==0,"Owned gallery failed");
-   allTab.onClick.Invoke();AssertSmoke(cardButtons.Count==25&&!catalog.OwnedOnly,"All gallery tab failed");
-   Canvas.ForceUpdateCanvases();AssertSmoke(gridRoot.GetComponentsInChildren<UI.Text>().Where(t=>t.name=="Theme").All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Card form/title text clipped");
+   AssertSmoke(cardButtons.Count==8&&selectedCard==0,"Owned gallery failed");
+   allTab.onClick.Invoke();AssertSmoke(cardButtons.Count==15&&!catalog.OwnedOnly,"All gallery tab failed");
+   Canvas.ForceUpdateCanvases();AssertSmoke(gridRoot.GetComponentsInChildren<UI.Text>().Where(t=>t.name=="Theme"||t.name=="Keywords").All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Card form/title text clipped");
    gallerySearch.text="界王拳";
    int kaioken=Data.Index("goku-saiyan-kaioken-v020");
    AssertSmoke(selectedCard==kaioken&&cardButtons.Count==1&&!galleryEquipButton.interactable,"Search selection or unowned actions failed");
@@ -22,6 +22,8 @@ namespace DragonIdle {
    GalleryTestButton("Option3").onClick.Invoke();
    AssertSmoke(mineTab.interactable&&gallerySearch.interactable,"Modal did not restore background input");
    AssertSmoke(catalog.Rarity=="SSR"&&cardButtons.Keys.All(i=>Data.Cards[i].Rarity=="SSR")&&dialogRoot==null,"Direct rarity picker failed");
+   ResetGalleryFilters();ShowFilter(1);GalleryTestButton("Option1").onClick.Invoke();
+   AssertSmoke(catalog.Role=="破防"&&cardButtons.Count==2&&cardButtons.Keys.All(i=>Data.Cards[i].Keywords.Contains("破防")),"Keyword picker did not filter actual role keywords");
    ResetGalleryFilters();cardButtons[0].onClick.Invoke();detailTab=0;DrawGalleryDetail();
    int material=profile.Materials;galleryTrainButton.onClick.Invoke();
    AssertSmoke(profile.Training[0]==1&&profile.Materials==material-30,"Training action transaction failed");
@@ -48,6 +50,12 @@ namespace DragonIdle {
    AssertSmoke(samples.All(v=>!float.IsNaN(v)&&!float.IsInfinity(v)&&Math.Abs(v)<=1)&&samples.Any(v=>Math.Abs(v)>.01f),"Invalid or silent music samples");
    ResetGalleryFilters();selectedCard=0;detailTab=1;DrawGalleryDetail();Canvas.ForceUpdateCanvases();
    AssertSmoke(measuredText.Count>=6&&measuredText.All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Long Chinese skill text clipped in layout");
+   foreach(int i in Enumerable.Range(0,Data.Cards.Length)){
+    selectedCard=i;detailTab=1;DrawGalleryDetail();Canvas.ForceUpdateCanvases();
+    AssertSmoke(measuredText.All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Leader or keyword detail clipped");
+    AssertSmoke(detailRoot.GetComponentsInChildren<UI.Text>().Any(t=>t.text.Contains(Data.Cards[i].KeywordText)),"Role summary missing");
+    AssertSmoke(detailRoot.GetComponentsInChildren<UI.Text>().Any(t=>t.text==Data.Cards[i].LeaderText),"Leader definition UI mismatch");
+   }
    foreach(int i in new[]{0,Data.Index("piccolo-raditz-v030"),Data.Index("raditz-arrival-v030")}){
     selectedCard=i;DrawGalleryDetail();AssertSmoke(detailRoot.GetComponentsInChildren<UI.RawImage>().Length==1,"Detail art missing");
    }

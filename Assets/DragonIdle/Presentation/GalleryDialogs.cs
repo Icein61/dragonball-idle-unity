@@ -29,7 +29,7 @@ namespace DragonIdle {
   void ShowFilter(int kind){
    string[] labels,values;
    if(kind==0){values=new[]{""}.Concat(Data.Rarities).ToArray();labels=new[]{"全部稀有度"}.Concat(Data.Rarities).ToArray();}
-   else if(kind==1){values=new[]{""}.Concat(Data.Roles).ToArray();labels=new[]{"全部定位"}.Concat(Data.Roles.Select(RoleText)).ToArray();}
+   else if(kind==1){values=new[]{""}.Concat(Data.Cards.SelectMany(c=>c.Keywords).Distinct()).ToArray();labels=values.Select(v=>v==""?"全部定位":v).ToArray();}
    else if(kind==2){values=new[]{""}.Concat(Data.Cards.SelectMany(c=>c.Tags).Distinct()).ToArray();labels=values.Select(v=>v==""?"全部身份":v).ToArray();}
    else{values=new[]{"0","1","2","3"};labels=SortLabels;}
    var panel=NewGalleryDialog(new[]{"选择稀有度","选择战斗定位","选择身份标签","选择排序方式"}[kind],"直接选择一个条件；不同类别同时生效。筛选不会改变角色身份或队伍。");
@@ -70,7 +70,7 @@ namespace DragonIdle {
     },true,saveError=="");y+=72;
    }
    if(Data.InSaiyanPool(c)){UButton(panel,"GoSaiyanPool","前往赛亚人篇召唤 · 独立保底",26,y,682,46,()=>{saiyanPool=true;NavigateGallery("召唤");});y+=66;}
-   if(i<20){UButton(panel,"GoLegacyPool","前往旧版常驻召唤 · 保留原保底",26,y,682,46,()=>{saiyanPool=false;NavigateGallery("召唤");});y+=66;}
+   if(Data.InClassicPool(c)){UButton(panel,"GoLegacyPool","前往基础常驻召唤 · 仅赛亚人篇",26,y,682,46,()=>{saiyanPool=false;NavigateGallery("召唤");});y+=66;}
    UText(panel,"PityInfo","每抽50晶石；R72% / SR20% / SSR8%，同级均分。每累计第20抽保证SSR，提前获得SSR不重置。",26,y+5,682,82,16,uiDim);
   }
   UI.Slider AudioSlider(Transform parent,string title,float y,float value,Action<float> update){

@@ -19,17 +19,17 @@ namespace DragonIdle {
     int i=profile.Team[s],slot=s;var c=Data.Cards[i];float x=224+(s<3?s:s-3)*337,y=s<3?223:383;
     Box(x,y,322,145,panel);Box(x,y,322,3,CardColor(i));
     Label(x+12,y+12,302,30,(s+1)+"  "+c.Name+(profile.Leader==s?" [队长]":""),22);
-    Label(x+12,y+47,300,45,c.Title+" · "+RoleText(c.Role)+"\n"+(c.HasTag(leader.LeaderTag)?"受到队长加成":"未满足队长条件"),15,c.HasTag(leader.LeaderTag)?gold:muted);
+    Label(x+12,y+45,300,52,c.Title+"\n"+c.KeywordText+"\n"+(leader.Captain.Applies(c)?"受到队长加成":"未满足队长条件"),13,leader.Captain.Applies(c)?gold:muted);
     if(Button(x+12,y+100,140,34,selectedSlot==s?"已选择":"选择阵位",selectedSlot==s))selectedSlot=s;
     if(Button(x+165,y+100,145,34,"设为队长"))Change(()=>{profile.Leader=slot;battle=null;});
    }
-   Label(224,545,1330,45,leader.LeaderText+"；覆盖 "+profile.Team.Count(i=>Data.Cards[i].HasTag(leader.LeaderTag))+" / 7 人。",19,gold);
+   Label(224,545,1330,50,leader.LeaderText+"；覆盖 "+profile.Team.Count(i=>leader.Captain.Applies(Data.Cards[i]))+" / 7 人。",16,gold);
    for(int p=0;p<3;p++){
     int preset=p;float x=224+p*450;
     if(Button(x,599,213,40,"保存阵容 "+(p+1)))Change(()=>{profile.SavePreset(preset);notice="已保存阵容 "+(preset+1)+"（阵位 + 队长）";});
     if(Button(x+223,599,207,40,"载入阵容 "+(p+1),false,p<profile.Presets.Count))Change(()=>{profile.LoadPreset(preset);battle=null;notice="已载入阵容 "+(preset+1);});
    }
-   Label(224,652,1330,32,"候补与上阵角色 · 目标阵位 "+(selectedSlot+1)+" · 新旧存档均获得雅木茶、饺子、龟仙人用于配队",17,muted);
+   Label(224,652,1330,32,"候补与上阵角色 · 目标阵位 "+(selectedSlot+1)+" · 初版仅收录赛亚人篇；身份标签与定位关键词分别显示",17,muted);
    var owned=Enumerable.Range(0,Data.Cards.Length).Where(i=>profile.Owned[i]).ToArray();
    reserveScroll=GUI.BeginScrollView(new Rect(224,693,1340,108),reserveScroll,new Rect(0,0,owned.Length*220,85));
    for(int n=0;n<owned.Length;n++){

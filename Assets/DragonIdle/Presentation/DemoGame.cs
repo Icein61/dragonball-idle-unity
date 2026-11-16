@@ -32,9 +32,10 @@ namespace DragonIdle {
   void Load(){
    try{if(File.Exists(savePath)){
     profile=JsonUtility.FromJson<Profile>(File.ReadAllText(savePath));if(profile==null)throw new Exception("空存档");
-    if(profile.schemaVersion==1){string backup=savePath+".pre-v020-"+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak";File.Copy(savePath,backup,false);}
-    if(profile.schemaVersion==2&&profile.CardIds!=null&&profile.CardIds.Length!=Data.Cards.Length)File.Copy(savePath,savePath+".pre-v030-"+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak",false);
+    bool migrating=profile.schemaVersion<3;
+    if(migrating)File.Copy(savePath,savePath+".pre-v041-"+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak",false);
     profile.Normalize();profile.CreateTeam();
+    if(migrating)notice="已升级为赛亚人篇目录；移除角色成长已归档，其装备退回背包，阵容已补齐。";
    }else{profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;Save();}}
    catch(Exception ex){profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;saveError="存档读取失败，原文件保留。请检查备份："+ex.Message;}
   }
@@ -172,7 +173,7 @@ namespace DragonIdle {
    if(u.Stunned)Label(p.x+80,p.y-18,80,20,"眩晕",12,gold);
    if(new Rect(p.x,p.y,160,80).Contains(Event.current.mousePosition)){
     string buffs=string.Join("\n",u.Effects.Select(e=>EffectText(e.Type)+" "+(e.Value*100).ToString("0.#")+"% / "+(e.Expires==int.MaxValue?"整场":(e.Expires-u.Opportunities)+"回合")).ToArray());
-    Box(610,290,268,148,bg);Label(624,300,240,132,"生命 "+u.HP.ToString("0")+" / "+u.MaxHP.ToString("0")+"\n队长乘区 +"+(u.LeaderAttack*100).ToString("0")+"%\n"+buffs,13);
+    Box(610,290,268,148,bg);Label(624,300,240,132,"生命 "+u.HP.ToString("0")+" / "+u.MaxHP.ToString("0")+"\n队长 生/攻/防 +"+(u.LeaderHealth*100).ToString("0")+"/"+(u.LeaderAttack*100).ToString("0")+"/"+(u.LeaderDefense*100).ToString("0")+"%\n"+buffs,13);
    }
   }
   void CardTabs(){
@@ -188,7 +189,7 @@ namespace DragonIdle {
    int i=selectedCard;var c=Data.Cards[i];var u=Data.Make(c.Id,0,0,profile.Training[i],profile.Resonance[i],profile.Skill[i]=="pierce"||profile.Skill2[i]=="pierce"?"pierce":"",1);
    Box(224,280,410,480,panel);DrawPortrait(i,new Rect(315,292,225,275));
    Label(250,570,360,70,c.DisplayName,25);Label(250,635,360,40,c.Stage+" · "+c.Form,18,muted);
-   Label(250,680,360,70,c.LeaderText,16,gold);
+   Label(250,680,360,70,c.KeywordText+"\n完整队长条件见角色详情",16,gold);
    Box(655,280,910,480,panel);
    Label(680,305,840,45,"生命 "+u.MaxHP.ToString("0")+"    攻击 "+u.Attack.ToString("0.0")+"    防御 "+u.Defense.ToString("0.0")+"    速度 "+u.Speed.ToString("0"),23);
    Label(680,360,840,98,"绝招："+u.SpecialName+" / 冷却 "+u.CooldownLength+" 次正常出手\n必杀："+u.UltimateName+" / 消耗 100 怒气，额外行动\n被动："+c.PassiveText,19);
@@ -230,11 +231,11 @@ namespace DragonIdle {
   void DrawSummon(){
    Heading("时空召唤","Demo 测试卡池 · 完全离线 · 无付费入口");
    Box(224,230,1340,520,panel);
-   if(Button(270,248,340,44,"赛亚人篇 · 14卡",saiyanPool))saiyanPool=true;
-   if(Button(1160,248,340,44,"旧版常驻 · 20卡",!saiyanPool))saiyanPool=false;
+   if(Button(270,248,340,44,"赛亚人篇 · 15卡",saiyanPool))saiyanPool=true;
+   if(Button(1160,248,340,44,"基础常驻 · 10卡",!saiyanPool))saiyanPool=false;
    Circle(740,282,180,new Color(.8f,.45f,.16f));Circle(758,300,144,gold);Label(796,337,150,100,"★",67,bg);
    Label(290,510,1190,47,"每次 50 晶石 · R 72% / SR 20% / SSR 8% · 每第 20 次保证 SSR",24,gold);
-   Label(290,570,1180,70,(saiyanPool?"赛亚人篇14卡":"旧版常驻20卡")+"，同级均分；两池分别累计保底，提前出SSR不重置。重复卡转本卡专属资源。\n本池召唤 "+(saiyanPool?profile.SaiyanPulls:profile.Pulls)+" 次；距保证SSR "+(20-(saiyanPool?profile.SaiyanPulls:profile.Pulls)%20)+" 次。详情见角色图鉴。",19);
+   Label(290,570,1180,70,(saiyanPool?"赛亚人篇15卡":"基础常驻10卡")+"，同级均分；两池均仅含赛亚人篇；原两池保底分别保留，提前出SSR不重置。重复卡转本卡专属资源。\n本池召唤 "+(saiyanPool?profile.SaiyanPulls:profile.Pulls)+" 次；距保证SSR "+(20-(saiyanPool?profile.SaiyanPulls:profile.Pulls)%20)+" 次。详情见角色图鉴。",19);
    if(Button(655,658,480,58,"召唤一次",true,profile.Crystals>=50))Change(()=>notice=saiyanPool?profile.SummonSaiyan(++seed):profile.Summon(++seed));
   }
   void DrawAbout(){

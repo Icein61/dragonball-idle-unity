@@ -14,7 +14,8 @@ namespace DragonIdle {
    "素材15 / 晶石7；装备：战斗服94% / 核心6%；珠20% / 守势残页25%",
    "素材18 / 晶石8；装备：护腕46% / 战斗服46% / 核心8%；珠20% / 贯穿残页25%",
    "素材21 / 晶石9；装备：护腕45% / 战斗服45% / 核心10%；珠20% / 随机残页25%"};
-  public static bool InSaiyanPool(Card c){return c.Stage=="赛亚人篇"&&c.Id!="goku-saiyan-guard-v020";}
+  public static bool InSaiyanPool(Card c){return c.Stage=="赛亚人篇";}
+  public static bool InClassicPool(Card c){return PreviousCardIds.Take(20).Contains(c.Id)&&c.Stage=="赛亚人篇";}
  }
  public partial class Profile {
   public int StoryUnlocked,StorySelected,SaiyanPulls;

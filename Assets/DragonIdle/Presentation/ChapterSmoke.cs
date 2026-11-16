@@ -17,18 +17,22 @@ namespace DragonIdle {
    int raditz=Data.Index("raditz-arrival-v030");int before=profile.Shards[raditz];
    AssertSmoke(profile.Owned[raditz],"Boss reward missing");StartBattle();int replay=0;while(running&&replay++<4000)Advance();
    AssertSmoke(battle.Result==1&&profile.Shards[raditz]==before,"Boss replay duplicated guaranteed card");
-   // Shape of v0.2 JSON: 20 definitions, no chapter progress.
-   profile=new Profile();profile.CardIds=profile.CardIds.Take(20).ToArray();
-   profile.Training=profile.Training.Take(20).ToArray();profile.Training[0]=27;
-   profile.Shards=profile.Shards.Take(20).ToArray();profile.Shards[13]=9;
-   profile.Resonance=profile.Resonance.Take(20).ToArray();profile.Policy=profile.Policy.Take(20).ToArray();
-   profile.Owned=profile.Owned.Take(20).ToArray();profile.Owned[13]=true;
-   profile.Skill=profile.Skill.Take(20).ToArray();profile.Skill2=profile.Skill2.Take(20).ToArray();
-   profile.Team[6]=13;profile.Items[0].owner=13;profile.StoryCleared=null;
-   savePath=Path.Combine(dir,"v020-save.json");File.WriteAllText(savePath,JsonUtility.ToJson(profile));
-   Load();AssertSmoke(saveError==""&&profile.CardIds.Length==25&&profile.Training[0]==27&&profile.Shards[13]==9&&profile.Team[6]==13&&profile.Items[0].owner==13,"v020 Unity migration failed: "+saveError);
-   AssertSmoke(Directory.GetFiles(dir,"v020-save.json.pre-v030-*.bak").Length==1,"v020 backup missing");
-   Save();Load();AssertSmoke(profile.StoryCleared.Length==4&&profile.Shards[13]==9&&Directory.GetFiles(dir,"v020-save.json.pre-v030-*.bak").Length==1,"v020 second load duplicates migration");
+   foreach(int count in new[]{20,25}){
+    profile=new Profile{schemaVersion=2};profile.CardIds=Data.PreviousCardIds.Take(count).ToArray();
+    profile.Training=new int[count];profile.Training[0]=27;profile.Shards=new int[count];profile.Shards[13]=9;
+    profile.Resonance=new int[count];profile.Policy=new int[count];
+    profile.Owned=Enumerable.Range(0,count).Select(i=>i<7||i==8||i==9||i==10||i==13).ToArray();
+    profile.Skill=Enumerable.Repeat("",count).ToArray();profile.Skill2=Enumerable.Repeat("",count).ToArray();
+    profile.Team=new[]{0,1,2,3,4,5,13};profile.Items[0].owner=13;profile.Items[0].gem=true;
+    profile.Presets.Add(new TeamPreset{name="旧阵容",leader=6,cards=profile.Team.Select(i=>profile.CardIds[i]).ToArray()});
+    profile.Pulls=19;profile.SaiyanPulls=39;if(count==20)profile.StoryCleared=null;
+    savePath=Path.Combine(dir,count==20?"v020-save.json":"v040-save.json");File.WriteAllText(savePath,JsonUtility.ToJson(profile));
+    Load();AssertSmoke(saveError==""&&profile.CardIds.Length==15&&profile.Training[0]==27&&profile.Retired.Single(r=>r.cardId=="goku-namek-ssj-v020").shards==9&&profile.Team[6]==6&&profile.Items[0].owner==-1&&profile.Items[0].gem,"Previous Unity migration failed: "+saveError);
+    AssertSmoke(profile.Presets[0].cards.All(id=>Data.Index(id)>=0)&&profile.Presets[0].leader==6&&profile.Pulls==19&&profile.SaiyanPulls==39,"Preset or economy migration failed");
+    string pattern=Path.GetFileName(savePath)+".pre-v041-*.bak";
+    AssertSmoke(Directory.GetFiles(dir,pattern).Length==1,"Previous backup missing");
+    Save();Load();AssertSmoke(profile.StoryCleared.Length==4&&profile.Retired.Count==10&&profile.Retired.Single(r=>r.cardId=="goku-namek-ssj-v020").shards==9&&Directory.GetFiles(dir,pattern).Length==1,"Second load duplicates migration");
+   }
    storyMode=false;
   }
  }

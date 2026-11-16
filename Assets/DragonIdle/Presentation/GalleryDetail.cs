@@ -13,7 +13,7 @@ namespace DragonIdle {
    int i=selectedCard;var c=Data.Cards[i];bool owned=profile.Owned[i];
    UPanel(detailRoot,"InkEdge",0,0,604,4,uiAccent);
    UArt(detailRoot,i,16,17,218,280);
-   UText(detailRoot,"CardRarity",c.Rarity+"  /  "+RoleText(c.Role),251,24,331,30,18,uiAccent);
+   UText(detailRoot,"CardRarity",c.Rarity+"\n"+c.KeywordText,251,16,331,45,15,uiAccent);
    UText(detailRoot,"CharacterName",c.Name,251,65,331,45,32,uiPaper);
    UText(detailRoot,"CharacterTitle",c.Title,251,115,331,34,23,uiPaper);
    UText(detailRoot,"Identity",c.Stage+"  ·  "+c.Form+"\n"+string.Join(" / ",c.Tags.Distinct().ToArray()),251,158,325,72,16,uiDim);
@@ -51,7 +51,7 @@ namespace DragonIdle {
     UText(detailBody,"Personal"+n,one[n].ToString("0.0"),269,detailY,123,30,18,uiPaper);
     UText(detailBody,"Team"+n,owned&&profile.Team.Contains(i)?two[n].ToString("0.0"):"未上阵",414,detailY,123,30,18,uiAccent);detailY+=36;
    }
-   DetailParagraph("战前效果","暴击 "+(personal.Crit*100).ToString("0.#")+"% · 闪避 "+(personal.Dodge*100).ToString("0.#")+"%\n开战护盾 "+personal.Shield.ToString("0")+" · 开战怒气 "+personal.Rage.ToString("0")+"\n"+(profile.Team.Contains(i)?"当前队长攻击乘区 +"+(team.LeaderAttack*100).ToString("0")+"%":"候补不计队长加成；上阵后按队长条件计算。"));
+   DetailParagraph("战前效果","暴击 "+(personal.Crit*100).ToString("0.#")+"% · 闪避 "+(personal.Dodge*100).ToString("0.#")+"%\n个人开战护盾 "+personal.Shield.ToString("0")+" · 开战怒气 "+personal.Rage.ToString("0")+"\n"+(profile.Team.Contains(i)?"编队开战护盾 "+team.Shield.ToString("0")+"\n当前队长 生/攻/防 +"+(team.LeaderHealth*100).ToString("0")+"% / +"+(team.LeaderAttack*100).ToString("0")+"% / +"+(team.LeaderDefense*100).ToString("0")+"%":"候补不计队长加成；上阵后按队长条件计算。"));
    if(!owned){DetailParagraph("获取后开始培养","图鉴展示初始形态与基础机制。获得卡片后可修炼、共鸣、装配和编队。");return;}
    int cost=30+profile.Training[i]/10;
    DetailParagraph("修炼 "+profile.Training[i]+" · 共鸣 "+profile.Resonance[i],"修炼每次增加基础属性0.1%；共鸣每次增加基础属性0.4%。速度不随这两项提升。培养资源保存在本张卡片上。");
@@ -68,14 +68,19 @@ namespace DragonIdle {
   }
   void DrawGallerySkills(int i){
    var c=Data.Cards[i];
+   DetailParagraph("定位 · "+c.KeywordText,string.Join("\n",c.Keywords.Select(k=>k+"："+Data.KeywordDescription(k)).ToArray()));
    DetailParagraph("战术特点",TacticalSummary(c.Id,c.Role));
    DetailParagraph("普通攻击","单体1.00倍攻击。占用一次正常行动；绝招冷却期间使用，完成出手获得16怒气。");
    bool replaced=profile.Owned[i]&&(profile.Skill[i]=="pierce"||profile.Skill2[i]=="pierce");
    DetailParagraph(replaced?"当前绝招 · 贯穿气弹":"绝招 · "+c.Special,replaced?"单体1.14倍攻击，优先最近后排，无后排时回落；冷却4次正常出手。完成出手获得28怒气。已替换原绝招，不叠加原绝招效果。":c.SpecialText+" 完成出手获得28怒气。");
-   if(replaced)DetailParagraph("原绝招 · 当前未装备",c.SpecialText,uiDim);
+   if(replaced){DetailParagraph("配置提醒","定位关键词概括固有技能组。原绝招已被替换，仅来自原绝招的能力当前不生效；必杀与被动保持。",uiAccent);DetailParagraph("原绝招 · 当前未装备",c.SpecialText,uiDim);}
    DetailParagraph("必杀 · "+c.Ultimate,c.UltimateText);
    DetailParagraph("被动",c.PassiveText);
-   DetailParagraph("队长技",c.LeaderText);
+   DetailParagraph("本卡队长技",c.LeaderText);
+   var captain=Data.Cards[profile.Team[profile.Leader]];var matches=captain.Captain.Matches(c);
+   string state=matches.Length==0?"不满足当前队长的任何标签条件。":"匹配「"+string.Join(" / ",matches)+"」；只获得一次加成。";
+   DetailParagraph("当前队伍适配",captain.DisplayName+"\n"+state+"\n"+(profile.Team.Contains(i)?"当前已上阵。":"尚未上阵；匹配只表示上阵后可受益。")+"\n"+captain.Captain.Text);
+   DetailParagraph("本卡担任队长时","对当前七人名单覆盖 "+profile.Team.Count(n=>c.Captain.Applies(Data.Cards[n]))+" / 7 人。此处仅检查标签，换人后按新名单重算。");
    DetailParagraph("回合与状态","持续回合按状态持有者的正常行动机会计数，额外必杀不推进时长。同名贡献各自计时；未标时长为整场。");
   }
   string TacticalSummary(string id,string role){

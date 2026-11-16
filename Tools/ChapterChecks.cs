@@ -38,16 +38,11 @@ static class ChapterChecks {
   p=new Profile();p.SaiyanPulls=19;p.Crystals=50;check(p.SummonSaiyan(3).StartsWith("[SSR]")&&p.Pulls==0&&p.SaiyanPulls==20&&p.Crystals==0,"S19 separate saga pity transaction");
   p.SummonSaiyan(4);check(p.SaiyanPulls==20,"S20 insufficient currency preserves saga pity");
   p=new Profile();p.Crystals=50000;for(int i=0;i<1000;i++)p.SummonSaiyan(i);
-  check(Data.Cards.Where(Data.InSaiyanPool).Count()==14&&Enumerable.Range(0,Data.Cards.Length).Where(i=>!Data.InSaiyanPool(Data.Cards[i])).All(i=>p.Shards[i]==0),"S21 saga pool excludes later eras");
-  p=new Profile();p.Crystals=5000;for(int i=0;i<100;i++)p.Summon(i);check(Enumerable.Range(20,5).All(i=>!p.Owned[i]),"S22 original pool keeps its twenty IDs");
-
-  // v0.2 array lengths, no chapter fields; preserve all old ownership, equipment, presets.
-  p=new Profile();p.CardIds=p.CardIds.Take(20).ToArray();p.Training=p.Training.Take(20).ToArray();p.Training[0]=99;
-  p.Shards=p.Shards.Take(20).ToArray();p.Shards[13]=7;p.Resonance=p.Resonance.Take(20).ToArray();p.Policy=p.Policy.Take(20).ToArray();
-  p.Owned=p.Owned.Take(20).ToArray();p.Owned[13]=true;p.Skill=p.Skill.Take(20).ToArray();p.Skill2=p.Skill2.Take(20).ToArray();
-  p.Team[6]=13;p.Items[0].owner=13;p.StoryCleared=new bool[0];p.Normalize();
-  check(p.CardIds.Length==25&&p.Owned[13]&&p.Shards[13]==7&&p.Training[0]==99&&p.Team[6]==13&&p.Items[0].owner==13&&!p.Owned[beam]&&p.StoryUnlocked==0,"S23 v020 migration retains late-era cards and growth");
-  p.Normalize();check(p.Training[0]==99&&p.Shards[13]==7&&p.StoryCleared.Length==4,"S24 migration idempotent");
+  check(Data.Cards.Where(Data.InSaiyanPool).Count()==15&&Enumerable.Range(0,Data.Cards.Length).Where(i=>!Data.InSaiyanPool(Data.Cards[i])).All(i=>p.Shards[i]==0),"S21 saga pool excludes later eras");
+  p=new Profile();p.Crystals=5000;for(int i=0;i<100;i++)p.Summon(i);check(Data.Cards.Where(Data.InClassicPool).Count()==10&&Enumerable.Range(10,5).All(i=>!p.Owned[i]),"S22 classic pool contains only ten retained saga IDs");
+  p=ScopeChecks.Previous(20);p.Training[0]=99;p.Shards[13]=7;p.Owned[13]=true;p.Team[6]=13;p.Items[0].owner=13;p.StoryCleared=new bool[0];p.Normalize();
+  check(p.CardIds.Length==15&&p.Retired.Single(r=>r.cardId=="goku-namek-ssj-v020").shards==7&&p.Training[0]==99&&p.Team[6]==6&&p.Items[0].owner==-1&&!p.Owned[beam]&&p.StoryUnlocked==0,"S23 v020 migration archives removed cards without erasing growth");
+  p.Normalize();check(p.Training[0]==99&&p.Retired.Single(r=>r.cardId=="goku-namek-ssj-v020").shards==7&&p.StoryCleared.Length==4,"S24 migration idempotent");
     var invalid=new Profile();invalid.StoryCleared=new bool[0];rejected=false;try{invalid.Normalize();}catch(InvalidOperationException){rejected=true;}check(rejected,"S24b current schema corrupted chapter array rejected");
   foreach(var c in Data.Cards.Where(Data.InSaiyanPool)){
    a=Actor(c.Id);target=Enemy(0);b=new Battle(new[]{a,target},20);e=b.Step();
