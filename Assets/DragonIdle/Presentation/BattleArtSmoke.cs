@@ -6,7 +6,8 @@ namespace DragonIdle {
  public partial class DemoGame {
   void RunBattleArtSmoke(string dir){
    foreach(int i in Enumerable.Range(0,Data.Cards.Length)){
-    var texture=PortraitTexture(i);var regions=Regions(i);
+    var texture=FighterTexture(i);var regions=Regions(i);
+    var portrait=PortraitTexture(i);AssertSmoke(portrait!=null&&portrait.width==1024&&portrait.height==1536&&portrait!=texture,"Signature portrait missing, rescaled or using battle atlas: "+Data.Cards[i].Id);
     AssertSmoke(texture!=null&&texture.width==1536&&texture.height==1024,"Atlas resource missing/rescaled: "+Data.Cards[i].Id);
     AssertSmoke(regions.frames.Length==13&&regions.frames.All(r=>r.w>0&&r.h>0&&r.x>=0&&r.y>=0&&r.x+r.w<=texture.width&&r.y+r.h<=texture.height),"Bad sprite import bounds");
     for(int f=0;f<13;f++){
@@ -34,7 +35,7 @@ namespace DragonIdle {
    running=false;battle=null;ClearBattlePresentation();AssertSmoke(action==null&&last==null,"Exit did not clear presentation");rate=1;
    AssertSmoke(silentAudio&&!battleSound.isPlaying&&battleSound.volume==0&&battleClips.Length==4,"Battle smoke produced audio");
    foreach(var clip in battleClips){float[] samples=new float[clip.samples];clip.GetData(samples,0);AssertSmoke(samples.All(v=>!float.IsNaN(v)&&!float.IsInfinity(v)&&Math.Abs(v)<=1)&&samples.Any(v=>Math.Abs(v)>.01f),"Battle audio samples invalid");}
-   File.WriteAllText(Path.Combine(dir,"battle-art-smoke.json"),"{\"atlases\":15,\"portraits\":15,\"poses\":180,\"frameUpdate\":true,\"pause\":true,\"speed\":true,\"reducedMotion\":true,\"rewardAfterAnimation\":true,\"replayCleanup\":true,\"soundSilent\":true,\"renderVerified\":false,\"listened\":false}");
+   File.WriteAllText(Path.Combine(dir,"battle-art-smoke.json"),"{\"atlases\":15,\"portraits\":15,\"signaturePortraits\":15,\"poses\":180,\"frameUpdate\":true,\"pause\":true,\"speed\":true,\"reducedMotion\":true,\"rewardAfterAnimation\":true,\"replayCleanup\":true,\"soundSilent\":true,\"renderVerified\":false,\"listened\":false}");
   }
  }
 }

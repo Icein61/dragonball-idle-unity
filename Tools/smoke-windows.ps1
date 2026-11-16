@@ -12,5 +12,5 @@ $result=Get-Content -LiteralPath (Join-Path $OutputDirectory 'smoke-result.json'
 if(!$result.battleWon -or !$result.saveRoundTrip -or !$result.legacyMigration -or !$result.characterPersistence -or !$result.artResourceLoaded -or !$result.chapterFlow -or !$result.v020Migration -or !$result.galleryFlow -or !$result.v040Migration -or !$result.leaderKeywords -or !$result.audioSettings){throw 'Incomplete smoke verification'}
 if(Select-String -LiteralPath (Join-Path $OutputDirectory 'player.log') -Pattern 'Exception|NullReferenceException' -Quiet){throw 'Exception found in Player smoke log'}
 $art=Get-Content -LiteralPath (Join-Path $OutputDirectory 'battle-art-smoke.json') -Raw | ConvertFrom-Json
-if($art.atlases -ne 15 -or $art.poses -ne 180 -or !$art.frameUpdate -or !$art.rewardAfterAnimation -or !$art.replayCleanup -or !$art.soundSilent){throw 'Battle art/presentation smoke incomplete'}
+if($art.atlases -ne 15 -or $art.signaturePortraits -ne 15 -or $art.poses -ne 180 -or !$art.frameUpdate -or !$art.rewardAfterAnimation -or !$art.replayCleanup -or !$art.soundSilent){throw 'Battle art/presentation smoke incomplete'}
 Write-Output ('HEADLESS_SMOKE_PASS '+$OutputDirectory)

@@ -51,7 +51,7 @@ namespace DragonIdle {
    var art=PortraitTexture(i);
    if(art!=null){
     float width=Math.Min(w,h*PortraitAspect(i)),height=width/PortraitAspect(i);
-    var r=UNode(parent,"Portrait",x+(w-width)/2,y+(h-height)/2,width,height);var image=r.gameObject.AddComponent<UI.RawImage>();image.texture=art;image.uvRect=ArtUV(i,0);image.raycastTarget=false;
+    var r=UNode(parent,"Portrait",x+(w-width)/2,y+(h-height)/2,width,height);var image=r.gameObject.AddComponent<UI.RawImage>();image.texture=art;image.uvRect=new Rect(0,0,1,1);image.raycastTarget=false;
    }else{
     UPanel(parent,"ArtInset",x+8,y+6,w-16,h-12,new Color(.14f,.18f,.21f));
     UPanel(parent,"Accent",x+8,y+6,3,h-12,CardColor(i));

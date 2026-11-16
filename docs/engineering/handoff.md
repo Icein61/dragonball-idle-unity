@@ -74,3 +74,9 @@ v0.1.0已建立Unity 2022.3.62f3技术Demo，使用内置渲染与临时IMGUI表
 - CharacterArtImport保持NPOT尺寸、alpha与无压缩，CharacterArt将真实轮廓矩形转换为UV，按原比例绘制，不以整张图集作为立绘。
 - Core/ActionPresentation是只读显示快照；Presentation/BattleAnimation控制帧推进/收场，BattleEffects按事件绘制招式，CharacterArt用于图鉴和战场。核心不依赖Unity动画回调。
 - 当前为关键姿态动画与IMGUI战场，非骨骼模型；图鉴仍uGUI。减少动效不影响逻辑；不得为了验证演出自行弹出窗口。
+
+## v0.5.1 立绘与动作资源分离
+- PortraitTexture读取Art/V051/{CardId}-portrait，FighterTexture读取Art/V050/{CardId}-atlas；缓存键包含版本/路径，不能互相替代。
+- 独立立绘整图UV、原始2:3比例；ArtUV/Regions只用于V050动作图集。不要将旧立绘切片UV套到新整图。
+- Tools/InspectPortraits.cs只读检查15张图尺寸、alpha与边缘留白，validate-art同时检查原图集和新立绘。图鉴与Player检查明确验证两类资源不同。
+- 完整提示词/输出/哈希在Art/Production/V051/portraits.json；未来立绘必须结合阶段与技能设计不同姿势，不复用统一备战模板。

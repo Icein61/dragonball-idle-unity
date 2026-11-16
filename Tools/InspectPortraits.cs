@@ -1,0 +1,23 @@
+using System;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+// Read-only alpha/size/margin validation; generated PNGs are never altered here.
+class InspectPortraits {
+ static void Main(string[] args){try{
+  var files=Directory.GetFiles(args[0],"*-portrait.png");if(files.Length!=15&&args.Length<2)throw new Exception("Expected 15 independent portraits");
+  foreach(var path in files)using(var png=new Bitmap(path)){
+   int w=png.Width,h=png.Height;if(w!=1024||h!=1536)throw new Exception("Unexpected portrait resolution: "+path);
+   var locked=png.LockBits(new Rectangle(0,0,w,h),ImageLockMode.ReadOnly,PixelFormat.Format32bppArgb);
+   byte[] pixels=new byte[locked.Stride*h];Marshal.Copy(locked.Scan0,pixels,0,pixels.Length);int stride=locked.Stride;png.UnlockBits(locked);
+   int clear=0,solid=0,edge=0;
+   for(int y=0;y<h;y++)for(int x=0;x<w;x++){
+    int alpha=pixels[y*stride+x*4+3];if(alpha<4)clear++;if(alpha>200)solid++;
+    if(alpha>64&&(x<3||x>=w-3||y<3||y>=h-3))edge++;
+   }
+   if(clear<w*h/5||solid<w*h/20||edge>8)throw new Exception("Portrait transparency/content/margin failed: "+Path.GetFileName(path)+" clear="+clear+" solid="+solid+" edge="+edge);
+   Console.WriteLine("PORTRAIT_PASS "+Path.GetFileName(path)+" 1024x1536 / alpha / margins");
+  }
+ }catch(Exception e){Console.WriteLine(e.Message);Environment.Exit(1);}}
+}

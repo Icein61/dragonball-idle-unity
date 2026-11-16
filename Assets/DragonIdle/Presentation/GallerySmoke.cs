@@ -57,7 +57,8 @@ namespace DragonIdle {
     AssertSmoke(detailRoot.GetComponentsInChildren<UI.Text>().Any(t=>t.text==Data.Cards[i].LeaderText),"Leader definition UI mismatch");
    }
    foreach(int i in Enumerable.Range(0,Data.Cards.Length)){
-    selectedCard=i;DrawGalleryDetail();AssertSmoke(detailRoot.GetComponentsInChildren<UI.RawImage>().Length==1,"Detail art missing");
+    selectedCard=i;DrawGalleryDetail();var images=detailRoot.GetComponentsInChildren<UI.RawImage>();AssertSmoke(images.Length==1,"Detail art missing");
+    AssertSmoke(images[0].texture==PortraitTexture(i)&&images[0].texture!=FighterTexture(i)&&images[0].uvRect==new Rect(0,0,1,1),"Detail reused atlas or cropped portrait UV");
    }
    AssertSmoke(galleryCanvas.GetComponent<UI.CanvasScaler>().screenMatchMode==UI.CanvasScaler.ScreenMatchMode.Expand,"UI aspect ratio scaler incorrect");
    File.WriteAllText(Path.Combine(dir,"gallery-smoke.json"),"{\"eventsWired\":true,\"filters\":true,\"stats\":true,\"navigation\":true,\"textLayout\":true,\"audioPreferences\":true,\"audioSilentDuringTest\":true,\"visualVerified\":false,\"listened\":false}");
