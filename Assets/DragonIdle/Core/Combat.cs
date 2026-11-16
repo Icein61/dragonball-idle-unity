@@ -33,6 +33,7 @@ namespace DragonIdle {
  public class BattleEvent:BattleHit {
   public Unit Actor;public Move Move;public double Time;public string Text;
   public List<BattleHit> Hits=new List<BattleHit>();
+  public List<Unit> Recipients=new List<Unit>();public double HealthCost,Healing;
  }
  public partial class Battle {
   public List<Unit> Units; public double Time; public int Events; public Random Random;
@@ -42,6 +43,7 @@ namespace DragonIdle {
    Units=units.ToList(); Random=new Random(seed);
    if(Units.GroupBy(x=>x.Side*10+x.Slot).Any(g=>g.Count()>1)||Units.Any(x=>x.Slot<0||x.Slot>6)) throw new ArgumentException("Invalid formation");
    if(Units.GroupBy(x=>x.Side).Any(g=>g.GroupBy(x=>x.CardId).Any(c=>c.Count()>1))) throw new ArgumentException("Duplicate card");
+   foreach(var u in Units)Data.GokuLink(u,Units.Where(x=>x.Side==u.Side).Select(x=>x.CardId));
   }
   public int Result {get {if(!Units.Any(x=>x.Side==0&&x.Alive))return -1;if(!Units.Any(x=>x.Side==1&&x.Alive))return 1;return 0;}}
   public static double Y(int slot) {return slot<3 ? (slot-1)*1.3 : (slot-4-1.5)*1.1;}
@@ -93,6 +95,7 @@ namespace DragonIdle {
     ready.Rage=Math.Min(100,ready.Rage+(special?28:16));
     ready.StunProtection=false;
    }
+   if(ready.CardId=="piccolo-test"&&ready.Alive){result.Healing=Math.Min(ready.MaxHP-ready.HP,ready.MaxHP*Data.ReworkRegen);ready.HP+=result.Healing;if(result.Healing>0)result.Text+=" · 自然回复 +"+result.Healing.ToString("0");}
    ready.Expire();QueueUltimates();return result;
   }
   BattleHit Hit(Unit actor,Unit target,double power,double penetration) {
@@ -111,6 +114,7 @@ namespace DragonIdle {
   }
   BattleEvent Act(Unit actor,Move move) {
    Events++;
+   if(Data.Reworked(actor.CardId)&&!(move==Move.Special&&actor.SpecialReplaced))return ReworkAct(actor,move);
    string specialRole=actor.SpecialRole??actor.Role;
    string k=Data.Kit(actor.CardId);
    if(move==Move.Special&&actor.SpecialReplaced)k="";

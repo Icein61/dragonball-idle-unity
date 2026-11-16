@@ -70,12 +70,13 @@ namespace DragonIdle {
    var c=Data.Cards[i];
    DetailParagraph("定位 · "+c.KeywordText,string.Join("\n",c.Keywords.Select(k=>k+"："+Data.KeywordDescription(k)).ToArray()));
    DetailParagraph("战术特点",TacticalSummary(c.Id,c.Role));
-   DetailParagraph("普通攻击","单体1.00倍攻击。占用一次正常行动；绝招冷却期间使用，完成出手获得16怒气。");
+   DetailParagraph("普通攻击",Data.Reworked(c.Id)?Data.UserSkill(c.Id,0):"单体1.00倍攻击。占用一次正常行动；绝招冷却期间使用，完成出手获得16怒气。");
    bool replaced=profile.Owned[i]&&(profile.Skill[i]=="pierce"||profile.Skill2[i]=="pierce");
    DetailParagraph(replaced?"当前绝招 · 贯穿气弹":"绝招 · "+c.Special,replaced?"单体1.14倍攻击，优先最近后排，无后排时回落；冷却4次正常出手。完成出手获得28怒气。已替换原绝招，不叠加原绝招效果。":c.SpecialText+" 完成出手获得28怒气。");
    if(replaced){DetailParagraph("配置提醒","定位关键词概括固有技能组。原绝招已被替换，仅来自原绝招的能力当前不生效；必杀与被动保持。",uiAccent);DetailParagraph("原绝招 · 当前未装备",c.SpecialText,uiDim);}
    DetailParagraph("必杀 · "+c.Ultimate,c.UltimateText);
    DetailParagraph("被动",c.PassiveText);
+   if(Data.Reworked(c.Id))DetailParagraph("数值与结算补充（代理默认）","伤害低/中/高：1.00/1.14/1.30倍攻击；强化低/中：4%/8%；护盾中：受益者最大生命12%；比克损血：自身最大生命10%，至少保留1生命；自然回复低：最大生命3% / 每次自身正常行动机会结束。未标时长整场。原技能文字保持用户原稿；同排含自身，最低生命按剩余百分比。悟空与比克联动仅要求队伍存在，不要求存活。");
    DetailParagraph("本卡队长技",c.LeaderText);
    var captain=Data.Cards[profile.Team[profile.Leader]];var matches=captain.Captain.Matches(c);
    string state=matches.Length==0?"不满足当前队长的任何标签条件。":"匹配「"+string.Join(" / ",matches)+"」；只获得一次加成。";
@@ -84,9 +85,12 @@ namespace DragonIdle {
    DetailParagraph("回合与状态","持续回合按状态持有者的正常行动机会计数，额外必杀不推进时长。同名贡献各自计时；未标时长为整场。");
   }
   string TacticalSummary(string id,string role){
+   if(id=="goku-test")return "自身攻击强化；编队中存在比克即可获得防御强化，不要求比克存活。";
+   if(id=="vegeta-test")return "强化同排存活队友（含自身），必杀追击剩余生命百分比最低的敌人。";
+   if(id=="piccolo-test")return "强化同排防御，以自身生命为代价保护低生命比例的两名队友，并在自身行动机会结束自然回复。";
    switch(Data.Kit(id)){
     case "goku":return "牵制目标，制造减防窗口。可以配合迎战拉蒂兹版本比克的魔贯光杀炮。";
-    case "beam":return "目标防御强化合计为负时，必杀穿防更高。悟空与天津饭都可以提供减防窗口。";
+    case "beam":return "目标防御强化合计为负时，必杀穿防更高。天津饭等减防来源可以提供窗口。";
     case "raditz":case "nappa":return "绝招覆盖最多两个不同目标，分散压迫前排；单个目标不会被同一招重复命中。";
     case "krillin":case "chiaotzu":return "利用眩晕打断正常行动。目标有连续眩晕保护，不能永久锁住敌人。";
     case "guard":return "自身护盾与低生命队友保护兼顾，适合承受前排压力。";

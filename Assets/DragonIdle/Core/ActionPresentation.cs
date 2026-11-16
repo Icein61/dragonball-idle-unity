@@ -39,6 +39,7 @@ namespace DragonIdle {
    return new VisualVitals(u){HP=a.HP+(b.HP-a.HP)*t,Shield=a.Shield+(b.Shield-a.Shield)*t,Rage=a.Rage+(b.Rage-a.Rage)*t};
   }
   public int Pose(Unit u){
+   if(u==Event.Actor&&u.CardId=="piccolo-test"&&Event.Move==Move.Ultimate&&!Complete)return Elapsed<RecoveryAt?6:11;
    double p=Progress;int hit=Event.Hits.FindIndex(h=>h.Target==u);
    if(hit>=0&&HitVisible(hit)){
     if(after[u].HP<=0)return ReactionAge(hit)<.24?8:10;
@@ -55,6 +56,7 @@ namespace DragonIdle {
    var v=Vitals(u);return v.HP<=0?10:v.HP/u.MaxHP<.25?9:0;
   }
   public static BattleVisualKind VisualKind(Unit u,Move move){
+   if(u.CardId=="piccolo-test"&&move==Move.Ultimate)return BattleVisualKind.Psychic;
    if(move==Move.Stunned)return BattleVisualKind.Impact;
    string k=Data.Kit(u.CardId);
    if(move==Move.Basic)return k=="yajirobe"?BattleVisualKind.Slash:BattleVisualKind.Impact;

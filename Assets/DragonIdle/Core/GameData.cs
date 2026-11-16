@@ -4,7 +4,7 @@ using System.Linq;
 namespace DragonIdle {
  // Card identity and the expanded catalog live in CharacterCatalog.cs.
  public static partial class Data {
-  public const string Version="0.5.2";
+  public const string Version="0.5.3";
   public const string GameTitle="龙珠爆裂激斗";
   // Keep the original storage identity when the public game title changes.
   public static string DefaultSavePath(string persistentDirectory){return System.IO.Path.Combine(System.IO.Directory.GetParent(persistentDirectory).FullName,"Dragon Idle Demo","profile-v1.json");}
@@ -16,7 +16,8 @@ namespace DragonIdle {
    var c=Card(id);double growth=1+training*.001+resonance*.004;
    var u=new Unit {CardId=id,Name=c.Name,Role=c.Role,Side=side,Slot=slot,MaxHP=c.HP*growth*scale,HP=c.HP*growth*scale,Attack=c.Attack*growth*scale,Defense=c.Defense*growth,Speed=c.Speed,SpecialName=c.Special,UltimateName=c.Ultimate,CooldownLength=c.Cooldown};
    u.SpecialRole=c.Role;
-   if(c.Passive=="guard")u.Shield=u.MaxHP*.06;
+   if(Data.Reworked(id))Data.ReworkPassive(u);
+   else if(c.Passive=="guard")u.Shield=u.MaxHP*.06;
    else if(c.Passive=="haste")u.Add("speed",.03,0,id+":passive");
    else if(c.Passive=="resolve")u.Rage=12;
    else if(c.Passive=="focus")u.Crit+=.02;

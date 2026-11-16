@@ -7,9 +7,9 @@ static class ChapterChecks {
  static bool Near(double a,double b){return Math.Abs(a-b)<.000001;}
  public static void Run(Action<bool,string> check){
   var a=Actor("goku-test");var target=Enemy(0);var b=new Battle(new[]{a,target},6);var e=b.Step();
-  check(e.Move==Move.Special&&Near(target.Sum("defense"),-.08)&&target.Effects[0].Expires==2,"S01 Goku opens two-opportunity defense window");
-  target.Opportunities=1;target.Expire();check(Near(target.Sum("defense"),-.08),"S02 window lasts first target opportunity");
-  target.Opportunities=2;target.Expire();check(Near(target.Sum("defense"),0),"S03 window expires independently");
+  check(e.Move==Move.Special&&Near(target.Sum("defense"),0)&&Near(a.Sum("attack"),.08),"S01 user Goku strengthens himself without old defense debuff");
+  a.Opportunities=2;a.Expire();check(Near(a.Sum("attack"),.08),"S02 self enhancement lasts first following opportunity");
+  a.Opportunities=3;a.Expire();check(Near(a.Sum("attack"),.04),"S03 temporary self enhancement expires leaving base passive");
   a=Actor("piccolo-raditz-v030");a.Attack=100;a.Rage=100;target=Enemy(0);target.Add("defense",-.08,2,"goku");b=new Battle(new[]{a,target},7);e=b.Step();
   double expected=Math.Round(100*1.22*100/(100+92*.75));
   check(e.Move==Move.Ultimate&&e.Damage==expected&&a.Opportunities==0&&a.Progress==1&&target.Effects[0].Expires==2,"S04 beam exploits defense window without ticking time");
@@ -21,10 +21,28 @@ static class ChapterChecks {
   a=Actor("raditz-arrival-v030");target=Enemy(0);b=new Battle(new[]{a,target},10);e=b.Step();check(e.Hits.Count==1,"S08 dual attack does not hit lone target twice");
   a=Data.Make("goku-test",0,0,0,0,"pierce",1);a.Progress=1;a.Crit=0;front=Enemy(0);rear=Enemy(3);b=new Battle(new[]{a,front,rear},11);e=b.Step();
   check(e.Target==rear&&front.Sum("defense")==0&&rear.Sum("defense")==0&&a.Cooldown==4,"S09 replacement fully replaces original special");
-  a.Rage=100;e=b.Step();check(e.Move==Move.Ultimate&&Near(front.Sum("defense"),-.08),"S10 replacement retains original ultimate");
+  a.Rage=100;e=b.Step();check(e.Move==Move.Ultimate&&e.Target==front&&e.Damage>0&&Near(front.Sum("defense"),0),"S10 replacement retains user ultimate without retired debuff");
   a=Actor("krillin-test");target=Enemy(0);target.Dodge=1;b=new Battle(new[]{a,target},12);b.Step();check(!target.Stunned,"S11 dodged solar flare does not stun");
-  a=Actor("piccolo-test");target=Enemy(0);target.Dodge=1;double shield=a.Shield;b=new Battle(new[]{a,target},13);b.Step();check(Near(a.Shield-shield,a.MaxHP*.12),"S12 defensive special still shields on dodge");
+  a=Actor("piccolo-test");target=Enemy(0);target.Dodge=1;double shield=a.Shield;b=new Battle(new[]{a,target},13);b.Step();check(Near(a.Shield,shield)&&Near(a.Sum("defense"),.12),"S12 user defensive special strengthens same row including self on dodge");
 
+  // User rework boundary cases, independent of chapter win rates.
+  a=Actor("goku-test");var deadPiccolo=Data.Make("piccolo-raditz-v030",0,1,0,0,"",1);deadPiccolo.HP=0;target=Enemy(0);b=new Battle(new[]{a,deadPiccolo,target},18);
+  check(Near(a.Sum("defense"),.08),"W01 Goku recognizes fallen alternate Piccolo by person identity");
+  b.Step();check(Near(a.Sum("defense"),.08)&&Near(target.Sum("defense"),0),"W02 linkage persists and old debuff absent");
+  a=Actor("vegeta-test");var sameRow=Data.Make("gohan-test",0,2,0,0,"",1);var otherRow=Data.Make("yamcha-saiyan-v020",0,3,0,0,"",1);target=Enemy(0);b=new Battle(new[]{a,sameRow,otherRow,target},19);e=b.Step();
+  check(e.Recipients.Count==2&&e.Recipients.Contains(a)&&e.Recipients.Contains(sameRow)&&!e.Recipients.Contains(otherRow),"W03 row buff includes self and excludes other row");
+  check(Near(a.Sum("attack"),.12)&&Near(sameRow.Sum("attack"),.04),"W04 additive base and temporary attack contributions");
+  sameRow.Opportunities=2;sameRow.Expire();check(Near(sameRow.Sum("attack"),0),"W05 recipient expires on its own opportunities");
+  a=Actor("vegeta-test");a.Rage=100;front=Enemy(0);front.HP=500;front.MaxHP=1000;rear=Enemy(3);rear.HP=1000;rear.MaxHP=10000;b=new Battle(new[]{a,front,rear},20);e=b.Step();
+  check(e.Target==rear&&e.Move==Move.Ultimate&&Near(a.Progress,1)&&a.Opportunities==0,"W06 ultimate targets lowest percent across rows without using normal action");
+  a=Actor("piccolo-test");a.Rage=100;a.HP=50;sameRow=Data.Make("gohan-test",0,1,0,0,"",1);sameRow.HP=sameRow.MaxHP*.20;otherRow=Data.Make("yamcha-saiyan-v020",0,3,0,0,"",1);otherRow.HP=otherRow.MaxHP*.60;target=Enemy(0);double enemyHP=target.HP;b=new Battle(new[]{a,sameRow,otherRow,target},21);e=b.Step();
+  check(a.HP==1&&e.HealthCost==49&&e.Healing==0,"W07 life payment clamps to one and ultimate does not regenerate");
+  check(e.Hits.Count==0&&target.HP==enemyHP&&target.Rage==0,"W08 shield ultimate neither attacks nor grants enemy received rage");
+  check(e.Recipients.Count==2&&e.Recipients.Contains(a)&&e.Recipients.Contains(sameRow)&&Near(a.Shield,a.MaxHP*.12)&&Near(sameRow.Shield,sameRow.MaxHP*.12)&&otherRow.Shield==0,"W09 two shield recipients use their own maximum health");
+  a=Actor("piccolo-test");a.HP=a.MaxHP*.50;a.Stun(1);target=Enemy(0);b=new Battle(new[]{a,target},22);double beforeHP=a.HP;e=b.Step();
+  check(e.Move==Move.Stunned&&Near(a.HP-beforeHP,a.MaxHP*.03)&&a.Cooldown==0,"W10 skipped normal opportunity regenerates without ticking cooldown");
+  a=Actor("piccolo-test");a.HP=a.MaxHP-1;target=Enemy(0);b=new Battle(new[]{a,target},23);e=b.Step();check(Near(a.HP,a.MaxHP)&&Near(e.Healing,1),"W11 natural regeneration cannot overheal");
+  check(Data.UserSkill("piccolo-test",2)=="损失中生命，对己方生命最低两人释放【护盾】中"&&Data.Card("goku-test").PassiveText=="【攻击强化】低 / 己方存在【比克】时，【防御强化】中","W12 user skill wording remains verbatim");
   var p=new Profile();bool rejected=false;try{p.NewStoryBattle(1,0);}catch(ArgumentException){rejected=true;}check(rejected,"S13 locked chapter rejected");
   int oldUnlocked=p.Unlocked,oldPulls=p.Pulls;
   string reward=p.RewardStory(0,1);int beam=Data.Index("piccolo-raditz-v030");int crystals=p.Crystals;

@@ -36,7 +36,7 @@ static class ScopeChecks {
    check(denied,"R23 reject foreign duplicate or empty captain tags "+string.Join(",",invalidTags));
   }
   var filter=new CatalogFilter{OwnedOnly=false,Role="穿防"};var fresh=new Profile();
-  check(filter.Results(fresh).Length==4&&filter.Results(fresh).All(i=>Data.Cards[i].Keywords.Contains("穿防")),"R08 keyword filter is reusable and exact");
+  check(filter.Results(fresh).Length==3&&filter.Results(fresh).All(i=>Data.Cards[i].Keywords.Contains("穿防")),"R08 keyword filter is reusable and exact");
   filter.Role="";filter.Search="破绽穿透";check(filter.Results(fresh).Single()==Data.Index("piccolo-raditz-v030"),"R09 exclusive keyword search");
   var old=Previous(25);old.Pulls=19;old.SaiyanPulls=39;old.Materials=928;old.Crystals=432;old.Training[13]=88;old.Shards[13]=11;old.Resonance[13]=2;old.Policy[13]=2;old.Owned[13]=true;old.Skill[13]="focus";
   old.Team[0]=13;old.Leader=0;old.Items[0].owner=13;old.Items[0].gem=true;old.Items[0].locked=true;

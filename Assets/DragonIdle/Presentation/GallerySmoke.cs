@@ -25,7 +25,7 @@ namespace DragonIdle {
    AssertSmoke(mineTab.interactable&&gallerySearch.interactable,"Modal did not restore background input");
    AssertSmoke(catalog.Rarity=="SSR"&&cardButtons.Keys.All(i=>Data.Cards[i].Rarity=="SSR")&&dialogRoot==null,"Direct rarity picker failed");
    ResetGalleryFilters();ShowFilter(1);GalleryTestButton("Option1").onClick.Invoke();
-   AssertSmoke(catalog.Role=="破防"&&cardButtons.Count==2&&cardButtons.Keys.All(i=>Data.Cards[i].Keywords.Contains("破防")),"Keyword picker did not filter actual role keywords");
+   AssertSmoke(catalog.Role=="自我强化"&&cardButtons.Count==Data.Cards.Count(c=>c.Keywords.Contains("自我强化"))&&cardButtons.Keys.All(i=>Data.Cards[i].Keywords.Contains("自我强化")),"Keyword picker did not filter actual role keywords");
    ResetGalleryFilters();cardButtons[0].onClick.Invoke();detailTab=0;DrawGalleryDetail();
    int material=profile.Materials;galleryTrainButton.onClick.Invoke();
    AssertSmoke(profile.Training[0]==1&&profile.Materials==material-30,"Training action transaction failed");

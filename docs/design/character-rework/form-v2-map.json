@@ -1,0 +1,232 @@
+{
+  "workbook": "outputs/character-rework-20261116/角色设计表-简版.xlsx",
+  "version": 2,
+  "skillTextPolicy": "Preserve skill wording verbatim; supplement separately; never silently alter ambiguities or conflicts.",
+  "cards": [
+    {
+      "cardId": "goku-test",
+      "originalName": "孙悟空 · 重返战场",
+      "sheet": "角色设计",
+      "sectionRow": 6,
+      "fields": {
+        "名字": "B7",
+        "概念图": "B8",
+        "时期描述": "B9",
+        "普攻描述": "B10",
+        "绝招描述": "B11",
+        "必杀描述": "B12",
+        "被动描述": "B13"
+      }
+    },
+    {
+      "cardId": "vegeta-test",
+      "originalName": "贝吉塔 · 孤傲王子",
+      "sheet": "角色设计",
+      "sectionRow": 16,
+      "fields": {
+        "名字": "B17",
+        "概念图": "B18",
+        "时期描述": "B19",
+        "普攻描述": "B20",
+        "绝招描述": "B21",
+        "必杀描述": "B22",
+        "被动描述": "B23"
+      }
+    },
+    {
+      "cardId": "piccolo-test",
+      "originalName": "比克 · 无声守护",
+      "sheet": "角色设计",
+      "sectionRow": 26,
+      "fields": {
+        "名字": "B27",
+        "概念图": "B28",
+        "时期描述": "B29",
+        "普攻描述": "B30",
+        "绝招描述": "B31",
+        "必杀描述": "B32",
+        "被动描述": "B33"
+      }
+    },
+    {
+      "cardId": "krillin-test",
+      "originalName": "克林 · 破局之光",
+      "sheet": "角色设计",
+      "sectionRow": 36,
+      "fields": {
+        "名字": "B37",
+        "概念图": "B38",
+        "时期描述": "B39",
+        "普攻描述": "B40",
+        "绝招描述": "B41",
+        "必杀描述": "B42",
+        "被动描述": "B43"
+      }
+    },
+    {
+      "cardId": "gohan-test",
+      "originalName": "孙悟饭 · 觉醒勇气",
+      "sheet": "角色设计",
+      "sectionRow": 46,
+      "fields": {
+        "名字": "B47",
+        "概念图": "B48",
+        "时期描述": "B49",
+        "普攻描述": "B50",
+        "绝招描述": "B51",
+        "必杀描述": "B52",
+        "被动描述": "B53"
+      }
+    },
+    {
+      "cardId": "tien-test",
+      "originalName": "天津饭 · 背水之阵",
+      "sheet": "角色设计",
+      "sectionRow": 56,
+      "fields": {
+        "名字": "B57",
+        "概念图": "B58",
+        "时期描述": "B59",
+        "普攻描述": "B60",
+        "绝招描述": "B61",
+        "必杀描述": "B62",
+        "被动描述": "B63"
+      }
+    },
+    {
+      "cardId": "yamcha-saiyan-v020",
+      "originalName": "雅木茶 · 狼牙之志",
+      "sheet": "角色设计",
+      "sectionRow": 66,
+      "fields": {
+        "名字": "B67",
+        "概念图": "B68",
+        "时期描述": "B69",
+        "普攻描述": "B70",
+        "绝招描述": "B71",
+        "必杀描述": "B72",
+        "被动描述": "B73"
+      }
+    },
+    {
+      "cardId": "chiaotzu-saiyan-v020",
+      "originalName": "饺子 · 坚定意志",
+      "sheet": "角色设计",
+      "sectionRow": 76,
+      "fields": {
+        "名字": "B77",
+        "概念图": "B78",
+        "时期描述": "B79",
+        "普攻描述": "B80",
+        "绝招描述": "B81",
+        "必杀描述": "B82",
+        "被动描述": "B83"
+      }
+    },
+    {
+      "cardId": "goku-saiyan-kaioken-v020",
+      "originalName": "孙悟空 · 极限应战",
+      "sheet": "角色设计",
+      "sectionRow": 86,
+      "fields": {
+        "名字": "B87",
+        "概念图": "B88",
+        "时期描述": "B89",
+        "普攻描述": "B90",
+        "绝招描述": "B91",
+        "必杀描述": "B92",
+        "被动描述": "B93"
+      }
+    },
+    {
+      "cardId": "goku-saiyan-guard-v020",
+      "originalName": "孙悟空 · 同伴的希望",
+      "sheet": "角色设计",
+      "sectionRow": 96,
+      "fields": {
+        "名字": "B97",
+        "概念图": "B98",
+        "时期描述": "B99",
+        "普攻描述": "B100",
+        "绝招描述": "B101",
+        "必杀描述": "B102",
+        "被动描述": "B103"
+      }
+    },
+    {
+      "cardId": "piccolo-raditz-v030",
+      "originalName": "比克 · 迎战拉蒂兹",
+      "sheet": "角色设计",
+      "sectionRow": 106,
+      "fields": {
+        "名字": "B107",
+        "概念图": "B108",
+        "时期描述": "B109",
+        "普攻描述": "B110",
+        "绝招描述": "B111",
+        "必杀描述": "B112",
+        "被动描述": "B113"
+      }
+    },
+    {
+      "cardId": "raditz-arrival-v030",
+      "originalName": "拉蒂兹 · 天外来敌",
+      "sheet": "角色设计",
+      "sectionRow": 116,
+      "fields": {
+        "名字": "B117",
+        "概念图": "B118",
+        "时期描述": "B119",
+        "普攻描述": "B120",
+        "绝招描述": "B121",
+        "必杀描述": "B122",
+        "被动描述": "B123"
+      }
+    },
+    {
+      "cardId": "nappa-invasion-v030",
+      "originalName": "那巴 · 凶悍侵袭",
+      "sheet": "角色设计",
+      "sectionRow": 126,
+      "fields": {
+        "名字": "B127",
+        "概念图": "B128",
+        "时期描述": "B129",
+        "普攻描述": "B130",
+        "绝招描述": "B131",
+        "必杀描述": "B132",
+        "被动描述": "B133"
+      }
+    },
+    {
+      "cardId": "yajirobe-saiyan-v030",
+      "originalName": "亚奇洛贝 · 关键一刀",
+      "sheet": "角色设计",
+      "sectionRow": 136,
+      "fields": {
+        "名字": "B137",
+        "概念图": "B138",
+        "时期描述": "B139",
+        "普攻描述": "B140",
+        "绝招描述": "B141",
+        "必杀描述": "B142",
+        "被动描述": "B143"
+      }
+    },
+    {
+      "cardId": "saibaman-saiyan-v030",
+      "originalName": "栽培人 · 潜伏爪牙",
+      "sheet": "角色设计",
+      "sectionRow": 146,
+      "fields": {
+        "名字": "B147",
+        "概念图": "B148",
+        "时期描述": "B149",
+        "普攻描述": "B150",
+        "绝招描述": "B151",
+        "必杀描述": "B152",
+        "被动描述": "B153"
+      }
+    }
+  ]
+}

@@ -29,7 +29,7 @@ static class CharacterChecks {
   p=new Profile();p.Skill[0]="unknown-skill";rejected=false;try{p.CreateTeam();}catch{rejected=true;}check(rejected,"C20 battle snapshot rejects invalid equipped skills");
   p=new Profile();check(!p.SetSkill(0,0,"guard"),"C21 locked skill rejected");p.SkillPages[3]=3;check(p.UnlockSkill(3)&&p.SkillPages[3]==0&&p.SetSkill(0,0,"guard"),"C22 skill pages unlock and equip");
   check(!p.UnlockSkill(3)&&Near(p.CreateTeam()[0].Shield,p.CreateTeam()[0].MaxHP*.04),"C23 unlock cannot consume twice and shield works");
-  p=new Profile();p.Items.Clear();for(int n=0;n<3;n++)p.Items.Add(new Item{id="def"+n,kind=1,owner=0,slot=n});var u=p.CreateTeam()[0];check(Near(u.DefenseValue/u.Defense,(1+u.LeaderDefense)*1.054),"C24 same-name defense gear adds before multiplier");
+  p=new Profile();p.Items.Clear();for(int n=0;n<3;n++)p.Items.Add(new Item{id="def"+n,kind=1,owner=0,slot=n});var u=p.CreateTeam()[0];check(Near(u.DefenseValue/u.Defense,(1+u.LeaderDefense)*(1.054+Data.ReworkMedium)),"C24 same-name defense gear adds with Piccolo linkage before multiplier");
   p=new Profile();p.Unlocked=3;for(int stage=0;stage<4;stage++){
    int pages=p.SkillPages.Sum(),gems=p.Gems;
    for(int i=0;i<200;i++)p.Reward(stage,i);

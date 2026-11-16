@@ -1,10 +1,10 @@
 # 龙珠爆裂激斗 — Unity 技术 Demo
-当前源码 **v0.5.2 游戏标识与动作节奏精修版**。个人离线养成游戏的战斗核心与角色构筑原型。发布状态及本地验证见[本轮记录](docs/verification/v0.5.2.md)。
+当前源码 **v0.5.3 用户首批三卡重构版**。个人离线养成游戏的战斗核心与角色构筑原型。发布状态及本地验证见[本轮记录](docs/verification/v0.5.3.md)。
 GitHub：https://github.com/Icein61/dragonball-idle-unity
 
 ## 下载与试玩
 [查看 Windows x64 Demo 发布附件](https://github.com/Icein61/dragonball-idle-unity/releases)。
-下载对应版本的龙珠爆裂激斗-v0.5.2-Windows-x64.zip，完整解压后运行龙珠爆裂激斗.exe。发布完成以Release实际附件为准；旧版附件仍使用DragonIdle文件名。
+下载对应版本的龙珠爆裂激斗-v0.5.3-Windows-x64.zip，完整解压后运行龙珠爆裂激斗.exe。发布完成以Release实际附件为准；旧版附件仍使用DragonIdle文件名。
 需要Windows，不需要Unity、开发账号或联网。请保留Data目录及附带运行库，不要只复制EXE。
 
 默认进入“人物志”。在“我的角色/全部图鉴”浏览卡面，直接筛选、排序与搜索，查看属性、招式、培养与获取途径。详情页可修炼、共鸣、选择阵位；进入装备工坊后可返回原浏览位置。左下“声音与显示”提供音量、失焦静音与减少动效。原剧情和试炼从“挑战”进入。
@@ -20,14 +20,14 @@ GitHub：https://github.com/Icein61/dragonball-idle-unity
 - 3组阵容预设、候补换人、4关独立剧情和4个素材试炼，含首通奖励与重复掉落预览。
 - 修炼、共鸣、三装备槽、两技能槽、珠子镶嵌、基础任务与离线素材。
 - 背包类别/归属/收藏筛选、三槽装备差值比较、技能残页解锁。
-- 本地存档/备份、按CardId迁移、1123项核心检查、无图形Player测试与Windows打包脚本。
+- 本地存档/备份、按CardId迁移、1135项核心检查、无图形Player测试与Windows打包脚本。
 
 全15卡已接入按阶段/招式区分姿势的C风格1024×1536独立立绘，以及每卡12姿态的2D小人（共180姿态），按事件播放攻击、蓄气、受击、闪避、格挡和倒地。19类招式特效、4种合成战斗音已接入。当前是关键姿态动画，没有3D模型，长期数值尚未定稿。
 游戏名为“龙珠爆裂激斗”，Windows图标为庄严正面悟空与龟仙人小岛；按用户给出的角色图参考修订，原始站点图片不作为运行资源。改名保持旧存档和声音设置目录兼容。动作节奏区分蓄力、飞行、受击与回位，仍使用原12姿态。
 队长标签必须属于本人且允许单标签；定位关键词及逐卡数值为可调整默认；dokkaninfo无法读取，没有导入其素材。C手绘漫画画风已确认，本版采用2D实现，不代表放弃3渲2偏好。
 本轮只做无窗口、强制静音验证；包含实际uGUI事件、中文文本高度、导航及声音设置存取检查。可见界面、真实操作与样曲试听待验收。角色页以外仍是旧UI。
 赛亚人篇14卡已有不同招式组合，专属被动、重复卡分支、变身、多波副本与最终配乐仍待扩展。两卡池保底独立，已删除非赛亚人篇可玩卡；旧成长归档、装备退回背包、队伍自动补齐。
-详见 [版本说明](Releases/v0.5.2.md)、[角色图鉴实现](docs/engineering/gallery-v040.md)、[专属立绘来源和提示词](docs/production/portraits-v051.md)与[游戏标识](docs/production/branding-v052.md)。
+详见 [版本说明](Releases/v0.5.3.md)、[角色图鉴实现](docs/engineering/gallery-v040.md)、[专属立绘来源和提示词](docs/production/portraits-v051.md)与[游戏标识](docs/production/branding-v052.md)。
 
 ## 开发与验证
 1. 用Unity Hub打开此目录，使用 **Unity 2022.3.62f3** 与Windows构建模块。
@@ -46,6 +46,8 @@ GitHub：https://github.com/Icein61/dragonball-idle-unity
 - [美术方向](docs/production/art-direction.md)
 - [工程与发布约定](docs/engineering/handoff.md)
 - [完整目标验收场景](docs/verification/acceptance.md)
-- [本版本验证结果](docs/verification/v0.5.2.md)
+- [本版本验证结果](docs/verification/v0.5.3.md)
 
 后续每个可玩版本仍需对应源码提交、标签、版本说明与可运行PC包。不要提交Library或Builds缓存。
+
+首批用户设计已落地：悟空队伍比克联动、贝吉塔同排强化与低生命比例追击、比克同排防御及生命代价双盾/自然回复。三卡图鉴改用用户提供的概念图，其余12张独立立绘与原战斗图集保持；技能原文与代理数值补充分开显示。可见体验未验收，远端发布因GitHub认证失效尚未完成。

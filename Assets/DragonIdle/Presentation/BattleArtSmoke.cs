@@ -7,7 +7,7 @@ namespace DragonIdle {
   void RunBattleArtSmoke(string dir){
    foreach(int i in Enumerable.Range(0,Data.Cards.Length)){
     var texture=FighterTexture(i);var regions=Regions(i);
-    var portrait=PortraitTexture(i);AssertSmoke(portrait!=null&&portrait.width==1024&&portrait.height==1536&&portrait!=texture,"Signature portrait missing, rescaled or using battle atlas: "+Data.Cards[i].Id);
+    var portrait=PortraitTexture(i);AssertSmoke(portrait!=null&&portrait!=texture&&(Data.Reworked(Data.Cards[i].Id)?portrait.width>=256&&portrait.height>=256:portrait.width==1024&&portrait.height==1536),"Portrait missing, too small or using battle atlas: "+Data.Cards[i].Id);
     AssertSmoke(texture!=null&&texture.width==1536&&texture.height==1024,"Atlas resource missing/rescaled: "+Data.Cards[i].Id);
     AssertSmoke(regions.frames.Length==13&&regions.frames.All(r=>r.w>0&&r.h>0&&r.x>=0&&r.y>=0&&r.x+r.w<=texture.width&&r.y+r.h<=texture.height),"Bad sprite import bounds");
     for(int f=0;f<13;f++){

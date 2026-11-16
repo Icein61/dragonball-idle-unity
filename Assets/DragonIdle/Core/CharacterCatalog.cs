@@ -17,12 +17,16 @@ namespace DragonIdle {
    string special,string ultimate,string color,double hp,double atk,double def,double speed,string passive,int cd=3) {
    Id=id;Name=name;PersonId=person;Stage=stage;Form=form;Title=title;Rarity=rarity;Role=role;Tag=race;
    Special=special;Ultimate=ultimate;Color=color;HP=hp;Attack=atk;Defense=def;Speed=speed;Design=Data.DesignFor(id);Passive=passive;Cooldown=cd;
+   if(id=="goku-test")Special="蓄势连击";
+   if(id=="vegeta-test")Ultimate="决胜强袭";
+   if(id=="piccolo-test")Ultimate="舍身守护";
    Release=id.EndsWith("-v030")?"0.3.0":id.EndsWith("-test")?"0.1.0":"0.2.0";tags=new[]{race,faction,stage};
    Captain.ValidateOwner(tags);
   }
   public bool HasTag(string tag){return tag=="全体"||tags.Contains(tag);}
   public string LeaderText {get{return "「"+Title+"」："+Captain.Text;}}
   public string PassiveText {get{
+   if(Data.Reworked(Id))return Data.UserSkill(Id,3);
    switch(Passive){
     case "guard":return "守势：开战获得生命上限 6% 护盾，持续至消耗完或战斗结束。";
     case "haste":return "先机：速度强化 +3% / 整场。";
@@ -32,11 +36,12 @@ namespace DragonIdle {
    }
   }}
   public string SpecialText {get{
+   if(Data.Reworked(Id))return Data.UserSkill(Id,1);
    var kit=Data.KitText(Id,false);if(kit!=null)return Special+"："+kit;
    string extra=Role=="sniper"?"优先最近后排，无后排时回落。":Role=="tank"?"自身获得生命上限 15% 护盾，至消耗完或战斗结束。":Role=="healer"?"治疗我方生命比例最低者 14% 最大生命。":Role=="control"?"命中后眩晕目标 1 次行动机会。":"";
    return Special+"：单体 1.14 倍攻击；"+extra+"冷却 "+Cooldown+" 次自身正常出手。";
   }}
-  public string UltimateText {get{var kit=Data.KitText(Id,true);if(kit!=null)return Ultimate+"："+kit;return Ultimate+"：单体 1.30 倍攻击，消耗 100 怒气；额外行动。自身攻击强化 +12% / 2 次自身行动机会。"+(Role=="support"?"其他队友攻击强化 +6% / 各自 2 次行动机会。":"");}}
+  public string UltimateText {get{if(Data.Reworked(Id))return Data.UserSkill(Id,2);var kit=Data.KitText(Id,true);if(kit!=null)return Ultimate+"："+kit;return Ultimate+"：单体 1.30 倍攻击，消耗 100 怒气；额外行动。自身攻击强化 +12% / 2 次自身行动机会。"+(Role=="support"?"其他队友攻击强化 +6% / 各自 2 次行动机会。":"");}}
  }
  public static partial class Data {
   // Historical IDs only support migration; removed cards have no live definition.
