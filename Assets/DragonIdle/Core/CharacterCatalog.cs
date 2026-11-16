@@ -18,6 +18,7 @@ namespace DragonIdle {
    Id=id;Name=name;PersonId=person;Stage=stage;Form=form;Title=title;Rarity=rarity;Role=role;Tag=race;
    Special=special;Ultimate=ultimate;Color=color;HP=hp;Attack=atk;Defense=def;Speed=speed;Design=Data.DesignFor(id);Passive=passive;Cooldown=cd;
    Release=id.EndsWith("-v030")?"0.3.0":id.EndsWith("-test")?"0.1.0":"0.2.0";tags=new[]{race,faction,stage};
+   Captain.ValidateOwner(tags);
   }
   public bool HasTag(string tag){return tag=="全体"||tags.Contains(tag);}
   public string LeaderText {get{return "「"+Title+"」："+Captain.Text;}}

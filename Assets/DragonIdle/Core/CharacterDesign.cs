@@ -8,10 +8,13 @@ namespace DragonIdle {
   public LeaderSkill(string[] eligible,double health,double attack,double defense){
    tags=(string[])eligible.Clone();Health=health;Attack=attack;Defense=defense;
   }
+  public void ValidateOwner(string[] identity){
+   if(tags.Length==0||tags.Distinct().Count()!=tags.Length||tags.Any(t=>string.IsNullOrEmpty(t)||!identity.Contains(t)))throw new ArgumentException("队长技只能使用队长自身拥有的身份标签，不得为空或重复");
+  }
   public string[] Matches(Card card){return tags.Where(card.HasTag).ToArray();}
   public bool Applies(Card card){return tags.Any(card.HasTag);}
   public string Bonuses {get{return "生命 +"+(Health*100).ToString("0.#")+"% / 攻击 +"+(Attack*100).ToString("0.#")+"% / 防御 +"+(Defense*100).ToString("0.#")+"%";}}
-  public string Text {get{return "属于「"+string.Join("」或「",tags)+"」任一标签的角色："+Bonuses+"。持续整场；命中多个标签仅生效一次，各属性使用独立队长乘区。";}}
+  public string Text {get{return "属于「"+string.Join("」或「",tags)+(tags.Length==1?"」标签的角色：":"」任一标签的角色：")+Bonuses+"。持续整场；"+(tags.Length==1?"":"命中多个标签仅生效一次，")+"各属性使用独立队长乘区。";}}
  }
  public sealed class CharacterDesign {
   readonly string[] keywords;
@@ -25,16 +28,16 @@ namespace DragonIdle {
     case "goku-test":return new CharacterDesign("破防/自我强化","Z战士/赛亚人",.04,.06,.04);
     case "vegeta-test":return new CharacterDesign("后排突破/穿防/自我强化","赛亚人/赛亚人军团",.03,.08,.03);
     case "piccolo-test":return new CharacterDesign("护盾/援护","Z战士/那美克星人",.06,.03,.06);
-    case "krillin-test":return new CharacterDesign("控制/穿防/先手","地球人/混血赛亚人",.04,.05,.04);
-    case "gohan-test":return new CharacterDesign("怒气加速/团队强化","混血赛亚人/那美克星人",.05,.06,.03);
+    case "krillin-test":return new CharacterDesign("控制/穿防/先手","地球人",.04,.05,.04);
+    case "gohan-test":return new CharacterDesign("怒气加速/团队强化","混血赛亚人",.05,.06,.03);
     case "tien-test":return new CharacterDesign("破防/穿防","地球人/Z战士",.03,.06,.05);
-    case "yamcha-saiyan-v020":return new CharacterDesign("加速/后排突破","地球人/地球援军",.04,.05,.03);
+    case "yamcha-saiyan-v020":return new CharacterDesign("加速/后排突破","地球人",.04,.05,.03);
     case "chiaotzu-saiyan-v020":return new CharacterDesign("控制/减速","地球人/Z战士",.05,.03,.04);
     case "goku-saiyan-kaioken-v020":return new CharacterDesign("加速/自我强化/怒气加速","赛亚人/Z战士",.03,.08,.04);
-    case "goku-saiyan-guard-v020":return new CharacterDesign("护盾/团队强化","Z战士/地球援军",.05,.04,.05);
-    case "piccolo-raditz-v030":return new CharacterDesign("破绽穿透/自我强化","那美克星人/赛亚人",.03,.07,.04);
+    case "goku-saiyan-guard-v020":return new CharacterDesign("护盾/团队强化","Z战士",.05,.04,.05);
+    case "piccolo-raditz-v030":return new CharacterDesign("破绽穿透/自我强化","那美克星人",.03,.07,.04);
     case "raditz-arrival-v030":return new CharacterDesign("双目标/加速/怒气加速","赛亚人/赛亚人军团",.04,.06,.04);
-    case "nappa-invasion-v030":return new CharacterDesign("双目标/护盾","赛亚人军团/栽培生物",.06,.05,.04);
+    case "nappa-invasion-v030":return new CharacterDesign("双目标/护盾","赛亚人军团",.06,.05,.04);
     case "yajirobe-saiyan-v030":return new CharacterDesign("后排突破/穿防","地球人/地球援军",.03,.06,.03);
     case "saibaman-saiyan-v030":return new CharacterDesign("减速/先手","栽培生物/赛亚人军团",.04,.04,.04);
     default:throw new ArgumentException("Missing character design: "+id);

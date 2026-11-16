@@ -14,7 +14,7 @@ static class ScopeChecks {
   check(Data.Cards.Length==15&&Data.Cards.All(c=>c.Stage=="赛亚人篇")&&Data.RetiredCardIds.All(id=>Data.Index(id)==-1),"R01 removed cards have no live definition");
   foreach(var card in Data.Cards){
    check(card.Keywords.Length>=2&&card.Keywords.Length<=3&&card.Keywords.Distinct().Count()==card.Keywords.Length&&card.Keywords.All(k=>Data.KeywordDescription(k).Length>0),"R02 grounded keyword definition "+card.Id);
-   check(card.Captain.Tags.Length>=2&&card.Captain.Tags.Length<=3&&card.Captain.Tags.Distinct().Count()==card.Captain.Tags.Length&&card.Captain.Tags.All(t=>Data.Cards.Any(c=>c.HasTag(t))),"R03 valid captain tags "+card.Id);
+   check(card.Captain.Tags.Length>=1&&card.Captain.Tags.Distinct().Count()==card.Captain.Tags.Length&&card.Captain.Tags.All(t=>card.Tags.Contains(t)),"R03 captain tags belong to owner "+card.Id);
    foreach(var target in Data.Cards)check(card.Captain.Applies(target)==card.Captain.Tags.Intersect(target.Tags).Any(),"R04 OR coverage "+card.Id+"/"+target.Id);
    var p=new Profile();p.Owned=Enumerable.Repeat(true,15).ToArray();int leader=Data.Index(card.Id);p.SetMember(0,leader);
    p.SetSkill(leader,0,"focus");p.SkillPages[3]=3;p.UnlockSkill(3);p.SetSkill(leader,1,"guard");
@@ -29,6 +29,12 @@ static class ScopeChecks {
    check(!card.Captain.Tags.Contains("fake")&&!card.Keywords.Contains("fake"),"R06 defensive copies "+card.Id);
   }
   var goku=Data.Card("goku-test");check(goku.Captain.Matches(goku).Length==2,"R07 dual-match captain case exercised");
+  check(Data.Card("krillin-test").Captain.Tags.SequenceEqual(new[]{"地球人"})&&!Data.Card("krillin-test").Captain.Applies(Data.Card("gohan-test")),"R21 Krillin cannot lead mixed Saiyans by foreign tag");
+  check(Data.Card("nappa-invasion-v030").Captain.Applies(Data.Card("saibaman-saiyan-v030")),"R22 shared army tag legitimately covers another race");
+  foreach(var invalidTags in new[]{new[]{"混血赛亚人"},new[]{"地球人","混血赛亚人"},new[]{"地球人","地球人"},new string[0]}){
+   bool denied=false;try{new LeaderSkill(invalidTags,.04,.05,.04).ValidateOwner(Data.Card("krillin-test").Tags);}catch(ArgumentException){denied=true;}
+   check(denied,"R23 reject foreign duplicate or empty captain tags "+string.Join(",",invalidTags));
+  }
   var filter=new CatalogFilter{OwnedOnly=false,Role="穿防"};var fresh=new Profile();
   check(filter.Results(fresh).Length==4&&filter.Results(fresh).All(i=>Data.Cards[i].Keywords.Contains("穿防")),"R08 keyword filter is reusable and exact");
   filter.Role="";filter.Search="破绽穿透";check(filter.Results(fresh).Single()==Data.Index("piccolo-raditz-v030"),"R09 exclusive keyword search");
