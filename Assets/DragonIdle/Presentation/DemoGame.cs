@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Collections;
@@ -31,6 +31,7 @@ namespace DragonIdle {
    try{if(File.Exists(savePath)){
     profile=JsonUtility.FromJson<Profile>(File.ReadAllText(savePath));if(profile==null)throw new Exception("空存档");
     if(profile.schemaVersion==1){string backup=savePath+".pre-v020-"+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak";File.Copy(savePath,backup,false);}
+    if(profile.schemaVersion==2&&profile.CardIds!=null&&profile.CardIds.Length!=Data.Cards.Length)File.Copy(savePath,savePath+".pre-v030-"+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak",false);
     profile.Normalize();profile.CreateTeam();
    }else{profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;Save();}}
    catch(Exception ex){profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;saveError="存档读取失败，原文件保留。请检查备份："+ex.Message;}
@@ -46,14 +47,14 @@ namespace DragonIdle {
   }
   void StartBattle(){
    if(saveError!=""){notice=saveError;return;}
-   battle=profile.NewBattle(profile.SelectedStage,++seed);log.Clear();last=null;reward="";settled=false;running=true;paused=false;clock=0;page="挑战";repeatTimer=0;
+   battle=storyMode?profile.NewStoryBattle(profile.StorySelected,++seed):profile.NewBattle(profile.SelectedStage,++seed);log.Clear();last=null;reward="";settled=false;running=true;paused=false;clock=0;page="挑战";repeatTimer=0;
   }
   void Advance(){
    last=battle.Step();if(last!=null){log.Insert(0,last.Text);if(log.Count>80)log.RemoveAt(log.Count-1);fx=1;}
    if(battle.Result!=0){
     running=false;
     if(!settled){
-     if(battle.Result==1){string r="";if(Change(()=>{r=profile.Reward(profile.SelectedStage,seed+9000);profile.LastClaimTicks=DateTime.UtcNow.Ticks;})){reward=r;settled=true;}else{reward="奖励保存失败。请返回后重试；未扣除资源。";autoRepeat=false;}}
+     if(battle.Result==1){string r="";if(Change(()=>{r=storyMode?profile.RewardStory(profile.StorySelected,seed+9000):profile.Reward(profile.SelectedStage,seed+9000);profile.LastClaimTicks=DateTime.UtcNow.Ticks;})){reward=r;settled=true;}else{reward="奖励保存失败。请返回后重试；未扣除资源。";autoRepeat=false;}}
      else{reward="本次未通过。调整阵位、策略和装备后再挑战。\n失败不损失资源。";settled=true;autoRepeat=false;}
     }
    }
@@ -113,20 +114,22 @@ namespace DragonIdle {
    Label(224,112,1000,44,title,30);Label(226,162,1280,45,subtitle,17,muted);
   }
   void DrawBattle(){
-   Heading("试炼挑战","掉落预览："+Data.LootDescriptions[profile.SelectedStage]);
-   for(int i=0;i<4;i++){int stage=i;if(Button(224+i*265,214,250,46,(i+1).ToString("00")+"  "+Data.Stages[i]+(i>profile.Unlocked?" · 未解锁":""),profile.SelectedStage==i,!running&&i<=profile.Unlocked))Change(()=>profile.SelectedStage=stage);}
+   DrawChapterSelection();
    Box(224,280,1045,440,new Color(.045f,.08f,.12f));
    // Scene framing and ground lines.
    for(int i=0;i<7;i++)Line(new Vector2(260,400+i*44),new Vector2(1230,400+i*44),1,new Color(.12f,.19f,.22f));
    for(int i=0;i<9;i++)Line(new Vector2(740,300),new Vector2(240+i*125,715),1,new Color(.10f,.16f,.20f));
-   Label(250,291,290,30,"我方  /  Z 战士测试队",17,gold);Label(1015,291,230,30,"敌方  /  镜像试炼",17,new Color(.95f,.5f,.48f));
-   var units=battle!=null?battle.Units:profile.CreateTeam().Concat(profile.CreateEnemies(profile.SelectedStage)).ToList();
+   Label(250,291,290,30,"我方  /  出战队伍",17,gold);Label(1015,291,230,30,storyMode?"敌方  /  剧情挑战":"敌方  /  镜像试炼",17,new Color(.95f,.5f,.48f));
+   var units=battle!=null?battle.Units:profile.CreateTeam().Concat(storyMode?profile.StoryEnemies(profile.StorySelected):profile.CreateEnemies(profile.SelectedStage)).ToList();
    foreach(var u in units)DrawUnit(u);
    if(last!=null&&last.Target!=null&&fx>0){
-    Vector2 a=Position(last.Actor)+new Vector2(65,30),b=Position(last.Target)+new Vector2(65,30);
-    if(last.Move!=Move.Stunned)Line(a,b,3+fx*5,last.Move==Move.Ultimate?gold:new Color(.4f,.8f,1,fx));
-    Label(b.x-15,b.y-36-(1-fx)*30,150,50,last.Dodged?"闪避":last.Damage.ToString("0"),26,last.Critical?gold:Color.white);
+    foreach(var hit in last.Hits){
+     Vector2 a=Position(last.Actor)+new Vector2(65,30),b=Position(hit.Target)+new Vector2(65,30);
+     Line(a,b,3+fx*5,last.Move==Move.Ultimate?gold:new Color(.4f,.8f,1,fx));
+     Label(b.x-15,b.y-36-(1-fx)*30,150,50,hit.Dodged?"闪避":hit.Damage.ToString("0"),26,hit.Critical?gold:Color.white);
+    }
    }
+   if(running)DrawActionPortrait();
    Box(1285,280,280,440,panel);Label(1301,294,250,34,"行动记录",20,gold);
    for(int i=0;i<Math.Min(6,log.Count);i++)Label(1301,338+i*58,245,56,log[i],14,i==0?ink:muted);
    if(log.Count==0)Label(1301,345,240,130,"点击开始挑战。\n每次行动会记录招式、伤害和附加效果。",17,muted);
@@ -141,7 +144,7 @@ namespace DragonIdle {
    else if(Button(1285,804,280,46,autoRepeat?"自动重复：开":"自动重复：关"))autoRepeat=!autoRepeat;
    if(battle!=null&&battle.Result!=0){
     Box(460,403,600,206,new Color(.035f,.055f,.09f,.97f));Box(460,403,600,3,battle.Result==1?gold:Color.red);
-    Label(485,419,550,43,battle.Result==1?"试炼通过":"挑战结束",30,gold);Label(485,472,550,105,reward+(autoRepeat?"\n3秒后自动继续挑战":""),19);
+    Label(485,419,550,43,battle.Result==1?"试炼通过":"挑战结束",30,gold);Label(485,472,550,105,reward+(autoRepeat?"\n3秒后自动继续挑战":""),16);
    }else if(last!=null)Label(242,804,1000,45,last.Text,18,gold);
   }
   Vector2 Position(Unit u){
@@ -154,7 +157,9 @@ namespace DragonIdle {
    Color cardBg=u.Alive?new Color(.10f,.15f,.21f):new Color(.06f,.07f,.09f);
    Box(p.x,p.y,160,80,cardBg);Box(p.x,p.y,3,80,u.Side==0?color:new Color(.7f,.25f,.29f));
    if(last!=null&&last.Actor==u&&fx>0)Box(p.x,p.y,160,3,gold);
-   Circle(p.x+10,p.y+10,29,u.Alive?color:muted);Label(p.x+18,p.y+10,30,28,(u.Slot+1).ToString(),16,bg);
+   var portrait=ci>=0?PortraitTexture(ci):null;
+   if(portrait!=null){GUI.color=u.Alive?Color.white:muted;GUI.DrawTexture(new Rect(p.x+5,p.y+2,38,49),portrait,ScaleMode.ScaleToFit,true);GUI.color=Color.white;Label(p.x+5,p.y+33,20,20,(u.Slot+1).ToString(),12,gold);}
+   else {Circle(p.x+10,p.y+10,29,u.Alive?color:muted);Label(p.x+18,p.y+10,30,28,(u.Slot+1).ToString(),16,bg);}
    Label(p.x+46,p.y+5,112,26,u.Name.Replace("试炼·",""),16,u.Alive?ink:muted);
    Label(p.x+46,p.y+29,110,20,u.Alive?"CD "+u.Cooldown+"  怒 "+u.Rage.ToString("0"):"已退场",12,muted);
    Bar(p.x+10,p.y+54,140,5,u.HP/u.MaxHP,u.Side==0?new Color(.25f,.75f,.54f):new Color(.9f,.36f,.4f));
@@ -221,15 +226,17 @@ namespace DragonIdle {
   void DrawSummon(){
    Heading("时空召唤","Demo 测试卡池 · 完全离线 · 无付费入口");
    Box(224,230,1340,520,panel);
+   if(Button(270,248,340,44,"赛亚人篇 · 14卡",saiyanPool))saiyanPool=true;
+   if(Button(1160,248,340,44,"旧版常驻 · 20卡",!saiyanPool))saiyanPool=false;
    Circle(740,282,180,new Color(.8f,.45f,.16f));Circle(758,300,144,gold);Label(796,337,150,100,"★",67,bg);
    Label(290,510,1190,47,"每次 50 晶石 · R 72% / SR 20% / SSR 8% · 每第 20 次保证 SSR",24,gold);
-   Label(290,570,1180,70,"20 张原型卡，同稀有度内均分概率；保底不因提前抽到 SSR 重置。重复卡转本 CardId 专属资源。\n当前召唤 "+profile.Pulls+" 次；距下次保证 "+(20-profile.Pulls%20)+" 次。可在角色图鉴查看全部卡片。",19);
-   if(Button(655,658,480,58,"召唤一次",true,profile.Crystals>=50))Change(()=>notice=profile.Summon(++seed));
+   Label(290,570,1180,70,(saiyanPool?"赛亚人篇14卡":"旧版常驻20卡")+"，同级均分；两池分别累计保底，提前出SSR不重置。重复卡转本卡专属资源。\n本池召唤 "+(saiyanPool?profile.SaiyanPulls:profile.Pulls)+" 次；距保证SSR "+(20-(saiyanPool?profile.SaiyanPulls:profile.Pulls)%20)+" 次。详情见角色图鉴。",19);
+   if(Button(655,658,480,58,"召唤一次",true,profile.Crystals>=50))Change(()=>notice=saiyanPool?profile.SummonSaiyan(++seed):profile.Summon(++seed));
   }
   void DrawAbout(){
    Heading("技术 Demo / 开发边界","先验证战斗规则和可玩循环，再迭代正式角色与美术");
    Box(224,225,1340,560,panel);
-   Label(250,250,1270,220,"已开放：20 张原型卡、角色图鉴、独立卡片身份、多标签队长、候补换人、3 组阵容预设、定向掉落、技能残页与收藏筛选。\n\n角色阶段、稀有度与技能数值是可调整默认。悟空卡面为 AI 生成视觉样片，其他角色仍用占位表现；尚无正式模型或招式动画。旧存档按 CardId 迁移，迁移前自动保留独立备份。",21);
+   Label(250,250,1270,220,"已开放：25 张原型卡、拉蒂兹来袭4关、角色图鉴、独立卡片身份、多标签队长、候补换人、3 组阵容预设、定向掉落、技能残页与收藏筛选。\n\n角色阶段、稀有度与技能数值是可调整默认。悟空、迎战拉蒂兹比克、拉蒂兹使用 C 风格 AI 立绘和短暂特写；其余为占位表现，尚无骨骼模型或招式动画。旧存档按 CardId 迁移，迁移前自动保留独立备份。",21);
    int offline=profile.OfflineBank;
    Label(250,510,1250,75,"离线素材：每小时 12，最多累计 12 小时；至少通关一次后开放。\n当前可领取 "+offline+"。本版本离线只提供素材，物品掉落后续扩展。",19,muted);
    if(Button(250,610,360,47,"领取离线素材",false,offline>0))Change(()=>{int count=profile.OfflineBank;profile.Materials+=count;profile.OfflineBank=0;notice="已领取离线素材 "+count;});

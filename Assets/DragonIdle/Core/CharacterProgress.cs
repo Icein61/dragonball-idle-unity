@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 namespace DragonIdle {
@@ -24,12 +24,12 @@ namespace DragonIdle {
    Team=Team.Select(i=>Data.Index(ids[i])).ToArray();foreach(var item in Items)if(item.owner>=0)item.owner=Data.Index(ids[item.owner]);
    if(legacy||!RosterGift){foreach(int i in new[]{8,9,10})Owned[i]=true;RosterGift=true;}
    if(legacy){SkillPages=new int[4];SkillUnlocked=new[]{true,true,true,false};Presets=new List<TeamPreset>();}
-   CardIds=Data.Cards.Select(c=>c.Id).ToArray();schemaVersion=2;Validate();
+   NormalizeStory(legacy||ids.Length<Data.Cards.Length);CardIds=Data.Cards.Select(c=>c.Id).ToArray();schemaVersion=2;Validate();
   }
   bool Owns(int card){return card>=0&&card<Owned.Length&&Owned[card];}
   bool ValidTeam(int[] team,int leader){return team!=null&&team.Length==7&&team.Distinct().Count()==7&&team.All(Owns)&&leader>=0&&leader<7;}
   public void Validate(){
-   int n=Data.Cards.Length;
+   ValidateStory();int n=Data.Cards.Length;
    if(CardIds==null||!CardIds.SequenceEqual(Data.Cards.Select(c=>c.Id))||Training==null||Training.Length!=n||Shards==null||Shards.Length!=n||Resonance==null||Resonance.Length!=n||Policy==null||Policy.Length!=n||Owned==null||Owned.Length!=n||Skill==null||Skill.Length!=n||Skill2==null||Skill2.Length!=n)throw new InvalidOperationException("角色存档需要迁移");
    if(!ValidTeam(Team,Leader))throw new InvalidOperationException("队伍必须包含七张已拥有的不同卡");
    if(Materials<0||Crystals<0||Gems<0||Unlocked<0||Unlocked>=Data.Stages.Length||SelectedStage<0||SelectedStage>Unlocked||Training.Any(x=>x<0)||Shards.Any(x=>x<0)||Resonance.Any(x=>x<0)||Policy.Any(x=>x<0||x>2))throw new InvalidOperationException("无效成长或进度数据");

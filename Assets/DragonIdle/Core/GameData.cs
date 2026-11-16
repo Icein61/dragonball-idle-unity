@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 namespace DragonIdle {
  // Card identity and the expanded catalog live in CharacterCatalog.cs.
  public static partial class Data {
-  public const string Version="0.2.0";
+  public const string Version="0.3.0";
   public static Card Card(string id){return Cards.First(x=>x.Id==id);}
   public static string[] Stages={"荒野修炼","防线试炼","后排突破","极限演武"};
   public static double[] StageScale={.68,.84,1.0,1.17};
@@ -18,7 +18,7 @@ namespace DragonIdle {
    else if(c.Passive=="resolve")u.Rage=12;
    else if(c.Passive=="focus")u.Crit+=.02;
    else u.Add("attack",.02,0,id+":passive");
-   if(skill=="pierce"){u.SpecialRole="sniper";u.SpecialName="贯穿气弹";u.CooldownLength=4;}
+   if(skill=="pierce"){u.SpecialReplaced=true;u.SpecialRole="sniper";u.SpecialName="贯穿气弹";u.CooldownLength=4;}
    if(skill=="focus")u.Crit+=.035;
    return u;
   }
@@ -86,7 +86,7 @@ namespace DragonIdle {
   public string Summon(int seed) {
    if(Crystals<50)return "晶石不足，需要 50";
    Crystals-=50;Pulls++;var rng=new Random(seed);double roll=rng.NextDouble();string rarity=Pulls%20==0||roll<.08?"SSR":roll<.28?"SR":"R";
-   var pool=Enumerable.Range(0,Data.Cards.Length).Where(i=>Data.Cards[i].Rarity==rarity).ToArray();int index=pool[rng.Next(pool.Length)];
+   var pool=Enumerable.Range(0,Data.Cards.Length).Where(i=>i<20&&Data.Cards[i].Rarity==rarity).ToArray();int index=pool[rng.Next(pool.Length)];
    return "["+rarity+"] "+Acquire(index);
   }
   public int Offline(long ticks) {

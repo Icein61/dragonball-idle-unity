@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 using System.Linq;
 using UnityEngine;
 namespace DragonIdle {
  public partial class DemoGame {
   string characterSearch="";int ownershipFilter,rarityFilter,roleFilter,tagFilter,bagKind,bagOwner,bagLock;
-  Vector2 characterScroll,reserveScroll;Texture2D gokuSample;bool artLoaded;
+  Vector2 characterScroll,reserveScroll;
   void DrawPortrait(int index,Rect rect){
-   if(!artLoaded){gokuSample=Resources.Load<Texture2D>("Art/goku-saiyan-sample-v1");artLoaded=true;}
-   if(index==0&&gokuSample!=null){GUI.DrawTexture(rect,gokuSample,ScaleMode.ScaleToFit,true);return;}
+   var art=PortraitTexture(index);
+   if(art!=null){GUI.DrawTexture(rect,art,ScaleMode.ScaleToFit,true);return;}
    float size=Math.Min(rect.width,rect.height)*.65f;
    Circle(rect.x+(rect.width-size)/2,rect.y+(rect.height-size)/2,size,CardColor(index));
    Label(rect.x+rect.width/2-23,rect.y+rect.height/2-31,65,65,Data.Cards[index].Name.Substring(0,1),42,bg);
@@ -42,7 +42,7 @@ namespace DragonIdle {
    var c=Data.Cards[i];Box(990,276,574,518,panel);
    DrawPortrait(i,new Rect(1004,289,155,204));
    Label(1172,292,368,68,c.Rarity+"  "+c.DisplayName,24,gold);
-   Label(1172,363,365,100,c.Stage+" / "+c.Form+"\n"+string.Join(" · ",c.Tags)+"\n"+(profile.Owned[i]?"已拥有 · 专属资源 "+profile.Shards[i]:"获取：时空召唤"),16,muted);
+   Label(1172,363,365,100,c.Stage+" / "+c.Form+"\n"+string.Join(" · ",c.Tags)+"\n"+(profile.Owned[i]?"已拥有 · 专属资源 "+profile.Shards[i]:c.Id=="piccolo-raditz-v030"?"获取：章节第1关首通 / 赛亚人池":c.Id=="raditz-arrival-v030"?"获取：章节第4关首通 / 赛亚人池":Data.InSaiyanPool(c)?"获取：赛亚人篇召唤":"获取：旧版常驻召唤"),16,muted);
    Label(1008,489,535,37,"基础：生命 "+c.HP+" / 攻击 "+c.Attack+" / 防御 "+c.Defense+" / 速度 "+c.Speed,15);
    Label(1008,526,535,47,"普攻：单体 1.00 倍攻击。"+c.PassiveText,16);
    Label(1008,574,535,60,c.SpecialText,16);

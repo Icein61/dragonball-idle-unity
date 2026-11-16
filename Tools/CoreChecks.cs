@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using DragonIdle;
@@ -70,6 +70,7 @@ class CoreChecks {
   }
   Console.WriteLine("Baseline win counts /30: "+string.Join(",",wins.Select(x=>x.ToString()).ToArray()));
   CharacterChecks.Run(Check);
+  ChapterChecks.Run(Check);
   Console.WriteLine("ALL PASS "+count);
  }
 }
