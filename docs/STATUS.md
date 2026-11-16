@@ -17,8 +17,8 @@ v0.3.0「拉蒂兹来袭」预览版。Unity 2022.3.62f3，Windows x64。
 
 ## 验证与交付
 核心验收、Player检查与限制见[本版验证](verification/v0.3.0.md)。
-当前交付以[GitHub Releases](https://github.com/Icein61/dragonball-idle-unity/releases)的实际附件为准；最终干净提交、哈希与Player结果写入build-manifest.json。
-v0.3.0预定本地包为Builds/Releases/v0.3.0/DragonIdle-v0.3.0-Windows-x64.zip；当前实现细节见[章节实现](engineering/chapter-v030.md)。
+v0.3.0已发布：[下载预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.3.0)。源码标签对应bd22a5aeb031b98d8d2ebbdd46417b79320c3a19；ZIP、manifest、校验和三附件已回读，大小及SHA256一致。GitHub Actions成功。
+v0.3.0本地完整包为Builds/Releases/v0.3.0/DragonIdle-v0.3.0-Windows-x64.zip；当前实现细节见[章节实现](engineering/chapter-v030.md)。
 上一份已发布包[v0.2.0](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.2.0)保留，源码c36ead07ce29d7eb8d99b99bc178047f8d2597fd。v0.1.1是未完成旧draft，不推荐下载。
 
 ## 下一步
