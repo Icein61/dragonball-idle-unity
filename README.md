@@ -36,7 +36,7 @@ GitHub：https://github.com/Icein61/dragonball-idle-unity
 5. 提交源码后运行 ./Tools/package-windows.ps1，后台重新构建、无图形Player验证并打包。不调用-VisibleSmoke。
 6. Unity路径不同可传 -UnityPath；打包输出在Builds/Releases/v0.5.1。
 
-模拟核心独立于Unity帧率，GitHub Actions只运行核心检查；Unity构建在有编辑器许可证的本机进行。
+模拟核心独立于Unity帧率，GitHub Actions运行核心与资源检查；Unity构建在有编辑器许可证的本机进行。
 测试窗口使用独立测试存档，不修改正式存档。
 
 ## 换环境接手
