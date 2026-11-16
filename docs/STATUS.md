@@ -2,7 +2,7 @@
 更新：2026-11-16（Asia/Shanghai）。项目：https://github.com/Icein61/dragonball-idle-unity
 
 ## 当前范围
-v0.5.0赛亚人篇角色演出接入版已完成本地构建与后台验证，准备发布。用户要求将现有角色的立绘、小人动作、特效设计并接入；默认覆盖全15卡，含初始8卡。身份、队长、关键词和数值沿用v0.4.2，不扩篇章。
+v0.5.0赛亚人篇角色演出接入版已发布，源码、美术、规则和完整Windows包已同步GitHub。用户要求将现有角色的立绘、小人动作、特效设计并接入；默认覆盖全15卡，含初始8卡。身份、队长、关键词和数值沿用v0.4.2，不扩篇章。
 
 ## 本轮内容
 - 每卡一幅立绘与12个姿态，共15立绘/180姿态；图鉴、详情与战斗接入对应卡图集，敌我小人镜像朝向。
@@ -16,9 +16,10 @@ v0.5.0赛亚人篇角色演出接入版已完成本地构建与后台验证，�
 
 ## 验证与交付
 1030项核心/演出检查通过；15图集alpha/切图检查、Windows构建和无窗口静音Player验证通过，交付证据见docs/verification/v0.5.0.md。上个已发布版本为[v0.4.2](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.4.2)。
+当前下载：[v0.5.0发布页](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.5.0)。本地完整包Builds/Releases/v0.5.0/DragonIdle-v0.5.0-Windows-x64.zip；启动Builds/Windows/DragonIdle.exe。源码与标签7f87205d0c5f6f2806426b4975669d930116e4b0，main/tag CI通过，三附件远端哈希核对一致。
 
 ## 下一步
-完成本版交付后，优先真实画面与音效验收、修正重叠与动作节奏；继续打磨现有模块，不急于扩充后期角色或玩法。
+优先真实画面与音效验收、修正重叠与动作节奏；继续打磨现有模块，不急于扩充后期角色或玩法。
 
 ## 环境约束
 不自动显示/激活Unity或Player，不调用-VisibleSmoke，不关闭用户窗口；后台静音、隔离存档。Unity2022.3.62f3/Windows x64。保持独立main/public仓库，源码/规则/对应PC包同步GitHub。凭据仅在系统管理器和进程内存中使用。

@@ -6,7 +6,7 @@
 
 全部使用 imagegen **内置工具**生成，未调用CLI/API fallback、未导入dokkaninfo图片。以已选C版悟空为样式起点，第一张悟空生产图统一后作为其他卡的画风/排版参考。各卡单独制作，不将同人物不同版本改为同一卡。
 
-完整提示词、生成输出标识、卡ID对应关系：`Art/Production/V050/prompts.json`。最终运行资源：`Assets/DragonIdle/Resources/Art/V050/`。每卡一个1536×1024 RGBA PNG，左侧大立绘，右侧12个不同姿态；配套`*-frames.json`存储实际像素矩形。PNG像素未经外部程序修改。
+完整提示词、最终生成输出标识、卡ID与SHA256对应关系：`Art/Production/V050/prompts.json`；透明底/留白修订提示词与各次输出见同目录`import-corrections.json`。最终运行资源：`Assets/DragonIdle/Resources/Art/V050/`。每卡一个1536×1024 RGBA PNG，左侧大立绘，右侧12个不同姿态；配套`*-frames.json`存储实际像素矩形。PNG像素未经外部程序修改。
 
 PNG预览中的底色不能代表alpha：本轮用只读像素分析确认背景透明，逐张检查主体与服装，再按连通轮廓计算导入矩形，避开长发、脚掌、剑被固定网格裁掉的问题。元数据扫描脚本不修改图片。新图以V050版本目录保存，历史C候选图和v030图继续保留。
 
