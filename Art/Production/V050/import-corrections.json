@@ -1,0 +1,38 @@
+{
+  "revisions": [
+    {
+      "cardId": "piccolo-raditz-v030",
+      "passes": [
+        {
+          "output": "exec-511ed8b1-ae4d-474c-8404-f225a1b6701f.png",
+          "prompt": "Edit this production Piccolo sprite atlas ONLY to remove its entire colored/gradient backdrop and replace it with genuine transparent alpha=0 pixels. Preserve every illustrated character EXACTLY: large left portrait, all twelve small poses on right, their positions, sizes, green skin, purple clothes, outlines, facial features, all fingers, toes and antennae. Keep original 1536x1024 canvas and arrangement. The visible brown/green haze is unwanted background, remove all of it including between fingers and legs. Do not replace with a black, gray, white, checkerboard or colored background. Preserve sharp antialiased transparent edges; fully opaque character colors, no residual glow. This is a transparent sprite sheet, not a scene."
+        },
+        {
+          "output": "exec-8afbed83-4422-4e8d-9a62-4c2415ef717b.png",
+          "prompt": "Edit this exact Piccolo atlas only to add transparent gutters for clean sprite imports. Keep 1536x1024 true transparent RGBA canvas, green skin, purple gi, every pose and the same character anatomy. Reduce large portrait to85% size centered in left region x0..480. Reduce all twelve small poses to80% size, independently centered in their own 4-column3-row cells on right: columns x512..768,768..1024,1024..1280,1280..1536; rows y0..341,341..683,683..1024. Retain all twelve different poses exactly and all fingers/antennae/shoes. Transparent margins at least25pixels to everycell edge. No overlap of any neighboring pose rectangle or portrait. Do not change arrangement. No background, haze, glows, effects, text or checkerboard. Preserve transparency strictly."
+        }
+      ],
+      "finalOutput": "exec-8afbed83-4422-4e8d-9a62-4c2415ef717b.png"
+    },
+    {
+      "cardId": "raditz-arrival-v030",
+      "passes": [
+        {
+          "output": "exec-2017f3de-53d0-457f-8106-14dfb3516f0d.png",
+          "prompt": "Production layout correction of the supplied character sprite atlas. Preserve exact character design, ink style, colors, all thirteen illustrations and their distinct poses. Keep canvas1536x1024 and TRUE transparent alpha background. Make the large left portrait 88% of its present size, centered within x20..475 y30..990. Make EACH of the twelve small right-side poses 76% of its current size, then center it in its own 4x3 cell with ample fully transparent gutter. Cell columns: x512..768,768..1024,1024..1280,1280..1536. Cell rows: y0..341,341..683,683..1024. ALL body parts, long hair, blade, toes and fingers must fit comfortably within the cell, at least24px clearance from every cell edge. Feet along bottom of each row at y300,640,980. Zero contact or intrusion between neighboring cells or large portrait. Do NOT add/remove/reorder poses. This is a necessary clean game sprite sheet, no checkerboard, no colored haze, no text, no background, no effects."
+        }
+      ],
+      "finalOutput": "exec-2017f3de-53d0-457f-8106-14dfb3516f0d.png"
+    },
+    {
+      "cardId": "yajirobe-saiyan-v030",
+      "passes": [
+        {
+          "output": "exec-5df3d8e8-9bc5-4300-9b2e-16b775f424b7.png",
+          "prompt": "Production layout correction of the supplied character sprite atlas. Preserve exact character design, ink style, colors, all thirteen illustrations and their distinct poses. Keep canvas1536x1024 and TRUE transparent alpha background. Make the large left portrait 88% of its present size, centered within x20..475 y30..990. Make EACH of the twelve small right-side poses 76% of its current size, then center it in its own 4x3 cell with ample fully transparent gutter. Cell columns: x512..768,768..1024,1024..1280,1280..1536. Cell rows: y0..341,341..683,683..1024. ALL body parts, long hair, blade, toes and fingers must fit comfortably within the cell, at least24px clearance from every cell edge. Feet along bottom of each row at y300,640,980. Zero contact or intrusion between neighboring cells or large portrait. Do NOT add/remove/reorder poses. This is a necessary clean game sprite sheet, no checkerboard, no colored haze, no text, no background, no effects."
+        }
+      ],
+      "finalOutput": "exec-5df3d8e8-9bc5-4300-9b2e-16b775f424b7.png"
+    }
+  ]
+}

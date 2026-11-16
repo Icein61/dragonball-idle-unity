@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,8 +7,7 @@ namespace DragonIdle {
   bool storyMode=true,saiyanPool=true;
   readonly Dictionary<string,Texture2D> portraits=new Dictionary<string,Texture2D>();
   Texture2D PortraitTexture(int index){
-   string key=index==0?"goku-raditz-c-v030":Data.Cards[index].Id=="piccolo-raditz-v030"?"piccolo-raditz-c-v030":Data.Cards[index].Id=="raditz-arrival-v030"?"raditz-c-v030":null;
-   if(key==null)return null;
+   string key="V050/"+Data.Cards[index].Id+"-atlas";
    if(!portraits.ContainsKey(key))portraits[key]=Resources.Load<Texture2D>("Art/"+key);
    return portraits[key];
   }
@@ -26,15 +25,6 @@ namespace DragonIdle {
    }
    Label(226,259,1335,21,storyMode?Data.StoryLoot[chosen]:Data.LootDescriptions[chosen],13,muted);
   }
-  void DrawActionPortrait(){
-   if(last==null||last.Move==Move.Basic||last.Move==Move.Stunned||fx<=.12f)return;
-   int i=Data.Index(last.Actor.CardId);if(i<0)return;var art=PortraitTexture(i);if(art==null)return;
-   float offset=(1-fx)*9;
-   Box(650,334,215,332,new Color(.035f,.055f,.09f,.94f));
-   Box(650,334,215,3,last.Move==Move.Ultimate?gold:CardColor(i));
-   GUI.color=new Color(1,1,1,Math.Min(1,fx*3));
-   GUI.DrawTexture(new Rect(660+offset,346,190,263),art,ScaleMode.ScaleToFit,true);GUI.color=Color.white;
-   Label(665,610,185,50,last.Move==Move.Ultimate?last.Actor.UltimateName:last.Actor.SpecialName,19,gold);
-  }
+
  }
 }

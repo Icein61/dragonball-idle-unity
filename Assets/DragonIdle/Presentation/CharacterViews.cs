@@ -7,7 +7,7 @@ namespace DragonIdle {
   Vector2 reserveScroll;
   void DrawPortrait(int index,Rect rect){
    var art=PortraitTexture(index);
-   if(art!=null){GUI.DrawTexture(rect,art,ScaleMode.ScaleToFit,true);return;}
+   if(art!=null){PaintPortrait(index,rect);return;}
    float size=Math.Min(rect.width,rect.height)*.65f;
    Circle(rect.x+(rect.width-size)/2,rect.y+(rect.height-size)/2,size,CardColor(index));
    Label(rect.x+rect.width/2-23,rect.y+rect.height/2-31,65,65,Data.Cards[index].Name.Substring(0,1),42,bg);

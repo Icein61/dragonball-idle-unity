@@ -27,6 +27,7 @@ namespace DragonIdle {
     Load();AssertSmoke(saveError==""&&profile.schemaVersion==3&&profile.Training[0]==23&&profile.Retired.Single(r=>r.cardId=="trunks-test").shards==9&&profile.Items[0].owner==-1&&profile.Team[6]==6&&profile.Materials==481&&profile.OfflineBank==24&&profile.Pulls==19,"Unity v1 migration failed: "+saveError);
     AssertSmoke(Directory.GetFiles(dir,"legacy-save.json.pre-v041-*.bak").Length==1,"Pre-migration backup missing");
     Save();Load();AssertSmoke(profile.schemaVersion==3&&profile.Owned.Count(x=>x)==8&&profile.Retired.Single(r=>r.cardId=="trunks-test").shards==9,"Migrated save second load failed");
+    RunBattleArtSmoke(dir);
     RunGallerySmoke(dir);
     File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"version\":\""+Data.Version+"\",\"battleWon\":true,\"saveRoundTrip\":true,\"legacyMigration\":true,\"characterPersistence\":true,\"chapterFlow\":true,\"v020Migration\":true,\"v040Migration\":true,\"leaderKeywords\":true,\"artResourceLoaded\":true,\"galleryFlow\":true,\"audioSettings\":true,\"visualVerified\":false,\"events\":"+events+"}");
     Debug.Log("DRAGON_IDLE_LOGIC_SMOKE_SUCCESS");Application.Quit(0);

@@ -22,7 +22,8 @@ try {
  Compress-Archive -Path (Join-Path $root 'Builds/Windows/*') -DestinationPath $zip -Force
  $hash=(Get-FileHash -Algorithm SHA256 $zip).Hash.ToLowerInvariant()
  ($hash+'  '+[IO.Path]::GetFileName($zip)) | Set-Content (Join-Path $release 'SHA256SUMS.txt') -Encoding utf8
- $manifest=[ordered]@{version=$version;commit=$commit;unity='2022.3.62f3';platform='Windows-x64';builtAtUtc=[DateTime]::UtcNow.ToString('o');sha256=$hash;logicSmoke=$result;visualVerification='pending-user-window-permission';smokeDirectory=[IO.Path]::GetFileName($dir);sourceClean=$true}
+ $battleArt=Get-Content -LiteralPath (Join-Path $dir 'battle-art-smoke.json') -Raw | ConvertFrom-Json
+ $manifest=[ordered]@{version=$version;commit=$commit;unity='2022.3.62f3';platform='Windows-x64';builtAtUtc=[DateTime]::UtcNow.ToString('o');sha256=$hash;logicSmoke=$result;battleArtSmoke=$battleArt;visualVerification='pending-user-window-permission';smokeDirectory=[IO.Path]::GetFileName($dir);sourceClean=$true}
  $manifest | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $release 'build-manifest.json') -Encoding utf8
  Write-Output ('PACKAGE_READY '+$release)
  Write-Output ('HEADLESS_CHECK '+$dir)

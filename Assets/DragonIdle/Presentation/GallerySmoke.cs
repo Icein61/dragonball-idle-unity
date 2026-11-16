@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -56,7 +56,7 @@ namespace DragonIdle {
     AssertSmoke(detailRoot.GetComponentsInChildren<UI.Text>().Any(t=>t.text.Contains(Data.Cards[i].KeywordText)),"Role summary missing");
     AssertSmoke(detailRoot.GetComponentsInChildren<UI.Text>().Any(t=>t.text==Data.Cards[i].LeaderText),"Leader definition UI mismatch");
    }
-   foreach(int i in new[]{0,Data.Index("piccolo-raditz-v030"),Data.Index("raditz-arrival-v030")}){
+   foreach(int i in Enumerable.Range(0,Data.Cards.Length)){
     selectedCard=i;DrawGalleryDetail();AssertSmoke(detailRoot.GetComponentsInChildren<UI.RawImage>().Length==1,"Detail art missing");
    }
    AssertSmoke(galleryCanvas.GetComponent<UI.CanvasScaler>().screenMatchMode==UI.CanvasScaler.ScreenMatchMode.Expand,"UI aspect ratio scaler incorrect");

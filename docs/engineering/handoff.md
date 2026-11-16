@@ -67,3 +67,10 @@ v0.1.0已建立Unity 2022.3.62f3技术Demo，使用内置渲染与临时IMGUI表
 10. 保留旧版本供回退，不重用标签覆盖不同内容。
 
 文档基线不要求伪造PC包；进入可玩阶段后不得仅推源码就称完成可玩版本交付。
+
+## v0.5.0 角色演出接手
+- 新图集和矩形：Assets/DragonIdle/Resources/Art/V050；提示词Art/Production/V050/prompts.json；制作说明docs/production/character-art-v050.md。
+- 生成新图或改图只用imagegen内置工具。Tools/InspectAtlas.cs仅读取像素生成导入矩形，不修改PNG；Tools/validate-art.ps1用--check验证已提交矩形和透明通道。
+- CharacterArtImport保持NPOT尺寸、alpha与无压缩，CharacterArt将真实轮廓矩形转换为UV，按原比例绘制，不以整张图集作为立绘。
+- Core/ActionPresentation是只读显示快照；Presentation/BattleAnimation控制帧推进/收场，BattleEffects按事件绘制招式，CharacterArt用于图鉴和战场。核心不依赖Unity动画回调。
+- 当前为关键姿态动画与IMGUI战场，非骨骼模型；图鉴仍uGUI。减少动效不影响逻辑；不得为了验证演出自行弹出窗口。

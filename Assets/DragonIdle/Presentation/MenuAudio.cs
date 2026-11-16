@@ -18,7 +18,7 @@ namespace DragonIdle {
    uiSounds=gameObject.AddComponent<AudioSource>();uiSounds.playOnAwake=false;uiSounds.spatialBlend=0;
    if(FindObjectOfType<AudioListener>()==null)new GameObject("MenuAudioListener").AddComponent<AudioListener>();
    uiClips=new[]{MakeUITone("select",.055f,new[]{520f}),MakeUITone("confirm",.25f,new[]{523.25f,659.25f,783.99f}),MakeUITone("unavailable",.16f,new[]{220f,196f})};
-   menuMusic.clip=MakeMenuLoop();ApplyAudioLevels();if(!silentAudio)menuMusic.Play();
+   menuMusic.clip=MakeMenuLoop();InitializeBattleAudio();ApplyAudioLevels();if(!silentAudio)menuMusic.Play();
   }
   AudioClip MakeUITone(string name,float seconds,float[] frequencies){
    int rate=22050;float[] data=new float[(int)(rate*seconds)];
@@ -54,6 +54,7 @@ namespace DragonIdle {
    if(audioSettings==null||menuMusic==null)return;
    float gate=silentAudio||(!audioFocused&&audioSettings.MuteUnfocused)?0:audioSettings.Master;
    menuMusic.volume=gate*audioSettings.Music*(running?.4f:1);uiSounds.volume=gate*audioSettings.Effects;
+   if(battleSound!=null)battleSound.volume=gate*audioSettings.Effects;
   }
   void PlayUISound(int kind){if(uiSounds==null||uiClips==null)return;uiSoundEvents++;ApplyAudioLevels();if(!silentAudio)uiSounds.PlayOneShot(uiClips[Mathf.Clamp(kind,0,2)]);}
   void ScheduleAudioSave(){audioSavePending=true;audioSaveAt=Time.unscaledTime+.35f;ApplyAudioLevels();}

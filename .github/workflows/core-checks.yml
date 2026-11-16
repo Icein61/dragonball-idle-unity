@@ -8,3 +8,6 @@ jobs:
       - name: Compile and verify pure C# combat
         shell: pwsh
         run: ./Tools/validate-core.ps1
+      - name: Verify transparent atlases and sprite import rectangles
+        shell: pwsh
+        run: ./Tools/validate-art.ps1
