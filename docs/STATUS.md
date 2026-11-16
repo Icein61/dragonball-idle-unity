@@ -3,7 +3,7 @@
 
 ## 当前范围与优先级
 用户明确初版全部制作赛亚人篇角色，删除非本篇角色。本期先优化定位关键词和队长技。优先打磨已有模块，画面与听感验收由用户推迟。
-v0.4.2“队长标签身份修正”已实现，正在打包发布；上一已发布版本为v0.4.1。
+v0.4.2“队长标签身份修正”已发布，源码、规则和完整Windows包已同步GitHub。
 
 ## 本轮实现
 - 删除10张非赛亚人篇运行定义：目录25→15，新档8张持有、7位上阵。3张悟空与2张比克仍独立，不改身份冒充篇章。
@@ -19,13 +19,13 @@ v0.4.2“队长标签身份修正”已实现，正在打包发布；上一已�
 主图鉴为uGUI，其他模块仍是旧UI；音乐仍为合成样曲。逐卡数值是可调整默认，尚未完成长期平衡。
 
 ## 验证与交付
-841项核心检查通过；本版隐藏构建与静音Player最终结果待打包核验。使用隔离测试存档，未改用户正式进度。
+841项核心检查通过；本版隐藏构建与无窗口静音Player验证已通过。使用隔离测试存档，未改用户正式进度。
 当前可见界面、真实点击、键盘走查和试听均待验收。
-上一版包：Builds/Releases/v0.4.1/DragonIdle-v0.4.1-Windows-x64.zip。[v0.4.1下载页](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.4.1)。源码与标签d963af3c30af27a5ce0dc31ff583537ce91bbf9c；main和tag的CI均通过。附件包括完整PC ZIP、manifest与SHA256SUMS。
+当前包：Builds/Releases/v0.4.2/DragonIdle-v0.4.2-Windows-x64.zip。[v0.4.2下载页](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.4.2)，源码与标签04fdfa91c15ce7a922069f6b3f377b9303b627be；main和tag CI通过。历史版本：[v0.4.1下载页](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.4.1)。源码与标签d963af3c30af27a5ce0dc31ff583537ce91bbf9c；main和tag的CI均通过。附件包括完整PC ZIP、manifest与SHA256SUMS。
 历史[v0.4.0下载页](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.4.0)保留；升级后的schema3存档不要交给旧版写入，需要回退时使用pre-v041原始备份。
 
 ## 后续顺序
-1. 完成v0.4.2队长标签修正版交付；身份与队长标签必须匹配，不为凑数量加入外来标签。
+1. v0.4.2队长标签修正版已交付；身份与队长标签必须匹配，不为凑数量加入外来标签。
 2. 在本篇角色内完成拉蒂兹战悟空的战斗形象、动作、技能特效样板；默认先验证C风格2D实现，保留3渲2偏好。
 3. 将样板流程扩展比克、拉蒂兹，再逐步补齐其余本篇角色资源。不能仅以立绘宣布角色完成。
 4. 用户方便时验收观感、真实操作与听感；继续打磨已有模块后再扩充玩法或篇章。
