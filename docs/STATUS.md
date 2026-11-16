@@ -23,6 +23,8 @@ v0.2.0角色系统预览版。Unity 2022.3.62f3、Windows x64；222项纯C#检�
 - 实际Windows Player以-batchmode -nographics跑通胜利、奖励保存、角色配置往返、旧JSON迁移和备份、图片资源装载。
 - 可见窗口、界面排版、真实点击和演出尚未验证，manifest明确记录pending-user-window-permission。
 - 最终发布前打包脚本再次从干净提交构建并验证；以Release的build-manifest.json和标签为对应关系。
+- v0.2.0已发布为[可下载预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.2.0)。源码与标签均为c36ead07ce29d7eb8d99b99bc178047f8d2597fd，完整ZIP/manifest/校验和三附件已回读验证；GitHub Actions成功。
+- 本地包：Builds/Releases/v0.2.0/DragonIdle-v0.2.0-Windows-x64.zip；解压运行DragonIdle.exe。当前Builds/Windows为同版已验证构建。
 - 当前实现缺口与数值列于engineering/demo-implementation.md，不以完整设计文档冒充已完成能力。
 
 ## 下一步
