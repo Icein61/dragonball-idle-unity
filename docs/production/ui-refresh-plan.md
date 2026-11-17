@@ -1,6 +1,6 @@
 # UI打磨方向：简洁、美观、圆润
 
-日期：2026-11-17（Asia/Shanghai）。分析基线：main 363aa54caafbbecb0f508e44fa9c5ccd3f096ebe，运行版本0.5.3。本文为下一阶段方案，未实施UI改版、未生成新PC包。
+日期：2026-11-17（Asia/Shanghai）。分析基线：main 363aa54caafbbecb0f508e44fa9c5ccd3f096ebe，运行版本0.5.3。本文记录方案形成时的基线；v0.6.0现已实施第一阶段，具体实现和验证见末尾进展。
 
 ## 要求与基线
 

@@ -80,3 +80,6 @@ v0.1.0已建立Unity 2022.3.62f3技术Demo，使用内置渲染与临时IMGUI表
 - 独立立绘整图UV、原始2:3比例；ArtUV/Regions只用于V050动作图集。不要将旧立绘切片UV套到新整图。
 - Tools/InspectPortraits.cs只读检查15张图尺寸、alpha与边缘留白，validate-art同时检查原图集和新立绘。图鉴与Player检查明确验证两类资源不同。
 - 完整提示词/输出/哈希在Art/Production/V051/portraits.json；未来立绘必须结合阶段与技能设计不同姿势，不复用统一备战模板。
+
+## v0.6.0 角色UI接手
+GalleryTheme提供缓存圆角九宫格和焦点组件；CardLibrary/Detail切换保留列表节点及位置。RefreshGallery按结果ID/顺序决定是否重建，详情刷新按控件名恢复焦点。原文与代理数值仍分开，三卡概念图不能被旧V051全部立绘断言覆盖。gallery-refresh-smoke.json记录新增事件/比例/对比度与窗口数学边界，renderVerified仍为false。其他IMGUI页面尚未迁移。
