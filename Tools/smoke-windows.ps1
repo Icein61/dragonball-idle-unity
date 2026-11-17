@@ -1,4 +1,4 @@
-﻿param([string]$Executable, [string]$OutputDirectory)
+param([string]$Executable, [string]$OutputDirectory)
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 if(!$Executable){$Executable=Join-Path $root 'Builds/Windows/龙珠爆裂激斗.exe'}
@@ -17,6 +17,8 @@ if($art.atlases -ne 15 -or $art.signaturePortraits -ne 15 -or $art.poses -ne 180
 $refresh=Get-Content -LiteralPath (Join-Path $OutputDirectory 'gallery-refresh-smoke.json') -Raw | ConvertFrom-Json
 if(!$refresh.dedicatedDetail -or !$refresh.cardCache -or !$refresh.focusReturn -or !$refresh.roundedSurfaces -or !$refresh.individualFilterClear -or !$refresh.fullPortraitAspect -or !$refresh.enabledTextContrast){throw 'Gallery refresh verification incomplete'}
 
-Write-Output ('HEADLESS_SMOKE_PASS '+$OutputDirectory)
+
 $workshop=Get-Content -LiteralPath (Join-Path $OutputDirectory 'workshop-smoke.json') -Raw | ConvertFrom-Json
 if(!$workshop.training -or !$workshop.formation -or !$workshop.equipment -or !$workshop.skills -or !$workshop.contextReturn -or !$workshop.saveRoundTrip -or !$workshop.modalIsolation){throw 'Workshop verification incomplete'}
+Write-Output ('HEADLESS_SMOKE_PASS '+$OutputDirectory)
+

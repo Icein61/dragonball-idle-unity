@@ -105,6 +105,10 @@ namespace DragonIdle {
    if(IsWorkshop(page)&&target=="角色"&&browseCard>=0)selectedCard=browseCard;
    CloseGalleryDialog();page=target;autoRepeat=false;notice="";galleryDirty=true;
    galleryCanvas.SetActive(IsModernPage(target));previousPage="";UpdateGallery();
+   if(target=="角色"&&EventSystem.current!=null){
+    if(galleryDetailOpen&&selectedCard>=0)EventSystem.current.SetSelectedGameObject(detailRoot.Find("BackToCards").gameObject);
+    else if(cardButtons.ContainsKey(selectedCard))EventSystem.current.SetSelectedGameObject(cardButtons[selectedCard].gameObject);
+   }
   }
   void UpdateGallery(){
    if(IsModernPage(page)){EnsureGallery();if(!galleryCanvas.activeSelf)galleryCanvas.SetActive(true);
