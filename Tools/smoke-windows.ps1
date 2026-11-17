@@ -18,3 +18,5 @@ $refresh=Get-Content -LiteralPath (Join-Path $OutputDirectory 'gallery-refresh-s
 if(!$refresh.dedicatedDetail -or !$refresh.cardCache -or !$refresh.focusReturn -or !$refresh.roundedSurfaces -or !$refresh.individualFilterClear -or !$refresh.fullPortraitAspect -or !$refresh.enabledTextContrast){throw 'Gallery refresh verification incomplete'}
 
 Write-Output ('HEADLESS_SMOKE_PASS '+$OutputDirectory)
+$workshop=Get-Content -LiteralPath (Join-Path $OutputDirectory 'workshop-smoke.json') -Raw | ConvertFrom-Json
+if(!$workshop.training -or !$workshop.formation -or !$workshop.equipment -or !$workshop.skills -or !$workshop.contextReturn -or !$workshop.saveRoundTrip -or !$workshop.modalIsolation){throw 'Workshop verification incomplete'}

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -29,10 +29,11 @@ namespace DragonIdle {
     AssertSmoke(Directory.GetFiles(dir,"legacy-save.json.pre-v041-*.bak").Length==1,"Pre-migration backup missing");
     Save();Load();AssertSmoke(profile.schemaVersion==3&&profile.Owned.Count(x=>x)==8&&profile.Retired.Single(r=>r.cardId=="trunks-test").shards==9,"Migrated save second load failed");
     RunBattleArtSmoke(dir);
-    RunGallerySmoke(dir);
+    RunGallerySmoke(dir);RunWorkshopSmoke(dir);
     File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"version\":\""+Data.Version+"\",\"battleWon\":true,\"saveRoundTrip\":true,\"legacyMigration\":true,\"characterPersistence\":true,\"chapterFlow\":true,\"v020Migration\":true,\"v040Migration\":true,\"leaderKeywords\":true,\"artResourceLoaded\":true,\"galleryFlow\":true,\"audioSettings\":true,\"visualVerified\":false,\"events\":"+events+"}");
     Debug.Log("DRAGON_IDLE_LOGIC_SMOKE_SUCCESS");Application.Quit(0);
    }catch(Exception ex){File.WriteAllText(Path.Combine(dir,"smoke-failure.txt"),ex.ToString());Debug.LogError(ex);Application.Quit(1);}
   }
  }
 }
+

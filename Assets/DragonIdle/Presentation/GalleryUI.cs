@@ -101,12 +101,15 @@ namespace DragonIdle {
    detailRoot.gameObject.SetActive(false);
   }
   void NavigateGallery(string target){
+   if(page=="角色"&&IsWorkshop(target))browseCard=selectedCard;
+   if(IsWorkshop(page)&&target=="角色"&&browseCard>=0)selectedCard=browseCard;
    CloseGalleryDialog();page=target;autoRepeat=false;notice="";galleryDirty=true;
-   galleryCanvas.SetActive(target=="角色");previousPage=target=="角色"?"":"角色";
+   galleryCanvas.SetActive(IsModernPage(target));previousPage="";UpdateGallery();
   }
   void UpdateGallery(){
-   if(page=="角色"){EnsureGallery();if(!galleryCanvas.activeSelf)galleryCanvas.SetActive(true);if((previousPage!="角色"||galleryDirty)&&dialogRoot==null)RefreshGallery(false);
-    if(Input.GetKeyDown(KeyCode.Escape)){if(dialogRoot!=null)CloseGalleryDialog();else if(galleryDetailOpen)ReturnToCards();else if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(null);}
+   if(IsModernPage(page)){EnsureGallery();if(!galleryCanvas.activeSelf)galleryCanvas.SetActive(true);
+    if((previousPage!=page||galleryDirty)&&dialogRoot==null){if(page=="角色")RefreshGallery(false);else DrawWorkshop();RefreshModernFrame();}
+    if(Input.GetKeyDown(KeyCode.Escape)){if(dialogRoot!=null)CloseGalleryDialog();else if(IsWorkshop(page))NavigateGallery("角色");else if(galleryDetailOpen)ReturnToCards();else if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(null);}
     if(detailGroup!=null){detailFade=Math.Min(1,detailFade+Time.unscaledDeltaTime*8);detailGroup.alpha=audioSettings!=null&&audioSettings.ReducedMotion?1:detailFade;}
     galleryToast.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"";
    }else if(galleryCanvas!=null&&galleryCanvas.activeSelf)galleryCanvas.SetActive(false);

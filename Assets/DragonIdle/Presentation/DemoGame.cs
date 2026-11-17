@@ -102,7 +102,7 @@ namespace DragonIdle {
    Matrix4x4 m=GUI.matrix;float angle=Mathf.Atan2(b.y-a.y,b.x-a.x)*Mathf.Rad2Deg;GUIUtility.RotateAroundPivot(angle,a);Box(a.x,a.y,(b-a).magnitude,width,c);GUI.matrix=m;
   }
   void OnGUI(){
-   if(page=="角色")return;
+   if(IsModernPage(page))return;
    Styles();float scale=Math.Min(Screen.width/1600f,Screen.height/900f);
    GUI.matrix=Matrix4x4.TRS(new Vector3((Screen.width-1600*scale)/2,(Screen.height-900*scale)/2,0),Quaternion.identity,new Vector3(scale,scale,1));
    GUI.DrawTexture(new Rect(0,0,1600,900),gradient);

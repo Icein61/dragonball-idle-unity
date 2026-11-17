@@ -83,3 +83,6 @@ v0.1.0已建立Unity 2022.3.62f3技术Demo，使用内置渲染与临时IMGUI表
 
 ## v0.6.0 角色UI接手
 GalleryTheme提供缓存圆角九宫格和焦点组件；CardLibrary/Detail切换保留列表节点及位置。RefreshGallery按结果ID/顺序决定是否重建，详情刷新按控件名恢复焦点。原文与代理数值仍分开，三卡概念图不能被旧V051全部立绘断言覆盖。gallery-refresh-smoke.json记录新增事件/比例/对比度与窗口数学边界，renderVerified仍为false。其他IMGUI页面尚未迁移。
+
+## v0.6.1 第二阶段接手
+见engineering/workshop-v061.md。共用Canvas现在覆盖四页，后台烟测必须含workshop-smoke.json。用户新增未提交素材不能混入发布：存在用户编辑时用干净源码副本构建，不移动/删除用户文件。
