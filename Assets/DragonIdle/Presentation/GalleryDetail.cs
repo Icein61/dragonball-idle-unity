@@ -6,6 +6,9 @@ namespace DragonIdle {
  public partial class DemoGame {
   RectTransform detailBody;float detailY;UI.ScrollRect galleryDetailScroll;int renderedDetailCard=-2,renderedDetailTab=-1;UI.Button galleryTrainButton,galleryEquipButton,gallerySwapButton;
   void DrawGalleryDetail(){
+   var eventSystem=UnityEngine.EventSystems.EventSystem.current;
+   var focused=eventSystem!=null?eventSystem.currentSelectedGameObject:null;
+   string restoreFocus=focused!=null&&focused.transform.IsChildOf(detailRoot)?focused.name:null;
    float oldScroll=galleryDetailScroll!=null&&renderedDetailCard==selectedCard&&renderedDetailTab==detailTab?galleryDetailScroll.verticalNormalizedPosition:1;
    renderedDetailCard=selectedCard;renderedDetailTab=detailTab;
    ClearUI(detailRoot);measuredText.Clear();galleryTrainButton=galleryEquipButton=gallerySwapButton=null;
@@ -30,6 +33,7 @@ namespace DragonIdle {
    Canvas.ForceUpdateCanvases();galleryDetailScroll.verticalNormalizedPosition=oldScroll;
    gallerySwapButton=UButton(detailRoot,"ChooseSlot",owned?"选择阵位":"查看获取途径",520,654,382,42,()=>{if(owned)ShowFormationPicker(i);else ShowAcquisition(i);},true,saveError=="");
    galleryEquipButton=UButton(detailRoot,"OpenEquipment","前往装备工坊",918,654,390,42,()=>NavigateGallery("装备"),false,owned&&saveError=="");
+   if(restoreFocus!=null&&eventSystem!=null){var control=detailRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(b=>b.name==restoreFocus&&b.interactable);eventSystem.SetSelectedGameObject(control!=null?control.gameObject:detailRoot.Find("BackToCards").gameObject);}
   }
   void DetailParagraph(string title,string content,Color? color=null){
    UText(detailBody,"SectionTitle",title,0,detailY,750,29,20,color??uiAccent);detailY+=36;

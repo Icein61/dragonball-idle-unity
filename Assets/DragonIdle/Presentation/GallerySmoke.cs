@@ -15,6 +15,9 @@ namespace DragonIdle {
    allTab.onClick.Invoke();AssertSmoke(cardButtons.Count==15&&!catalog.OwnedOnly,"All gallery tab failed");
    var cachedCard=cardButtons[0];var cachedGrid=gridRoot.GetChild(0);float priorScroll=galleryScroll.verticalNormalizedPosition;
    cachedCard.onClick.Invoke();AssertSmoke(galleryDetailOpen&&!galleryListRoot.gameObject.activeSelf&&detailRoot.gameObject.activeSelf,"Dedicated detail screen did not replace grid");
+   var breakdown=GalleryTestButton("ToggleStatBreakdown");UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(breakdown.gameObject);breakdown.onClick.Invoke();
+   AssertSmoke(statsExpanded&&detailRoot.GetComponentsInChildren<UI.Text>().Any(t=>t.name=="Base0")&&UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject==GalleryTestButton("ToggleStatBreakdown").gameObject,"Stat breakdown failed or lost focus on refresh");
+   GalleryTestButton("ToggleStatBreakdown").onClick.Invoke();AssertSmoke(!statsExpanded&&!detailRoot.GetComponentsInChildren<UI.Text>().Any(t=>t.name=="Base0"),"Stat breakdown did not collapse");
    GalleryTestButton("BackToCards").onClick.Invoke();
    AssertSmoke(!galleryDetailOpen&&galleryListRoot.gameObject.activeSelf&&cardButtons[0]==cachedCard&&gridRoot.GetChild(0)==cachedGrid&&Math.Abs(priorScroll-galleryScroll.verticalNormalizedPosition)<.001,"Returning rebuilt card grid or lost scroll");
    AssertSmoke(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject==cachedCard.gameObject,"Return did not restore keyboard focus");
