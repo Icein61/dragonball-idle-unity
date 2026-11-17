@@ -13,4 +13,8 @@ if(!$result.battleWon -or !$result.saveRoundTrip -or !$result.legacyMigration -o
 if(Select-String -LiteralPath (Join-Path $OutputDirectory 'player.log') -Pattern 'Exception|NullReferenceException' -Quiet){throw 'Exception found in Player smoke log'}
 $art=Get-Content -LiteralPath (Join-Path $OutputDirectory 'battle-art-smoke.json') -Raw | ConvertFrom-Json
 if($art.atlases -ne 15 -or $art.signaturePortraits -ne 15 -or $art.poses -ne 180 -or !$art.frameUpdate -or !$art.rewardAfterAnimation -or !$art.replayCleanup -or !$art.soundSilent){throw 'Battle art/presentation smoke incomplete'}
+
+$refresh=Get-Content -LiteralPath (Join-Path $OutputDirectory 'gallery-refresh-smoke.json') -Raw | ConvertFrom-Json
+if(!$refresh.dedicatedDetail -or !$refresh.cardCache -or !$refresh.focusReturn -or !$refresh.roundedSurfaces -or !$refresh.individualFilterClear -or !$refresh.fullPortraitAspect -or !$refresh.enabledTextContrast){throw 'Gallery refresh verification incomplete'}
+
 Write-Output ('HEADLESS_SMOKE_PASS '+$OutputDirectory)

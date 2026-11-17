@@ -11,34 +11,40 @@ namespace DragonIdle {
    ClearUI(detailRoot);measuredText.Clear();galleryTrainButton=galleryEquipButton=gallerySwapButton=null;
    if(selectedCard<0){UText(detailRoot,"NoSelection","从左侧选择一张角色卡",30,300,544,80,23,uiDim,TextAnchor.MiddleCenter);return;}
    int i=selectedCard;var c=Data.Cards[i];bool owned=profile.Owned[i];
-   UPanel(detailRoot,"InkEdge",0,0,604,4,uiAccent);
-   UArt(detailRoot,i,16,17,218,280);
-   UText(detailRoot,"CardRarity",c.Rarity+"\n"+c.KeywordText,251,16,331,45,15,uiAccent);
-   UText(detailRoot,"CharacterName",c.Name,251,65,331,45,32,uiPaper);
-   UText(detailRoot,"CharacterTitle",c.Title,251,115,331,34,23,uiPaper);
-   UText(detailRoot,"Identity",c.Stage+"  ·  "+c.Form+"\n"+string.Join(" / ",c.Tags.Distinct().ToArray()),251,158,325,72,16,uiDim);
+   UButton(detailRoot,"BackToCards","‹ 返回人物志",24,18,190,40,ReturnToCards);
+   UArt(detailRoot,i,24,72,456,532);
+   UText(detailRoot,"CardRarity",c.Rarity+"    "+c.KeywordText,520,24,788,32,18,uiAccent);
+   UText(detailRoot,"CharacterName",c.Name,520,68,788,45,32,uiPaper);
+   UText(detailRoot,"CharacterTitle",c.Title,520,116,788,32,23,uiPaper);
+   UText(detailRoot,"Identity",c.Stage+"  ·  "+c.Form+"    "+string.Join(" / ",c.Tags.Distinct().ToArray()),520,158,788,32,17,uiDim);
    int slot=Array.IndexOf(profile.Team,i);
-   UText(detailRoot,"Ownership",owned?(slot>=0?(slot<3?"前排 ":"后排 ")+(slot+1)+(slot==profile.Leader?" · 队长":" · 已上阵"):"已拥有 · 候补"):"尚未拥有 · 可查看全部信息",251,234,330,29,17,owned?uiAccent:uiDim);
-   UButton(detailRoot,"Acquisition","查看获取途径",251,270,326,34,()=>ShowAcquisition(i));
-   string[] tabs={"属性与培养","招式与队长","装备与技能"};
-   for(int n=0;n<3;n++){int tab=n;UButton(detailRoot,"DetailTab"+n,tabs[n],16+n*192,322,182,38,()=>{detailTab=tab;DrawGalleryDetail();},detailTab==n);}
-   galleryDetailScroll=UScroll(detailRoot,"DetailScroll",16,375,572,265,out detailBody);detailY=0;
+   UText(detailRoot,"Ownership",owned?(slot>=0?(slot<3?"前排 ":"后排 ")+(slot+1)+(slot==profile.Leader?" · 队长":" · 已上阵"):"已拥有 · 候补"):"尚未拥有 · 可查看全部信息",24,613,456,30,18,owned?uiAccent:uiDim);
+   UButton(detailRoot,"Acquisition","查看获取途径",24,654,456,42,()=>ShowAcquisition(i));
+   string[] tabs={"概览与培养","招式与队长","装备与技能"};
+   for(int n=0;n<3;n++){int tab=n;UButton(detailRoot,"DetailTab"+n,tabs[n],520+n*264,202,252,42,()=>{detailTab=tab;DrawGalleryDetail();},detailTab==n);}
+   galleryDetailScroll=UScroll(detailRoot,"DetailScroll",520,260,788,370,out detailBody);detailY=0;
    if(detailTab==0)DrawGalleryStats(i);
    else if(detailTab==1)DrawGallerySkills(i);
    else DrawGalleryLoadout(i);
-   detailBody.sizeDelta=new Vector2(558,Math.Max(265,detailY+10));
+   detailBody.sizeDelta=new Vector2(774,Math.Max(370,detailY+10));
    Canvas.ForceUpdateCanvases();galleryDetailScroll.verticalNormalizedPosition=oldScroll;
-   gallerySwapButton=UButton(detailRoot,"ChooseSlot",owned?"选择阵位":"查看获取途径",16,657,278,40,()=>{if(owned)ShowFormationPicker(i);else ShowAcquisition(i);},true,saveError=="");
-   galleryEquipButton=UButton(detailRoot,"OpenEquipment","前往装备工坊",306,657,278,40,()=>NavigateGallery("装备"),false,owned&&saveError=="");
+   gallerySwapButton=UButton(detailRoot,"ChooseSlot",owned?"选择阵位":"查看获取途径",520,654,382,42,()=>{if(owned)ShowFormationPicker(i);else ShowAcquisition(i);},true,saveError=="");
+   galleryEquipButton=UButton(detailRoot,"OpenEquipment","前往装备工坊",918,654,390,42,()=>NavigateGallery("装备"),false,owned&&saveError=="");
   }
   void DetailParagraph(string title,string content,Color? color=null){
-   UText(detailBody,"SectionTitle",title,0,detailY,540,29,19,color??uiAccent);detailY+=34;
-   var t=UText(detailBody,"Paragraph",content,0,detailY,538,1,17,uiPaper);
-   float height=Math.Max(25,t.preferredHeight+5);t.rectTransform.sizeDelta=new Vector2(538,height);measuredText.Add(t);detailY+=height+22;
+   UText(detailBody,"SectionTitle",title,0,detailY,750,29,20,color??uiAccent);detailY+=36;
+   var t=UText(detailBody,"Paragraph",content,0,detailY,748,1,19,uiPaper);
+   float height=Math.Max(28,t.preferredHeight+6);t.rectTransform.sizeDelta=new Vector2(748,height);measuredText.Add(t);detailY+=height+24;
   }
   void DrawGalleryStats(int i){
    var c=Data.Cards[i];bool owned=profile.Owned[i];var personal=profile.InspectCharacter(i);var team=profile.InspectCharacter(i,true);
-   DetailParagraph(owned?"开战属性":"未培养预览","基础 → 个人 → 当前编队。个人值包含培养、装备、技能及开战时已生效的被动；不计临时战斗强化。");
+   if(!statsExpanded){
+    var effective=owned&&profile.Team.Contains(i)?team:personal;
+    DetailParagraph(owned&&profile.Team.Contains(i)?"当前编队开战属性":"个人开战属性","生命  "+effective.MaxHP.ToString("0.0")+"      攻击  "+effective.AttackValue.ToString("0.0")+"\n防御  "+effective.DefenseValue.ToString("0.0")+"      速度  "+effective.SpeedValue.ToString("0.0"));
+   }
+   UButton(detailBody,"ToggleStatBreakdown",statsExpanded?"收起属性拆解":"展开基础 / 个人 / 编队属性",0,detailY,748,40,()=>{statsExpanded=!statsExpanded;DrawGalleryDetail();});detailY+=56;
+   if(statsExpanded){
+   DetailParagraph(owned?"开战属性拆解":"未培养预览","个人包含培养、装备、技能及已生效常驻被动，不计临时战斗强化；未上阵角色不计队长加成。");
    UText(detailBody,"ColumnName","属性",0,detailY,100,25,15,uiDim);
    UText(detailBody,"ColumnBase","基础",124,detailY,123,25,15,uiDim);
    UText(detailBody,"ColumnPersonal","个人",269,detailY,123,25,15,uiDim);
@@ -50,6 +56,7 @@ namespace DragonIdle {
     UText(detailBody,"Base"+n,basis[n].ToString("0.0"),124,detailY,123,30,18,uiDim);
     UText(detailBody,"Personal"+n,one[n].ToString("0.0"),269,detailY,123,30,18,uiPaper);
     UText(detailBody,"Team"+n,owned&&profile.Team.Contains(i)?two[n].ToString("0.0"):"未上阵",414,detailY,123,30,18,uiAccent);detailY+=36;
+   }
    }
    DetailParagraph("战前效果","暴击 "+(personal.Crit*100).ToString("0.#")+"% · 闪避 "+(personal.Dodge*100).ToString("0.#")+"%\n个人开战护盾 "+personal.Shield.ToString("0")+" · 开战怒气 "+personal.Rage.ToString("0")+"\n"+(profile.Team.Contains(i)?"编队开战护盾 "+team.Shield.ToString("0")+"\n当前队长 生/攻/防 +"+(team.LeaderHealth*100).ToString("0")+"% / +"+(team.LeaderAttack*100).ToString("0")+"% / +"+(team.LeaderDefense*100).ToString("0")+"%":"候补不计队长加成；上阵后按队长条件计算。"));
    if(!owned){DetailParagraph("获取后开始培养","图鉴展示初始形态与基础机制。获得卡片后可修炼、共鸣、装配和编队。");return;}

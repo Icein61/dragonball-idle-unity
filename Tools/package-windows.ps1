@@ -24,6 +24,8 @@ try {
  ($hash+'  '+[IO.Path]::GetFileName($zip)) | Set-Content (Join-Path $release 'SHA256SUMS.txt') -Encoding utf8
  $battleArt=Get-Content -LiteralPath (Join-Path $dir 'battle-art-smoke.json') -Raw | ConvertFrom-Json
  $manifest=[ordered]@{gameTitle='龙珠爆裂激斗';executable='龙珠爆裂激斗.exe';version=$version;commit=$commit;unity='2022.3.62f3';platform='Windows-x64';builtAtUtc=[DateTime]::UtcNow.ToString('o');sha256=$hash;logicSmoke=$result;battleArtSmoke=$battleArt;visualVerification='pending-user-window-permission';smokeDirectory=[IO.Path]::GetFileName($dir);sourceClean=$true}
+
+ $manifest.galleryRefreshSmoke=Get-Content -LiteralPath (Join-Path $dir 'gallery-refresh-smoke.json') -Raw | ConvertFrom-Json
  $manifest | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $release 'build-manifest.json') -Encoding utf8
  Write-Output ('PACKAGE_READY '+$release)
  Write-Output ('HEADLESS_CHECK '+$dir)

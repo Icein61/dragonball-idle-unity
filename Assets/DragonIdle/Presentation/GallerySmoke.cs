@@ -13,6 +13,19 @@ namespace DragonIdle {
    AssertSmoke(brand.text==Data.GameTitle&&brand.preferredWidth<=brand.rectTransform.rect.width&&brand.preferredHeight<=brand.rectTransform.rect.height,"New game title clipped or missing");
    AssertSmoke(cardButtons.Count==8&&selectedCard==0,"Owned gallery failed");
    allTab.onClick.Invoke();AssertSmoke(cardButtons.Count==15&&!catalog.OwnedOnly,"All gallery tab failed");
+   var cachedCard=cardButtons[0];var cachedGrid=gridRoot.GetChild(0);float priorScroll=galleryScroll.verticalNormalizedPosition;
+   cachedCard.onClick.Invoke();AssertSmoke(galleryDetailOpen&&!galleryListRoot.gameObject.activeSelf&&detailRoot.gameObject.activeSelf,"Dedicated detail screen did not replace grid");
+   GalleryTestButton("BackToCards").onClick.Invoke();
+   AssertSmoke(!galleryDetailOpen&&galleryListRoot.gameObject.activeSelf&&cardButtons[0]==cachedCard&&gridRoot.GetChild(0)==cachedGrid&&Math.Abs(priorScroll-galleryScroll.verticalNormalizedPosition)<.001,"Returning rebuilt card grid or lost scroll");
+   AssertSmoke(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject==cachedCard.gameObject,"Return did not restore keyboard focus");
+   AssertSmoke(cachedCard.targetGraphic is UI.Image&&((UI.Image)cachedCard.targetGraphic).type==UI.Image.Type.Sliced,"Rounded card surface missing");
+   AssertSmoke(ThemeContrast(uiPaper,uiPanel)>=4.5&&ThemeContrast(uiDim,uiPanel)>=4.5&&ThemeContrast(Color.white,uiAccent)>=4.5,"Enabled theme text contrast below target");
+   RefreshGallery(false);AssertSmoke(cardButtons[0]==cachedCard,"Unchanged refresh rebuilt card nodes");
+   foreach(var pair in cardButtons){var art=pair.Value.GetComponentInChildren<UI.RawImage>();AssertSmoke(art!=null&&Math.Abs(art.rectTransform.rect.width/art.rectTransform.rect.height-PortraitAspect(pair.Key))<.001&&art.uvRect==new Rect(0,0,1,1),"Card portrait stretched or cropped");}
+   foreach(var viewport in new[]{new Vector2(1280,720),new Vector2(1600,900),new Vector2(1920,1080),new Vector2(2560,1080)}){
+    float scale=Mathf.Min(viewport.x/1600,viewport.y/900);Vector2 offset=(viewport-new Vector2(1600,900)*scale)/2;
+    AssertSmoke(offset.x>=-.001f&&offset.y>=-.001f&&offset.x+1558*scale<=viewport.x+.001f&&offset.y+887*scale<=viewport.y+.001f,"Reference canvas exceeds viewport mathematical bounds");
+   }
    Canvas.ForceUpdateCanvases();AssertSmoke(gridRoot.GetComponentsInChildren<UI.Text>().Where(t=>t.name=="Theme"||t.name=="Keywords").All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Card form/title text clipped");
    gallerySearch.text="界王拳";
    int kaioken=Data.Index("goku-saiyan-kaioken-v020");
@@ -24,6 +37,7 @@ namespace DragonIdle {
    GalleryTestButton("Option3").onClick.Invoke();
    AssertSmoke(mineTab.interactable&&gallerySearch.interactable,"Modal did not restore background input");
    AssertSmoke(catalog.Rarity=="SSR"&&cardButtons.Keys.All(i=>Data.Cards[i].Rarity=="SSR")&&dialogRoot==null,"Direct rarity picker failed");
+   GalleryTestButton("ClearFilter0").onClick.Invoke();AssertSmoke(catalog.Rarity==""&&cardButtons.Count==15,"Individual filter chip did not clear condition");
    ResetGalleryFilters();ShowFilter(1);GalleryTestButton("Option1").onClick.Invoke();
    AssertSmoke(catalog.Role=="自我强化"&&cardButtons.Count==Data.Cards.Count(c=>c.Keywords.Contains("自我强化"))&&cardButtons.Keys.All(i=>Data.Cards[i].Keywords.Contains("自我强化")),"Keyword picker did not filter actual role keywords");
    ResetGalleryFilters();cardButtons[0].onClick.Invoke();detailTab=0;DrawGalleryDetail();
@@ -63,6 +77,7 @@ namespace DragonIdle {
     AssertSmoke(images[0].texture==PortraitTexture(i)&&images[0].texture!=FighterTexture(i)&&images[0].uvRect==new Rect(0,0,1,1),"Detail reused atlas or cropped portrait UV");
    }
    AssertSmoke(galleryCanvas.GetComponent<UI.CanvasScaler>().screenMatchMode==UI.CanvasScaler.ScreenMatchMode.Expand,"UI aspect ratio scaler incorrect");
+   File.WriteAllText(Path.Combine(dir,"gallery-refresh-smoke.json"),"{\"dedicatedDetail\":true,\"cardCache\":true,\"focusReturn\":true,\"roundedSurfaces\":true,\"individualFilterClear\":true,\"fullPortraitAspect\":true,\"enabledTextContrast\":true,\"viewportMath\":[\"1280x720\",\"1600x900\",\"1920x1080\",\"2560x1080\"],\"renderVerified\":false}");
    File.WriteAllText(Path.Combine(dir,"gallery-smoke.json"),"{\"eventsWired\":true,\"filters\":true,\"stats\":true,\"navigation\":true,\"textLayout\":true,\"audioPreferences\":true,\"audioSilentDuringTest\":true,\"visualVerified\":false,\"listened\":false}");
    Save();
   }
