@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -106,7 +106,7 @@ namespace DragonIdle {
    CloseGalleryDialog();page=target;autoRepeat=false;notice="";galleryDirty=true;
    galleryCanvas.SetActive(IsModernPage(target));previousPage="";UpdateGallery();
    if(target=="角色"&&EventSystem.current!=null){
-    if(galleryDetailOpen&&selectedCard>=0)EventSystem.current.SetSelectedGameObject(detailRoot.Find("BackToCards").gameObject);
+    if(galleryDetailOpen&&selectedCard>=0)EventSystem.current.SetSelectedGameObject(ActiveBackButton(detailRoot,"BackToCards"));
     else if(cardButtons.ContainsKey(selectedCard))EventSystem.current.SetSelectedGameObject(cardButtons[selectedCard].gameObject);
    }
   }
@@ -160,3 +160,4 @@ namespace DragonIdle {
   }
  }
 }
+

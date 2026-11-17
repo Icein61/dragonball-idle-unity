@@ -19,6 +19,7 @@ namespace DragonIdle {
    galleryResources.text="素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems;
    foreach(string name in new[]{"挑战","角色","编队","养成","装备","召唤","说明"})SetButtonActive(galleryRoot.Find("Nav"+name).GetComponent<UI.Button>(),page==name);
   }
+  GameObject ActiveBackButton(Transform root,string name){return root.GetComponentsInChildren<UI.Button>().First(b=>b.name==name).gameObject;}
   string WorkshopKey(){return page+":"+selectedCard+":"+equipmentTab;}
   void RememberWorkshop(){if(workScroll!=null&&renderedWorkshop!="")workPositions[renderedWorkshop]=workScroll.verticalNormalizedPosition;}
   void DrawWorkshop(){
@@ -43,7 +44,7 @@ namespace DragonIdle {
    renderedWorkshop=WorkshopKey();Canvas.ForceUpdateCanvases();float position;
    workScroll.verticalNormalizedPosition=workPositions.TryGetValue(renderedWorkshop,out position)?position:1;
    RefreshModernFrame();
-   if(EventSystem.current!=null){var b=workshopRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(x=>x.name==focus&&x.interactable);EventSystem.current.SetSelectedGameObject(b!=null?b.gameObject:workshopRoot.Find("WorkshopBack").gameObject);}
+   if(EventSystem.current!=null){var b=workshopRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(x=>x.name==focus&&x.interactable);EventSystem.current.SetSelectedGameObject(b!=null?b.gameObject:ActiveBackButton(workshopRoot,"WorkshopBack"));}
   }
   void CycleWorkshopCard(int step){RememberWorkshop();var owned=Enumerable.Range(0,Data.Cards.Length).Where(i=>profile.Owned[i]).ToArray();selectedCard=owned[(Array.IndexOf(owned,selectedCard)+owned.Length+step)%owned.Length];DrawWorkshop();}
   void WorkChange(Action mutation,string message){
@@ -135,3 +136,4 @@ namespace DragonIdle {
   }
  }
 }
+

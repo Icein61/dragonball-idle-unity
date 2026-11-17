@@ -26,7 +26,7 @@ namespace DragonIdle {
   static double ThemeContrast(Color a,Color b){double x=ThemeLuminance(a),y=ThemeLuminance(b);return (System.Math.Max(x,y)+.05)/(System.Math.Min(x,y)+.05);}
   void OpenGalleryCard(int index){
    selectedCard=index;galleryDetailOpen=true;galleryListRoot.gameObject.SetActive(false);detailRoot.gameObject.SetActive(true);detailFade=.35f;DrawGalleryDetail();
-   if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(detailRoot.Find("BackToCards").gameObject);
+   if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(ActiveBackButton(detailRoot,"BackToCards"));
   }
   void ReturnToCards(){
    galleryDetailOpen=false;detailRoot.gameObject.SetActive(false);galleryListRoot.gameObject.SetActive(true);
@@ -34,3 +34,4 @@ namespace DragonIdle {
   }
  }
 }
+

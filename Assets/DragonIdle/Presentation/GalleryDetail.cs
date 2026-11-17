@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using UnityEngine;
 using UI=UnityEngine.UI;
@@ -33,7 +33,7 @@ namespace DragonIdle {
    Canvas.ForceUpdateCanvases();galleryDetailScroll.verticalNormalizedPosition=oldScroll;
    gallerySwapButton=UButton(detailRoot,"ChooseSlot",owned?"选择阵位":"查看获取途径",520,654,382,42,()=>{if(owned)ShowFormationPicker(i);else ShowAcquisition(i);},true,saveError=="");
    galleryEquipButton=UButton(detailRoot,"OpenEquipment","前往装备工坊",918,654,390,42,()=>NavigateGallery("装备"),false,owned&&saveError=="");
-   if(restoreFocus!=null&&eventSystem!=null){var control=detailRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(b=>b.name==restoreFocus&&b.interactable);eventSystem.SetSelectedGameObject(control!=null?control.gameObject:detailRoot.Find("BackToCards").gameObject);}
+   if(restoreFocus!=null&&eventSystem!=null){var control=detailRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(b=>b.name==restoreFocus&&b.interactable);eventSystem.SetSelectedGameObject(control!=null?control.gameObject:ActiveBackButton(detailRoot,"BackToCards"));}
   }
   void DetailParagraph(string title,string content,Color? color=null){
    UText(detailBody,"SectionTitle",title,0,detailY,750,29,20,color??uiAccent);detailY+=36;
@@ -122,3 +122,4 @@ namespace DragonIdle {
   }
  }
 }
+
