@@ -1,5 +1,8 @@
 # 当前状态
-更新：2026-11-16（Asia/Shanghai）。项目：https://github.com/Icein61/dragonball-idle-unity
+更新：2026-11-17（Asia/Shanghai）。项目：https://github.com/Icein61/dragonball-idle-unity
+
+## 最新同步与下一阶段（2026-11-17）
+已快进同步远端main至363aa54，运行版本0.5.3；v0.5.2/v0.5.3已远端发布，历史认证阻塞已解除。用户希望先分析并打磨UI，明确简洁、美观、圆润方向。源码分析与分阶段建议见production/ui-refresh-plan.md；本轮仅同步和方案记录，没有修改游戏UI、运行版本或生成新包。优先建议公共导航外框与角色/图鉴，保留最新三卡用户原文和概念图。下文保留各次开发历史，以本段及末尾发布回执为当前状态。可见窗口权限仍未恢复。
 
 ## 当前工作
 GitHub认证已于2026-11-16恢复：Icein61账号及仓库写权限通过API核验，main与v0.5.2/v0.5.3标签已实际推送。旧的“凭据失效”记录为历史，当前不再是认证阻塞；PC附件回读状态见各版本验证记录。排障经过见engineering/github-auth.md。
