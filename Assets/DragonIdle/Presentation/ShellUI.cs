@@ -72,7 +72,7 @@ namespace DragonIdle {
    string[] help={"收藏与招式","阵位与队长","修炼与策略","搭配与比较","寻找新同伴","玩法与存档"};
    for(int n=0;n<names.Length;n++){string target=names[n];float x=40+n*256;ShellButton(homeRoot,"HomeNav"+target,titles[n],x,786,240,62,()=>NavigateGallery(target));UText(homeRoot,"HomeNavHint"+n,help[n],x,855,240,27,16,uiDim,TextAnchor.MiddleCenter);}
    RefreshHomeNotice();
-   if(EventSystem.current!=null){var b=homeRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(x=>x.name==focus&&x.interactable);EventSystem.current.SetSelectedGameObject(b!=null?b.gameObject:homeRoot.Find("HomeNav角色").gameObject);}
+   if(EventSystem.current!=null){var b=homeRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(x=>x.name==focus&&x.interactable);EventSystem.current.SetSelectedGameObject(b!=null?b.gameObject:ActiveBackButton(homeRoot,"HomeNav角色"));}
   }
   void RefreshHomeNotice(){if(homeNotice!=null){homeNotice.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"从人物志了解同伴，或前往剧情开始冒险。";}}
   void DrawShellLoading(){

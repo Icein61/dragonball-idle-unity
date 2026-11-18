@@ -4,7 +4,7 @@ using System.Linq;
 namespace DragonIdle {
  // Card identity and the expanded catalog live in CharacterCatalog.cs.
  public static partial class Data {
-  public const string Version="0.7.0";
+  public const string Version="0.7.1";
   public const string GameTitle="龙珠爆裂激斗";
   // Keep the original storage identity when the public game title changes.
   public static string DefaultSavePath(string persistentDirectory){return System.IO.Path.Combine(System.IO.Directory.GetParent(persistentDirectory).FullName,"Dragon Idle Demo","profile-v1.json");}
