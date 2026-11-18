@@ -1,0 +1,3599 @@
+{
+  "version": 5,
+  "workbook": "outputs/character-rebuild-20261118/角色重构设计表-图文详细版-v5-分类排序.xlsx",
+  "skillTextPolicy": "Preserve user original text verbatim; icon correspondence based on filename number is candidate only.",
+  "enabledField": {
+    "sheet": "角色管理",
+    "column": "F",
+    "yes": "是",
+    "no": "否",
+    "blank": "否"
+  },
+  "rarityField": {
+    "sheet": "角色管理",
+    "column": "G",
+    "allowed": [
+      "C",
+      "B",
+      "A",
+      "S"
+    ]
+  },
+  "skillOriginalTextColumn": "F",
+  "skillIconPathColumn": "G",
+  "removedIds": [
+    "D10000201",
+    "D10000301",
+    "D10000311",
+    "D10000401",
+    "D10001401",
+    "D10001501",
+    "D10001901",
+    "D10002201",
+    "D10002401",
+    "D10002701",
+    "D10004301",
+    "D100046",
+    "D100051",
+    "D10007901"
+  ],
+  "sortingPolicy": "按人物首次登场的大阶段排序，早期特别篇/剧场版/GT人物插入对应年代；同人物形态按故事阶段集中，皮肤靠后。合体独立成组；不按故事出生年代倒推；同阶段为编辑顺序。排序不自动上线。",
+  "sortingMetadataColumns": {
+    "排序号": "Y",
+    "人物归类": "Z",
+    "形态外观": "AA",
+    "人物首次登场": "AB",
+    "形态登场": "AC",
+    "投放参考批次": "AD",
+    "身份归类说明": "AE",
+    "说明": "AF"
+  },
+  "cards": [
+    {
+      "designId": "D100029",
+      "sourceGroup": "100029",
+      "managementRow": 6,
+      "skillRows": {
+        "普攻": 6,
+        "绝招": 7,
+        "必杀": 8,
+        "被动": 9
+      },
+      "growthRow": 6,
+      "assetsRow": 6,
+      "numericSkillCandidates": true,
+      "summaryRow": 6,
+      "sortOrder": 1,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "少年常态"
+    },
+    {
+      "designId": "D100003",
+      "sourceGroup": "100003",
+      "managementRow": 7,
+      "skillRows": {
+        "普攻": 10,
+        "绝招": 11,
+        "必杀": 12,
+        "被动": 13
+      },
+      "growthRow": 7,
+      "assetsRow": 7,
+      "numericSkillCandidates": true,
+      "summaryRow": 7,
+      "sortOrder": 2,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "超级赛亚人"
+    },
+    {
+      "designId": "D100044",
+      "sourceGroup": "100044",
+      "managementRow": 8,
+      "skillRows": {
+        "普攻": 14,
+        "绝招": 15,
+        "必杀": 16,
+        "被动": 17
+      },
+      "growthRow": 8,
+      "assetsRow": 8,
+      "numericSkillCandidates": true,
+      "summaryRow": 8,
+      "sortOrder": 3,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "超赛·蓄气演出A"
+    },
+    {
+      "designId": "D100049",
+      "sourceGroup": "100049",
+      "managementRow": 9,
+      "skillRows": {
+        "普攻": 18,
+        "绝招": 19,
+        "必杀": 20,
+        "被动": 21
+      },
+      "growthRow": 9,
+      "assetsRow": 9,
+      "numericSkillCandidates": true,
+      "summaryRow": 9,
+      "sortOrder": 4,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "超赛·蓄气演出B"
+    },
+    {
+      "designId": "D100099",
+      "sourceGroup": "100099",
+      "managementRow": 10,
+      "skillRows": {
+        "普攻": 22,
+        "绝招": 23,
+        "必杀": 24,
+        "被动": 25
+      },
+      "growthRow": 10,
+      "assetsRow": 10,
+      "numericSkillCandidates": true,
+      "summaryRow": 10,
+      "sortOrder": 5,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "超级赛亚人·战斗姿态"
+    },
+    {
+      "designId": "D10009901",
+      "sourceGroup": "10009901",
+      "managementRow": 11,
+      "skillRows": {
+        "普攻": 26,
+        "绝招": 27,
+        "必杀": 28,
+        "被动": 29
+      },
+      "growthRow": 11,
+      "assetsRow": 11,
+      "numericSkillCandidates": false,
+      "summaryRow": 11,
+      "sortOrder": 6,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "超级赛亚人·破损道服"
+    },
+    {
+      "designId": "D100101",
+      "sourceGroup": "100101",
+      "managementRow": 12,
+      "skillRows": {
+        "普攻": 30,
+        "绝招": 31,
+        "必杀": 32,
+        "被动": 33
+      },
+      "growthRow": 12,
+      "assetsRow": 12,
+      "numericSkillCandidates": true,
+      "summaryRow": 12,
+      "sortOrder": 7,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "超赛·蓄气演出C"
+    },
+    {
+      "designId": "D100104",
+      "sourceGroup": "100104",
+      "managementRow": 13,
+      "skillRows": {
+        "普攻": 34,
+        "绝招": 35,
+        "必杀": 36,
+        "被动": 37
+      },
+      "growthRow": 13,
+      "assetsRow": 13,
+      "numericSkillCandidates": true,
+      "summaryRow": 13,
+      "sortOrder": 8,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "超赛·蓄气演出D"
+    },
+    {
+      "designId": "D100016",
+      "sourceGroup": "100016",
+      "managementRow": 14,
+      "skillRows": {
+        "普攻": 38,
+        "绝招": 39,
+        "必杀": 40,
+        "被动": 41
+      },
+      "growthRow": 14,
+      "assetsRow": 14,
+      "numericSkillCandidates": true,
+      "summaryRow": 14,
+      "sortOrder": 9,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "超级赛亚人3／天使"
+    },
+    {
+      "designId": "D100058",
+      "sourceGroup": "100058",
+      "managementRow": 15,
+      "skillRows": {
+        "普攻": 42,
+        "绝招": 43,
+        "必杀": 44,
+        "被动": 45
+      },
+      "growthRow": 15,
+      "assetsRow": 15,
+      "numericSkillCandidates": true,
+      "summaryRow": 15,
+      "sortOrder": 10,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "超级赛亚人之神"
+    },
+    {
+      "designId": "D100038",
+      "sourceGroup": "100038",
+      "managementRow": 16,
+      "skillRows": {
+        "普攻": 46,
+        "绝招": 47,
+        "必杀": 48,
+        "被动": 49
+      },
+      "growthRow": 16,
+      "assetsRow": 16,
+      "numericSkillCandidates": true,
+      "summaryRow": 16,
+      "sortOrder": 11,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "超级赛亚人蓝"
+    },
+    {
+      "designId": "D10003801",
+      "sourceGroup": "10003801",
+      "managementRow": 17,
+      "skillRows": {
+        "普攻": 50,
+        "绝招": 51,
+        "必杀": 52,
+        "被动": 53
+      },
+      "growthRow": 17,
+      "assetsRow": 17,
+      "numericSkillCandidates": false,
+      "summaryRow": 17,
+      "sortOrder": 12,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "超蓝·红色强化演出（界王拳候选）"
+    },
+    {
+      "designId": "D100087",
+      "sourceGroup": "100087",
+      "managementRow": 18,
+      "skillRows": {
+        "普攻": 54,
+        "绝招": 55,
+        "必杀": 56,
+        "被动": 57
+      },
+      "growthRow": 18,
+      "assetsRow": 18,
+      "numericSkillCandidates": true,
+      "summaryRow": 18,
+      "sortOrder": 13,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "自在极意·兆"
+    },
+    {
+      "designId": "D100095",
+      "sourceGroup": "100095",
+      "managementRow": 19,
+      "skillRows": {
+        "普攻": 58,
+        "绝招": 59,
+        "必杀": 60,
+        "被动": 61
+      },
+      "growthRow": 19,
+      "assetsRow": 19,
+      "numericSkillCandidates": true,
+      "summaryRow": 19,
+      "sortOrder": 14,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "自在极意完成形态"
+    },
+    {
+      "designId": "D100081",
+      "sourceGroup": "100081",
+      "managementRow": 20,
+      "skillRows": {
+        "普攻": 62,
+        "绝招": 63,
+        "必杀": 64,
+        "被动": 65
+      },
+      "growthRow": 20,
+      "assetsRow": 20,
+      "numericSkillCandidates": true,
+      "summaryRow": 20,
+      "sortOrder": 15,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "GT·返童常态"
+    },
+    {
+      "designId": "D100076",
+      "sourceGroup": "100076",
+      "managementRow": 21,
+      "skillRows": {
+        "普攻": 66,
+        "绝招": 67,
+        "必杀": 68,
+        "被动": 69
+      },
+      "growthRow": 21,
+      "assetsRow": 21,
+      "numericSkillCandidates": true,
+      "summaryRow": 21,
+      "sortOrder": 16,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "超级赛亚人4"
+    },
+    {
+      "designId": "D100059",
+      "sourceGroup": "100059",
+      "managementRow": 22,
+      "skillRows": {
+        "普攻": 70,
+        "绝招": 71,
+        "必杀": 72,
+        "被动": 73
+      },
+      "growthRow": 22,
+      "assetsRow": 22,
+      "numericSkillCandidates": true,
+      "summaryRow": 22,
+      "sortOrder": 17,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "时巡／Xeno风格常态"
+    },
+    {
+      "designId": "D100083",
+      "sourceGroup": "100083",
+      "managementRow": 23,
+      "skillRows": {
+        "普攻": 74,
+        "绝招": 75,
+        "必杀": 76,
+        "被动": 77
+      },
+      "growthRow": 23,
+      "assetsRow": 23,
+      "numericSkillCandidates": true,
+      "summaryRow": 23,
+      "sortOrder": 18,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "超四强化演出（具体形态待核）"
+    },
+    {
+      "designId": "D101003",
+      "sourceGroup": "101003",
+      "managementRow": 24,
+      "skillRows": {
+        "普攻": 78,
+        "绝招": 79,
+        "必杀": 80,
+        "被动": 81
+      },
+      "growthRow": 24,
+      "assetsRow": 24,
+      "numericSkillCandidates": false,
+      "summaryRow": 24,
+      "sortOrder": 19,
+      "sortPersonGroup": "孙悟空",
+      "sortForm": "异色／暗化素材：超级赛亚人"
+    },
+    {
+      "designId": "D100024",
+      "sourceGroup": "100024",
+      "managementRow": 25,
+      "skillRows": {
+        "普攻": 82,
+        "绝招": 83,
+        "必杀": 84,
+        "被动": 85
+      },
+      "growthRow": 25,
+      "assetsRow": 25,
+      "numericSkillCandidates": true,
+      "summaryRow": 25,
+      "sortOrder": 20,
+      "sortPersonGroup": "布尔玛",
+      "sortForm": "少女时期"
+    },
+    {
+      "designId": "D100021",
+      "sourceGroup": "100021",
+      "managementRow": 26,
+      "skillRows": {
+        "普攻": 86,
+        "绝招": 87,
+        "必杀": 88,
+        "被动": 89
+      },
+      "growthRow": 26,
+      "assetsRow": 26,
+      "numericSkillCandidates": true,
+      "summaryRow": 26,
+      "sortOrder": 21,
+      "sortPersonGroup": "龟仙人",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D101021",
+      "sourceGroup": "101021",
+      "managementRow": 27,
+      "skillRows": {
+        "普攻": 90,
+        "绝招": 91,
+        "必杀": 92,
+        "被动": 93
+      },
+      "growthRow": 27,
+      "assetsRow": 27,
+      "numericSkillCandidates": false,
+      "summaryRow": 27,
+      "sortOrder": 22,
+      "sortPersonGroup": "龟仙人",
+      "sortForm": "异色／暗化素材：常态"
+    },
+    {
+      "designId": "D100011",
+      "sourceGroup": "100011",
+      "managementRow": 28,
+      "skillRows": {
+        "普攻": 94,
+        "绝招": 95,
+        "必杀": 96,
+        "被动": 97
+      },
+      "growthRow": 28,
+      "assetsRow": 28,
+      "numericSkillCandidates": true,
+      "summaryRow": 28,
+      "sortOrder": 23,
+      "sortPersonGroup": "雅木茶",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D101011",
+      "sourceGroup": "101011",
+      "managementRow": 29,
+      "skillRows": {
+        "普攻": 98,
+        "绝招": 99,
+        "必杀": 100,
+        "被动": 101
+      },
+      "growthRow": 29,
+      "assetsRow": 29,
+      "numericSkillCandidates": false,
+      "summaryRow": 29,
+      "sortOrder": 24,
+      "sortPersonGroup": "雅木茶",
+      "sortForm": "异色／暗化素材：常态"
+    },
+    {
+      "designId": "D103003",
+      "sourceGroup": "103003",
+      "managementRow": 30,
+      "skillRows": {
+        "普攻": 102,
+        "绝招": 103,
+        "必杀": 104,
+        "被动": 105
+      },
+      "growthRow": 30,
+      "assetsRow": 30,
+      "numericSkillCandidates": false,
+      "summaryRow": 30,
+      "sortOrder": 25,
+      "sortPersonGroup": "琪琪",
+      "sortForm": "成年时期"
+    },
+    {
+      "designId": "D103035",
+      "sourceGroup": "103035",
+      "managementRow": 31,
+      "skillRows": {
+        "普攻": 106,
+        "绝招": 107,
+        "必杀": 108,
+        "被动": 109
+      },
+      "growthRow": 31,
+      "assetsRow": 31,
+      "numericSkillCandidates": false,
+      "summaryRow": 31,
+      "sortOrder": 26,
+      "sortPersonGroup": "小舞",
+      "sortForm": "未来／军事服装外观（时期待核）"
+    },
+    {
+      "designId": "D500009",
+      "sourceGroup": "500009",
+      "managementRow": 32,
+      "skillRows": {
+        "普攻": 110,
+        "绝招": 111,
+        "必杀": 112,
+        "被动": 113
+      },
+      "growthRow": 32,
+      "assetsRow": 32,
+      "numericSkillCandidates": false,
+      "summaryRow": 32,
+      "sortOrder": 27,
+      "sortPersonGroup": "神龙",
+      "sortForm": "召唤展示素材"
+    },
+    {
+      "designId": "D100023",
+      "sourceGroup": "100023",
+      "managementRow": 33,
+      "skillRows": {
+        "普攻": 114,
+        "绝招": 115,
+        "必杀": 116,
+        "被动": 117
+      },
+      "growthRow": 33,
+      "assetsRow": 33,
+      "numericSkillCandidates": true,
+      "summaryRow": 33,
+      "sortOrder": 28,
+      "sortPersonGroup": "克林",
+      "sortForm": "成年常态"
+    },
+    {
+      "designId": "D101023",
+      "sourceGroup": "101023",
+      "managementRow": 34,
+      "skillRows": {
+        "普攻": 118,
+        "绝招": 119,
+        "必杀": 120,
+        "被动": 121
+      },
+      "growthRow": 34,
+      "assetsRow": 34,
+      "numericSkillCandidates": false,
+      "summaryRow": 34,
+      "sortOrder": 29,
+      "sortPersonGroup": "克林",
+      "sortForm": "异色／暗化素材：成年常态"
+    },
+    {
+      "designId": "D200010",
+      "sourceGroup": "200010",
+      "managementRow": 35,
+      "skillRows": {
+        "普攻": 122,
+        "绝招": 123,
+        "必杀": 124,
+        "被动": 125
+      },
+      "growthRow": 35,
+      "assetsRow": 35,
+      "numericSkillCandidates": false,
+      "summaryRow": 35,
+      "sortOrder": 30,
+      "sortPersonGroup": "红绸军杂兵",
+      "sortForm": "军团步兵／机器人素材 10"
+    },
+    {
+      "designId": "D200011",
+      "sourceGroup": "200011",
+      "managementRow": 36,
+      "skillRows": {
+        "普攻": 126,
+        "绝招": 127,
+        "必杀": 128,
+        "被动": 129
+      },
+      "growthRow": 36,
+      "assetsRow": 36,
+      "numericSkillCandidates": false,
+      "summaryRow": 36,
+      "sortOrder": 31,
+      "sortPersonGroup": "红绸军杂兵",
+      "sortForm": "军团步兵／机器人素材 11"
+    },
+    {
+      "designId": "D200012",
+      "sourceGroup": "200012",
+      "managementRow": 37,
+      "skillRows": {
+        "普攻": 130,
+        "绝招": 131,
+        "必杀": 132,
+        "被动": 133
+      },
+      "growthRow": 37,
+      "assetsRow": 37,
+      "numericSkillCandidates": false,
+      "summaryRow": 37,
+      "sortOrder": 32,
+      "sortPersonGroup": "红绸军杂兵",
+      "sortForm": "军团步兵／机器人素材 12"
+    },
+    {
+      "designId": "D200013",
+      "sourceGroup": "200013",
+      "managementRow": 38,
+      "skillRows": {
+        "普攻": 134,
+        "绝招": 135,
+        "必杀": 136,
+        "被动": 137
+      },
+      "growthRow": 38,
+      "assetsRow": 38,
+      "numericSkillCandidates": false,
+      "summaryRow": 38,
+      "sortOrder": 33,
+      "sortPersonGroup": "红绸军杂兵",
+      "sortForm": "军团步兵／机器人素材 13"
+    },
+    {
+      "designId": "D200014",
+      "sourceGroup": "200014",
+      "managementRow": 39,
+      "skillRows": {
+        "普攻": 138,
+        "绝招": 139,
+        "必杀": 140,
+        "被动": 141
+      },
+      "growthRow": 39,
+      "assetsRow": 39,
+      "numericSkillCandidates": false,
+      "summaryRow": 39,
+      "sortOrder": 34,
+      "sortPersonGroup": "红绸军杂兵",
+      "sortForm": "军团步兵／机器人素材 14"
+    },
+    {
+      "designId": "D100057",
+      "sourceGroup": "100057",
+      "managementRow": 40,
+      "skillRows": {
+        "普攻": 142,
+        "绝招": 143,
+        "必杀": 144,
+        "被动": 145
+      },
+      "growthRow": 40,
+      "assetsRow": 40,
+      "numericSkillCandidates": true,
+      "summaryRow": 40,
+      "sortOrder": 35,
+      "sortPersonGroup": "阿拉蕾",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D500008",
+      "sourceGroup": "500008",
+      "managementRow": 41,
+      "skillRows": {
+        "普攻": 146,
+        "绝招": 147,
+        "必杀": 148,
+        "被动": 149
+      },
+      "growthRow": 41,
+      "assetsRow": 41,
+      "numericSkillCandidates": false,
+      "summaryRow": 41,
+      "sortOrder": 36,
+      "sortPersonGroup": "阿拉蕾",
+      "sortForm": "强化／装饰演出素材"
+    },
+    {
+      "designId": "D500001",
+      "sourceGroup": "500001",
+      "managementRow": 42,
+      "skillRows": {
+        "普攻": 150,
+        "绝招": 151,
+        "必杀": 152,
+        "被动": 153
+      },
+      "growthRow": 42,
+      "assetsRow": 42,
+      "numericSkillCandidates": false,
+      "summaryRow": 42,
+      "sortOrder": 37,
+      "sortPersonGroup": "占卜婆婆",
+      "sortForm": "漂浮水晶球外观"
+    },
+    {
+      "designId": "D100020",
+      "sourceGroup": "100020",
+      "managementRow": 43,
+      "skillRows": {
+        "普攻": 154,
+        "绝招": 155,
+        "必杀": 156,
+        "被动": 157
+      },
+      "growthRow": 43,
+      "assetsRow": 43,
+      "numericSkillCandidates": true,
+      "summaryRow": 43,
+      "sortOrder": 38,
+      "sortPersonGroup": "天津饭",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D101020",
+      "sourceGroup": "101020",
+      "managementRow": 44,
+      "skillRows": {
+        "普攻": 158,
+        "绝招": 159,
+        "必杀": 160,
+        "被动": 161
+      },
+      "growthRow": 44,
+      "assetsRow": 44,
+      "numericSkillCandidates": false,
+      "summaryRow": 44,
+      "sortOrder": 39,
+      "sortPersonGroup": "天津饭",
+      "sortForm": "异色／暗化素材：常态"
+    },
+    {
+      "designId": "D500005",
+      "sourceGroup": "500005",
+      "managementRow": 45,
+      "skillRows": {
+        "普攻": 162,
+        "绝招": 163,
+        "必杀": 164,
+        "被动": 165
+      },
+      "growthRow": 45,
+      "assetsRow": 45,
+      "numericSkillCandidates": false,
+      "summaryRow": 45,
+      "sortOrder": 40,
+      "sortPersonGroup": "亚奇洛贝",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100018",
+      "sourceGroup": "100018",
+      "managementRow": 46,
+      "skillRows": {
+        "普攻": 166,
+        "绝招": 167,
+        "必杀": 168,
+        "被动": 169
+      },
+      "growthRow": 46,
+      "assetsRow": 46,
+      "numericSkillCandidates": true,
+      "summaryRow": 46,
+      "sortOrder": 41,
+      "sortPersonGroup": "比克（魔二代）",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D101018",
+      "sourceGroup": "101018",
+      "managementRow": 47,
+      "skillRows": {
+        "普攻": 170,
+        "绝招": 171,
+        "必杀": 172,
+        "被动": 173
+      },
+      "growthRow": 47,
+      "assetsRow": 47,
+      "numericSkillCandidates": false,
+      "summaryRow": 47,
+      "sortOrder": 42,
+      "sortPersonGroup": "比克（魔二代）",
+      "sortForm": "异色／暗化素材：常态"
+    },
+    {
+      "designId": "D103006",
+      "sourceGroup": "103006",
+      "managementRow": 48,
+      "skillRows": {
+        "普攻": 174,
+        "绝招": 175,
+        "必杀": 176,
+        "被动": 177
+      },
+      "growthRow": 48,
+      "assetsRow": 48,
+      "numericSkillCandidates": false,
+      "summaryRow": 48,
+      "sortOrder": 43,
+      "sortPersonGroup": "天神",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100010",
+      "sourceGroup": "100010",
+      "managementRow": 49,
+      "skillRows": {
+        "普攻": 178,
+        "绝招": 179,
+        "必杀": 180,
+        "被动": 181
+      },
+      "growthRow": 49,
+      "assetsRow": 49,
+      "numericSkillCandidates": true,
+      "summaryRow": 49,
+      "sortOrder": 44,
+      "sortPersonGroup": "拉蒂兹",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100034",
+      "sourceGroup": "100034",
+      "managementRow": 50,
+      "skillRows": {
+        "普攻": 182,
+        "绝招": 183,
+        "必杀": 184,
+        "被动": 185
+      },
+      "growthRow": 50,
+      "assetsRow": 50,
+      "numericSkillCandidates": true,
+      "summaryRow": 50,
+      "sortOrder": 45,
+      "sortPersonGroup": "孙悟饭",
+      "sortForm": "少年·金发超赛（阶数待核）"
+    },
+    {
+      "designId": "D100019",
+      "sourceGroup": "100019",
+      "managementRow": 51,
+      "skillRows": {
+        "普攻": 186,
+        "绝招": 187,
+        "必杀": 188,
+        "被动": 189
+      },
+      "growthRow": 51,
+      "assetsRow": 51,
+      "numericSkillCandidates": true,
+      "summaryRow": 51,
+      "sortOrder": 46,
+      "sortPersonGroup": "孙悟饭",
+      "sortForm": "少年·超级赛亚人2"
+    },
+    {
+      "designId": "D100009",
+      "sourceGroup": "100009",
+      "managementRow": 52,
+      "skillRows": {
+        "普攻": 190,
+        "绝招": 191,
+        "必杀": 192,
+        "被动": 193
+      },
+      "growthRow": 52,
+      "assetsRow": 52,
+      "numericSkillCandidates": true,
+      "summaryRow": 52,
+      "sortOrder": 47,
+      "sortPersonGroup": "孙悟饭",
+      "sortForm": "潜力解放／究极"
+    },
+    {
+      "designId": "D100037",
+      "sourceGroup": "100037",
+      "managementRow": 53,
+      "skillRows": {
+        "普攻": 194,
+        "绝招": 195,
+        "必杀": 196,
+        "被动": 197
+      },
+      "growthRow": 53,
+      "assetsRow": 53,
+      "numericSkillCandidates": true,
+      "summaryRow": 53,
+      "sortOrder": 48,
+      "sortPersonGroup": "孙悟饭",
+      "sortForm": "野兽形态"
+    },
+    {
+      "designId": "D101019",
+      "sourceGroup": "101019",
+      "managementRow": 54,
+      "skillRows": {
+        "普攻": 198,
+        "绝招": 199,
+        "必杀": 200,
+        "被动": 201
+      },
+      "growthRow": 54,
+      "assetsRow": 54,
+      "numericSkillCandidates": false,
+      "summaryRow": 54,
+      "sortOrder": 49,
+      "sortPersonGroup": "孙悟饭",
+      "sortForm": "异色／暗化素材：少年·超级赛亚人2"
+    },
+    {
+      "designId": "D101009",
+      "sourceGroup": "101009",
+      "managementRow": 55,
+      "skillRows": {
+        "普攻": 202,
+        "绝招": 203,
+        "必杀": 204,
+        "被动": 205
+      },
+      "growthRow": 55,
+      "assetsRow": 55,
+      "numericSkillCandidates": false,
+      "summaryRow": 55,
+      "sortOrder": 50,
+      "sortPersonGroup": "孙悟饭",
+      "sortForm": "异色／暗化素材：潜力解放／究极"
+    },
+    {
+      "designId": "D100043",
+      "sourceGroup": "100043",
+      "managementRow": 56,
+      "skillRows": {
+        "普攻": 206,
+        "绝招": 207,
+        "必杀": 208,
+        "被动": 209
+      },
+      "growthRow": 56,
+      "assetsRow": 56,
+      "numericSkillCandidates": true,
+      "summaryRow": 56,
+      "sortOrder": 51,
+      "sortPersonGroup": "贝吉塔",
+      "sortForm": "常态战斗服"
+    },
+    {
+      "designId": "D100006",
+      "sourceGroup": "100006",
+      "managementRow": 57,
+      "skillRows": {
+        "普攻": 210,
+        "绝招": 211,
+        "必杀": 212,
+        "被动": 213
+      },
+      "growthRow": 57,
+      "assetsRow": 57,
+      "numericSkillCandidates": true,
+      "summaryRow": 57,
+      "sortOrder": 52,
+      "sortPersonGroup": "贝吉塔",
+      "sortForm": "超级赛亚人"
+    },
+    {
+      "designId": "D500012",
+      "sourceGroup": "500012",
+      "managementRow": 58,
+      "skillRows": {
+        "普攻": 214,
+        "绝招": 215,
+        "必杀": 216,
+        "被动": 217
+      },
+      "growthRow": 58,
+      "assetsRow": 58,
+      "numericSkillCandidates": false,
+      "summaryRow": 58,
+      "sortOrder": 53,
+      "sortPersonGroup": "贝吉塔",
+      "sortForm": "金发演出素材（具体阶数待核）"
+    },
+    {
+      "designId": "D100005",
+      "sourceGroup": "100005",
+      "managementRow": 59,
+      "skillRows": {
+        "普攻": 218,
+        "绝招": 219,
+        "必杀": 220,
+        "被动": 221
+      },
+      "growthRow": 59,
+      "assetsRow": 59,
+      "numericSkillCandidates": true,
+      "summaryRow": 59,
+      "sortOrder": 54,
+      "sortPersonGroup": "贝吉塔",
+      "sortForm": "魔人化／超赛2演出"
+    },
+    {
+      "designId": "D100069",
+      "sourceGroup": "100069",
+      "managementRow": 60,
+      "skillRows": {
+        "普攻": 222,
+        "绝招": 223,
+        "必杀": 224,
+        "被动": 225
+      },
+      "growthRow": 60,
+      "assetsRow": 60,
+      "numericSkillCandidates": true,
+      "summaryRow": 60,
+      "sortOrder": 55,
+      "sortPersonGroup": "贝吉塔",
+      "sortForm": "超级赛亚人之神"
+    },
+    {
+      "designId": "D100033",
+      "sourceGroup": "100033",
+      "managementRow": 61,
+      "skillRows": {
+        "普攻": 226,
+        "绝招": 227,
+        "必杀": 228,
+        "被动": 229
+      },
+      "growthRow": 61,
+      "assetsRow": 61,
+      "numericSkillCandidates": true,
+      "summaryRow": 61,
+      "sortOrder": 56,
+      "sortPersonGroup": "贝吉塔",
+      "sortForm": "超级赛亚人蓝"
+    },
+    {
+      "designId": "D10003301",
+      "sourceGroup": "10003301",
+      "managementRow": 62,
+      "skillRows": {
+        "普攻": 230,
+        "绝招": 231,
+        "必杀": 232,
+        "被动": 233
+      },
+      "growthRow": 62,
+      "assetsRow": 62,
+      "numericSkillCandidates": false,
+      "summaryRow": 62,
+      "sortOrder": 57,
+      "sortPersonGroup": "贝吉塔",
+      "sortForm": "蓝发强化装甲外观（具体形态待核）"
+    },
+    {
+      "designId": "D100068",
+      "sourceGroup": "100068",
+      "managementRow": 63,
+      "skillRows": {
+        "普攻": 234,
+        "绝招": 235,
+        "必杀": 236,
+        "被动": 237
+      },
+      "growthRow": 63,
+      "assetsRow": 63,
+      "numericSkillCandidates": true,
+      "summaryRow": 63,
+      "sortOrder": 58,
+      "sortPersonGroup": "贝吉塔",
+      "sortForm": "自我极意外观"
+    },
+    {
+      "designId": "D100078",
+      "sourceGroup": "100078",
+      "managementRow": 64,
+      "skillRows": {
+        "普攻": 238,
+        "绝招": 239,
+        "必杀": 240,
+        "被动": 241
+      },
+      "growthRow": 64,
+      "assetsRow": 64,
+      "numericSkillCandidates": true,
+      "summaryRow": 64,
+      "sortOrder": 59,
+      "sortPersonGroup": "贝吉塔",
+      "sortForm": "超级赛亚人4"
+    },
+    {
+      "designId": "D100093",
+      "sourceGroup": "100093",
+      "managementRow": 65,
+      "skillRows": {
+        "普攻": 242,
+        "绝招": 243,
+        "必杀": 244,
+        "被动": 245
+      },
+      "growthRow": 65,
+      "assetsRow": 65,
+      "numericSkillCandidates": true,
+      "summaryRow": 65,
+      "sortOrder": 60,
+      "sortPersonGroup": "贝吉塔",
+      "sortForm": "银发强化外观（非正篇已确认形态）"
+    },
+    {
+      "designId": "D10009301",
+      "sourceGroup": "10009301",
+      "managementRow": 66,
+      "skillRows": {
+        "普攻": 246,
+        "绝招": 247,
+        "必杀": 248,
+        "被动": 249
+      },
+      "growthRow": 66,
+      "assetsRow": 66,
+      "numericSkillCandidates": false,
+      "summaryRow": 66,
+      "sortOrder": 61,
+      "sortPersonGroup": "贝吉塔",
+      "sortForm": "金发强化外观（具体形态待核）"
+    },
+    {
+      "designId": "D101006",
+      "sourceGroup": "101006",
+      "managementRow": 67,
+      "skillRows": {
+        "普攻": 250,
+        "绝招": 251,
+        "必杀": 252,
+        "被动": 253
+      },
+      "growthRow": 67,
+      "assetsRow": 67,
+      "numericSkillCandidates": false,
+      "summaryRow": 67,
+      "sortOrder": 62,
+      "sortPersonGroup": "贝吉塔",
+      "sortForm": "异色／暗化素材：超级赛亚人"
+    },
+    {
+      "designId": "D100026",
+      "sourceGroup": "100026",
+      "managementRow": 68,
+      "skillRows": {
+        "普攻": 254,
+        "绝招": 255,
+        "必杀": 256,
+        "被动": 257
+      },
+      "growthRow": 68,
+      "assetsRow": 68,
+      "numericSkillCandidates": true,
+      "summaryRow": 68,
+      "sortOrder": 63,
+      "sortPersonGroup": "那巴",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D103008",
+      "sourceGroup": "103008",
+      "managementRow": 69,
+      "skillRows": {
+        "普攻": 258,
+        "绝招": 259,
+        "必杀": 260,
+        "被动": 261
+      },
+      "growthRow": 69,
+      "assetsRow": 69,
+      "numericSkillCandidates": false,
+      "summaryRow": 69,
+      "sortOrder": 64,
+      "sortPersonGroup": "阎魔王",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D103007",
+      "sourceGroup": "103007",
+      "managementRow": 70,
+      "skillRows": {
+        "普攻": 262,
+        "绝招": 263,
+        "必杀": 264,
+        "被动": 265
+      },
+      "growthRow": 70,
+      "assetsRow": 70,
+      "numericSkillCandidates": false,
+      "summaryRow": 70,
+      "sortOrder": 65,
+      "sortPersonGroup": "北界王",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D103033",
+      "sourceGroup": "103033",
+      "managementRow": 71,
+      "skillRows": {
+        "普攻": 266,
+        "绝招": 267,
+        "必杀": 268,
+        "被动": 269
+      },
+      "growthRow": 71,
+      "assetsRow": 71,
+      "numericSkillCandidates": false,
+      "summaryRow": 71,
+      "sortOrder": 66,
+      "sortPersonGroup": "北界王",
+      "sortForm": "另一展示素材"
+    },
+    {
+      "designId": "D100050",
+      "sourceGroup": "100050",
+      "managementRow": 72,
+      "skillRows": {
+        "普攻": 270,
+        "绝招": 271,
+        "必杀": 272,
+        "被动": 273
+      },
+      "growthRow": 72,
+      "assetsRow": 72,
+      "numericSkillCandidates": true,
+      "summaryRow": 72,
+      "sortOrder": 67,
+      "sortPersonGroup": "弗利萨",
+      "sortForm": "第一形态"
+    },
+    {
+      "designId": "D100007",
+      "sourceGroup": "100007",
+      "managementRow": 73,
+      "skillRows": {
+        "普攻": 274,
+        "绝招": 275,
+        "必杀": 276,
+        "被动": 277
+      },
+      "growthRow": 73,
+      "assetsRow": 73,
+      "numericSkillCandidates": true,
+      "summaryRow": 73,
+      "sortOrder": 68,
+      "sortPersonGroup": "弗利萨",
+      "sortForm": "最终形态"
+    },
+    {
+      "designId": "D100065",
+      "sourceGroup": "100065",
+      "managementRow": 74,
+      "skillRows": {
+        "普攻": 278,
+        "绝招": 279,
+        "必杀": 280,
+        "被动": 281
+      },
+      "growthRow": 74,
+      "assetsRow": 74,
+      "numericSkillCandidates": true,
+      "summaryRow": 74,
+      "sortOrder": 69,
+      "sortPersonGroup": "弗利萨",
+      "sortForm": "黄金形态"
+    },
+    {
+      "designId": "D100100",
+      "sourceGroup": "100100",
+      "managementRow": 75,
+      "skillRows": {
+        "普攻": 282,
+        "绝招": 283,
+        "必杀": 284,
+        "被动": 285
+      },
+      "growthRow": 75,
+      "assetsRow": 75,
+      "numericSkillCandidates": true,
+      "summaryRow": 75,
+      "sortOrder": 70,
+      "sortPersonGroup": "弗利萨",
+      "sortForm": "灰黑装甲外观（形态待核）"
+    },
+    {
+      "designId": "D300001",
+      "sourceGroup": "300001",
+      "managementRow": 76,
+      "skillRows": {
+        "普攻": 286,
+        "绝招": 287,
+        "必杀": 288,
+        "被动": 289
+      },
+      "growthRow": 76,
+      "assetsRow": 76,
+      "numericSkillCandidates": false,
+      "summaryRow": 76,
+      "sortOrder": 71,
+      "sortPersonGroup": "弗利萨",
+      "sortForm": "金像／奖杯展示（不是战斗形态）"
+    },
+    {
+      "designId": "D100017",
+      "sourceGroup": "100017",
+      "managementRow": 77,
+      "skillRows": {
+        "普攻": 290,
+        "绝招": 291,
+        "必杀": 292,
+        "被动": 293
+      },
+      "growthRow": 77,
+      "assetsRow": 77,
+      "numericSkillCandidates": true,
+      "summaryRow": 77,
+      "sortOrder": 72,
+      "sortPersonGroup": "古杜",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100030",
+      "sourceGroup": "100030",
+      "managementRow": 78,
+      "skillRows": {
+        "普攻": 294,
+        "绝招": 295,
+        "必杀": 296,
+        "被动": 297
+      },
+      "growthRow": 78,
+      "assetsRow": 78,
+      "numericSkillCandidates": true,
+      "summaryRow": 78,
+      "sortOrder": 73,
+      "sortPersonGroup": "巴特",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100045",
+      "sourceGroup": "100045",
+      "managementRow": 79,
+      "skillRows": {
+        "普攻": 298,
+        "绝招": 299,
+        "必杀": 300,
+        "被动": 301
+      },
+      "growthRow": 79,
+      "assetsRow": 79,
+      "numericSkillCandidates": false,
+      "summaryRow": 79,
+      "sortOrder": 74,
+      "sortPersonGroup": "基纽",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100015",
+      "sourceGroup": "100015",
+      "managementRow": 80,
+      "skillRows": {
+        "普攻": 302,
+        "绝招": 303,
+        "必杀": 304,
+        "被动": 305
+      },
+      "growthRow": 80,
+      "assetsRow": 80,
+      "numericSkillCandidates": true,
+      "summaryRow": 80,
+      "sortOrder": 75,
+      "sortPersonGroup": "巴达克",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100084",
+      "sourceGroup": "100084",
+      "managementRow": 81,
+      "skillRows": {
+        "普攻": 306,
+        "绝招": 307,
+        "必杀": 308,
+        "被动": 309
+      },
+      "growthRow": 81,
+      "assetsRow": 81,
+      "numericSkillCandidates": true,
+      "summaryRow": 81,
+      "sortOrder": 76,
+      "sortPersonGroup": "巴达克",
+      "sortForm": "黑衣战斗服外观"
+    },
+    {
+      "designId": "D10008401",
+      "sourceGroup": "10008401",
+      "managementRow": 82,
+      "skillRows": {
+        "普攻": 310,
+        "绝招": 311,
+        "必杀": 312,
+        "被动": 313
+      },
+      "growthRow": 82,
+      "assetsRow": 82,
+      "numericSkillCandidates": false,
+      "summaryRow": 82,
+      "sortOrder": 77,
+      "sortPersonGroup": "巴达克",
+      "sortForm": "金发假面外观（候选）"
+    },
+    {
+      "designId": "D100085",
+      "sourceGroup": "100085",
+      "managementRow": 83,
+      "skillRows": {
+        "普攻": 314,
+        "绝招": 315,
+        "必杀": 316,
+        "被动": 317
+      },
+      "growthRow": 83,
+      "assetsRow": 83,
+      "numericSkillCandidates": true,
+      "summaryRow": 83,
+      "sortOrder": 78,
+      "sortPersonGroup": "古拉",
+      "sortForm": "黄金外观"
+    },
+    {
+      "designId": "D100041",
+      "sourceGroup": "100041",
+      "managementRow": 84,
+      "skillRows": {
+        "普攻": 318,
+        "绝招": 319,
+        "必杀": 320,
+        "被动": 321
+      },
+      "growthRow": 84,
+      "assetsRow": 84,
+      "numericSkillCandidates": true,
+      "summaryRow": 84,
+      "sortOrder": 79,
+      "sortPersonGroup": "未来特兰克斯",
+      "sortForm": "未来·超级赛亚人"
+    },
+    {
+      "designId": "D100054",
+      "sourceGroup": "100054",
+      "managementRow": 85,
+      "skillRows": {
+        "普攻": 322,
+        "绝招": 323,
+        "必杀": 324,
+        "被动": 325
+      },
+      "growthRow": 85,
+      "assetsRow": 85,
+      "numericSkillCandidates": true,
+      "summaryRow": 85,
+      "sortOrder": 80,
+      "sortPersonGroup": "未来特兰克斯",
+      "sortForm": "未来·愤怒超赛演出"
+    },
+    {
+      "designId": "D101041",
+      "sourceGroup": "101041",
+      "managementRow": 86,
+      "skillRows": {
+        "普攻": 326,
+        "绝招": 327,
+        "必杀": 328,
+        "被动": 329
+      },
+      "growthRow": 86,
+      "assetsRow": 86,
+      "numericSkillCandidates": false,
+      "summaryRow": 86,
+      "sortOrder": 81,
+      "sortPersonGroup": "未来特兰克斯",
+      "sortForm": "异色／暗化素材：未来·超级赛亚人"
+    },
+    {
+      "designId": "D100031",
+      "sourceGroup": "100031",
+      "managementRow": 87,
+      "skillRows": {
+        "普攻": 330,
+        "绝招": 331,
+        "必杀": 332,
+        "被动": 333
+      },
+      "growthRow": 87,
+      "assetsRow": 87,
+      "numericSkillCandidates": true,
+      "summaryRow": 87,
+      "sortOrder": 82,
+      "sortPersonGroup": "人造人19号",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100002",
+      "sourceGroup": "100002",
+      "managementRow": 88,
+      "skillRows": {
+        "普攻": 334,
+        "绝招": 335,
+        "必杀": 336,
+        "被动": 337
+      },
+      "growthRow": 88,
+      "assetsRow": 88,
+      "numericSkillCandidates": true,
+      "summaryRow": 88,
+      "sortOrder": 83,
+      "sortPersonGroup": "格罗博士／人造人20号",
+      "sortForm": "人造人20号"
+    },
+    {
+      "designId": "D100047",
+      "sourceGroup": "100047",
+      "managementRow": 89,
+      "skillRows": {
+        "普攻": 338,
+        "绝招": 339,
+        "必杀": 340,
+        "被动": 341
+      },
+      "growthRow": 89,
+      "assetsRow": 89,
+      "numericSkillCandidates": false,
+      "summaryRow": 89,
+      "sortOrder": 84,
+      "sortPersonGroup": "格罗博士／人造人20号",
+      "sortForm": "常态站姿素材"
+    },
+    {
+      "designId": "D100027",
+      "sourceGroup": "100027",
+      "managementRow": 90,
+      "skillRows": {
+        "普攻": 342,
+        "绝招": 343,
+        "必杀": 344,
+        "被动": 345
+      },
+      "growthRow": 90,
+      "assetsRow": 90,
+      "numericSkillCandidates": true,
+      "summaryRow": 90,
+      "sortOrder": 85,
+      "sortPersonGroup": "人造人17号",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D101027",
+      "sourceGroup": "101027",
+      "managementRow": 91,
+      "skillRows": {
+        "普攻": 346,
+        "绝招": 347,
+        "必杀": 348,
+        "被动": 349
+      },
+      "growthRow": 91,
+      "assetsRow": 91,
+      "numericSkillCandidates": false,
+      "summaryRow": 91,
+      "sortOrder": 86,
+      "sortPersonGroup": "人造人17号",
+      "sortForm": "异色／暗化素材：常态"
+    },
+    {
+      "designId": "D100012",
+      "sourceGroup": "100012",
+      "managementRow": 92,
+      "skillRows": {
+        "普攻": 350,
+        "绝招": 351,
+        "必杀": 352,
+        "被动": 353
+      },
+      "growthRow": 92,
+      "assetsRow": 92,
+      "numericSkillCandidates": true,
+      "summaryRow": 92,
+      "sortOrder": 87,
+      "sortPersonGroup": "人造人18号",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D10001201",
+      "sourceGroup": "10001201",
+      "managementRow": 93,
+      "skillRows": {
+        "普攻": 354,
+        "绝招": 355,
+        "必杀": 356,
+        "被动": 357
+      },
+      "growthRow": 93,
+      "assetsRow": 93,
+      "numericSkillCandidates": false,
+      "summaryRow": 93,
+      "sortOrder": 88,
+      "sortPersonGroup": "人造人18号",
+      "sortForm": "圣诞服装（素材皮肤）"
+    },
+    {
+      "designId": "D10001202",
+      "sourceGroup": "10001202",
+      "managementRow": 94,
+      "skillRows": {
+        "普攻": 358,
+        "绝招": 359,
+        "必杀": 360,
+        "被动": 361
+      },
+      "growthRow": 94,
+      "assetsRow": 94,
+      "numericSkillCandidates": false,
+      "summaryRow": 94,
+      "sortOrder": 89,
+      "sortPersonGroup": "人造人18号",
+      "sortForm": "泳装（素材皮肤）"
+    },
+    {
+      "designId": "D101012",
+      "sourceGroup": "101012",
+      "managementRow": 95,
+      "skillRows": {
+        "普攻": 362,
+        "绝招": 363,
+        "必杀": 364,
+        "被动": 365
+      },
+      "growthRow": 95,
+      "assetsRow": 95,
+      "numericSkillCandidates": false,
+      "summaryRow": 95,
+      "sortOrder": 90,
+      "sortPersonGroup": "人造人18号",
+      "sortForm": "异色／暗化素材：常态"
+    },
+    {
+      "designId": "D100008",
+      "sourceGroup": "100008",
+      "managementRow": 96,
+      "skillRows": {
+        "普攻": 366,
+        "绝招": 367,
+        "必杀": 368,
+        "被动": 369
+      },
+      "growthRow": 96,
+      "assetsRow": 96,
+      "numericSkillCandidates": true,
+      "summaryRow": 96,
+      "sortOrder": 91,
+      "sortPersonGroup": "人造人16号",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D103001",
+      "sourceGroup": "103001",
+      "managementRow": 97,
+      "skillRows": {
+        "普攻": 370,
+        "绝招": 371,
+        "必杀": 372,
+        "被动": 373
+      },
+      "growthRow": 97,
+      "assetsRow": 97,
+      "numericSkillCandidates": false,
+      "summaryRow": 97,
+      "sortOrder": 92,
+      "sortPersonGroup": "沙鲁",
+      "sortForm": "第一形态"
+    },
+    {
+      "designId": "D103002",
+      "sourceGroup": "103002",
+      "managementRow": 98,
+      "skillRows": {
+        "普攻": 374,
+        "绝招": 375,
+        "必杀": 376,
+        "被动": 377
+      },
+      "growthRow": 98,
+      "assetsRow": 98,
+      "numericSkillCandidates": false,
+      "summaryRow": 98,
+      "sortOrder": 93,
+      "sortPersonGroup": "沙鲁",
+      "sortForm": "第二形态"
+    },
+    {
+      "designId": "D100025",
+      "sourceGroup": "100025",
+      "managementRow": 99,
+      "skillRows": {
+        "普攻": 378,
+        "绝招": 379,
+        "必杀": 380,
+        "被动": 381
+      },
+      "growthRow": 99,
+      "assetsRow": 99,
+      "numericSkillCandidates": true,
+      "summaryRow": 99,
+      "sortOrder": 94,
+      "sortPersonGroup": "沙鲁",
+      "sortForm": "完全体"
+    },
+    {
+      "designId": "D200009",
+      "sourceGroup": "200009",
+      "managementRow": 100,
+      "skillRows": {
+        "普攻": 382,
+        "绝招": 383,
+        "必杀": 384,
+        "被动": 385
+      },
+      "growthRow": 100,
+      "assetsRow": 100,
+      "numericSkillCandidates": false,
+      "summaryRow": 100,
+      "sortOrder": 95,
+      "sortPersonGroup": "小沙鲁",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D500002",
+      "sourceGroup": "500002",
+      "managementRow": 101,
+      "skillRows": {
+        "普攻": 386,
+        "绝招": 387,
+        "必杀": 388,
+        "被动": 389
+      },
+      "growthRow": 101,
+      "assetsRow": 101,
+      "numericSkillCandidates": false,
+      "summaryRow": 101,
+      "sortOrder": 96,
+      "sortPersonGroup": "撒旦",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D300009",
+      "sourceGroup": "300009",
+      "managementRow": 102,
+      "skillRows": {
+        "普攻": 390,
+        "绝招": 391,
+        "必杀": 392,
+        "被动": 393
+      },
+      "growthRow": 102,
+      "assetsRow": 102,
+      "numericSkillCandidates": false,
+      "summaryRow": 102,
+      "sortOrder": 97,
+      "sortPersonGroup": "撒旦",
+      "sortForm": "头像／展示素材"
+    },
+    {
+      "designId": "D103043",
+      "sourceGroup": "103043",
+      "managementRow": 103,
+      "skillRows": {
+        "普攻": 394,
+        "绝招": 395,
+        "必杀": 396,
+        "被动": 397
+      },
+      "growthRow": 103,
+      "assetsRow": 103,
+      "numericSkillCandidates": false,
+      "summaryRow": 103,
+      "sortOrder": 98,
+      "sortPersonGroup": "帕拉伽斯",
+      "sortForm": "超版／白发战斗服"
+    },
+    {
+      "designId": "D100056",
+      "sourceGroup": "100056",
+      "managementRow": 104,
+      "skillRows": {
+        "普攻": 398,
+        "绝招": 399,
+        "必杀": 400,
+        "被动": 401
+      },
+      "growthRow": 104,
+      "assetsRow": 104,
+      "numericSkillCandidates": true,
+      "summaryRow": 104,
+      "sortOrder": 99,
+      "sortPersonGroup": "布罗利（旧版／超分支）",
+      "sortForm": "旧版·传说超级赛亚人"
+    },
+    {
+      "designId": "D10005601",
+      "sourceGroup": "10005601",
+      "managementRow": 105,
+      "skillRows": {
+        "普攻": 402,
+        "绝招": 403,
+        "必杀": 404,
+        "被动": 405
+      },
+      "growthRow": 105,
+      "assetsRow": 105,
+      "numericSkillCandidates": false,
+      "summaryRow": 105,
+      "sortOrder": 100,
+      "sortPersonGroup": "布罗利（旧版／超分支）",
+      "sortForm": "旧版·绿色能量演出变体"
+    },
+    {
+      "designId": "D100070",
+      "sourceGroup": "100070",
+      "managementRow": 106,
+      "skillRows": {
+        "普攻": 406,
+        "绝招": 407,
+        "必杀": 408,
+        "被动": 409
+      },
+      "growthRow": 106,
+      "assetsRow": 106,
+      "numericSkillCandidates": true,
+      "summaryRow": 106,
+      "sortOrder": 101,
+      "sortPersonGroup": "布罗利（旧版／超分支）",
+      "sortForm": "超版·常态"
+    },
+    {
+      "designId": "D10007001",
+      "sourceGroup": "10007001",
+      "managementRow": 107,
+      "skillRows": {
+        "普攻": 410,
+        "绝招": 411,
+        "必杀": 412,
+        "被动": 413
+      },
+      "growthRow": 107,
+      "assetsRow": 107,
+      "numericSkillCandidates": false,
+      "summaryRow": 107,
+      "sortOrder": 102,
+      "sortPersonGroup": "布罗利（旧版／超分支）",
+      "sortForm": "超版·绿色长发全力"
+    },
+    {
+      "designId": "D10007002",
+      "sourceGroup": "10007002",
+      "managementRow": 108,
+      "skillRows": {
+        "普攻": 414,
+        "绝招": 415,
+        "必杀": 416,
+        "被动": 417
+      },
+      "growthRow": 108,
+      "assetsRow": 108,
+      "numericSkillCandidates": false,
+      "summaryRow": 108,
+      "sortOrder": 103,
+      "sortPersonGroup": "布罗利（旧版／超分支）",
+      "sortForm": "超版·全力站姿变体"
+    },
+    {
+      "designId": "D100098",
+      "sourceGroup": "100098",
+      "managementRow": 109,
+      "skillRows": {
+        "普攻": 418,
+        "绝招": 419,
+        "必杀": 420,
+        "被动": 421
+      },
+      "growthRow": 109,
+      "assetsRow": 109,
+      "numericSkillCandidates": true,
+      "summaryRow": 109,
+      "sortOrder": 104,
+      "sortPersonGroup": "布罗利（旧版／超分支）",
+      "sortForm": "红毛超四外观（游戏衍生）"
+    },
+    {
+      "designId": "D103039",
+      "sourceGroup": "103039",
+      "managementRow": 110,
+      "skillRows": {
+        "普攻": 422,
+        "绝招": 423,
+        "必杀": 424,
+        "被动": 425
+      },
+      "growthRow": 110,
+      "assetsRow": 110,
+      "numericSkillCandidates": false,
+      "summaryRow": 110,
+      "sortOrder": 105,
+      "sortPersonGroup": "东界王神·辛",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D500003",
+      "sourceGroup": "500003",
+      "managementRow": 111,
+      "skillRows": {
+        "普攻": 426,
+        "绝招": 427,
+        "必杀": 428,
+        "被动": 429
+      },
+      "growthRow": 111,
+      "assetsRow": 111,
+      "numericSkillCandidates": false,
+      "summaryRow": 111,
+      "sortOrder": 106,
+      "sortPersonGroup": "杰比特",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100060",
+      "sourceGroup": "100060",
+      "managementRow": 112,
+      "skillRows": {
+        "普攻": 430,
+        "绝招": 431,
+        "必杀": 432,
+        "被动": 433
+      },
+      "growthRow": 112,
+      "assetsRow": 112,
+      "numericSkillCandidates": true,
+      "summaryRow": 112,
+      "sortOrder": 107,
+      "sortPersonGroup": "达普拉",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100001",
+      "sourceGroup": "100001",
+      "managementRow": 113,
+      "skillRows": {
+        "普攻": 434,
+        "绝招": 435,
+        "必杀": 436,
+        "被动": 437
+      },
+      "growthRow": 113,
+      "assetsRow": 113,
+      "numericSkillCandidates": true,
+      "summaryRow": 113,
+      "sortOrder": 108,
+      "sortPersonGroup": "魔人布欧",
+      "sortForm": "善良布欧／胖布欧"
+    },
+    {
+      "designId": "D100040",
+      "sourceGroup": "100040",
+      "managementRow": 114,
+      "skillRows": {
+        "普攻": 438,
+        "绝招": 439,
+        "必杀": 440,
+        "被动": 441
+      },
+      "growthRow": 114,
+      "assetsRow": 114,
+      "numericSkillCandidates": true,
+      "summaryRow": 114,
+      "sortOrder": 109,
+      "sortPersonGroup": "魔人布欧",
+      "sortForm": "胖布欧强化演出"
+    },
+    {
+      "designId": "D100067",
+      "sourceGroup": "100067",
+      "managementRow": 115,
+      "skillRows": {
+        "普攻": 442,
+        "绝招": 443,
+        "必杀": 444,
+        "被动": 445
+      },
+      "growthRow": 115,
+      "assetsRow": 115,
+      "numericSkillCandidates": true,
+      "summaryRow": 115,
+      "sortOrder": 110,
+      "sortPersonGroup": "魔人布欧",
+      "sortForm": "吸收型外观（吸收对象待核）"
+    },
+    {
+      "designId": "D100039",
+      "sourceGroup": "100039",
+      "managementRow": 116,
+      "skillRows": {
+        "普攻": 446,
+        "绝招": 447,
+        "必杀": 448,
+        "被动": 449
+      },
+      "growthRow": 116,
+      "assetsRow": 116,
+      "numericSkillCandidates": true,
+      "summaryRow": 116,
+      "sortOrder": 111,
+      "sortPersonGroup": "魔人布欧",
+      "sortForm": "纯粹布欧／小布欧"
+    },
+    {
+      "designId": "D103041",
+      "sourceGroup": "103041",
+      "managementRow": 117,
+      "skillRows": {
+        "普攻": 450,
+        "绝招": 451,
+        "必杀": 452,
+        "被动": 453
+      },
+      "growthRow": 117,
+      "assetsRow": 117,
+      "numericSkillCandidates": false,
+      "summaryRow": 117,
+      "sortOrder": 112,
+      "sortPersonGroup": "老界王神",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D103009",
+      "sourceGroup": "103009",
+      "managementRow": 118,
+      "skillRows": {
+        "普攻": 454,
+        "绝招": 455,
+        "必杀": 456,
+        "被动": 457
+      },
+      "growthRow": 118,
+      "assetsRow": 118,
+      "numericSkillCandidates": false,
+      "summaryRow": 118,
+      "sortOrder": 113,
+      "sortPersonGroup": "大界王神",
+      "sortForm": "常态（候选）"
+    },
+    {
+      "designId": "D100014",
+      "sourceGroup": "100014",
+      "managementRow": 119,
+      "skillRows": {
+        "普攻": 458,
+        "绝招": 459,
+        "必杀": 460,
+        "被动": 461
+      },
+      "growthRow": 119,
+      "assetsRow": 119,
+      "numericSkillCandidates": true,
+      "summaryRow": 119,
+      "sortOrder": 114,
+      "sortPersonGroup": "悟天克斯",
+      "sortForm": "超级赛亚人3"
+    },
+    {
+      "designId": "D100074",
+      "sourceGroup": "100074",
+      "managementRow": 120,
+      "skillRows": {
+        "普攻": 462,
+        "绝招": 463,
+        "必杀": 464,
+        "被动": 465
+      },
+      "growthRow": 120,
+      "assetsRow": 120,
+      "numericSkillCandidates": true,
+      "summaryRow": 120,
+      "sortOrder": 115,
+      "sortPersonGroup": "悟吉塔",
+      "sortForm": "超级赛亚人4"
+    },
+    {
+      "designId": "D100079",
+      "sourceGroup": "100079",
+      "managementRow": 121,
+      "skillRows": {
+        "普攻": 466,
+        "绝招": 467,
+        "必杀": 468,
+        "被动": 469
+      },
+      "growthRow": 121,
+      "assetsRow": 121,
+      "numericSkillCandidates": true,
+      "summaryRow": 121,
+      "sortOrder": 116,
+      "sortPersonGroup": "悟吉塔",
+      "sortForm": "超级赛亚人蓝"
+    },
+    {
+      "designId": "D100077",
+      "sourceGroup": "100077",
+      "managementRow": 122,
+      "skillRows": {
+        "普攻": 470,
+        "绝招": 471,
+        "必杀": 472,
+        "被动": 473
+      },
+      "growthRow": 122,
+      "assetsRow": 122,
+      "numericSkillCandidates": true,
+      "summaryRow": 122,
+      "sortOrder": 117,
+      "sortPersonGroup": "邪念波",
+      "sortForm": "最终战斗形态"
+    },
+    {
+      "designId": "D10007701",
+      "sourceGroup": "10007701",
+      "managementRow": 123,
+      "skillRows": {
+        "普攻": 474,
+        "绝招": 475,
+        "必杀": 476,
+        "被动": 477
+      },
+      "growthRow": 123,
+      "assetsRow": 123,
+      "numericSkillCandidates": false,
+      "summaryRow": 123,
+      "sortOrder": 118,
+      "sortPersonGroup": "邪念波",
+      "sortForm": "暗红装甲外观（素材皮肤）"
+    },
+    {
+      "designId": "D500010",
+      "sourceGroup": "500010",
+      "managementRow": 124,
+      "skillRows": {
+        "普攻": 478,
+        "绝招": 479,
+        "必杀": 480,
+        "被动": 481
+      },
+      "growthRow": 124,
+      "assetsRow": 124,
+      "numericSkillCandidates": false,
+      "summaryRow": 124,
+      "sortOrder": 119,
+      "sortPersonGroup": "贝吉特",
+      "sortForm": "黑发招式演出（候选）"
+    },
+    {
+      "designId": "D100090",
+      "sourceGroup": "100090",
+      "managementRow": 125,
+      "skillRows": {
+        "普攻": 482,
+        "绝招": 483,
+        "必杀": 484,
+        "被动": 485
+      },
+      "growthRow": 125,
+      "assetsRow": 125,
+      "numericSkillCandidates": true,
+      "summaryRow": 125,
+      "sortOrder": 120,
+      "sortPersonGroup": "贝吉特",
+      "sortForm": "超级赛亚人蓝"
+    },
+    {
+      "designId": "D100088",
+      "sourceGroup": "100088",
+      "managementRow": 126,
+      "skillRows": {
+        "普攻": 486,
+        "绝招": 487,
+        "必杀": 488,
+        "被动": 489
+      },
+      "growthRow": 126,
+      "assetsRow": 126,
+      "numericSkillCandidates": true,
+      "summaryRow": 126,
+      "sortOrder": 121,
+      "sortPersonGroup": "贝吉特",
+      "sortForm": "超级赛亚人4外观"
+    },
+    {
+      "designId": "D10009001",
+      "sourceGroup": "10009001",
+      "managementRow": 127,
+      "skillRows": {
+        "普攻": 490,
+        "绝招": 491,
+        "必杀": 492,
+        "被动": 493
+      },
+      "growthRow": 127,
+      "assetsRow": 127,
+      "numericSkillCandidates": false,
+      "summaryRow": 127,
+      "sortOrder": 122,
+      "sortPersonGroup": "贝吉特",
+      "sortForm": "蓝发红衣变体（强化方式待核）"
+    },
+    {
+      "designId": "D500004",
+      "sourceGroup": "500004",
+      "managementRow": 128,
+      "skillRows": {
+        "普攻": 494,
+        "绝招": 495,
+        "必杀": 496,
+        "被动": 497
+      },
+      "growthRow": 128,
+      "assetsRow": 128,
+      "numericSkillCandidates": false,
+      "summaryRow": 128,
+      "sortOrder": 123,
+      "sortPersonGroup": "杰比特神（候选）",
+      "sortForm": "合体外观（候选）"
+    },
+    {
+      "designId": "D100080",
+      "sourceGroup": "100080",
+      "managementRow": 129,
+      "skillRows": {
+        "普攻": 498,
+        "绝招": 499,
+        "必杀": 500,
+        "被动": 501
+      },
+      "growthRow": 129,
+      "assetsRow": 129,
+      "numericSkillCandidates": true,
+      "summaryRow": 129,
+      "sortOrder": 124,
+      "sortPersonGroup": "贝比",
+      "sortForm": "寄生贝吉塔／超级贝比外观"
+    },
+    {
+      "designId": "D100062",
+      "sourceGroup": "100062",
+      "managementRow": 130,
+      "skillRows": {
+        "普攻": 502,
+        "绝招": 503,
+        "必杀": 504,
+        "被动": 505
+      },
+      "growthRow": 130,
+      "assetsRow": 130,
+      "numericSkillCandidates": true,
+      "summaryRow": 130,
+      "sortOrder": 125,
+      "sortPersonGroup": "一星龙",
+      "sortForm": "超级一星龙外观"
+    },
+    {
+      "designId": "D100082",
+      "sourceGroup": "100082",
+      "managementRow": 131,
+      "skillRows": {
+        "普攻": 506,
+        "绝招": 507,
+        "必杀": 508,
+        "被动": 509
+      },
+      "growthRow": 131,
+      "assetsRow": 131,
+      "numericSkillCandidates": true,
+      "summaryRow": 131,
+      "sortOrder": 126,
+      "sortPersonGroup": "米拉（候选）",
+      "sortForm": "白发蓝肤最终形态（候选）"
+    },
+    {
+      "designId": "D100032",
+      "sourceGroup": "100032",
+      "managementRow": 132,
+      "skillRows": {
+        "普攻": 510,
+        "绝招": 511,
+        "必杀": 512,
+        "被动": 513
+      },
+      "growthRow": 132,
+      "assetsRow": 132,
+      "numericSkillCandidates": true,
+      "summaryRow": 132,
+      "sortOrder": 127,
+      "sortPersonGroup": "比鲁斯",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D103010",
+      "sourceGroup": "103010",
+      "managementRow": 133,
+      "skillRows": {
+        "普攻": 514,
+        "绝招": 515,
+        "必杀": 516,
+        "被动": 517
+      },
+      "growthRow": 133,
+      "assetsRow": 133,
+      "numericSkillCandidates": false,
+      "summaryRow": 133,
+      "sortOrder": 128,
+      "sortPersonGroup": "比鲁斯",
+      "sortForm": "Q版／展示姿态"
+    },
+    {
+      "designId": "D10003201",
+      "sourceGroup": "10003201",
+      "managementRow": 134,
+      "skillRows": {
+        "普攻": 518,
+        "绝招": 519,
+        "必杀": 520,
+        "被动": 521
+      },
+      "growthRow": 134,
+      "assetsRow": 134,
+      "numericSkillCandidates": false,
+      "summaryRow": 134,
+      "sortOrder": 129,
+      "sortPersonGroup": "比鲁斯",
+      "sortForm": "红袍外观（素材皮肤）"
+    },
+    {
+      "designId": "D10003202",
+      "sourceGroup": "10003202",
+      "managementRow": 135,
+      "skillRows": {
+        "普攻": 522,
+        "绝招": 523,
+        "必杀": 524,
+        "被动": 525
+      },
+      "growthRow": 135,
+      "assetsRow": 135,
+      "numericSkillCandidates": false,
+      "summaryRow": 135,
+      "sortOrder": 130,
+      "sortPersonGroup": "比鲁斯",
+      "sortForm": "白色西装（素材皮肤）"
+    },
+    {
+      "designId": "D500011",
+      "sourceGroup": "500011",
+      "managementRow": 136,
+      "skillRows": {
+        "普攻": 526,
+        "绝招": 527,
+        "必杀": 528,
+        "被动": 529
+      },
+      "growthRow": 136,
+      "assetsRow": 136,
+      "numericSkillCandidates": false,
+      "summaryRow": 136,
+      "sortOrder": 131,
+      "sortPersonGroup": "比鲁斯",
+      "sortForm": "红袍演出外观（素材皮肤）"
+    },
+    {
+      "designId": "D100096",
+      "sourceGroup": "100096",
+      "managementRow": 137,
+      "skillRows": {
+        "普攻": 530,
+        "绝招": 531,
+        "必杀": 532,
+        "被动": 533
+      },
+      "growthRow": 137,
+      "assetsRow": 137,
+      "numericSkillCandidates": true,
+      "summaryRow": 137,
+      "sortOrder": 132,
+      "sortPersonGroup": "维斯",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D103011",
+      "sourceGroup": "103011",
+      "managementRow": 138,
+      "skillRows": {
+        "普攻": 534,
+        "绝招": 535,
+        "必杀": 536,
+        "被动": 537
+      },
+      "growthRow": 138,
+      "assetsRow": 138,
+      "numericSkillCandidates": false,
+      "summaryRow": 138,
+      "sortOrder": 133,
+      "sortPersonGroup": "维斯",
+      "sortForm": "展示姿态"
+    },
+    {
+      "designId": "D103036",
+      "sourceGroup": "103036",
+      "managementRow": 139,
+      "skillRows": {
+        "普攻": 538,
+        "绝招": 539,
+        "必杀": 540,
+        "被动": 541
+      },
+      "growthRow": 139,
+      "assetsRow": 139,
+      "numericSkillCandidates": false,
+      "summaryRow": 139,
+      "sortOrder": 134,
+      "sortPersonGroup": "加克",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100071",
+      "sourceGroup": "100071",
+      "managementRow": 140,
+      "skillRows": {
+        "普攻": 542,
+        "绝招": 543,
+        "必杀": 544,
+        "被动": 545
+      },
+      "growthRow": 140,
+      "assetsRow": 140,
+      "numericSkillCandidates": true,
+      "summaryRow": 140,
+      "sortOrder": 135,
+      "sortPersonGroup": "德米古拉",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100075",
+      "sourceGroup": "100075",
+      "managementRow": 141,
+      "skillRows": {
+        "普攻": 546,
+        "绝招": 547,
+        "必杀": 548,
+        "被动": 549
+      },
+      "growthRow": 141,
+      "assetsRow": 141,
+      "numericSkillCandidates": true,
+      "summaryRow": 141,
+      "sortOrder": 136,
+      "sortPersonGroup": "象帕",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100091",
+      "sourceGroup": "100091",
+      "managementRow": 142,
+      "skillRows": {
+        "普攻": 550,
+        "绝招": 551,
+        "必杀": 552,
+        "被动": 553
+      },
+      "growthRow": 142,
+      "assetsRow": 142,
+      "numericSkillCandidates": true,
+      "summaryRow": 142,
+      "sortOrder": 137,
+      "sortPersonGroup": "芭朵斯",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D10009101",
+      "sourceGroup": "10009101",
+      "managementRow": 143,
+      "skillRows": {
+        "普攻": 554,
+        "绝招": 555,
+        "必杀": 556,
+        "被动": 557
+      },
+      "growthRow": 143,
+      "assetsRow": 143,
+      "numericSkillCandidates": false,
+      "summaryRow": 143,
+      "sortOrder": 138,
+      "sortPersonGroup": "芭朵斯",
+      "sortForm": "夏装外观（素材皮肤）"
+    },
+    {
+      "designId": "D103037",
+      "sourceGroup": "103037",
+      "managementRow": 144,
+      "skillRows": {
+        "普攻": 558,
+        "绝招": 559,
+        "必杀": 560,
+        "被动": 561
+      },
+      "growthRow": 144,
+      "assetsRow": 144,
+      "numericSkillCandidates": false,
+      "summaryRow": 144,
+      "sortOrder": 139,
+      "sortPersonGroup": "莫纳卡",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100036",
+      "sourceGroup": "100036",
+      "managementRow": 145,
+      "skillRows": {
+        "普攻": 562,
+        "绝招": 563,
+        "必杀": 564,
+        "被动": 565
+      },
+      "growthRow": 145,
+      "assetsRow": 145,
+      "numericSkillCandidates": true,
+      "summaryRow": 145,
+      "sortOrder": 140,
+      "sortPersonGroup": "弗罗斯特",
+      "sortForm": "最终形态"
+    },
+    {
+      "designId": "D100052",
+      "sourceGroup": "100052",
+      "managementRow": 146,
+      "skillRows": {
+        "普攻": 566,
+        "绝招": 567,
+        "必杀": 568,
+        "被动": 569
+      },
+      "growthRow": 146,
+      "assetsRow": 146,
+      "numericSkillCandidates": true,
+      "summaryRow": 146,
+      "sortOrder": 141,
+      "sortPersonGroup": "马盖塔",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100004",
+      "sourceGroup": "100004",
+      "managementRow": 147,
+      "skillRows": {
+        "普攻": 570,
+        "绝招": 571,
+        "必杀": 572,
+        "被动": 573
+      },
+      "growthRow": 147,
+      "assetsRow": 147,
+      "numericSkillCandidates": true,
+      "summaryRow": 147,
+      "sortOrder": 142,
+      "sortPersonGroup": "希特",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D103013",
+      "sourceGroup": "103013",
+      "managementRow": 148,
+      "skillRows": {
+        "普攻": 574,
+        "绝招": 575,
+        "必杀": 576,
+        "被动": 577
+      },
+      "growthRow": 148,
+      "assetsRow": 148,
+      "numericSkillCandidates": false,
+      "summaryRow": 148,
+      "sortOrder": 143,
+      "sortPersonGroup": "全王",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D103042",
+      "sourceGroup": "103042",
+      "managementRow": 149,
+      "skillRows": {
+        "普攻": 578,
+        "绝招": 579,
+        "必杀": 580,
+        "被动": 581
+      },
+      "growthRow": 149,
+      "assetsRow": 149,
+      "numericSkillCandidates": false,
+      "summaryRow": 149,
+      "sortOrder": 144,
+      "sortPersonGroup": "全王",
+      "sortForm": "另一展示素材"
+    },
+    {
+      "designId": "D100022",
+      "sourceGroup": "100022",
+      "managementRow": 150,
+      "skillRows": {
+        "普攻": 582,
+        "绝招": 583,
+        "必杀": 584,
+        "被动": 585
+      },
+      "growthRow": 150,
+      "assetsRow": 150,
+      "numericSkillCandidates": true,
+      "summaryRow": 150,
+      "sortOrder": 145,
+      "sortPersonGroup": "黑悟空",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100064",
+      "sourceGroup": "100064",
+      "managementRow": 151,
+      "skillRows": {
+        "普攻": 586,
+        "绝招": 587,
+        "必杀": 588,
+        "被动": 589
+      },
+      "growthRow": 151,
+      "assetsRow": 151,
+      "numericSkillCandidates": true,
+      "summaryRow": 151,
+      "sortOrder": 146,
+      "sortPersonGroup": "黑悟空",
+      "sortForm": "超级赛亚人桃红"
+    },
+    {
+      "designId": "D100092",
+      "sourceGroup": "100092",
+      "managementRow": 152,
+      "skillRows": {
+        "普攻": 590,
+        "绝招": 591,
+        "必杀": 592,
+        "被动": 593
+      },
+      "growthRow": 152,
+      "assetsRow": 152,
+      "numericSkillCandidates": true,
+      "summaryRow": 152,
+      "sortOrder": 147,
+      "sortPersonGroup": "黑悟空",
+      "sortForm": "桃红长发变体（游戏衍生）"
+    },
+    {
+      "designId": "D100053",
+      "sourceGroup": "100053",
+      "managementRow": 153,
+      "skillRows": {
+        "普攻": 594,
+        "绝招": 595,
+        "必杀": 596,
+        "被动": 597
+      },
+      "growthRow": 153,
+      "assetsRow": 153,
+      "numericSkillCandidates": true,
+      "summaryRow": 153,
+      "sortOrder": 148,
+      "sortPersonGroup": "扎马斯",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D103012",
+      "sourceGroup": "103012",
+      "managementRow": 154,
+      "skillRows": {
+        "普攻": 598,
+        "绝招": 599,
+        "必杀": 600,
+        "被动": 601
+      },
+      "growthRow": 154,
+      "assetsRow": 154,
+      "numericSkillCandidates": false,
+      "summaryRow": 154,
+      "sortOrder": 149,
+      "sortPersonGroup": "大神官",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D103040",
+      "sourceGroup": "103040",
+      "managementRow": 155,
+      "skillRows": {
+        "普攻": 602,
+        "绝招": 603,
+        "必杀": 604,
+        "被动": 605
+      },
+      "growthRow": 155,
+      "assetsRow": 155,
+      "numericSkillCandidates": false,
+      "summaryRow": 155,
+      "sortOrder": 150,
+      "sortPersonGroup": "大神官",
+      "sortForm": "带光环展示外观"
+    },
+    {
+      "designId": "D100086",
+      "sourceGroup": "100086",
+      "managementRow": 156,
+      "skillRows": {
+        "普攻": 606,
+        "绝招": 607,
+        "必杀": 608,
+        "被动": 609
+      },
+      "growthRow": 156,
+      "assetsRow": 156,
+      "numericSkillCandidates": true,
+      "summaryRow": 156,
+      "sortOrder": 151,
+      "sortPersonGroup": "合体扎马斯",
+      "sortForm": "合体常态"
+    },
+    {
+      "designId": "D100028",
+      "sourceGroup": "100028",
+      "managementRow": 157,
+      "skillRows": {
+        "普攻": 610,
+        "绝招": 611,
+        "必杀": 612,
+        "被动": 613
+      },
+      "growthRow": 157,
+      "assetsRow": 157,
+      "numericSkillCandidates": true,
+      "summaryRow": 157,
+      "sortOrder": 152,
+      "sortPersonGroup": "贝尔盖莫",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100094",
+      "sourceGroup": "100094",
+      "managementRow": 158,
+      "skillRows": {
+        "普攻": 614,
+        "绝招": 615,
+        "必杀": 616,
+        "被动": 617
+      },
+      "growthRow": 158,
+      "assetsRow": 158,
+      "numericSkillCandidates": true,
+      "summaryRow": 158,
+      "sortOrder": 153,
+      "sortPersonGroup": "托破",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D10009401",
+      "sourceGroup": "10009401",
+      "managementRow": 159,
+      "skillRows": {
+        "普攻": 618,
+        "绝招": 619,
+        "必杀": 620,
+        "被动": 621
+      },
+      "growthRow": 159,
+      "assetsRow": 159,
+      "numericSkillCandidates": false,
+      "summaryRow": 159,
+      "sortOrder": 154,
+      "sortPersonGroup": "托破",
+      "sortForm": "破坏神模式"
+    },
+    {
+      "designId": "D100063",
+      "sourceGroup": "100063",
+      "managementRow": 160,
+      "skillRows": {
+        "普攻": 622,
+        "绝招": 623,
+        "必杀": 624,
+        "被动": 625
+      },
+      "growthRow": 160,
+      "assetsRow": 160,
+      "numericSkillCandidates": true,
+      "summaryRow": 160,
+      "sortOrder": 155,
+      "sortPersonGroup": "吉连",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100066",
+      "sourceGroup": "100066",
+      "managementRow": 161,
+      "skillRows": {
+        "普攻": 626,
+        "绝招": 627,
+        "必杀": 628,
+        "被动": 629
+      },
+      "growthRow": 161,
+      "assetsRow": 161,
+      "numericSkillCandidates": true,
+      "summaryRow": 161,
+      "sortOrder": 156,
+      "sortPersonGroup": "吉连",
+      "sortForm": "全力形态"
+    },
+    {
+      "designId": "D100055",
+      "sourceGroup": "100055",
+      "managementRow": 162,
+      "skillRows": {
+        "普攻": 630,
+        "绝招": 631,
+        "必杀": 632,
+        "被动": 633
+      },
+      "growthRow": 162,
+      "assetsRow": 162,
+      "numericSkillCandidates": true,
+      "summaryRow": 162,
+      "sortOrder": 157,
+      "sortPersonGroup": "蒂斯破",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D100073",
+      "sourceGroup": "100073",
+      "managementRow": 163,
+      "skillRows": {
+        "普攻": 634,
+        "绝招": 635,
+        "必杀": 636,
+        "被动": 637
+      },
+      "growthRow": 163,
+      "assetsRow": 163,
+      "numericSkillCandidates": true,
+      "summaryRow": 163,
+      "sortOrder": 158,
+      "sortPersonGroup": "开尔",
+      "sortForm": "暴走超赛"
+    },
+    {
+      "designId": "D10007301",
+      "sourceGroup": "10007301",
+      "managementRow": 164,
+      "skillRows": {
+        "普攻": 638,
+        "绝招": 639,
+        "必杀": 640,
+        "被动": 641
+      },
+      "growthRow": 164,
+      "assetsRow": 164,
+      "numericSkillCandidates": false,
+      "summaryRow": 164,
+      "sortOrder": 159,
+      "sortPersonGroup": "开尔",
+      "sortForm": "球衣外观（素材皮肤）"
+    },
+    {
+      "designId": "D100061",
+      "sourceGroup": "100061",
+      "managementRow": 165,
+      "skillRows": {
+        "普攻": 642,
+        "绝招": 643,
+        "必杀": 644,
+        "被动": 645
+      },
+      "growthRow": 165,
+      "assetsRow": 165,
+      "numericSkillCandidates": true,
+      "summaryRow": 165,
+      "sortOrder": 160,
+      "sortPersonGroup": "里布里安",
+      "sortForm": "变身战斗形态"
+    },
+    {
+      "designId": "D100042",
+      "sourceGroup": "100042",
+      "managementRow": 166,
+      "skillRows": {
+        "普攻": 646,
+        "绝招": 647,
+        "必杀": 648,
+        "被动": 649
+      },
+      "growthRow": 166,
+      "assetsRow": 166,
+      "numericSkillCandidates": true,
+      "summaryRow": 166,
+      "sortOrder": 161,
+      "sortPersonGroup": "开芙拉",
+      "sortForm": "合体超赛"
+    },
+    {
+      "designId": "D100013",
+      "sourceGroup": "100013",
+      "managementRow": 167,
+      "skillRows": {
+        "普攻": 650,
+        "绝招": 651,
+        "必杀": 652,
+        "被动": 653
+      },
+      "growthRow": 167,
+      "assetsRow": 167,
+      "numericSkillCandidates": true,
+      "summaryRow": 167,
+      "sortOrder": 162,
+      "sortPersonGroup": "人造人21号",
+      "sortForm": "魔人形态"
+    },
+    {
+      "designId": "D100035",
+      "sourceGroup": "100035",
+      "managementRow": 168,
+      "skillRows": {
+        "普攻": 654,
+        "绝招": 655,
+        "必杀": 656,
+        "被动": 657
+      },
+      "growthRow": 168,
+      "assetsRow": 168,
+      "numericSkillCandidates": true,
+      "summaryRow": 168,
+      "sortOrder": 163,
+      "sortPersonGroup": "人造人21号",
+      "sortForm": "邪恶魔人外观"
+    },
+    {
+      "designId": "D100089",
+      "sourceGroup": "100089",
+      "managementRow": 169,
+      "skillRows": {
+        "普攻": 658,
+        "绝招": 659,
+        "必杀": 660,
+        "被动": 661
+      },
+      "growthRow": 169,
+      "assetsRow": 169,
+      "numericSkillCandidates": true,
+      "summaryRow": 169,
+      "sortOrder": 164,
+      "sortPersonGroup": "堪巴",
+      "sortForm": "黑发战斗形态"
+    },
+    {
+      "designId": "D10008901",
+      "sourceGroup": "10008901",
+      "managementRow": 170,
+      "skillRows": {
+        "普攻": 662,
+        "绝招": 663,
+        "必杀": 664,
+        "被动": 665
+      },
+      "growthRow": 170,
+      "assetsRow": 170,
+      "numericSkillCandidates": false,
+      "summaryRow": 170,
+      "sortOrder": 165,
+      "sortPersonGroup": "堪巴",
+      "sortForm": "金发长发外观（具体形态待核）"
+    },
+    {
+      "designId": "D100097",
+      "sourceGroup": "100097",
+      "managementRow": 171,
+      "skillRows": {
+        "普攻": 666,
+        "绝招": 667,
+        "必杀": 668,
+        "被动": 669
+      },
+      "growthRow": 171,
+      "assetsRow": 171,
+      "numericSkillCandidates": true,
+      "summaryRow": 171,
+      "sortOrder": 166,
+      "sortPersonGroup": "魔罗",
+      "sortForm": "羊角外观"
+    },
+    {
+      "designId": "D103044",
+      "sourceGroup": "103044",
+      "managementRow": 172,
+      "skillRows": {
+        "普攻": 670,
+        "绝招": 671,
+        "必杀": 672,
+        "被动": 673
+      },
+      "growthRow": 172,
+      "assetsRow": 172,
+      "numericSkillCandidates": false,
+      "summaryRow": 172,
+      "sortOrder": 167,
+      "sortPersonGroup": "伽玛1号",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D103045",
+      "sourceGroup": "103045",
+      "managementRow": 173,
+      "skillRows": {
+        "普攻": 674,
+        "绝招": 675,
+        "必杀": 676,
+        "被动": 677
+      },
+      "growthRow": 173,
+      "assetsRow": 173,
+      "numericSkillCandidates": false,
+      "summaryRow": 173,
+      "sortOrder": 168,
+      "sortPersonGroup": "伽玛2号",
+      "sortForm": "常态"
+    },
+    {
+      "designId": "D102001",
+      "sourceGroup": "102001",
+      "managementRow": 174,
+      "skillRows": {
+        "普攻": 678,
+        "绝招": 679,
+        "必杀": 680,
+        "被动": 681
+      },
+      "growthRow": 174,
+      "assetsRow": 174,
+      "numericSkillCandidates": false,
+      "summaryRow": 174,
+      "sortOrder": 169,
+      "sortPersonGroup": "联动／皮肤素材：102001",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D102004",
+      "sourceGroup": "102004",
+      "managementRow": 175,
+      "skillRows": {
+        "普攻": 682,
+        "绝招": 683,
+        "必杀": 684,
+        "被动": 685
+      },
+      "growthRow": 175,
+      "assetsRow": 175,
+      "numericSkillCandidates": false,
+      "summaryRow": 175,
+      "sortOrder": 170,
+      "sortPersonGroup": "联动／皮肤素材：102004",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D102007",
+      "sourceGroup": "102007",
+      "managementRow": 176,
+      "skillRows": {
+        "普攻": 686,
+        "绝招": 687,
+        "必杀": 688,
+        "被动": 689
+      },
+      "growthRow": 176,
+      "assetsRow": 176,
+      "numericSkillCandidates": false,
+      "summaryRow": 176,
+      "sortOrder": 171,
+      "sortPersonGroup": "联动／皮肤素材：102007",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D102011",
+      "sourceGroup": "102011",
+      "managementRow": 177,
+      "skillRows": {
+        "普攻": 690,
+        "绝招": 691,
+        "必杀": 692,
+        "被动": 693
+      },
+      "growthRow": 177,
+      "assetsRow": 177,
+      "numericSkillCandidates": false,
+      "summaryRow": 177,
+      "sortOrder": 172,
+      "sortPersonGroup": "联动／皮肤素材：102011",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D102013",
+      "sourceGroup": "102013",
+      "managementRow": 178,
+      "skillRows": {
+        "普攻": 694,
+        "绝招": 695,
+        "必杀": 696,
+        "被动": 697
+      },
+      "growthRow": 178,
+      "assetsRow": 178,
+      "numericSkillCandidates": false,
+      "summaryRow": 178,
+      "sortOrder": 173,
+      "sortPersonGroup": "联动／皮肤素材：102013",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D102015",
+      "sourceGroup": "102015",
+      "managementRow": 179,
+      "skillRows": {
+        "普攻": 698,
+        "绝招": 699,
+        "必杀": 700,
+        "被动": 701
+      },
+      "growthRow": 179,
+      "assetsRow": 179,
+      "numericSkillCandidates": false,
+      "summaryRow": 179,
+      "sortOrder": 174,
+      "sortPersonGroup": "联动／皮肤素材：102015",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D102016",
+      "sourceGroup": "102016",
+      "managementRow": 180,
+      "skillRows": {
+        "普攻": 702,
+        "绝招": 703,
+        "必杀": 704,
+        "被动": 705
+      },
+      "growthRow": 180,
+      "assetsRow": 180,
+      "numericSkillCandidates": false,
+      "summaryRow": 180,
+      "sortOrder": 175,
+      "sortPersonGroup": "联动／皮肤素材：102016",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D102022",
+      "sourceGroup": "102022",
+      "managementRow": 181,
+      "skillRows": {
+        "普攻": 706,
+        "绝招": 707,
+        "必杀": 708,
+        "被动": 709
+      },
+      "growthRow": 181,
+      "assetsRow": 181,
+      "numericSkillCandidates": false,
+      "summaryRow": 181,
+      "sortOrder": 176,
+      "sortPersonGroup": "联动／皮肤素材：102022",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D102058",
+      "sourceGroup": "102058",
+      "managementRow": 182,
+      "skillRows": {
+        "普攻": 710,
+        "绝招": 711,
+        "必杀": 712,
+        "被动": 713
+      },
+      "growthRow": 182,
+      "assetsRow": 182,
+      "numericSkillCandidates": false,
+      "summaryRow": 182,
+      "sortOrder": 177,
+      "sortPersonGroup": "联动／皮肤素材：102058",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D102077",
+      "sourceGroup": "102077",
+      "managementRow": 183,
+      "skillRows": {
+        "普攻": 714,
+        "绝招": 715,
+        "必杀": 716,
+        "被动": 717
+      },
+      "growthRow": 183,
+      "assetsRow": 183,
+      "numericSkillCandidates": false,
+      "summaryRow": 183,
+      "sortOrder": 178,
+      "sortPersonGroup": "联动／皮肤素材：102077",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D200001",
+      "sourceGroup": "200001",
+      "managementRow": 184,
+      "skillRows": {
+        "普攻": 718,
+        "绝招": 719,
+        "必杀": 720,
+        "被动": 721
+      },
+      "growthRow": 184,
+      "assetsRow": 184,
+      "numericSkillCandidates": false,
+      "summaryRow": 184,
+      "sortOrder": 179,
+      "sortPersonGroup": "剧情杂兵素材：200001",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D200002",
+      "sourceGroup": "200002",
+      "managementRow": 185,
+      "skillRows": {
+        "普攻": 722,
+        "绝招": 723,
+        "必杀": 724,
+        "被动": 725
+      },
+      "growthRow": 185,
+      "assetsRow": 185,
+      "numericSkillCandidates": false,
+      "summaryRow": 185,
+      "sortOrder": 180,
+      "sortPersonGroup": "剧情杂兵素材：200002",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D200003",
+      "sourceGroup": "200003",
+      "managementRow": 186,
+      "skillRows": {
+        "普攻": 726,
+        "绝招": 727,
+        "必杀": 728,
+        "被动": 729
+      },
+      "growthRow": 186,
+      "assetsRow": 186,
+      "numericSkillCandidates": false,
+      "summaryRow": 186,
+      "sortOrder": 181,
+      "sortPersonGroup": "剧情杂兵素材：200003",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D200004",
+      "sourceGroup": "200004",
+      "managementRow": 187,
+      "skillRows": {
+        "普攻": 730,
+        "绝招": 731,
+        "必杀": 732,
+        "被动": 733
+      },
+      "growthRow": 187,
+      "assetsRow": 187,
+      "numericSkillCandidates": false,
+      "summaryRow": 187,
+      "sortOrder": 182,
+      "sortPersonGroup": "剧情杂兵素材：200004",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D200005",
+      "sourceGroup": "200005",
+      "managementRow": 188,
+      "skillRows": {
+        "普攻": 734,
+        "绝招": 735,
+        "必杀": 736,
+        "被动": 737
+      },
+      "growthRow": 188,
+      "assetsRow": 188,
+      "numericSkillCandidates": false,
+      "summaryRow": 188,
+      "sortOrder": 183,
+      "sortPersonGroup": "剧情杂兵素材：200005",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D200006",
+      "sourceGroup": "200006",
+      "managementRow": 189,
+      "skillRows": {
+        "普攻": 738,
+        "绝招": 739,
+        "必杀": 740,
+        "被动": 741
+      },
+      "growthRow": 189,
+      "assetsRow": 189,
+      "numericSkillCandidates": false,
+      "summaryRow": 189,
+      "sortOrder": 184,
+      "sortPersonGroup": "剧情杂兵素材：200006",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D200007",
+      "sourceGroup": "200007",
+      "managementRow": 190,
+      "skillRows": {
+        "普攻": 742,
+        "绝招": 743,
+        "必杀": 744,
+        "被动": 745
+      },
+      "growthRow": 190,
+      "assetsRow": 190,
+      "numericSkillCandidates": false,
+      "summaryRow": 190,
+      "sortOrder": 185,
+      "sortPersonGroup": "剧情杂兵素材：200007",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D200008",
+      "sourceGroup": "200008",
+      "managementRow": 191,
+      "skillRows": {
+        "普攻": 746,
+        "绝招": 747,
+        "必杀": 748,
+        "被动": 749
+      },
+      "growthRow": 191,
+      "assetsRow": 191,
+      "numericSkillCandidates": false,
+      "summaryRow": 191,
+      "sortOrder": 186,
+      "sortPersonGroup": "剧情杂兵素材：200008",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D200015",
+      "sourceGroup": "200015",
+      "managementRow": 192,
+      "skillRows": {
+        "普攻": 750,
+        "绝招": 751,
+        "必杀": 752,
+        "被动": 753
+      },
+      "growthRow": 192,
+      "assetsRow": 192,
+      "numericSkillCandidates": false,
+      "summaryRow": 192,
+      "sortOrder": 187,
+      "sortPersonGroup": "剧情杂兵素材：200015",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D200016",
+      "sourceGroup": "200016",
+      "managementRow": 193,
+      "skillRows": {
+        "普攻": 754,
+        "绝招": 755,
+        "必杀": 756,
+        "被动": 757
+      },
+      "growthRow": 193,
+      "assetsRow": 193,
+      "numericSkillCandidates": false,
+      "summaryRow": 193,
+      "sortOrder": 188,
+      "sortPersonGroup": "剧情杂兵素材：200016",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D10003701",
+      "sourceGroup": "10003701",
+      "managementRow": 194,
+      "skillRows": {
+        "普攻": 758,
+        "绝招": 759,
+        "必杀": 760,
+        "被动": 761
+      },
+      "growthRow": 194,
+      "assetsRow": 194,
+      "numericSkillCandidates": false,
+      "summaryRow": 194,
+      "sortOrder": 189,
+      "sortPersonGroup": "银发战士外观（身份待核实）",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D100048",
+      "sourceGroup": "100048",
+      "managementRow": 195,
+      "skillRows": {
+        "普攻": 762,
+        "绝招": 763,
+        "必杀": 764,
+        "被动": 765
+      },
+      "growthRow": 195,
+      "assetsRow": 195,
+      "numericSkillCandidates": true,
+      "summaryRow": 195,
+      "sortOrder": 190,
+      "sortPersonGroup": "蓝发魔人外观（身份待核实）",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D100072",
+      "sourceGroup": "100072",
+      "managementRow": 196,
+      "skillRows": {
+        "普攻": 766,
+        "绝招": 767,
+        "必杀": 768,
+        "被动": 769
+      },
+      "growthRow": 196,
+      "assetsRow": 196,
+      "numericSkillCandidates": true,
+      "summaryRow": 196,
+      "sortOrder": 191,
+      "sortPersonGroup": "红发持剑战士（疑似时巡特兰克斯，待核）",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D500006",
+      "sourceGroup": "500006",
+      "managementRow": 197,
+      "skillRows": {
+        "普攻": 770,
+        "绝招": 771,
+        "必杀": 772,
+        "被动": 773
+      },
+      "growthRow": 197,
+      "assetsRow": 197,
+      "numericSkillCandidates": false,
+      "summaryRow": 197,
+      "sortOrder": 192,
+      "sortPersonGroup": "橙色异兽（身份待核实）",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D500007",
+      "sourceGroup": "500007",
+      "managementRow": 198,
+      "skillRows": {
+        "普攻": 774,
+        "绝招": 775,
+        "必杀": 776,
+        "被动": 777
+      },
+      "growthRow": 198,
+      "assetsRow": 198,
+      "numericSkillCandidates": false,
+      "summaryRow": 198,
+      "sortOrder": 193,
+      "sortPersonGroup": "粉肤橙衣战士（身份待核实）",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D500013",
+      "sourceGroup": "500013",
+      "managementRow": 199,
+      "skillRows": {
+        "普攻": 778,
+        "绝招": 779,
+        "必杀": 780,
+        "被动": 781
+      },
+      "growthRow": 199,
+      "assetsRow": 199,
+      "numericSkillCandidates": false,
+      "summaryRow": 199,
+      "sortOrder": 194,
+      "sortPersonGroup": "巨型绿肤战士（身份待核实）",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D500014",
+      "sourceGroup": "500014",
+      "managementRow": 200,
+      "skillRows": {
+        "普攻": 782,
+        "绝招": 783,
+        "必杀": 784,
+        "被动": 785
+      },
+      "growthRow": 200,
+      "assetsRow": 200,
+      "numericSkillCandidates": false,
+      "summaryRow": 200,
+      "sortOrder": 195,
+      "sortPersonGroup": "金发假面战士（身份待核实）",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "D300005",
+      "sourceGroup": "300005",
+      "managementRow": 201,
+      "skillRows": {
+        "普攻": 786,
+        "绝招": 787,
+        "必杀": 788,
+        "被动": 789
+      },
+      "growthRow": 201,
+      "assetsRow": 201,
+      "numericSkillCandidates": false,
+      "summaryRow": 201,
+      "sortOrder": 196,
+      "sortPersonGroup": "招财猫装饰素材",
+      "sortForm": "不强行对应正篇形态"
+    },
+    {
+      "designId": "Dcommon",
+      "sourceGroup": "common",
+      "managementRow": 202,
+      "skillRows": {
+        "普攻": 790,
+        "绝招": 791,
+        "必杀": 792,
+        "被动": 793
+      },
+      "growthRow": 202,
+      "assetsRow": 202,
+      "numericSkillCandidates": false,
+      "summaryRow": 202,
+      "sortOrder": 197,
+      "sortPersonGroup": "公共目录（非独立角色）",
+      "sortForm": "不强行对应正篇形态"
+    }
+  ]
+}
