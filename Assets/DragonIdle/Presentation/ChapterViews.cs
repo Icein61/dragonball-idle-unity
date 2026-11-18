@@ -18,7 +18,7 @@ namespace DragonIdle {
   }
   void DrawChapterSelection(){
    int chosen=storyMode?profile.StorySelected:profile.SelectedStage;
-   Heading(storyMode?"拉蒂兹来袭":"试炼挑战",storyMode?Data.StoryBriefs[chosen]:"试炼独立解锁；可反复刷取装备、技能残页与珠子。");
+   Heading(storyMode?"镜像修炼":"试炼挑战",storyMode?Data.StoryBriefs[chosen]:"试炼独立解锁；可反复刷取装备、技能残页与珠子。");
    if(Button(1160,115,190,36,"剧情章节",storyMode,!running)&&!storyMode){storyMode=true;battle=null;last=null;settled=false;autoRepeat=false;log.Clear();}
    if(Button(1365,115,190,36,"素材试炼",!storyMode,!running)&&storyMode){storyMode=false;battle=null;last=null;settled=false;autoRepeat=false;log.Clear();}
    for(int i=0;i<4;i++){

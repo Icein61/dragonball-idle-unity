@@ -11,9 +11,8 @@ namespace DragonIdle {
     AssertSmoke(args.Contains("-savePath"),"Smoke requires isolated save path");Directory.CreateDirectory(dir);
     AssertSmoke(Application.productName==Data.GameTitle,"Packaged game title incorrect");
     AssertSmoke(saveError=="","Profile load failed: "+saveError);
-    AssertSmoke(Data.Cards.Length==15&&profile.Owned.Count(x=>x)==8,"Catalog initialization failed");
+    AssertSmoke(Data.Cards.Length==9&&profile.Owned.Count(x=>x)==8,"Catalog initialization failed");
     var art=Resources.Load<Texture2D>("Art/goku-raditz-c-v030");AssertSmoke(art!=null&&art.width==1024&&art.height==1536,"Character sample resource missing or aspect changed");
-    foreach(var name in new[]{"piccolo-raditz-c-v030","raditz-c-v030"}){var extra=Resources.Load<Texture2D>("Art/"+name);AssertSmoke(extra!=null&&extra.width==1024&&extra.height==1536,"New art resource missing");}
     storyMode=false;StartBattle();int events=0;while(running&&events++<4000)Advance();
     AssertSmoke(battle.Result==1&&settled,"Smoke battle or reward failed");int wins=profile.Wins;Load();AssertSmoke(profile.Wins==wins,"Save roundtrip failed");
     AssertSmoke(Change(()=>{

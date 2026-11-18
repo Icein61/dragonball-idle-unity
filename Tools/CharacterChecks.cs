@@ -4,14 +4,15 @@ using DragonIdle;
 static class CharacterChecks {
  static bool Near(double a,double b){return Math.Abs(a-b)<.000001;}
  public static void Run(Action<bool,string> check){
-  check(Data.Cards.Length==15&&Data.Cards.Select(c=>c.Id).Distinct().Count()==15,"C01 unique 15-card catalog");
+  check(Data.Cards.Length==9&&Data.Cards.Select(c=>c.Id).Distinct().Count()==9,"C01 unique 9-card catalog");
   check(Data.Cards.All(c=>!string.IsNullOrEmpty(c.PersonId)&&!string.IsNullOrEmpty(c.Stage)&&!string.IsNullOrEmpty(c.Form)&&!string.IsNullOrEmpty(c.Passive)&&c.Captain.Attack>0),"C02 complete identity and base abilities");
   check(Data.LegacyCardIds.All(id=>Data.Index(id)>=0||Data.RetiredCardIds.Contains(id)),"C03 stable legacy IDs");
   var p=new Profile();check(p.Owned.Count(x=>x)==8,"C04 immediate reserve choices");
-  p.Acquire(9);check(p.SetMember(1,9)&&Data.Cards[p.Team[0]].PersonId==Data.Cards[p.Team[1]].PersonId&&Data.Cards[p.Team[0]].Stage==Data.Cards[p.Team[1]].Stage&&p.CreateTeam().Count==7,"C05 same person same stage distinct cards coexist");
-  p.SetMember(2,9);check(p.Team[2]==9&&p.Team.Distinct().Count()==7,"C06 existing member swaps without duplicates");
-  check(!p.SetMember(3,11)&&!p.SetMember(7,0)&&!p.SetMember(0,-1),"C07 reject locked card and invalid slots");
-  int total=p.Shards.Sum();p.Acquire(9);check(p.Shards[9]==1&&p.Shards[0]==0&&p.Shards.Sum()==total+1,"C08 duplicate resources stay on CardId");
+  int variant=Data.Index("goku-saiyan-kaioken-v020");
+  check(!p.SetMember(3,variant)&&!p.SetMember(7,0)&&!p.SetMember(0,-1),"C07 reject locked card and invalid slots");
+  p.Acquire(variant);check(p.SetMember(1,variant)&&Data.Cards[p.Team[0]].PersonId==Data.Cards[p.Team[1]].PersonId&&Data.Cards[p.Team[0]].Stage==Data.Cards[p.Team[1]].Stage&&p.CreateTeam().Count==7,"C05 same person same stage distinct cards coexist");
+  p.SetMember(2,variant);check(p.Team[2]==variant&&p.Team.Distinct().Count()==7,"C06 existing member swaps without duplicates");
+  int total=p.Shards.Sum();p.Acquire(variant);check(p.Shards[variant]==1&&p.Shards[0]==0&&p.Shards.Sum()==total+1,"C08 duplicate resources stay on CardId");
   var identity=Data.Cards[0].Tags;identity[0]="人造人";check(Data.Cards[0].HasTag("赛亚人")&&!Data.Cards[0].HasTag("人造人"),"C09 defensive copy protects identity");
   p=new Profile();p.Leader=1;var team=p.CreateTeam();check(Near(team[0].LeaderAttack,.08)&&Near(team[1].LeaderAttack,.08)&&Near(team[4].LeaderAttack,0)&&Near(team[2].LeaderAttack,0),"C10 leader exact tag eligibility");
   team[1].HP=0;check(Near(team[0].LeaderAttack,.08),"C11 leader contribution survives captain death");
@@ -36,7 +37,7 @@ static class CharacterChecks {
    var items=p.Items.Skip(p.Items.Count-200).ToArray();check(items.All(x=>x.kind==2||stage>=2||x.kind==stage),"C25 target loot pool stage "+stage);
    check(p.SkillPages.Sum()>pages&&p.Gems>gems,"C26 skill and jewel drops stage "+stage);
   }
-  p=new Profile();p.Pulls=19;p.Crystals=50;check(p.Summon(4).StartsWith("[SSR]")&&p.Crystals==0&&p.Pulls==20,"C27 pity counter transaction");int pulls=p.Pulls;p.Summon(5);check(p.Pulls==pulls,"C28 insufficient currency preserves pity");
+  p=new Profile();p.Pulls=19;p.Crystals=50;check(p.Summon(4).StartsWith("[S]")&&p.Crystals==0&&p.Pulls==20,"C27 pity counter transaction");int pulls=p.Pulls;p.Summon(5);check(p.Pulls==pulls,"C28 insufficient currency preserves pity");
   p=new Profile();for(int i=0;i<Data.Cards.Length;i++)p.Acquire(i);p.Unlocked=3;
   for(int i=0;i<Data.Cards.Length;i++){
    p.SetMember(0,i);p.Leader=0;var b=p.NewBattle(i%4,90+i);int steps=0;while(b.Result==0&&steps++<4000)b.Step();

@@ -4,14 +4,14 @@ using System.Linq;
 namespace DragonIdle {
  // Card identity and the expanded catalog live in CharacterCatalog.cs.
  public static partial class Data {
-  public const string Version="0.7.1";
+  public const string Version="0.8.0";
   public const string GameTitle="龙珠爆裂激斗";
   // Keep the original storage identity when the public game title changes.
   public static string DefaultSavePath(string persistentDirectory){return System.IO.Path.Combine(System.IO.Directory.GetParent(persistentDirectory).FullName,"Dragon Idle Demo","profile-v1.json");}
   public static Card Card(string id){return Cards.First(x=>x.Id==id);}
   public static string[] Stages={"荒野修炼","防线试炼","后排突破","极限演武"};
   public static double[] StageScale={.68,.84,1.0,1.17};
-  public static int[][] StageTeams={new[]{0,1,2,3,4,5,6},new[]{2,9,5,4,6,7,13},new[]{0,2,6,1,10,11,13},new[]{1,12,11,14,8,2,10}};
+  public static int[][] StageTeams={new[]{0,1,2,3,4,5,6},new[]{2,5,4,3,6,7,0},new[]{0,2,6,1,3,8,7},new[]{1,2,5,6,8,0,4}};
   public static Unit Make(string id,int side,int slot,int training,int resonance,string skill,double scale) {
    var c=Card(id);double growth=1+training*.001+resonance*.004;
    var u=new Unit {CardId=id,Name=c.Name,Role=c.Role,Side=side,Slot=slot,MaxHP=c.HP*growth*scale,HP=c.HP*growth*scale,Attack=c.Attack*growth*scale,Defense=c.Defense*growth,Speed=c.Speed,SpecialName=c.Special,UltimateName=c.Ultimate,CooldownLength=c.Cooldown};
@@ -77,7 +77,7 @@ namespace DragonIdle {
   }
   public string Summon(int seed) {
    if(Crystals<50)return "晶石不足，需要 50";
-   Crystals-=50;Pulls++;var rng=new Random(seed);double roll=rng.NextDouble();string rarity=Pulls%20==0||roll<.08?"SSR":roll<.28?"SR":"R";
+   Crystals-=50;Pulls++;var rng=new Random(seed);double roll=rng.NextDouble();string rarity=Pulls%20==0||roll<.08?"S":roll<.28?"B":"C";
    var pool=Enumerable.Range(0,Data.Cards.Length).Where(i=>Data.InClassicPool(Data.Cards[i])&&Data.Cards[i].Rarity==rarity).ToArray();int index=pool[rng.Next(pool.Length)];
    return "["+rarity+"] "+Acquire(index);
   }

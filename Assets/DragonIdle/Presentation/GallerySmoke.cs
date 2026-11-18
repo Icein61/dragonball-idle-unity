@@ -12,7 +12,9 @@ namespace DragonIdle {
    var brand=galleryRoot.GetComponentsInChildren<UI.Text>().Single(t=>t.name=="Brand");
    AssertSmoke(brand.text==Data.GameTitle&&brand.preferredWidth<=brand.rectTransform.rect.width&&brand.preferredHeight<=brand.rectTransform.rect.height,"New game title clipped or missing");
    AssertSmoke(cardButtons.Count==8&&selectedCard==0,"Owned gallery failed");
-   allTab.onClick.Invoke();AssertSmoke(cardButtons.Count==15&&!catalog.OwnedOnly,"All gallery tab failed");
+   allTab.onClick.Invoke();AssertSmoke(cardButtons.Count==9&&!catalog.OwnedOnly,"All gallery tab failed");
+   AssertSmoke(Data.Rarities.SequenceEqual(new[]{"C","B","A","S"})&&Data.Rarities.All(rank=>RarityBadge(rank)!=null),"Rarity badge resource missing");
+   AssertSmoke(cardButtons.All(pair=>pair.Value.transform.Find("Rarity_"+Data.Cards[pair.Key].Rarity)!=null),"Gallery card missing rarity badge");
    var cachedCard=cardButtons[0];var cachedGrid=gridRoot.GetChild(0);float priorScroll=galleryScroll.verticalNormalizedPosition;
    cachedCard.onClick.Invoke();AssertSmoke(galleryDetailOpen&&!galleryListRoot.gameObject.activeSelf&&detailRoot.gameObject.activeSelf,"Dedicated detail screen did not replace grid");
    var breakdown=GalleryTestButton("ToggleStatBreakdown");UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(breakdown.gameObject);breakdown.onClick.Invoke();
@@ -37,10 +39,10 @@ namespace DragonIdle {
    AssertSmoke(selectedCard==-1&&cardButtons.Count==0&&galleryTrainButton==null&&gallerySwapButton==null,"Empty query leaked stale character actions");
    ResetGalleryFilters();ShowFilter(0);
    AssertSmoke(!mineTab.interactable&&!gallerySearch.interactable&&cardButtons.Values.All(b=>!b.interactable),"Modal does not isolate background input");
-   GalleryTestButton("Option3").onClick.Invoke();
+   GalleryTestButton("Option4").onClick.Invoke();
    AssertSmoke(mineTab.interactable&&gallerySearch.interactable,"Modal did not restore background input");
-   AssertSmoke(catalog.Rarity=="SSR"&&cardButtons.Keys.All(i=>Data.Cards[i].Rarity=="SSR")&&dialogRoot==null,"Direct rarity picker failed");
-   GalleryTestButton("ClearFilter0").onClick.Invoke();AssertSmoke(catalog.Rarity==""&&cardButtons.Count==15,"Individual filter chip did not clear condition");
+   AssertSmoke(catalog.Rarity=="S"&&cardButtons.Keys.All(i=>Data.Cards[i].Rarity=="S")&&dialogRoot==null,"Direct rarity picker failed");
+   GalleryTestButton("ClearFilter0").onClick.Invoke();AssertSmoke(catalog.Rarity==""&&cardButtons.Count==9,"Individual filter chip did not clear condition");
    ResetGalleryFilters();ShowFilter(1);GalleryTestButton("Option1").onClick.Invoke();
    AssertSmoke(catalog.Role=="自我强化"&&cardButtons.Count==Data.Cards.Count(c=>c.Keywords.Contains("自我强化"))&&cardButtons.Keys.All(i=>Data.Cards[i].Keywords.Contains("自我强化")),"Keyword picker did not filter actual role keywords");
    ResetGalleryFilters();cardButtons[0].onClick.Invoke();detailTab=0;DrawGalleryDetail();
@@ -54,8 +56,6 @@ namespace DragonIdle {
    galleryScroll.verticalNormalizedPosition=.35f;float scroll=galleryScroll.verticalNormalizedPosition;
    galleryEquipButton.onClick.Invoke();AssertSmoke(page=="装备"&&selectedCard==0,"Equipment navigation lost character");
    page="角色";UpdateGallery();AssertSmoke(Math.Abs(galleryScroll.verticalNormalizedPosition-scroll)<.01f&&selectedCard==0,"Gallery return lost browsing position");
-   ShowAcquisition(Data.Index("piccolo-raditz-v030"));GalleryTestButton("GoStory").onClick.Invoke();
-   AssertSmoke(page=="挑战"&&storyMode&&profile.StorySelected==0,"Story acquisition route failed");
    page="角色";UpdateGallery();ShowAcquisition(kaioken);GalleryTestButton("GoSaiyanPool").onClick.Invoke();
    AssertSmoke(page=="召唤"&&saiyanPool,"Pool acquisition route failed");
    page="角色";UpdateGallery();ShowAudioSettings();

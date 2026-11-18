@@ -148,7 +148,7 @@ namespace DragonIdle {
     var b=UButton(gridRoot,"Card_"+c.Id,"",x,y,316,430,()=>OpenGalleryCard(index));
     cardButtons[index]=b;b.GetComponentInChildren<UI.Text>().gameObject.SetActive(false);
     var r=b.GetComponent<RectTransform>();b.targetGraphic.color=Color.white;
-    UText(r,"Rarity",c.Rarity,16,12,65,26,18,uiAccent);
+    DrawRarityBadge(r,c.Rarity,12,1,69,47);
     UText(r,"Owned","",140,14,160,25,16,uiDim,TextAnchor.UpperRight);
     UArt(r,index,16,44,284,278);
     UText(r,"Name",c.Name,16,330,284,30,24,uiPaper);
@@ -163,6 +163,26 @@ namespace DragonIdle {
    }
    Canvas.ForceUpdateCanvases();galleryScroll.StopMovement();galleryScroll.verticalNormalizedPosition=reset?1:old;
    DrawGalleryDetail();
+  }
+  readonly Dictionary<string,Sprite> rarityBadges=new Dictionary<string,Sprite>();
+  Sprite RarityBadge(string rank){
+   Sprite sprite;
+   if(!rarityBadges.TryGetValue(rank,out sprite)){
+    sprite=Resources.Load<Sprite>("Interface/Rarity/"+rank);
+    rarityBadges[rank]=sprite;
+   }
+   return sprite;
+  }
+  void DrawRarityBadge(Transform parent,string rank,float x,float y,float width,float height){
+   var sprite=RarityBadge(rank);
+   if(sprite==null){
+    UText(parent,"Rarity",rank,x,y,width,height,18,uiAccent,TextAnchor.MiddleCenter);
+    return;
+   }
+   var badge=UNode(parent,"Rarity_"+rank,x,y,width,height).gameObject.AddComponent<UI.Image>();
+   badge.sprite=sprite;
+   badge.preserveAspect=true;
+   badge.raycastTarget=false;
   }
  }
 }

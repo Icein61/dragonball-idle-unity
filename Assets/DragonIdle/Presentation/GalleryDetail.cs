@@ -16,7 +16,8 @@ namespace DragonIdle {
    int i=selectedCard;var c=Data.Cards[i];bool owned=profile.Owned[i];
    UButton(detailRoot,"BackToCards","‹ 返回人物志",24,18,190,40,ReturnToCards);
    UArt(detailRoot,i,24,72,456,532);
-   UText(detailRoot,"CardRarity",c.Rarity+"    "+c.KeywordText,520,24,788,32,18,uiAccent);
+   DrawRarityBadge(detailRoot,c.Rarity,520,14,62,46);
+   UText(detailRoot,"CardKeywords",c.KeywordText,591,24,717,32,18,uiAccent);
    UText(detailRoot,"CharacterName",c.Name,520,68,788,45,32,uiPaper);
    UText(detailRoot,"CharacterTitle",c.Title,520,116,788,32,23,uiPaper);
    UText(detailRoot,"Identity",c.Stage+"  ·  "+c.Form+"    "+string.Join(" / ",c.Tags.Distinct().ToArray()),520,158,788,32,17,uiDim);
@@ -100,7 +101,7 @@ namespace DragonIdle {
    if(id=="vegeta-test")return "强化同排存活队友（含自身），必杀追击剩余生命百分比最低的敌人。";
    if(id=="piccolo-test")return "强化同排防御，以自身生命为代价保护低生命比例的两名队友，并在自身行动机会结束自然回复。";
    switch(Data.Kit(id)){
-    case "goku":return "牵制目标，制造减防窗口。可以配合迎战拉蒂兹版本比克的魔贯光杀炮。";
+    case "goku":return "与比克同队时获得防御强化，适合从前排持续输出。";
     case "beam":return "目标防御强化合计为负时，必杀穿防更高。天津饭等减防来源可以提供窗口。";
     case "raditz":case "nappa":return "绝招覆盖最多两个不同目标，分散压迫前排；单个目标不会被同一招重复命中。";
     case "krillin":case "chiaotzu":return "利用眩晕打断正常行动。目标有连续眩晕保护，不能永久锁住敌人。";

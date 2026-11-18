@@ -10,15 +10,7 @@ static class ChapterChecks {
   check(e.Move==Move.Special&&Near(target.Sum("defense"),0)&&Near(a.Sum("attack"),.08),"S01 user Goku strengthens himself without old defense debuff");
   a.Opportunities=2;a.Expire();check(Near(a.Sum("attack"),.08),"S02 self enhancement lasts first following opportunity");
   a.Opportunities=3;a.Expire();check(Near(a.Sum("attack"),.04),"S03 temporary self enhancement expires leaving base passive");
-  a=Actor("piccolo-raditz-v030");a.Attack=100;a.Rage=100;target=Enemy(0);target.Add("defense",-.08,2,"goku");b=new Battle(new[]{a,target},7);e=b.Step();
-  double expected=Math.Round(100*1.22*100/(100+92*.75));
-  check(e.Move==Move.Ultimate&&e.Damage==expected&&a.Opportunities==0&&a.Progress==1&&target.Effects[0].Expires==2,"S04 beam exploits defense window without ticking time");
-  a=Actor("raditz-arrival-v030");var front=Enemy(0);var second=Enemy(1);var rear=Enemy(3);second.Dodge=1;front.Rage=95;
-  b=new Battle(new[]{a,front,second,rear},9);e=b.Step();
-  check(e.Hits.Count==2&&e.Hits[0].Target==front&&e.Hits[1].Target==second&&e.Hits[1].Dodged&&rear.HP==rear.MaxHP,"S05 dual attack distinct front targets and independent dodge");
-  check(e.Damage==e.Hits.Sum(h=>h.Damage)&&front.Rage==100&&second.Rage==0&&a.Rage==40&&a.Cooldown==4&&a.Opportunities==1,"S06 dual hit grants normal action rage and cooldown only once");
-  check(b.Step().Actor==front,"S07 received-rage ultimate waits for complete dual action");
-  a=Actor("raditz-arrival-v030");target=Enemy(0);b=new Battle(new[]{a,target},10);e=b.Step();check(e.Hits.Count==1,"S08 dual attack does not hit lone target twice");
+  Unit front, rear;
   a=Data.Make("goku-test",0,0,0,0,"pierce",1);a.Progress=1;a.Crit=0;front=Enemy(0);rear=Enemy(3);b=new Battle(new[]{a,front,rear},11);e=b.Step();
   check(e.Target==rear&&front.Sum("defense")==0&&rear.Sum("defense")==0&&a.Cooldown==4,"S09 replacement fully replaces original special");
   a.Rage=100;e=b.Step();check(e.Move==Move.Ultimate&&e.Target==front&&e.Damage>0&&Near(front.Sum("defense"),0),"S10 replacement retains user ultimate without retired debuff");
@@ -26,8 +18,8 @@ static class ChapterChecks {
   a=Actor("piccolo-test");target=Enemy(0);target.Dodge=1;double shield=a.Shield;b=new Battle(new[]{a,target},13);b.Step();check(Near(a.Shield,shield)&&Near(a.Sum("defense"),.12),"S12 user defensive special strengthens same row including self on dodge");
 
   // User rework boundary cases, independent of chapter win rates.
-  a=Actor("goku-test");var deadPiccolo=Data.Make("piccolo-raditz-v030",0,1,0,0,"",1);deadPiccolo.HP=0;target=Enemy(0);b=new Battle(new[]{a,deadPiccolo,target},18);
-  check(Near(a.Sum("defense"),.08),"W01 Goku recognizes fallen alternate Piccolo by person identity");
+  a=Actor("goku-test");var deadPiccolo=Data.Make("piccolo-test",0,1,0,0,"",1);deadPiccolo.HP=0;target=Enemy(0);b=new Battle(new[]{a,deadPiccolo,target},18);
+  check(Near(a.Sum("defense"),.08),"W01 Goku recognizes fallen Piccolo by person identity");
   b.Step();check(Near(a.Sum("defense"),.08)&&Near(target.Sum("defense"),0),"W02 linkage persists and old debuff absent");
   a=Actor("vegeta-test");var sameRow=Data.Make("gohan-test",0,2,0,0,"",1);var otherRow=Data.Make("yamcha-saiyan-v020",0,3,0,0,"",1);target=Enemy(0);b=new Battle(new[]{a,sameRow,otherRow,target},19);e=b.Step();
   check(e.Recipients.Count==2&&e.Recipients.Contains(a)&&e.Recipients.Contains(sameRow)&&!e.Recipients.Contains(otherRow),"W03 row buff includes self and excludes other row");
@@ -45,21 +37,22 @@ static class ChapterChecks {
   check(Data.UserSkill("piccolo-test",2)=="损失中生命，对己方生命最低两人释放【护盾】中"&&Data.Card("goku-test").PassiveText=="【攻击强化】低 / 己方存在【比克】时，【防御强化】中","W12 user skill wording remains verbatim");
   var p=new Profile();bool rejected=false;try{p.NewStoryBattle(1,0);}catch(ArgumentException){rejected=true;}check(rejected,"S13 locked chapter rejected");
   int oldUnlocked=p.Unlocked,oldPulls=p.Pulls;
-  string reward=p.RewardStory(0,1);int beam=Data.Index("piccolo-raditz-v030");int crystals=p.Crystals;
-  check(p.Owned[beam]&&p.StoryUnlocked==1&&p.StoryCleared[0]&&p.Unlocked==oldUnlocked&&reward.Contains("首通"),"S14 first clear awards independent Piccolo and unlocks story only");
-  p.RewardStory(0,2);check(p.Shards[beam]==0&&p.Crystals-crystals==6,"S15 replay cannot repeat first-clear card or crystals");
+  string reward=p.RewardStory(0,1);
+  int crystals=p.Crystals;
+  check(p.Owned.Count(x=>x)==8&&p.StoryUnlocked==1&&p.StoryCleared[0]&&p.Unlocked==oldUnlocked&&reward.Contains("首通"),"S14 first clear unlocks story without awarding removed cards");
+  p.RewardStory(0,2);
+  check(p.Crystals-crystals==6,"S15 replay cannot repeat first-clear crystals");
   p.RewardStory(1,3);p.RewardStory(2,4);p.RewardStory(3,5);
-  int raditz=Data.Index("raditz-arrival-v030");
-  check(p.Owned[raditz]&&p.StoryCleared.All(x=>x)&&p.Items.Any(i=>i.kind==2&&i.locked)&&p.Pulls==oldPulls,"S16 final reward and preserved old pool");
-  int locked=p.Items.Count(i=>i.locked);p.RewardStory(3,6);check(p.Shards[raditz]==0&&p.Items.Count(i=>i.locked)==locked,"S17 repeated boss no guaranteed reward duplicate");
-  p=new Profile();p.Acquire(beam);p.RewardStory(0,1);check(p.Shards[beam]==1,"S18 already owned story reward converts only matching card");
-  p=new Profile();p.SaiyanPulls=19;p.Crystals=50;check(p.SummonSaiyan(3).StartsWith("[SSR]")&&p.Pulls==0&&p.SaiyanPulls==20&&p.Crystals==0,"S19 separate saga pity transaction");
+  check(p.StoryCleared.All(x=>x)&&p.Items.Any(i=>i.kind==2&&i.locked)&&p.Pulls==oldPulls,"S16 final reward and preserved pool counter");
+  int locked=p.Items.Count(i=>i.locked);p.RewardStory(3,6);
+  check(p.Items.Count(i=>i.locked)==locked,"S17 repeated boss no guaranteed reward duplicate");
+  p=new Profile();p.SaiyanPulls=19;p.Crystals=50;check(p.SummonSaiyan(3).StartsWith("[S]")&&p.Pulls==0&&p.SaiyanPulls==20&&p.Crystals==0,"S19 separate saga pity transaction");
   p.SummonSaiyan(4);check(p.SaiyanPulls==20,"S20 insufficient currency preserves saga pity");
   p=new Profile();p.Crystals=50000;for(int i=0;i<1000;i++)p.SummonSaiyan(i);
-  check(Data.Cards.Where(Data.InSaiyanPool).Count()==15&&Enumerable.Range(0,Data.Cards.Length).Where(i=>!Data.InSaiyanPool(Data.Cards[i])).All(i=>p.Shards[i]==0),"S21 saga pool excludes later eras");
-  p=new Profile();p.Crystals=5000;for(int i=0;i<100;i++)p.Summon(i);check(Data.Cards.Where(Data.InClassicPool).Count()==10&&Enumerable.Range(10,5).All(i=>!p.Owned[i]),"S22 classic pool contains only ten retained saga IDs");
+  check(Data.Cards.Where(Data.InSaiyanPool).Count()==9&&Enumerable.Range(0,Data.Cards.Length).Where(i=>!Data.InSaiyanPool(Data.Cards[i])).All(i=>p.Shards[i]==0),"S21 saga pool excludes later eras");
+  p=new Profile();p.Crystals=5000;for(int i=0;i<100;i++)p.Summon(i);check(Data.Cards.Where(Data.InClassicPool).Count()==9,"S22 classic pool contains only nine configured saga IDs");
   p=ScopeChecks.Previous(20);p.Training[0]=99;p.Shards[13]=7;p.Owned[13]=true;p.Team[6]=13;p.Items[0].owner=13;p.StoryCleared=new bool[0];p.Normalize();
-  check(p.CardIds.Length==15&&p.Retired.Single(r=>r.cardId=="goku-namek-ssj-v020").shards==7&&p.Training[0]==99&&p.Team[6]==6&&p.Items[0].owner==-1&&!p.Owned[beam]&&p.StoryUnlocked==0,"S23 v020 migration archives removed cards without erasing growth");
+  check(p.CardIds.Length==9&&p.Retired.Single(r=>r.cardId=="goku-namek-ssj-v020").shards==7&&p.Training[0]==99&&p.Team[6]==6&&p.Items[0].owner==-1&&p.StoryUnlocked==0,"S23 v020 migration archives removed cards without erasing growth");
   p.Normalize();check(p.Training[0]==99&&p.Retired.Single(r=>r.cardId=="goku-namek-ssj-v020").shards==7&&p.StoryCleared.Length==4,"S24 migration idempotent");
     var invalid=new Profile();invalid.StoryCleared=new bool[0];rejected=false;try{invalid.Normalize();}catch(InvalidOperationException){rejected=true;}check(rejected,"S24b current schema corrupted chapter array rejected");
   foreach(var c in Data.Cards.Where(Data.InSaiyanPool)){
@@ -70,7 +63,6 @@ static class ChapterChecks {
    int wins=0,totalEvents=0;
    for(int seed=0;seed<40;seed++){
     p=new Profile();p.StoryUnlocked=3;p.StoryCleared=new[]{true,true,true,false};
-    if(stage>=1){p.Acquire(beam);p.SetMember(6,beam);}
     b=p.NewStoryBattle(stage,seed);int n=0;while(b.Result==0&&n++<4000)b.Step();
     check(b.Result!=0,"S26 chapter terminates "+stage+"/"+seed);
     if(b.Result==1)wins++;totalEvents+=n;

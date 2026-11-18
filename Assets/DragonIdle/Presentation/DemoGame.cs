@@ -32,10 +32,10 @@ namespace DragonIdle {
   void Load(){
    try{if(File.Exists(savePath)){
     profile=JsonUtility.FromJson<Profile>(File.ReadAllText(savePath));if(profile==null)throw new Exception("空存档");
-    bool migrating=profile.schemaVersion<3;
-    if(migrating)File.Copy(savePath,savePath+".pre-v041-"+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak",false);
+    bool migrating=profile.NeedsRosterMigration;
+    if(migrating)File.Copy(savePath,savePath+(profile.schemaVersion<3?".pre-v041-":".pre-v080-")+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak",false);
     profile.Normalize();profile.CreateTeam();
-    if(migrating)notice="已升级为赛亚人篇目录；移除角色成长已归档，其装备退回背包，阵容已补齐。";
+    if(migrating)notice="已更新角色目录。退役卡成长已归档，装备已退回背包，阵容已补齐。";
    }else{profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;Save();}}
    catch(Exception ex){profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;saveError="存档读取失败，原文件保留。请检查备份："+ex.Message;}
   }
@@ -207,17 +207,17 @@ namespace DragonIdle {
   void DrawSummon(){
    Heading("时空召唤","Demo 测试卡池 · 完全离线 · 无付费入口");
    Box(224,230,1340,520,panel);
-   if(Button(270,248,340,44,"赛亚人篇 · 15卡",saiyanPool))saiyanPool=true;
-   if(Button(1160,248,340,44,"基础常驻 · 10卡",!saiyanPool))saiyanPool=false;
+   if(Button(270,248,340,44,"赛亚人篇 · 9卡",saiyanPool))saiyanPool=true;
+   if(Button(1160,248,340,44,"基础常驻 · 9卡",!saiyanPool))saiyanPool=false;
    Circle(740,282,180,new Color(.8f,.45f,.16f));Circle(758,300,144,gold);Label(796,337,150,100,"★",67,bg);
-   Label(290,510,1190,47,"每次 50 晶石 · R 72% / SR 20% / SSR 8% · 每第 20 次保证 SSR",24,gold);
-   Label(290,570,1180,70,(saiyanPool?"赛亚人篇15卡":"基础常驻10卡")+"，同级均分；两池均仅含赛亚人篇；原两池保底分别保留，提前出SSR不重置。重复卡转本卡专属资源。\n本池召唤 "+(saiyanPool?profile.SaiyanPulls:profile.Pulls)+" 次；距保证SSR "+(20-(saiyanPool?profile.SaiyanPulls:profile.Pulls)%20)+" 次。详情见角色图鉴。",19);
+   Label(290,510,1190,47,"每次 50 晶石 · C 72% / B 20% / S 8% · 每第 20 次保证 S",24,gold);
+   Label(290,570,1180,70,(saiyanPool?"赛亚人篇9卡":"基础常驻9卡")+"，同级均分；两池均仅含赛亚人篇；原两池保底分别保留，提前出S不重置。重复卡转本卡专属资源。\n本池召唤 "+(saiyanPool?profile.SaiyanPulls:profile.Pulls)+" 次；距保证S "+(20-(saiyanPool?profile.SaiyanPulls:profile.Pulls)%20)+" 次。详情见角色图鉴。",19);
    if(Button(655,658,480,58,"召唤一次",true,profile.Crystals>=50))Change(()=>notice=saiyanPool?profile.SummonSaiyan(++seed):profile.Summon(++seed));
   }
   void DrawAbout(){
    Heading("技术 Demo / 开发边界","先验证战斗规则和可玩循环，再迭代正式角色与美术");
    Box(224,225,1340,560,panel);
-   Label(250,250,1270,220,"已开放：15 张赛亚人篇卡、拉蒂兹来袭4关、角色图鉴、独立卡片身份、多标签队长、候补换人、3 组阵容预设、定向掉落、技能残页与收藏筛选。\n\n角色阶段、稀有度与技能数值是可调整默认。全角色使用 C 风格 AI 立绘与 12 姿态 2D 小人，已接入进攻、蓄气、闪避、受击、倒地及招式特效。当前为关键姿态动画；没有3D模型，观感与试听待验收。旧存档按 CardId 迁移，迁移前自动保留独立备份。",21);
+   Label(250,250,1270,220,"已开放：9 张赛亚人篇卡、镜像修炼4关、角色图鉴、独立卡片身份、多标签队长、候补换人、3 组阵容预设、定向掉落、技能残页与收藏筛选。\n\n角色阶段、稀有度与技能数值是可调整默认。全角色使用 C 风格 AI 立绘与 12 姿态 2D 小人，已接入进攻、蓄气、闪避、受击、倒地及招式特效。当前为关键姿态动画；没有3D模型，观感与试听待验收。旧存档按 CardId 迁移，迁移前自动保留独立备份。",21);
    int offline=profile.OfflineBank;
    Label(250,510,1250,75,"离线素材：每小时 12，最多累计 12 小时；至少通关一次后开放。\n当前可领取 "+offline+"。本版本离线只提供素材，物品掉落后续扩展。",19,muted);
    if(Button(250,610,360,47,"领取离线素材",false,offline>0))Change(()=>{int count=profile.OfflineBank;profile.Materials+=count;profile.OfflineBank=0;notice="已领取离线素材 "+count;});

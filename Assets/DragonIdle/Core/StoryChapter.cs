@@ -3,12 +3,12 @@ using System.Linq;
 using System.Collections.Generic;
 namespace DragonIdle {
  public static partial class Data {
-  public static string[] StoryStages={"联手修炼","不速之客","联手迎击","拉蒂兹决战"};
+  public static string[] StoryStages={"联手修炼","镜像现身","联手迎击","界王拳试炼"};
   public static string[] StoryBriefs={
-   "悟空与比克的切磋。首通：迎战拉蒂兹·比克（独立新卡）及50晶石。",
-   "拉蒂兹初现。双目标绝招分别结算暴击与闪避，分散装备可减少前排压力。",
-   "精英战：提高生命与攻击。建议将新比克换入队伍，利用悟空的防御削弱。",
-   "首领战：无隐藏控制免疫。首通解锁拉蒂兹，获得1件聚气核心及100晶石。"};
+   "悟空与比克的切磋。首通额外获得50晶石。",
+   "与界王拳悟空的镜像交手，检验队伍的持续输出。",
+   "精英战：镜像的生命与攻击提高，留意队伍的防御与护盾。",
+   "首领战。首通获得1件聚气核心及100晶石。"};
   public static string[] StoryLoot={
    "素材12 / 晶石6；装备：护腕94% / 核心6%；珠20% / 专注残页25%",
    "素材15 / 晶石7；装备：战斗服94% / 核心6%；珠20% / 守势残页25%",
@@ -29,13 +29,13 @@ namespace DragonIdle {
    if(stage<0||stage>3)throw new ArgumentOutOfRangeException("stage");
    if(stage==0){
     var a=Data.Make("goku-test",1,0,0,0,"",.8);a.MaxHP=a.HP=2300;
-    var b=Data.Make("piccolo-raditz-v030",1,1,0,0,"",.8);b.MaxHP=b.HP=2400;
+    var b=Data.Make("piccolo-test",1,1,0,0,"",.8);b.MaxHP=b.HP=2400;
     return new List<Unit>{a,b};
    }
-   var boss=Data.Make("raditz-arrival-v030",1,1,0,0,"",1);
+   var boss=Data.Make("goku-saiyan-kaioken-v020",1,1,0,0,"",1);
    boss.MaxHP=boss.HP=new[]{0,5100,6400,8000}[stage];
    boss.Attack=new[]{0,150,190,235}[stage];boss.Speed=new[]{0,128,135,142}[stage];
-   boss.Name=(stage==3?"首领·":stage==2?"精英·":"")+"拉蒂兹";
+   boss.Name=(stage==3?"首领·":stage==2?"精英·":"")+"界王拳悟空镜像";
    return new List<Unit>{boss};
   }
   public Battle NewStoryBattle(int stage,int seed){
@@ -53,14 +53,13 @@ namespace DragonIdle {
    if(rng.NextDouble()<.25){int s=stage==0?1:stage==1?3:stage==2?2:rng.Next(1,4);SkillPages[s]++;result+=" / "+Data.SkillName(Data.SkillIds[s])+"残页 +1";}
    if(first){
     int crystals=stage==3?100:50;Crystals+=crystals;result+="\n首通：晶石 +"+crystals;
-    if(stage==0)result+=" / "+Acquire(Data.Index("piccolo-raditz-v030"));
-    if(stage==3){result+=" / "+Acquire(Data.Index("raditz-arrival-v030"));Items.Add(new Item{id=Guid.NewGuid().ToString("N"),kind=2,locked=true});result+=" / 已收藏聚气核心 +1";}
+    if(stage==3){Items.Add(new Item{id=Guid.NewGuid().ToString("N"),kind=2,locked=true});result+=" / 已收藏聚气核心 +1";}
    }
    return result;
   }
   public string SummonSaiyan(int seed){
    if(Crystals<50)return "晶石不足，需要50";
-   Crystals-=50;SaiyanPulls++;var rng=new Random(seed);double roll=rng.NextDouble();string rarity=SaiyanPulls%20==0||roll<.08?"SSR":roll<.28?"SR":"R";
+   Crystals-=50;SaiyanPulls++;var rng=new Random(seed);double roll=rng.NextDouble();string rarity=SaiyanPulls%20==0||roll<.08?"S":roll<.28?"B":"C";
    var pool=Enumerable.Range(0,Data.Cards.Length).Where(i=>Data.InSaiyanPool(Data.Cards[i])&&Data.Cards[i].Rarity==rarity).ToArray();
    return "["+rarity+"] "+Acquire(pool[rng.Next(pool.Length)]);
   }

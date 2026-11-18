@@ -60,7 +60,7 @@ class CoreChecks {
   Check(support.Role=="support"&&support.SpecialRole=="sniper","T35 replacement preserves original role");
   supportBattle.Step();Check(supportBattle.Units.First(x=>x.Side==0&&x.Slot==1).Effects.Any(x=>x.Source==support.CardId&&Near(x.Value,.06)),"T35 replacement preserves ultimate support effect");
   string tag=Data.Cards[0].Tag;p.Skill2[0]="";p.Skill[0]="pierce";var changed=p.CreateTeam()[0];Check(changed.SpecialName=="贯穿气弹"&&changed.UltimateName==Data.Cards[0].Ultimate&&Data.Cards[0].Tag==tag,"T31 T35 replacement preserves identity");
-  p=new Profile();int owned=p.Owned.Count(x=>x);p.Crystals=10000;string pull="";for(int i=0;i<20;i++)pull=p.Summon(i);Check(pull.StartsWith("[SSR]"),"summon guaranteed twentieth SSR");Check(p.Shards.Sum()==20-(p.Owned.Count(x=>x)-owned),"T33 duplicates convert");
+  p=new Profile();int owned=p.Owned.Count(x=>x);p.Crystals=10000;string pull="";for(int i=0;i<20;i++)pull=p.Summon(i);Check(pull.StartsWith("[S]"),"summon guaranteed twentieth SSR");Check(p.Shards.Sum()==20-(p.Owned.Count(x=>x)-owned),"T33 duplicates convert");
   p=new Profile();int mat=p.Materials;p.Train(0);Check(p.Materials==mat-30&&p.Training[0]==1,"training transaction");
   p.LastClaimTicks=DateTime.UtcNow.Ticks;p.Wins=1;Check(p.Offline(p.LastClaimTicks-TimeSpan.TicksPerHour)==0,"T39 backwards clock");
   Check(p.Offline(p.LastClaimTicks+24*TimeSpan.TicksPerHour)==144,"T39 offline cap");

@@ -63,18 +63,9 @@ namespace DragonIdle {
   void ShowAcquisition(int i){
    var c=Data.Cards[i];var panel=NewGalleryDialog("获取 · "+c.Name,c.Title+" / "+c.Stage+" / "+c.Rarity+"。重复获得将转为本张卡的专属成长资源。");
    float y=160;
-   if(c.Id=="piccolo-raditz-v030"||c.Id=="raditz-arrival-v030"){
-    int stage=c.Id=="piccolo-raditz-v030"?0:3;
-    string status=profile.StoryCleared[stage]?"首通奖励已领取":profile.StoryUnlocked>=stage?"可挑战并领取首通奖励":"需要先通关前置章节";
-    UText(panel,"StorySource","剧情："+Data.StoryStages[stage]+" · "+status,26,y,682,46,18,uiPaper);y+=54;
-    UButton(panel,"GoStory",profile.StoryUnlocked>=stage?"前往对应章节":"前往当前可挑战章节",26,y,682,44,()=>{
-     if(Change(()=>profile.StorySelected=Math.Min(stage,profile.StoryUnlocked))){storyMode=true;battle=null;settled=false;NavigateGallery("挑战");}
-     else GalleryNotice(notice,false);
-    },true,saveError=="");y+=72;
-   }
    if(Data.InSaiyanPool(c)){UButton(panel,"GoSaiyanPool","前往赛亚人篇召唤 · 独立保底",26,y,682,46,()=>{saiyanPool=true;NavigateGallery("召唤");});y+=66;}
    if(Data.InClassicPool(c)){UButton(panel,"GoLegacyPool","前往基础常驻召唤 · 仅赛亚人篇",26,y,682,46,()=>{saiyanPool=false;NavigateGallery("召唤");});y+=66;}
-   UText(panel,"PityInfo","每抽50晶石；R72% / SR20% / SSR8%，同级均分。每累计第20抽保证SSR，提前获得SSR不重置。",26,y+5,682,82,16,uiDim);
+   UText(panel,"PityInfo","每抽50晶石；C72% / B20% / S8%，同级均分。每累计第20抽保证S，提前获得S不重置。",26,y+5,682,82,16,uiDim);
   }
   UI.Slider AudioSlider(Transform parent,string title,float y,float value,Action<float> update){
    var label=UText(parent,title+"Label",title+"  "+Mathf.RoundToInt(value*100)+"%",28,y,220,34,19,uiPaper);

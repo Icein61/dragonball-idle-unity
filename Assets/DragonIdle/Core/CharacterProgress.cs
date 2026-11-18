@@ -18,9 +18,10 @@ namespace DragonIdle {
    if(values==null||values.Length!=oldIds.Length)throw new InvalidOperationException("角色存档数组不完整");
    return Data.Cards.Select(c=>{int old=Array.IndexOf(oldIds,c.Id);return old<0?fallback:values[old];}).ToArray();
   }
+  public bool NeedsRosterMigration { get { return schemaVersion < 3 || (CardIds != null && CardIds.Any(Data.RetiredCardIds.Contains)); } }
   public void Normalize(){
    if(schemaVersion!=1&&schemaVersion!=2&&schemaVersion!=3)throw new InvalidOperationException("不支持的存档版本");
-   bool reducing=schemaVersion<3;
+   bool reducing=NeedsRosterMigration;
    bool legacy=schemaVersion==1;string[] ids=legacy?Data.LegacyCardIds:CardIds;
    if(ids==null||ids.Length==0||ids.Distinct().Count()!=ids.Length||ids.Any(id=>Data.Index(id)<0&&!(reducing&&Data.RetiredCardIds.Contains(id))))throw new InvalidOperationException("存档含未知或重复角色ID，已保留原文件");
    if(Skill2==null&&legacy)Skill2=Enumerable.Repeat("",ids.Length).ToArray();

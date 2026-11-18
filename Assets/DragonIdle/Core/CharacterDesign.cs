@@ -34,12 +34,6 @@ namespace DragonIdle {
     case "yamcha-saiyan-v020":return new CharacterDesign("加速/后排突破","地球人",.04,.05,.03);
     case "chiaotzu-saiyan-v020":return new CharacterDesign("控制/减速","地球人/Z战士",.05,.03,.04);
     case "goku-saiyan-kaioken-v020":return new CharacterDesign("加速/自我强化/怒气加速","赛亚人/Z战士",.03,.08,.04);
-    case "goku-saiyan-guard-v020":return new CharacterDesign("护盾/团队强化","Z战士",.05,.04,.05);
-    case "piccolo-raditz-v030":return new CharacterDesign("破绽穿透/自我强化","那美克星人",.03,.07,.04);
-    case "raditz-arrival-v030":return new CharacterDesign("双目标/加速/怒气加速","赛亚人/赛亚人军团",.04,.06,.04);
-    case "nappa-invasion-v030":return new CharacterDesign("双目标/护盾","赛亚人军团",.06,.05,.04);
-    case "yajirobe-saiyan-v030":return new CharacterDesign("后排突破/穿防","地球人/地球援军",.03,.06,.03);
-    case "saibaman-saiyan-v030":return new CharacterDesign("减速/先手","栽培生物/赛亚人军团",.04,.04,.04);
     default:throw new ArgumentException("Missing character design: "+id);
    }
   }

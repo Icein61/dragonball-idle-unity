@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // Read-only alpha/size/margin validation; generated PNGs are never altered here.
 class InspectPortraits {
  static void Main(string[] args){try{
-  var files=Directory.GetFiles(args[0],"*-portrait.png");if(files.Length!=15&&args.Length<2)throw new Exception("Expected 15 independent portraits");
+  var files=Directory.GetFiles(args[0],"*-portrait.png");if(files.Length!=9&&args.Length<2)throw new Exception("Expected 9 independent portraits");
   foreach(var path in files)using(var png=new Bitmap(path)){
    int w=png.Width,h=png.Height;if(w!=1024||h!=1536)throw new Exception("Unexpected portrait resolution: "+path);
    var locked=png.LockBits(new Rectangle(0,0,w,h),ImageLockMode.ReadOnly,PixelFormat.Format32bppArgb);

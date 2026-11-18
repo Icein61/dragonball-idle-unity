@@ -3,7 +3,7 @@ using UnityEngine;
 namespace DragonIdle.Editor {
  public sealed class ShellArtImport:AssetPostprocessor {
   void OnPreprocessTexture(){
-   if(!assetPath.Contains("/Interface/V070/"))return;
+   if(!assetPath.Contains("/Interface/V070/")&&!assetPath.Contains("/Interface/Rarity/"))return;
    var t=(TextureImporter)assetImporter;bool scene=assetPath.EndsWith("-scene.png");
    t.textureType=scene?TextureImporterType.Default:TextureImporterType.Sprite;
    if(!scene){t.spriteImportMode=SpriteImportMode.Single;t.spritePixelsPerUnit=100;
