@@ -5,6 +5,8 @@
 
 v0.12.2 接入用户确认的比克「萌芽的心」立绘。沿用独立立绘资源路径，原 PNG 保留 1086 × 1448 尺寸并按比例显示。比克立绘复盘已写入 [C 版角色美术规范](production/character-style-c.md#比克立绘复盘)。
 
+[v0.12.2 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.2)对应源码 `fd123834969518959fca83fd3e95d3d65c043b79`。811 项核心检查、透明度与比例检查、干净源码构建和隔离静音 Player 验证 `release-smoke-20261119030429` 通过。已核对远端标签及三份附件。ZIP 为 80484875 字节，SHA256 为 `98f5599cd2397a073e90796cfffffa3c5623a8ecbbac0432db374421df963750`。可见验收待进行。
+
 v0.12.1 接入已确认的悟空与贝吉塔立绘。
 
 [v0.12.1 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.1)对应源码 `2d913fea6ee805c577a2778f10c85f5c008e060a`。811 项核心检查、立绘透明度和边缘检查、后台构建及隔离静音 Player 验证 `release-smoke-20261119025339` 通过。已核对远端标签及三份附件。ZIP 为 81750661 字节，SHA256 为 `5935b69fd8272e0cfead875064984410c1edc20ded867e814579144f3edd3865`。可见验收待进行。
