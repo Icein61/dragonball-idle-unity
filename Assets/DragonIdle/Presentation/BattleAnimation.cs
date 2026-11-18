@@ -42,7 +42,7 @@ namespace DragonIdle {
    if(action!=null&&!action.Complete)DrawFighter(action.Event.Actor);
    DrawBattleEffects();
    foreach(var u in units)DrawFighterInfo(u);
-   if(paused){Box(680,292,130,31,new Color(.03f,.05f,.08f,.9f));Label(697,295,100,28,"演出已暂停",16,gold);}
+   if(paused){InkGuiSurface(680,292,130,31,InkDark);Label(697,295,100,28,"演出已暂停",16,InkIvory);}
   }
   void DrawFighter(Unit u){
    int index=Data.Index(u.CardId);if(index<0)return;var feet=AnimatedFeet(u);var v=ShownVitals(u);
@@ -50,18 +50,52 @@ namespace DragonIdle {
    GUI.color=new Color(0,0,0,.3f);GUI.DrawTexture(new Rect(feet.x-42,feet.y-6,84,13),disc);GUI.color=Color.white;
    if(v.Shield>0)Ring(feet+new Vector2(0,-34),45,54,new Color(.3f,.85f,1,.38f),2);
    float fade=v.HP<=0?.32f:1;PaintFighter(index,pose,feet,u.Side==1,new Color(1,1,1,fade),u.Slot<3?1:.78f);
-   if(u.Stunned&&v.HP>0){Label(feet.x-15,feet.y-FighterHeight(index)*(u.Slot<3?1:.78f)-24,80,24,"眩晕",12,gold);}
+   if(u.Stunned&&v.HP>0){Label(feet.x-15,feet.y-FighterHeight(index)*(u.Slot<3?1:.78f)-24,80,24,"眩晕",12,InkCharge);}
    if(action!=null&&!action.Complete&&u==action.Event.Actor)Ring(feet+new Vector2(0,1),44,9,new Color(1,.7f,.3f,.7f),2);
   }
   void DrawFighterInfo(Unit u){
    var p=FighterFeet(u);var v=ShownVitals(u);
-   Bar(p.x-43,p.y+5,86,4,v.HP/u.MaxHP,u.Side==0?new Color(.3f,.8f,.57f):new Color(.95f,.38f,.42f));
-   Bar(p.x-43,p.y+11,86,2,v.Rage/100,gold);
-   Label(p.x-57,p.y+15,118,21,(u.Slot+1)+" "+u.Name.Replace("试炼·",""),12,v.HP>0?ink:muted);
+   double health=v.HP/u.MaxHP;
+   InkGuiMeter(p.x-43,p.y+5,86,5,health,health<=.25||u.Side==1?InkLowHealth:InkHealth,InkBorder);
+   InkGuiMeter(p.x-43,p.y+12,86,3,v.Rage/100,InkCharge,InkBorder);
+   string prefix=health>0&&health<=.25?"! ":"";
+   Label(p.x-57,p.y+16,118,21,prefix+(u.Slot+1)+" "+u.Name.Replace("试炼·",""),12,v.HP>0?InkText:InkMuted);
    if(!new Rect(p.x-54,p.y-78,108,114).Contains(Event.current.mousePosition))return;
    string buffs=string.Join(" / ",u.Effects.Select(e=>EffectText(e.Type)+" "+(e.Value*100).ToString("0.#")+"% · "+(e.Expires==int.MaxValue?"整场":(e.Expires-u.Opportunities)+"回合")).ToArray());
-   Box(590,294,320,103,new Color(.025f,.045f,.075f,.96f));
-   Label(603,301,294,90,u.Name+"  生命 "+v.HP.ToString("0")+" / "+u.MaxHP.ToString("0")+"\n怒气 "+v.Rage.ToString("0")+" · 绝招CD "+u.Cooldown+" · 护盾 "+v.Shield.ToString("0")+"\n"+buffs,13);
+   InkGuiSurface(590,294,320,103,InkDark);
+   Label(603,301,294,90,u.Name+"  生命 "+v.HP.ToString("0")+" / "+u.MaxHP.ToString("0")+"\n怒气 "+v.Rage.ToString("0")+" · 绝招CD "+u.Cooldown+" · 护盾 "+v.Shield.ToString("0")+"\n"+buffs,13,InkIvory);
+  }
+  Unit InkChargeSubject(List<Unit> units){
+   if(running&&action!=null&&!action.Complete&&ShownVitals(action.Event.Actor).HP>0)return action.Event.Actor;
+   Unit best=null;
+   double highest=-1;
+   foreach(var unit in units){
+    if(unit.Side!=0)continue;
+    var vitals=ShownVitals(unit);
+    if(vitals.HP<=0||vitals.Rage<=highest)continue;
+    best=unit;
+    highest=vitals.Rage;
+   }
+   return best;
+  }
+  void DrawInkBattleCharge(List<Unit> units){
+   var subject=InkChargeSubject(units);
+   if(subject==null)return;
+   var charge=Mathf.Clamp((float)ShownVitals(subject).Rage,0,100);
+   InkGuiSurface(18,575,154,199,InkDark);
+   Label(31,586,130,29,"聚气",19,InkIvory);
+   var center=new Vector2(95,658);
+   Ring(center,34,34,InkBorder,3);
+   Vector2 previous=center+new Vector2(0,-34);
+   int steps=Mathf.CeilToInt(charge/100*32);
+   for(int step=1;step<=steps;step++){
+    float angle=Mathf.Min(step/32f,charge/100)*2*Mathf.PI;
+    var point=center+new Vector2(Mathf.Sin(angle),-Mathf.Cos(angle))*34;
+    Line(previous,point,3,InkGold);
+    previous=point;
+   }
+   Label(73,644,50,30,charge.ToString("0"),18,InkIvory);
+   Label(31,704,128,58,subject.Name+" · "+(subject.Side==0?"我方":"敌方")+"\n"+(charge>=100?"怒气已满":"怒气 / 100"),14,InkOnDark);
   }
   void InitializeBattleAudio(){
    battleSound=gameObject.AddComponent<AudioSource>();battleSound.playOnAwake=false;battleSound.spatialBlend=0;

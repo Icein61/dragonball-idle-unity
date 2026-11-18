@@ -105,6 +105,7 @@ namespace DragonIdle {
    if(IsModernPage(page))return;
    Styles();float scale=Math.Min(Screen.width/1600f,Screen.height/900f);
    GUI.matrix=Matrix4x4.TRS(new Vector3((Screen.width-1600*scale)/2,(Screen.height-900*scale)/2,0),Quaternion.identity,new Vector3(scale,scale,1));
+   if(page=="挑战"){DrawInkBattlePage();return;}
    GUI.DrawTexture(new Rect(0,0,1600,900),gradient);
    Box(0,0,1600,90,bg);Box(0,90,190,810,new Color(.045f,.07f,.11f));Box(0,88,1600,2,new Color(.25f,.22f,.16f));
    Label(26,20,320,40,Data.GameTitle,29,gold);Label(360,34,350,30,"技术 DEMO  /  v"+Data.Version,16,muted);
@@ -114,8 +115,7 @@ namespace DragonIdle {
    Label(22,620,144,130,"自动行动\n战前构筑\n离线单机",18,muted);
    if(Button(18,730,154,46,"返回主页",false,!running))NavigateGallery("主页");
    Label(22,810,145,70,"C风格 · 2D演出\n观感待验收",14,gold);
-   if(page=="挑战")DrawBattle();
-   else if(page=="编队")DrawTeam();
+   if(page=="编队")DrawTeam();
    else if(page=="养成")DrawTraining();
    else if(page=="装备")DrawEquipment();
    else if(page=="召唤")DrawSummon();
@@ -126,31 +126,59 @@ namespace DragonIdle {
   void Heading(string title,string subtitle){
    Label(224,112,1000,44,title,30);Label(226,162,1280,45,subtitle,17,muted);
   }
-  void DrawBattle(){
+  void DrawInkBattlePage(){
+   Box(0,0,1600,900,InkMist);
+   Box(0,0,1600,90,InkDark);
+   Box(0,90,190,810,InkPaper);
+   Box(0,88,1600,2,InkBorder);
+   Label(26,20,355,42,Data.GameTitle,29,InkIvory);
+   Label(955,28,610,38,"素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems,19,InkOnDark);
+   string[] routes={"挑战","角色","编队","养成","装备","召唤","说明"};
+   for(int i=0;i<routes.Length;i++){
+    string target=routes[i];
+    if(InkGuiButton(18,126+i*62,154,45,target,enabled:!running||target=="挑战",selected:target=="挑战")&&target!="挑战"){
+     NavigateGallery(target);
+     return;
+    }
+   }
+   if(InkGuiButton(18,819,154,47,"返回主页",enabled:!running)){NavigateGallery("主页");return;}
    DrawChapterSelection();
-   Box(224,280,1045,440,new Color(.045f,.08f,.12f));
-   // Scene framing and ground lines.
-   for(int i=0;i<7;i++)Line(new Vector2(260,400+i*44),new Vector2(1230,400+i*44),1,new Color(.12f,.19f,.22f));
-   for(int i=0;i<9;i++)Line(new Vector2(740,300),new Vector2(240+i*125,715),1,new Color(.10f,.16f,.20f));
-   Label(250,282,290,22,"我方  /  出战队伍",14,gold);Label(1015,282,230,22,storyMode?"敌方  /  剧情挑战":"敌方  /  镜像试炼",14,new Color(.95f,.5f,.48f));
+   InkGuiSurface(224,280,1045,440,InkPaper);
+   // Side fields keep formation readable while the fight crosses a light, clear center.
+   InkGuiSurface(234,284,254,432,InkLight);
+   InkGuiSurface(1005,284,254,432,InkLight);
+   Label(250,283,290,22,"我方  /  出战队伍",14,InkText);
+   Label(1015,283,230,22,storyMode?"敌方  /  剧情挑战":"敌方  /  镜像试炼",14,InkLowHealth);
    var units=battle!=null?battle.Units:profile.CreateTeam().Concat(storyMode?profile.StoryEnemies(profile.StorySelected):profile.CreateEnemies(profile.SelectedStage)).ToList();
    DrawBattleActors(units);
-   Box(1285,280,280,440,panel);Label(1301,294,250,34,"行动记录",20,gold);
-   for(int i=0;i<Math.Min(6,log.Count);i++)Label(1301,338+i*58,245,56,log[i],14,i==0?ink:muted);
-   if(log.Count==0)Label(1301,345,240,130,"点击开始挑战。\n每次行动会记录招式、伤害和附加效果。",17,muted);
+   DrawInkBattleCharge(units);
+   InkGuiSurface(1285,280,280,440,InkDark);Label(1301,294,250,34,"行动记录",20,InkIvory);
+   for(int i=0;i<Math.Min(6,log.Count);i++)Label(1301,338+i*58,245,56,log[i],14,i==0?InkIvory:InkOnDark);
+   if(log.Count==0)Label(1301,345,240,130,"点击开始挑战。\n每次行动会记录招式、伤害和附加效果。",17,InkOnDark);
    // Shared action track, markers represent all actors.
-   Box(224,734,1045,61,panel);Label(238,747,100,30,"行动进度",16,muted);
-   Label(335,738,32,24,"我",13,gold);Label(335,764,32,24,"敌",13,new Color(.9f,.35f,.35f));
-   Bar(366,751,860,2,1,new Color(.22f,.30f,.39f));Bar(366,777,860,2,1,new Color(.22f,.30f,.39f));
-   foreach(var u in units.Where(x=>ShownVitals(x).HP>0)){float x=366+(float)u.Progress*850;float y=u.Side==0?742:768;Circle(x,y,19,u.Side==0?gold:new Color(.9f,.35f,.35f));Label(x+4,y-1,25,24,(u.Slot+1).ToString(),12,bg);}
-   if(Button(1285,736,133,54,running?(paused?"继续":"暂停"):"开始挑战",true)){if(running)paused=!paused;else StartBattle();}
-   if(Button(1430,736,135,54,"速度 ×"+rate)){rate=rate==1?2:rate==2?4:1;}
-   if(running){if(Button(1285,804,133,46,"退出本场")){running=false;settled=false;autoRepeat=false;battle=null;ClearBattlePresentation();notice="已退出，未消耗资源。";}}
-   else if(Button(1285,804,280,46,autoRepeat?"自动重复：开":"自动重复：关"))autoRepeat=!autoRepeat;
+   InkGuiSurface(224,734,1045,61,InkPaper);Label(238,747,100,30,"行动进度",16,InkText);
+   Label(335,738,32,24,"我",13,InkCharge);Label(335,764,32,24,"敌",13,InkLowHealth);
+   Box(366,751,860,2,InkBorder);Box(366,777,860,2,InkBorder);
+   foreach(var u in units.Where(x=>ShownVitals(x).HP>0)){
+    float x=366+(float)u.Progress*850,y=u.Side==0?742:768;
+    Circle(x,y,19,u.Side==0?InkGold:InkLowHealth);
+    Label(x+4,y-1,25,24,(u.Slot+1).ToString(),12,u.Side==0?InkWarmText:InkIvory);
+   }
+   if(InkGuiButton(1285,736,133,54,running?(paused?"继续":"暂停"):"开始挑战",primary:true,enabled:running||saveError=="")){if(running)paused=!paused;else StartBattle();}
+   if(InkGuiButton(1430,736,135,54,"速度 ×"+rate)){rate=rate==1?2:rate==2?4:1;}
+   if(running){if(InkGuiButton(1285,804,133,46,"退出本场")){running=false;settled=false;autoRepeat=false;battle=null;ClearBattlePresentation();notice="已退出，未消耗资源。";}}
+   else if(InkGuiButton(1285,804,280,46,autoRepeat?"自动重复：开":"自动重复：关",enabled:saveError=="",selected:autoRepeat))autoRepeat=!autoRepeat;
    if(battle!=null&&battle.Result!=0&&!running){
-    Box(460,403,600,206,new Color(.035f,.055f,.09f,.97f));Box(460,403,600,3,battle.Result==1?gold:Color.red);
-    Label(485,419,550,43,battle.Result==1?"试炼通过":"挑战结束",30,gold);Label(485,472,550,105,reward+(autoRepeat?"\n3秒后自动继续挑战":""),16);
-   }else if(last!=null)Label(242,804,1000,45,log.Count>0?log[0]:last.Text,18,gold);
+    InkGuiSurface(460,403,600,206,InkDark);
+    Box(485,415,550,2,battle.Result==1?InkGold:InkLowHealth);
+    Label(485,425,550,43,battle.Result==1?"试炼通过":"挑战结束",30,InkIvory);
+    Label(485,477,550,105,reward+(autoRepeat?"\n3秒后自动继续挑战":""),16,InkOnDark);
+   }
+   string feedback=saveError!=""?saveError:notice!=""?notice:last==null?"":log.Count>0?log[0]:last.Text;
+   if(feedback!=""){
+    InkGuiSurface(224,803,1045,47,InkDark);
+    Label(241,808,1010,39,feedback,17,InkIvory);
+   }
   }
   void CardTabs(){
    var owned=Enumerable.Range(0,Data.Cards.Length).Where(i=>profile.Owned[i]).ToArray();

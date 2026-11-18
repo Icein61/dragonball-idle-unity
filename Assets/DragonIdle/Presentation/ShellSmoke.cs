@@ -19,7 +19,8 @@ namespace DragonIdle {
    Debug.Log("DRAGON_IDLE_LOGIC_SMOKE_SUCCESS");Application.Quit(0);
   }
   IEnumerator RunShellSmoke(string dir){
-   savePath=Path.Combine(dir,"shell-save.json");profile=new Profile();profile.OfflineBank=24;Save();
+   savePath=Path.Combine(dir,"shell-save.json");profile=new Profile();profile.OfflineBank=24;
+   profile.StoryCleared[0]=true;profile.StoryUnlocked=1;Save();
    running=false;BeginShellLoad("主页");
    AssertSmoke(page=="加载"&&loadingRoot.gameObject.activeInHierarchy&&!galleryChrome.gameObject.activeSelf&&!detailRoot.gameObject.activeSelf,"Loading leaked other pages");
    int frames=0;double previous=0;
@@ -29,9 +30,18 @@ namespace DragonIdle {
    }
    AssertSmoke(frames>0&&shellLoad.Completed==ShellKeys.Length&&shellLoad.Missing==0&&page=="主页","Asynchronous UI startup failed");
    AssertSmoke(homeRoot.gameObject.activeInHierarchy&&!loadingRoot.gameObject.activeSelf&&!galleryChrome.gameObject.activeSelf&&!galleryListRoot.gameObject.activeSelf&&!workshopRoot.gameObject.activeSelf,"Home did not isolate pages");
-   AssertSmoke(shellAssets.Count==11&&shellAssets.Values.All(x=>x!=null),"UI resources missing");
-   foreach(var picture in homeRoot.GetComponentsInChildren<UI.RawImage>())AssertSmoke(picture.uvRect==new Rect(0,0,1,1)&&Math.Abs(picture.rectTransform.rect.width/picture.rectTransform.rect.height-(float)picture.texture.width/picture.texture.height)<.001,"Home scene cropped or stretched");
-   foreach(string key in new[]{"button-primary","button-secondary"})AssertSmoke(ShellSprite(key).border==new Vector4(30,12,30,12),"Button import border missing");
+   AssertSmoke(shellAssets.Count==ShellKeys.Length&&ShellKeys.All(key=>shellAssets[key]!=null),"Loading UI resources missing");
+   AssertSmoke(homeRoot.GetComponentsInChildren<UI.RawImage>().Length==0,"Home still depends on an extracted background");
+   var progress=homeRoot.Find("HomeProgress");
+   var fill=progress.Find("HomeProgressFill").GetComponent<UI.Image>();
+   AssertSmoke(fill.type==UI.Image.Type.Filled&&Math.Abs(fill.fillAmount-.25f)<.001f&&
+    progress.Find("HomeChapterState0").GetComponent<UI.Text>().text.EndsWith("已通关")&&
+    progress.Find("HomeChapterState1").GetComponent<UI.Text>().text.EndsWith("可挑战")&&
+    progress.Find("HomeChapterState2").GetComponent<UI.Text>().text.EndsWith("未解锁"),"Home shows stale chapter progress");
+   var continueImage=(UI.Image)GalleryTestButton("HomeContinue").targetGraphic;
+   AssertSmoke(continueImage.sprite==RoundedSurface(false)&&continueImage.pixelsPerUnitMultiplier==2&&
+    continueImage.color==InkGold&&ThemeContrast(InkWarmText,InkGold)>=4.5&&
+    ThemeContrast(InkText,InkPaper)>=4.5&&ThemeContrast(InkIvory,InkDark)>=4.5,"Ink controls or text contrast missing");
    Canvas.ForceUpdateCanvases();
    AssertSmoke(homeRoot.GetComponentsInChildren<UI.Text>().All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Home text clipped");
    AssertSmoke(loadingRoot.GetComponentsInChildren<UI.Text>(true).All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Loading text clipped");
@@ -52,11 +62,12 @@ namespace DragonIdle {
    NavigateGallery("主页");GalleryTestButton("HomeNav角色").onClick.Invoke();AssertSmoke(galleryDetailOpen&&selectedCard==0&&Math.Abs(galleryScroll.verticalNormalizedPosition-scroll)<.01,"Home roundtrip lost character context");
    BeginShellLoad("主页");NavigateGallery("角色");for(int n=0;n<15;n++)yield return null;
    AssertSmoke(!shellLoad.Active&&page=="角色","Cancelled loading stole navigation");
-   var old=shellAssets["home-scene"];shellAssets["home-scene"]=null;NavigateGallery("主页");
-   AssertSmoke(homeRoot.GetComponentsInChildren<UI.RawImage>().Length==0&&GalleryTestButton("HomeContinue").interactable,"Missing art disabled navigation fallback");shellAssets["home-scene"]=old;DrawHome();
+   var old=shellAssets["loading-fill"];shellAssets["loading-fill"]=null;DrawShellLoading();
+   AssertSmoke(loadingFill.sprite==RoundedSurface(false),"Missing loading sprite disabled progress");
+   shellAssets["loading-fill"]=old;NavigateGallery("主页");
    running=true;NavigateGallery("角色");AssertSmoke(page=="主页","Running battle allowed unsafe navigation");running=false;DrawHome();
    AssertSmoke(silentAudio&&!menuMusic.isPlaying&&uiSounds.volume==0,"Shell headless smoke produced sound");
-   Save();File.WriteAllText(Path.Combine(dir,"shell-smoke.json"),"{\"startupAsync\":true,\"assets\":11,\"loadingFrames\":"+frames+",\"homeIsolation\":true,\"navigation\":true,\"offlineClaim\":true,\"saveRoundTrip\":true,\"modalIsolation\":true,\"focusReturn\":true,\"contextReturn\":true,\"loadingCancel\":true,\"missingArtFallback\":true,\"textLayout\":true,\"soundSilent\":true,\"renderVerified\":false}");
+   Save();File.WriteAllText(Path.Combine(dir,"shell-smoke.json"),"{\"startupAsync\":true,\"assets\":"+ShellKeys.Length+",\"inkHome\":true,\"chapterRing\":true,\"loadingFrames\":"+frames+",\"homeIsolation\":true,\"navigation\":true,\"offlineClaim\":true,\"saveRoundTrip\":true,\"modalIsolation\":true,\"focusReturn\":true,\"contextReturn\":true,\"loadingCancel\":true,\"missingArtFallback\":true,\"textLayout\":true,\"soundSilent\":true,\"renderVerified\":false}");
   }
  }
 }

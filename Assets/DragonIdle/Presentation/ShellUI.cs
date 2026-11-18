@@ -10,7 +10,7 @@ namespace DragonIdle {
   RectTransform galleryChrome,homeRoot,loadingRoot;
   readonly Dictionary<string,UnityEngine.Object> shellAssets=new Dictionary<string,UnityEngine.Object>();
   readonly MenuLoadProgress shellLoad=new MenuLoadProgress();
-  static readonly string[] ShellKeys={"loading-scene","loading-track","loading-fill","loading-goku","home-scene","button-primary","button-secondary","currency-material","currency-crystal","currency-gem","settings"};
+  static readonly string[] ShellKeys={"loading-scene","loading-track","loading-fill","loading-goku"};
   UI.Image loadingFill;UI.Text loadingStatus,loadingPercent,homeNotice;RectTransform loadingMarker;
   string shellLoadingLabel="";
   static bool IsShellPage(string p){return p=="主页"||p=="加载";}
@@ -29,48 +29,52 @@ namespace DragonIdle {
    float scale=Math.Min(w/texture.width,h/texture.height),width=texture.width*scale,height=texture.height*scale;
    var r=UNode(parent,name,x+(w-width)/2,y+(h-height)/2,width,height);var image=r.gameObject.AddComponent<UI.RawImage>();image.texture=texture;image.uvRect=new Rect(0,0,1,1);image.raycastTarget=false;
   }
-  UI.Button ShellButton(Transform parent,string name,string label,float x,float y,float w,float h,Action action,bool primary=false,bool enabled=true){
-   var b=UButton(parent,name,label,x,y,w,h,action,primary,enabled);var sprite=ShellSprite(primary?"button-primary":"button-secondary");
-   if(sprite!=null){var image=(UI.Image)b.targetGraphic;image.sprite=sprite;image.type=UI.Image.Type.Sliced;image.color=Color.white;b.GetComponentInChildren<UI.Text>().color=primary?uiPaper:Color.white;}
-   return b;
-  }
   void DrawHome(){
    galleryDirty=false;
    string focus=null;var selected=EventSystem.current==null?null:EventSystem.current.currentSelectedGameObject;
    if(selected!=null&&homeRoot!=null&&selected.transform.IsChildOf(homeRoot))focus=selected.name;
-   if(homeRoot==null){homeRoot=UPanel(galleryRoot,"Home",0,0,1600,900,new Color(.22f,.46f,.70f),true);homeRoot.GetComponent<UI.Image>().sprite=null;}else ClearUI(homeRoot);
-   ShellScene(homeRoot,"HomeIsland","home-scene",0,80,1600,739);
-   UPanel(homeRoot,"HomeTopbar",0,0,1600,90,new Color(.985f,.98f,.96f));
-   UText(homeRoot,"HomeBrand",Data.GameTitle,40,21,430,42,31,uiPaper);
-   UText(homeRoot,"HomeSubtitle","龟仙屋 · 修行之旅",470,34,350,28,18,uiDim);
-   string[] currency={"currency-material","currency-crystal","currency-gem"};int[] values={profile.Materials,profile.Crystals,profile.Gems};string[] labels={"素材","晶石","珠子"};
-   for(int n=0;n<3;n++){float x=878+n*202;ShellPicture(homeRoot,"HomeCurrencyIcon"+n,currency[n],x,25,36,36);UText(homeRoot,"HomeCurrency"+n,labels[n]+" "+values[n],x+44,28,154,32,18,uiPaper);}
-   var collection=UPanel(homeRoot,"HomeCollection",40,132,380,116,new Color(1,1,1,.94f));
-   UText(collection,"HomeGreeting","今天也继续修行吧",20,15,340,36,26,uiPaper);
-   UText(collection,"HomeCollectionCount","已收藏 "+profile.Owned.Count(x=>x)+" / "+Data.Cards.Length+"  ·  上阵 "+profile.Team.Length+" 人",20,63,340,28,18,uiDim);
-   var next=UPanel(homeRoot,"HomeJourney",1200,152,344,312,new Color(1,1,1,.96f));
+   if(homeRoot==null)homeRoot=InkPanel(galleryRoot,"Home",0,0,1600,900,InkMist,true);else ClearUI(homeRoot);
+   InkPanel(homeRoot,"HomeTopbar",0,0,1600,90,InkDark,true);
+   UText(homeRoot,"HomeBrand",Data.GameTitle,40,19,500,54,33,InkIvory);
+   UText(homeRoot,"HomeResources","素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems,
+    820,21,722,46,20,InkOnDark,TextAnchor.MiddleRight);
+   var progress=InkPanel(homeRoot,"HomeProgress",40,148,690,504,InkPaper);
+   UText(progress,"HomeProgressHeading","修炼进度",40,32,580,55,32,InkText);
+   int cleared=profile.StoryCleared.Count(done=>done);
+   InkHomeRing(progress,46,122,216,cleared,Data.StoryStages.Length);
+   UText(progress,"HomeStoryProgress","剧情已通关",58,348,192,33,19,InkMuted,TextAnchor.MiddleCenter);
+   for(int stage=0;stage<Data.StoryStages.Length;stage++){
+    bool done=profile.StoryCleared[stage], open=stage<=profile.StoryUnlocked;
+    int y=119+stage*60;
+    InkPanel(progress,"HomeChapterNode"+stage,302,y,347,46,done||open?InkDark:InkLight);
+    UText(progress,"HomeChapterState"+stage,Data.StoryStages[stage]+" · "+(done?"已通关":open?"可挑战":"未解锁"),
+     318,y+4,315,39,17,done||open?InkIvory:InkMuted,TextAnchor.MiddleLeft);
+   }
+   UText(progress,"HomeCollectionCount","已收藏 "+profile.Owned.Count(x=>x)+" / "+Data.Cards.Length+"   ·   上阵 "+profile.Team.Length+" 人",
+    40,431,610,34,18,InkMuted);
+   var next=InkPanel(homeRoot,"HomeJourney",758,148,802,249,InkDark);
    int chapter=Math.Min(profile.StoryUnlocked,Data.StoryStages.Length-1);
-   UText(next,"HomeJourneyLabel","下一场冒险",22,18,300,28,18,uiAccent);
-   UText(next,"HomeChapter",Data.StoryStages[chapter],22,62,300,42,26,uiPaper);
-   UText(next,"HomeChapterBrief",Data.StoryBriefs[chapter],22,120,300,90,18,uiDim);
-   ShellButton(next,"HomeContinue","前往剧情",18,232,308,62,()=>{
+   UText(next,"HomeJourneyLabel","继续剧情",26,22,420,29,17,InkOnDark);
+   UText(next,"HomeChapter",Data.StoryStages[chapter],26,59,740,53,32,InkIvory);
+   UText(next,"HomeChapterBrief",Data.StoryBriefs[chapter],26,118,739,51,19,InkOnDark);
+   InkButton(next,"HomeContinue","前往剧情",25,179,310,48,()=>{
     if(Change(()=>profile.StorySelected=chapter)){storyMode=true;battle=null;settled=false;ClearBattlePresentation();NavigateGallery("挑战");}else GalleryNotice(notice,false);
    },true,saveError=="");
-   var bank=UPanel(homeRoot,"HomeBank",1200,484,344,154,new Color(1,1,1,.96f));
-   UText(bank,"HomeBankTitle","离线积累",20,15,300,28,21,uiPaper);
+   var bank=InkPanel(homeRoot,"HomeBank",758,422,802,150,InkPaper);
+   UText(bank,"HomeBankTitle","离线修炼",25,21,310,32,22,InkText);
+   UText(bank,"HomeBankCount","待领取素材  "+profile.OfflineBank,25,69,400,37,20,InkMuted);
    string bankLabel=profile.OfflineBank>0?"领取 "+profile.OfflineBank+" 素材":profile.Wins==0?"首胜后开启积累":"暂无待领取素材";
-   ShellButton(bank,"HomeClaim",bankLabel,18,65,308,62,()=>{
+   InkButton(bank,"HomeClaim",bankLabel,448,57,329,51,()=>{
     if(Change(()=>{if(profile.OfflineBank<=0)throw new InvalidOperationException("暂无可领取素材");profile.Materials+=profile.OfflineBank;profile.OfflineBank=0;}))GalleryNotice("离线素材已存入背包");else GalleryNotice(notice,false);
     DrawHome();
    },false,profile.OfflineBank>0&&saveError=="");
-   ShellButton(homeRoot,"HomeSettings","声音与显示",1200,660,344,62,ShowAudioSettings);
-   ShellPicture(homeRoot,"HomeSettingsIcon","settings",1219,679,25,25);
-   var toast=UPanel(homeRoot,"HomeNoticePanel",40,694,1100,52,new Color(.045f,.09f,.14f,.82f));
-   homeNotice=UText(toast,"HomeNotice","",18,8,1064,40,18,Color.white);
-   UPanel(homeRoot,"HomeDock",0,766,1600,134,new Color(.985f,.98f,.96f));
+   InkButton(homeRoot,"HomeSettings","声音与显示",758,600,310,52,ShowAudioSettings);
+   var toast=InkPanel(homeRoot,"HomeNoticePanel",40,684,1520,55,InkDark);
+   homeNotice=UText(toast,"HomeNotice","",18,7,1484,44,18,InkIvory);
+   InkPanel(homeRoot,"HomeDock",0,766,1600,134,InkPaper,true);
    string[] names={"角色","编队","养成","装备","召唤","说明"},titles={"人物志","队伍编成","角色养成","装备工坊","时空召唤","帮助与记录"};
    string[] help={"收藏与招式","阵位与队长","修炼与策略","搭配与比较","寻找新同伴","玩法与存档"};
-   for(int n=0;n<names.Length;n++){string target=names[n];float x=40+n*256;ShellButton(homeRoot,"HomeNav"+target,titles[n],x,786,240,62,()=>NavigateGallery(target));UText(homeRoot,"HomeNavHint"+n,help[n],x,855,240,27,16,uiDim,TextAnchor.MiddleCenter);}
+   for(int n=0;n<names.Length;n++){string target=names[n];float x=40+n*256;InkButton(homeRoot,"HomeNav"+target,titles[n],x,786,240,62,()=>NavigateGallery(target));UText(homeRoot,"HomeNavHint"+n,help[n],x,855,240,27,16,InkMuted,TextAnchor.MiddleCenter);}
    RefreshHomeNotice();
    if(EventSystem.current!=null){var b=homeRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(x=>x.name==focus&&x.interactable);EventSystem.current.SetSelectedGameObject(b!=null?b.gameObject:ActiveBackButton(homeRoot,"HomeNav角色"));}
   }
@@ -104,7 +108,7 @@ namespace DragonIdle {
   IEnumerator LoadShellResources(int generation,string target){
    foreach(string key in ShellKeys){
     if(!shellLoad.IsCurrent(generation))yield break;
-    shellLoadingLabel=key=="home-scene"?"准备龟仙屋背景":key.Contains("button")?"准备界面控件":"准备界面资源";RefreshLoadingDisplay();
+    shellLoadingLabel="准备界面资源";RefreshLoadingDisplay();
     ResourceRequest request=key.EndsWith("-scene")?Resources.LoadAsync<Texture2D>("Interface/V070/"+key):Resources.LoadAsync<Sprite>("Interface/V070/"+key);
     while(!request.isDone){if(!shellLoad.IsCurrent(generation))yield break;yield return null;}
     if(!shellLoad.IsCurrent(generation))yield break;

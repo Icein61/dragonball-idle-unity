@@ -21,6 +21,7 @@ namespace DragonIdle {
    }
    // Exercise the real frame update without automatically fast-forwarding via batch-mode Advance.
    profile=new Profile();storyMode=false;StartBattle();var before=ActionPresentation.Capture(battle.Units);last=battle.Step();action=new ActionPresentation(last,before,battle.Units);
+   AssertSmoke(InkChargeSubject(battle.Units)==last.Actor&&Math.Abs(ShownVitals(last.Actor).Rage-before[last.Actor].Rage)<.001,"Battle charge should follow the displayed action snapshot");
    paused=true;UpdateBattlePresentation(.4f);AssertSmoke(action.Elapsed==0,"Paused frame advanced animation");
    paused=false;rate=2;UpdateBattlePresentation(.1f);AssertSmoke(Math.Abs(action.Elapsed-.2)<.0001,"Speed did not reach presentation clock");
    audioSettings.ReducedMotion=true;var pos=FighterFeet(last.Actor);AssertSmoke(AnimatedFeet(last.Actor)==pos,"Reduced motion still lunges");
@@ -35,7 +36,7 @@ namespace DragonIdle {
    running=false;battle=null;ClearBattlePresentation();AssertSmoke(action==null&&last==null,"Exit did not clear presentation");rate=1;
    AssertSmoke(silentAudio&&!battleSound.isPlaying&&battleSound.volume==0&&battleClips.Length==4,"Battle smoke produced audio");
    foreach(var clip in battleClips){float[] samples=new float[clip.samples];clip.GetData(samples,0);AssertSmoke(samples.All(v=>!float.IsNaN(v)&&!float.IsInfinity(v)&&Math.Abs(v)<=1)&&samples.Any(v=>Math.Abs(v)>.01f),"Battle audio samples invalid");}
-   File.WriteAllText(Path.Combine(dir,"battle-art-smoke.json"),"{\"atlases\":9,\"portraits\":9,\"signaturePortraits\":9,\"poses\":108,\"frameUpdate\":true,\"pause\":true,\"speed\":true,\"reducedMotion\":true,\"rewardAfterAnimation\":true,\"replayCleanup\":true,\"soundSilent\":true,\"renderVerified\":false,\"listened\":false}");
+   File.WriteAllText(Path.Combine(dir,"battle-art-smoke.json"),"{\"atlases\":9,\"portraits\":9,\"signaturePortraits\":9,\"poses\":108,\"inkCharge\":true,\"frameUpdate\":true,\"pause\":true,\"speed\":true,\"reducedMotion\":true,\"rewardAfterAnimation\":true,\"replayCleanup\":true,\"soundSilent\":true,\"renderVerified\":false,\"listened\":false}");
   }
  }
 }

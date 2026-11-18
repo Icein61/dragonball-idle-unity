@@ -81,7 +81,7 @@ namespace DragonIdle {
    for(int i=0;i<names.Length;i++){string target=names[i];UButton(galleryChrome,"Nav"+target,target,18,126+i*68,154,50,()=>NavigateGallery(target),target=="角色");}
    UButton(galleryChrome,"AudioSettings","声音与显示",18,735,154,44,ShowAudioSettings);
    UText(galleryChrome,"Version","v"+Data.Version+"  /  预览版",20,840,160,30,13,uiDim);
-   ShellButton(galleryChrome,"Nav主页","返回主页",18,665,154,44,()=>NavigateGallery("主页"));
+   InkButton(galleryChrome,"Nav主页","返回主页",18,665,154,44,()=>NavigateGallery("主页"));
    galleryListRoot=UNode(galleryRoot,"CardLibrary",0,0,1600,900);
    UText(galleryListRoot,"Title","人物志",222,108,300,46,32,uiPaper);
    galleryCount=UText(galleryListRoot,"CollectionCount","",1040,119,510,30,17,uiDim,TextAnchor.MiddleRight);
