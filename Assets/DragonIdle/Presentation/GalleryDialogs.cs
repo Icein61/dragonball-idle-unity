@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +6,11 @@ using UnityEngine.EventSystems;
 using UI=UnityEngine.UI;
 namespace DragonIdle {
  public partial class DemoGame {
+  GameObject dialogReturnFocus;
   readonly Dictionary<UI.Selectable,bool> modalSelectables=new Dictionary<UI.Selectable,bool>();
   RectTransform NewGalleryDialog(string title,string subtitle){
-   CloseGalleryDialog();
+   var restore=dialogRoot!=null?dialogReturnFocus:EventSystem.current==null?null:EventSystem.current.currentSelectedGameObject;
+   CloseGalleryDialog();dialogReturnFocus=restore;
    foreach(var control in galleryRoot.GetComponentsInChildren<UI.Selectable>()){modalSelectables[control]=control.interactable;control.interactable=false;}
    dialogRoot=UPanel(galleryRoot,"ModalBackdrop",0,0,1600,900,new Color(0,0,0,.78f),true);
    var dismiss=dialogRoot.gameObject.AddComponent<UI.Button>();dismiss.transition=UI.Selectable.Transition.None;dismiss.navigation=new UI.Navigation{mode=UI.Navigation.Mode.None};dismiss.onClick.AddListener(CloseGalleryDialog);
@@ -24,7 +26,8 @@ namespace DragonIdle {
   void CloseGalleryDialog(){
    foreach(var pair in modalSelectables)if(pair.Key!=null)pair.Key.interactable=pair.Value;modalSelectables.Clear();
    if(dialogRoot!=null){dialogRoot.gameObject.SetActive(false);Destroy(dialogRoot.gameObject);dialogRoot=null;FlushAudioSettings();}
-   if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(null);
+   var focus=dialogReturnFocus;dialogReturnFocus=null;
+   if(EventSystem.current!=null){var control=focus==null?null:focus.GetComponent<UI.Selectable>();EventSystem.current.SetSelectedGameObject(control!=null&&control.isActiveAndEnabled&&control.interactable?focus:null);}
   }
   void ShowFilter(int kind){
    string[] labels,values;

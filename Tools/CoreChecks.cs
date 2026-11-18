@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using DragonIdle;
@@ -76,7 +76,7 @@ class CoreChecks {
   ChapterChecks.Run(Check);
   CatalogChecks.Run(Check);
   ScopeChecks.Run(Check);
-  PresentationChecks.Run(Check);
+  PresentationChecks.Run(Check);MenuChecks.Run(Check);
   Console.WriteLine("ALL PASS "+count);
  }
 }

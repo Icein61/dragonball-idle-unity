@@ -1,4 +1,4 @@
-param([string]$Executable, [string]$OutputDirectory)
+﻿param([string]$Executable, [string]$OutputDirectory)
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 if(!$Executable){$Executable=Join-Path $root 'Builds/Windows/龙珠爆裂激斗.exe'}
@@ -20,5 +20,7 @@ if(!$refresh.dedicatedDetail -or !$refresh.cardCache -or !$refresh.focusReturn -
 
 $workshop=Get-Content -LiteralPath (Join-Path $OutputDirectory 'workshop-smoke.json') -Raw | ConvertFrom-Json
 if(!$workshop.training -or !$workshop.formation -or !$workshop.equipment -or !$workshop.skills -or !$workshop.contextReturn -or !$workshop.saveRoundTrip -or !$workshop.modalIsolation){throw 'Workshop verification incomplete'}
+$shell=Get-Content -LiteralPath (Join-Path $OutputDirectory 'shell-smoke.json') -Raw | ConvertFrom-Json
+if(!$result.shellFlow -or !$shell.startupAsync -or $shell.assets -ne 11 -or !$shell.homeIsolation -or !$shell.navigation -or !$shell.offlineClaim -or !$shell.saveRoundTrip -or !$shell.modalIsolation -or !$shell.focusReturn -or !$shell.contextReturn -or !$shell.loadingCancel -or !$shell.missingArtFallback -or !$shell.textLayout -or !$shell.soundSilent){throw 'Shell verification incomplete'}
 Write-Output ('HEADLESS_SMOKE_PASS '+$OutputDirectory)
 

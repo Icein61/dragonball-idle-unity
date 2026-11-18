@@ -7,7 +7,7 @@ using UnityEngine;
 namespace DragonIdle {
  public partial class DemoGame:MonoBehaviour {
   Profile profile;Battle battle;BattleEvent last;
-  string page="角色",notice="",reward="",savePath,saveError="";
+  string page="主页",notice="",reward="",savePath,saveError="";
   int selectedCard,selectedSlot,selectedSkillSlot,seed=1024,rate=1;bool running,settled,autoRepeat,paused;
   float clock,fx,repeatTimer,saveClock;Font font;Texture2D gradient,disc;
   List<string> log=new List<string>();Vector2 bagScroll;
@@ -26,7 +26,7 @@ namespace DragonIdle {
    if(saveError=="")Change(()=>{profile.OfflineBank+=profile.Offline(DateTime.UtcNow.Ticks);profile.LastClaimTicks=DateTime.UtcNow.Ticks;});
    InitializeMenuAudio(args.Contains("-logicSmoke")||Application.isBatchMode);
    if(args.Contains("-logicSmoke")){RunLogicSmoke(args);return;}
-   EnsureGallery();
+   EnsureGallery();BeginShellLoad("主页");
    if(args.Contains("-smoke"))StartCoroutine(Smoke(args));
   }
   void Load(){
@@ -112,6 +112,7 @@ namespace DragonIdle {
    string[] pages={"挑战","角色","编队","养成","装备","召唤","说明"};
    for(int i=0;i<pages.Length;i++)if(Button(18,126+i*68,154,50,pages[i],page==pages[i],!running||pages[i]=="挑战")){page=pages[i];notice="";if(page!="挑战")autoRepeat=false;}
    Label(22,620,144,130,"自动行动\n战前构筑\n离线单机",18,muted);
+   if(Button(18,730,154,46,"返回主页",false,!running))NavigateGallery("主页");
    Label(22,810,145,70,"C风格 · 2D演出\n观感待验收",14,gold);
    if(page=="挑战")DrawBattle();
    else if(page=="编队")DrawTeam();

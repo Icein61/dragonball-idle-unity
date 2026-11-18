@@ -69,17 +69,19 @@ namespace DragonIdle {
    var scaler=galleryCanvas.GetComponent<UI.CanvasScaler>();scaler.uiScaleMode=UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;scaler.referenceResolution=new Vector2(1600,900);scaler.screenMatchMode=UI.CanvasScaler.ScreenMatchMode.Expand;
    galleryRoot=UNode(galleryCanvas.transform,"GalleryFrame",0,0,1600,900);galleryRoot.anchorMin=galleryRoot.anchorMax=galleryRoot.pivot=new Vector2(.5f,.5f);galleryRoot.anchoredPosition=Vector2.zero;
    if(EventSystem.current==null)new GameObject("UIEventSystem",typeof(EventSystem),typeof(StandaloneInputModule));
-   UPanel(galleryRoot,"Background",0,0,1600,900,new Color(.95f,.955f,.96f));
-   UPanel(galleryRoot,"Header",0,0,1600,90,new Color(.065f,.09f,.12f));
-   UPanel(galleryRoot,"Sidebar",0,90,190,810,new Color(.99f,.985f,.97f));
-   UPanel(galleryRoot,"HeaderLine",218,87,1344,2,uiAccent);
-   UText(galleryRoot,"Brand",Data.GameTitle,25,20,180,40,26,Color.white);
-   UText(galleryRoot,"Section","角色收藏",232,28,500,40,22,new Color(.77f,.84f,.91f));
-   galleryResources=UText(galleryRoot,"Resources","",900,27,650,40,19,Color.white,TextAnchor.MiddleRight);
+   galleryChrome=UNode(galleryRoot,"Chrome",0,0,1600,900);
+   UPanel(galleryChrome,"Background",0,0,1600,900,new Color(.95f,.955f,.96f));
+   UPanel(galleryChrome,"Header",0,0,1600,90,new Color(.065f,.09f,.12f));
+   UPanel(galleryChrome,"Sidebar",0,90,190,810,new Color(.99f,.985f,.97f));
+   UPanel(galleryChrome,"HeaderLine",218,87,1344,2,uiAccent);
+   UText(galleryChrome,"Brand",Data.GameTitle,25,20,180,40,26,Color.white);
+   UText(galleryChrome,"Section","角色收藏",232,28,500,40,22,new Color(.77f,.84f,.91f));
+   galleryResources=UText(galleryChrome,"Resources","",900,27,650,40,19,Color.white,TextAnchor.MiddleRight);
    string[] names={"挑战","角色","编队","养成","装备","召唤","说明"};
-   for(int i=0;i<names.Length;i++){string target=names[i];UButton(galleryRoot,"Nav"+target,target,18,126+i*68,154,50,()=>NavigateGallery(target),target=="角色");}
-   UButton(galleryRoot,"AudioSettings","声音与显示",18,735,154,44,ShowAudioSettings);
-   UText(galleryRoot,"Version","v"+Data.Version+"  /  预览版",20,840,160,30,13,uiDim);
+   for(int i=0;i<names.Length;i++){string target=names[i];UButton(galleryChrome,"Nav"+target,target,18,126+i*68,154,50,()=>NavigateGallery(target),target=="角色");}
+   UButton(galleryChrome,"AudioSettings","声音与显示",18,735,154,44,ShowAudioSettings);
+   UText(galleryChrome,"Version","v"+Data.Version+"  /  预览版",20,840,160,30,13,uiDim);
+   ShellButton(galleryChrome,"Nav主页","返回主页",18,665,154,44,()=>NavigateGallery("主页"));
    galleryListRoot=UNode(galleryRoot,"CardLibrary",0,0,1600,900);
    UText(galleryListRoot,"Title","人物志",222,108,300,46,32,uiPaper);
    galleryCount=UText(galleryListRoot,"CollectionCount","",1040,119,510,30,17,uiDim,TextAnchor.MiddleRight);
@@ -101,6 +103,8 @@ namespace DragonIdle {
    detailRoot.gameObject.SetActive(false);
   }
   void NavigateGallery(string target){
+   if(running&&target!="挑战"){GalleryNotice("请先退出当前战斗，再切换功能。",false);return;}
+   if(shellLoad.Active&&target!="加载")shellLoad.Cancel();
    if(page=="角色"&&IsWorkshop(target))browseCard=selectedCard;
    if(IsWorkshop(page)&&target=="角色"&&browseCard>=0)selectedCard=browseCard;
    CloseGalleryDialog();page=target;autoRepeat=false;notice="";galleryDirty=true;
@@ -109,13 +113,15 @@ namespace DragonIdle {
     if(galleryDetailOpen&&selectedCard>=0)EventSystem.current.SetSelectedGameObject(ActiveBackButton(detailRoot,"BackToCards"));
     else if(cardButtons.ContainsKey(selectedCard))EventSystem.current.SetSelectedGameObject(cardButtons[selectedCard].gameObject);
    }
+   if(target=="主页"&&EventSystem.current!=null&&homeRoot!=null)EventSystem.current.SetSelectedGameObject(ActiveBackButton(homeRoot,"HomeNav角色"));
   }
   void UpdateGallery(){
    if(IsModernPage(page)){EnsureGallery();if(!galleryCanvas.activeSelf)galleryCanvas.SetActive(true);
-    if((previousPage!=page||galleryDirty)&&dialogRoot==null){if(page=="角色")RefreshGallery(false);else DrawWorkshop();RefreshModernFrame();}
-    if(Input.GetKeyDown(KeyCode.Escape)){if(dialogRoot!=null)CloseGalleryDialog();else if(IsWorkshop(page))NavigateGallery("角色");else if(galleryDetailOpen)ReturnToCards();else if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(null);}
+    if((previousPage!=page||galleryDirty)&&dialogRoot==null){if(page=="角色")RefreshGallery(false);else if(IsWorkshop(page))DrawWorkshop();else if(page=="主页")DrawHome();galleryDirty=false;RefreshModernFrame();}
+    if(Input.GetKeyDown(KeyCode.Escape)){if(dialogRoot!=null)CloseGalleryDialog();else if(IsWorkshop(page))NavigateGallery("角色");else if(page=="角色"&&galleryDetailOpen)ReturnToCards();else if(page=="角色")NavigateGallery("主页");else if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(null);}
     if(detailGroup!=null){detailFade=Math.Min(1,detailFade+Time.unscaledDeltaTime*8);detailGroup.alpha=audioSettings!=null&&audioSettings.ReducedMotion?1:detailFade;}
     galleryToast.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"";
+    if(page=="主页")RefreshHomeNotice();
    }else if(galleryCanvas!=null&&galleryCanvas.activeSelf)galleryCanvas.SetActive(false);
    previousPage=page;
   }
@@ -160,4 +166,3 @@ namespace DragonIdle {
   }
  }
 }
-

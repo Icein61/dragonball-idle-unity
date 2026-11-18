@@ -1,0 +1,196 @@
+{
+  "version": "0.7.0",
+  "origin": "User-provided local APK; statically decoded ASTC; no original executable code is executed or imported.",
+  "apkSha256": "0f14ab4c2f71e787bec9d03f0666f5f183915dba7946db513333edc15b7a2a28",
+  "operations": "Exact atlas extraction, reverse stored rotation and restore transparent trim offsets; no repainting.",
+  "assets": [
+    {
+      "key": "home-scene",
+      "target": "Assets/DragonIdle/Resources/Interface/V070/home-scene.png",
+      "sourcePath": "asset/ui/bg/mainBg/bg_ZhuCheng.png",
+      "frame": null,
+      "sourceRectangle": null,
+      "rotated": false,
+      "sourceCanvas": null,
+      "width": 1624,
+      "height": 750,
+      "sha256": "821b4281684f2bc71b9589161f2a775ef171705cf296746c0cb70d7557fe7bd9"
+    },
+    {
+      "key": "loading-scene",
+      "target": "Assets/DragonIdle/Resources/Interface/V070/loading-scene.png",
+      "sourcePath": "asset/ui/bg/LoadingBg/BG_DengLu.png",
+      "frame": null,
+      "sourceRectangle": null,
+      "rotated": false,
+      "sourceCanvas": null,
+      "width": 1624,
+      "height": 750,
+      "sha256": "052301076d8a19218be1988a52de62282b854986102f0d27bc064ce604a280d2"
+    },
+    {
+      "key": "currency-crystal",
+      "target": "Assets/DragonIdle/Resources/Interface/V070/currency-crystal.png",
+      "sourcePath": "asset/ui/icon/ico_diamond_3.png",
+      "frame": null,
+      "sourceRectangle": null,
+      "rotated": false,
+      "sourceCanvas": null,
+      "width": 100,
+      "height": 100,
+      "sha256": "dda0724abe1751747eeced973c74aa40566b11cfc20c25c834ba3863f20c7f61"
+    },
+    {
+      "key": "currency-material",
+      "target": "Assets/DragonIdle/Resources/Interface/V070/currency-material.png",
+      "sourcePath": "asset/ui/icon/ico_large_exp.png",
+      "frame": null,
+      "sourceRectangle": null,
+      "rotated": false,
+      "sourceCanvas": null,
+      "width": 100,
+      "height": 100,
+      "sha256": "290992c509150501b35f382056f71a5ad02936b452d9821f966848bbc4dec96a"
+    },
+    {
+      "key": "button-primary",
+      "target": "Assets/DragonIdle/Resources/Interface/V070/button-primary.png",
+      "sourcePath": "asset/ui/common0.png",
+      "frame": "Btn_Common_Yellow_Big.png",
+      "sourceRectangle": [
+        571,
+        1259,
+        232,
+        79
+      ],
+      "rotated": false,
+      "sourceCanvas": [
+        232,
+        79
+      ],
+      "width": 232,
+      "height": 79,
+      "sha256": "182e6c2508b644e624c151119d5673928d6b4e15bf3d323267edd256ea44423a"
+    },
+    {
+      "key": "button-secondary",
+      "target": "Assets/DragonIdle/Resources/Interface/V070/button-secondary.png",
+      "sourcePath": "asset/ui/common0.png",
+      "frame": "Btn_Common_Blue_Big.png",
+      "sourceRectangle": [
+        641,
+        1340,
+        232,
+        78
+      ],
+      "rotated": true,
+      "sourceCanvas": [
+        232,
+        78
+      ],
+      "width": 232,
+      "height": 78,
+      "sha256": "f7a002d5007b2660bb41b08e5368dc979c33d1a14c1836378c40d6f56c279894"
+    },
+    {
+      "key": "currency-gem",
+      "target": "Assets/DragonIdle/Resources/Interface/V070/currency-gem.png",
+      "sourcePath": "asset/ui/common0.png",
+      "frame": "icon_Common_gem.png",
+      "sourceRectangle": [
+        1306,
+        832,
+        26,
+        38
+      ],
+      "rotated": false,
+      "sourceCanvas": [
+        40,
+        40
+      ],
+      "width": 40,
+      "height": 40,
+      "sha256": "359f9c1ff1fe80713728c4482259acf57c1db6f9396ab54b4eb98b1ad7c88c34"
+    },
+    {
+      "key": "loading-fill",
+      "target": "Assets/DragonIdle/Resources/Interface/V070/loading-fill.png",
+      "sourcePath": "asset/ui/login0.png",
+      "frame": "Pic_Loading_JinDu.png",
+      "sourceRectangle": [
+        867,
+        826,
+        1207,
+        19
+      ],
+      "rotated": true,
+      "sourceCanvas": [
+        1207,
+        19
+      ],
+      "width": 1207,
+      "height": 19,
+      "sha256": "6ed8e905b21d4e50ee14887ae779af76216f4e1c49eff42ed8b0a6b3327bb4e6"
+    },
+    {
+      "key": "loading-track",
+      "target": "Assets/DragonIdle/Resources/Interface/V070/loading-track.png",
+      "sourcePath": "asset/ui/login0.png",
+      "frame": "Pic_Loading_JinDudi.png",
+      "sourceRectangle": [
+        1,
+        753,
+        1273,
+        112
+      ],
+      "rotated": true,
+      "sourceCanvas": [
+        1273,
+        114
+      ],
+      "width": 1273,
+      "height": 114,
+      "sha256": "e8f93bcf0ce2b4541c2e892a33e33df9deb13c87bced2dbbfd906eb7667233b4"
+    },
+    {
+      "key": "loading-goku",
+      "target": "Assets/DragonIdle/Resources/Interface/V070/loading-goku.png",
+      "sourcePath": "asset/ui/login0.png",
+      "frame": "Pic_Loading_WuKong.png",
+      "sourceRectangle": [
+        166,
+        1831,
+        160,
+        76
+      ],
+      "rotated": true,
+      "sourceCanvas": [
+        160,
+        76
+      ],
+      "width": 160,
+      "height": 76,
+      "sha256": "5336385956320d5e90c18dd7a4cf7b0ab1fc55b0d02e261e72fdaba02954ade7"
+    },
+    {
+      "key": "settings",
+      "target": "Assets/DragonIdle/Resources/Interface/V070/settings.png",
+      "sourcePath": "asset/ui/main0.png",
+      "frame": "pic_LiaoTian_SheZhi.png",
+      "sourceRectangle": [
+        370,
+        715,
+        27,
+        26
+      ],
+      "rotated": false,
+      "sourceCanvas": [
+        27,
+        26
+      ],
+      "width": 27,
+      "height": 26,
+      "sha256": "fc88e761f34ff2346ab005aae3a3cf6f389142172e40ca8fccf5682cbb0d264a"
+    }
+  ]
+}

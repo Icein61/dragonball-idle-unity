@@ -1,4 +1,4 @@
-param([string]$UnityPath,[switch]$VisibleSmoke)
+﻿param([string]$UnityPath,[switch]$VisibleSmoke)
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 Push-Location $root
@@ -27,6 +27,7 @@ try {
 
  $manifest.galleryRefreshSmoke=Get-Content -LiteralPath (Join-Path $dir 'gallery-refresh-smoke.json') -Raw | ConvertFrom-Json
  $manifest.workshopSmoke=Get-Content -LiteralPath (Join-Path $dir 'workshop-smoke.json') -Raw | ConvertFrom-Json
+ $manifest.shellSmoke=Get-Content -LiteralPath (Join-Path $dir 'shell-smoke.json') -Raw | ConvertFrom-Json
  $manifest | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $release 'build-manifest.json') -Encoding utf8
  Write-Output ('PACKAGE_READY '+$release)
  Write-Output ('HEADLESS_CHECK '+$dir)

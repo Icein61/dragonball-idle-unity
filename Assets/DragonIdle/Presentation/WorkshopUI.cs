@@ -10,14 +10,18 @@ namespace DragonIdle {
   readonly Dictionary<string,float> workPositions=new Dictionary<string,float>();
   string renderedWorkshop="";int browseCard=-1,equipmentTab;
   static bool IsWorkshop(string p){return p=="编队"||p=="养成"||p=="装备";}
-  static bool IsModernPage(string p){return p=="角色"||IsWorkshop(p);}
+  static bool IsModernPage(string p){return p=="角色"||IsWorkshop(p)||IsShellPage(p);}
   void RefreshModernFrame(){
    galleryListRoot.gameObject.SetActive(page=="角色"&&!galleryDetailOpen);
    detailRoot.gameObject.SetActive(page=="角色"&&galleryDetailOpen);
    if(workshopRoot!=null)workshopRoot.gameObject.SetActive(IsWorkshop(page));
-   galleryRoot.Find("Section").GetComponent<UI.Text>().text=page=="角色"?"角色收藏":page=="编队"?"队伍编成":page=="养成"?"角色养成":"装备工坊";
+   if(homeRoot!=null)homeRoot.gameObject.SetActive(page=="主页");
+   if(loadingRoot!=null)loadingRoot.gameObject.SetActive(page=="加载");
+   galleryChrome.gameObject.SetActive(!IsShellPage(page));
+   galleryChrome.Find("Section").GetComponent<UI.Text>().text=page=="角色"?"角色收藏":page=="编队"?"队伍编成":page=="养成"?"角色养成":"装备工坊";
    galleryResources.text="素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems;
-   foreach(string name in new[]{"挑战","角色","编队","养成","装备","召唤","说明"})SetButtonActive(galleryRoot.Find("Nav"+name).GetComponent<UI.Button>(),page==name);
+   foreach(string name in new[]{"挑战","角色","编队","养成","装备","召唤","说明"})SetButtonActive(galleryChrome.Find("Nav"+name).GetComponent<UI.Button>(),page==name);
+   galleryToast.gameObject.SetActive(!IsShellPage(page));
   }
   GameObject ActiveBackButton(Transform root,string name){return root.GetComponentsInChildren<UI.Button>().First(b=>b.name==name).gameObject;}
   string WorkshopKey(){return page+":"+selectedCard+":"+equipmentTab;}

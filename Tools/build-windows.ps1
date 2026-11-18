@@ -5,6 +5,7 @@ $UnityPath = & (Join-Path $PSScriptRoot 'resolve-unity.ps1') -UnityPath $UnityPa
 & (Join-Path $PSScriptRoot 'validate-core.ps1')
 & (Join-Path $PSScriptRoot 'validate-art.ps1')
 & (Join-Path $PSScriptRoot 'validate-branding.ps1')
+& (Join-Path $PSScriptRoot 'validate-ui-shell.ps1')
 $logPath = Join-Path $projectRoot '.validation/build.log'
 $arguments = @('-batchmode','-nographics','-quit','-projectPath',('"' + $projectRoot + '"'),'-executeMethod','DragonIdle.Editor.BuildDemo.Build','-logFile',('"' + $logPath + '"'))
 $process = Start-Process -FilePath $UnityPath -ArgumentList $arguments -WindowStyle Hidden -Wait -PassThru
