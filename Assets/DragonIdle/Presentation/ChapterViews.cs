@@ -6,11 +6,12 @@ namespace DragonIdle {
  public partial class DemoGame {
   bool storyMode=true,saiyanPool=true;
   readonly Dictionary<string,Texture2D> portraits=new Dictionary<string,Texture2D>();
-  Texture2D PortraitTexture(int index){
+  static string PortraitKey(int index){
    string id=Data.Cards[index].Id;
-   if(Data.Reworked(id))return LoadCharacterTexture("CharaOriImg/"+(id=="goku-test"?"0001":id=="vegeta-test"?"0002":"0003"));
-   return LoadCharacterTexture("V051/"+Data.Cards[index].Id+"-portrait");
+   if(Data.Reworked(id))return "CharaOriImg/"+(id=="goku-test"?"0001":id=="vegeta-test"?"0002":"0003");
+   return "V051/"+id+"-portrait";
   }
+  Texture2D PortraitTexture(int index){return LoadCharacterTexture(PortraitKey(index));}
   Texture2D FighterTexture(int index){return LoadCharacterTexture("V050/"+Data.Cards[index].Id+"-atlas");}
   Texture2D LoadCharacterTexture(string key){
    if(!portraits.ContainsKey(key))portraits[key]=Resources.Load<Texture2D>("Art/"+key);

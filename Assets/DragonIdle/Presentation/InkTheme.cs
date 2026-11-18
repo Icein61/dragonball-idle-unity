@@ -51,19 +51,25 @@ namespace DragonIdle {
    return inkRing;
   }
 
+  UI.Image InkRadialMeter(Transform parent,string name,float x,float y,float size,Color trackColor,Color valueColor) {
+   var track=UNode(parent,name+"Track",x,y,size,size).gameObject.AddComponent<UI.Image>();
+   track.sprite=InkRingSprite();
+   track.color=trackColor;
+   track.raycastTarget=false;
+   var fill=UNode(parent,name+"Fill",x,y,size,size).gameObject.AddComponent<UI.Image>();
+   fill.sprite=track.sprite;
+   fill.color=valueColor;
+   fill.raycastTarget=false;
+   fill.type=UI.Image.Type.Filled;
+   fill.fillMethod=UI.Image.FillMethod.Radial360;
+   fill.fillOrigin=(int)UI.Image.Origin360.Top;
+   fill.fillAmount=0;
+   return fill;
+  }
+
   void InkHomeRing(Transform parent,float x,float y,float size,int cleared,int total) {
-   foreach(string name in new[]{"HomeProgressTrack","HomeProgressFill"}) {
-    var graphic=UNode(parent,name,x,y,size,size).gameObject.AddComponent<UI.Image>();
-    graphic.sprite=InkRingSprite();
-    graphic.raycastTarget=false;
-    graphic.color=name=="HomeProgressTrack"?InkBorder:InkCharge;
-    if(name=="HomeProgressFill") {
-     graphic.type=UI.Image.Type.Filled;
-     graphic.fillMethod=UI.Image.FillMethod.Radial360;
-     graphic.fillOrigin=(int)UI.Image.Origin360.Top;
-     graphic.fillAmount=total>0?(float)cleared/total:0;
-    }
-   }
+   var fill=InkRadialMeter(parent,"HomeProgress",x,y,size,InkBorder,InkCharge);
+   fill.fillAmount=total>0?(float)cleared/total:0;
    UText(parent,"HomeProgressCount",cleared+" / "+total,x,y,size,size,28,InkText,TextAnchor.MiddleCenter);
   }
 

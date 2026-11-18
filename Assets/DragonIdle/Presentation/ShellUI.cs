@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,27 +7,10 @@ using UI=UnityEngine.UI;
 namespace DragonIdle {
  public partial class DemoGame {
   RectTransform galleryChrome,homeRoot,loadingRoot;
-  readonly Dictionary<string,UnityEngine.Object> shellAssets=new Dictionary<string,UnityEngine.Object>();
   readonly MenuLoadProgress shellLoad=new MenuLoadProgress();
-  static readonly string[] ShellKeys={"loading-scene","loading-track","loading-fill","loading-goku"};
-  UI.Image loadingFill;UI.Text loadingStatus,loadingPercent,homeNotice;RectTransform loadingMarker;
-  string shellLoadingLabel="";
+  UI.Image loadingFill;
+  UI.Text loadingStatus,loadingPercent,loadingCount,homeNotice;
   static bool IsShellPage(string p){return p=="主页"||p=="加载";}
-  UnityEngine.Object ShellAsset(string key){
-   UnityEngine.Object obj;if(shellAssets.TryGetValue(key,out obj))return obj;
-   obj=key.EndsWith("-scene")?(UnityEngine.Object)Resources.Load<Texture2D>("Interface/V070/"+key):Resources.Load<Sprite>("Interface/V070/"+key);
-   shellAssets[key]=obj;return obj;
-  }
-  Sprite ShellSprite(string key){return ShellAsset(key) as Sprite;}
-  RectTransform ShellPicture(Transform parent,string name,string key,float x,float y,float w,float h){
-   var r=UNode(parent,name,x,y,w,h);var image=r.gameObject.AddComponent<UI.Image>();image.sprite=ShellSprite(key);image.preserveAspect=true;image.raycastTarget=false;
-   if(image.sprite==null)image.color=Color.clear;return r;
-  }
-  void ShellScene(Transform parent,string name,string key,float x,float y,float w,float h){
-   var texture=ShellAsset(key) as Texture2D;if(texture==null)return;
-   float scale=Math.Min(w/texture.width,h/texture.height),width=texture.width*scale,height=texture.height*scale;
-   var r=UNode(parent,name,x+(w-width)/2,y+(h-height)/2,width,height);var image=r.gameObject.AddComponent<UI.RawImage>();image.texture=texture;image.uvRect=new Rect(0,0,1,1);image.raycastTarget=false;
-  }
   void DrawHome(){
    galleryDirty=false;
    string focus=null;var selected=EventSystem.current==null?null:EventSystem.current.currentSelectedGameObject;
@@ -94,44 +76,63 @@ namespace DragonIdle {
   }
   void RefreshHomeNotice(){if(homeNotice!=null){homeNotice.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"从人物志了解同伴，或前往剧情开始冒险。";}}
   void DrawShellLoading(){
-   if(loadingRoot==null){loadingRoot=UPanel(galleryRoot,"Loading",0,0,1600,900,new Color(.025f,.055f,.085f),true);loadingRoot.GetComponent<UI.Image>().sprite=null;}else ClearUI(loadingRoot);
-   ShellScene(loadingRoot,"LoadingScene","loading-scene",0,0,1600,900);
-   UText(loadingRoot,"LoadingBrand",Data.GameTitle,96,122,1000,80,52,Color.white);
-   UText(loadingRoot,"LoadingCaption","新的修行，从这里开始",100,212,1000,40,24,new Color(.80f,.88f,.95f));
-   UPanel(loadingRoot,"LoadingFooter",0,638,1600,262,new Color(.02f,.04f,.07f,.85f));
-   ShellPicture(loadingRoot,"LoadingTrack","loading-track",184,650,1232,110);
-   var fill=ShellPicture(loadingRoot,"LoadingFill","loading-fill",210,696,1180,19);loadingFill=fill.GetComponent<UI.Image>();loadingFill.preserveAspect=false;loadingFill.type=UI.Image.Type.Filled;loadingFill.fillMethod=UI.Image.FillMethod.Horizontal;loadingFill.fillOrigin=0;
-   if(loadingFill.sprite==null){loadingFill.sprite=RoundedSurface(false);loadingFill.color=uiAccent;}
-   loadingMarker=ShellPicture(loadingRoot,"LoadingMarker","loading-goku",190,646,104,49);
-   loadingStatus=UText(loadingRoot,"LoadingStatus","",210,742,1030,36,20,Color.white);
-   loadingPercent=UText(loadingRoot,"LoadingPercent","",1230,742,160,36,20,Color.white,TextAnchor.UpperRight);
-   UText(loadingRoot,"LoadingTip","普通攻击与绝招推进正常行动；必杀是消耗怒气的额外行动。",210,801,1180,40,18,new Color(.79f,.85f,.92f));
-   RefreshLoadingDisplay();
+   if(loadingRoot==null)loadingRoot=InkPanel(galleryRoot,"Loading",0,0,1600,900,InkMist,true);
+   else ClearUI(loadingRoot);
+   InkPanel(loadingRoot,"LoadingHeader",0,0,1600,90,InkDark,true);
+   UText(loadingRoot,"LoadingBrand",Data.GameTitle,40,19,500,54,33,InkIvory);
+   UText(loadingRoot,"LoadingVersion","v"+Data.Version,1290,19,270,54,19,InkOnDark,TextAnchor.MiddleRight);
+
+   var info=InkPanel(loadingRoot,"LoadingInfo",215,216,565,468,InkPaper);
+   UText(info,"LoadingTitle","修炼准备",38,66,489,85,51,InkText);
+   loadingStatus=UText(info,"LoadingStatus","",41,199,483,72,23,InkText);
+   UPanel(info,"LoadingDivider",41,318,483,1,InkBorder);
+   UText(info,"LoadingTip","必杀消耗怒气，在正常行动之外额外释放。",41,346,483,74,19,InkMuted);
+
+   var charge=InkPanel(loadingRoot,"LoadingCharge",808,216,577,468,InkDark);
+   loadingFill=InkRadialMeter(charge,"LoadingProgress",141,41,295,InkBorder,InkGold);
+   loadingPercent=UText(charge,"LoadingPercent","",141,41,295,295,63,InkIvory,TextAnchor.MiddleCenter);
+   loadingCount=UText(charge,"LoadingCount","",45,356,487,56,21,InkOnDark,TextAnchor.MiddleCenter);
+   RefreshLoadingDisplay("准备资源");
   }
-  void RefreshLoadingDisplay(){
-   if(loadingFill==null)return;loadingFill.fillAmount=(float)shellLoad.Fraction;
-   loadingMarker.anchoredPosition=new Vector2(190+(float)shellLoad.Fraction*1100,-646);
-   loadingStatus.text=shellLoadingLabel+"  "+shellLoad.Completed+" / "+shellLoad.Total;
-   loadingPercent.text=Mathf.RoundToInt((float)shellLoad.Fraction*100)+"%";
+  void RefreshLoadingDisplay(string stage){
+   loadingFill.fillAmount=(float)shellLoad.Fraction;
+   loadingStatus.text=stage;
+   loadingCount.text="已处理 "+shellLoad.Completed+" / "+shellLoad.Total+" 项资源";
+   loadingPercent.text=(shellLoad.Completed==shellLoad.Total?100:(int)(shellLoad.Fraction*100))+"%";
+  }
+  string[] StartupResourcePaths(){
+   return Data.Rarities.Select(rank=>RarityResourcePrefix+rank)
+    .Concat(Enumerable.Range(0,Data.Cards.Length).Select(index=>"Art/"+PortraitKey(index)))
+    .Distinct().ToArray();
   }
   void BeginShellLoad(string target){
-   EnsureGallery();int generation=shellLoad.Begin(ShellKeys.Length);
+   EnsureGallery();
+   var paths=StartupResourcePaths();
+   int generation=shellLoad.Begin(paths.Length);
    page="加载";CloseGalleryDialog();DrawShellLoading();RefreshModernFrame();galleryCanvas.SetActive(true);previousPage=page;
-   StartCoroutine(LoadShellResources(generation,target));
+   StartCoroutine(LoadShellResources(generation,target,paths));
   }
-  IEnumerator LoadShellResources(int generation,string target){
-   foreach(string key in ShellKeys){
+  IEnumerator LoadShellResources(int generation,string target,string[] paths){
+   yield return null;
+   foreach(string path in paths){
     if(!shellLoad.IsCurrent(generation))yield break;
-    shellLoadingLabel="准备界面资源";RefreshLoadingDisplay();
-    ResourceRequest request=key.EndsWith("-scene")?Resources.LoadAsync<Texture2D>("Interface/V070/"+key):Resources.LoadAsync<Sprite>("Interface/V070/"+key);
-    while(!request.isDone){if(!shellLoad.IsCurrent(generation))yield break;yield return null;}
+    bool badge=path.StartsWith(RarityResourcePrefix,StringComparison.Ordinal);
+    string stage=badge?"准备稀有度徽章":"准备角色立绘";
+    RefreshLoadingDisplay(stage);
+    ResourceRequest request=badge?Resources.LoadAsync<Sprite>(path):Resources.LoadAsync<Texture2D>(path);
+    yield return request;
     if(!shellLoad.IsCurrent(generation))yield break;
-    shellAssets[key]=request.asset;shellLoad.Advance(generation,request.asset==null);RefreshLoadingDisplay();
-    yield return null; // One actual completed work unit; no minimum display-time or fake percentage.
+    if(badge)rarityBadges[path.Substring(RarityResourcePrefix.Length)]=request.asset as Sprite;
+    else portraits[path.Substring("Art/".Length)]=request.asset as Texture2D;
+    shellLoad.Advance(generation,request.asset==null);
+    RefreshLoadingDisplay(stage);
    }
+   if(!shellLoad.IsCurrent(generation))yield break;
+   RefreshLoadingDisplay(shellLoad.Missing>0?"资源准备结束":"资源准备完成");
+   yield return null; // Allow the completed state to render before changing pages.
    if(!shellLoad.Finish(generation))yield break;
    int missing=shellLoad.Missing;NavigateGallery(target);
-   if(missing>0)GalleryNotice("部分界面素材未能载入，已使用基础控件。",false);
+   if(missing>0)GalleryNotice("部分美术资源未能载入，将显示占位内容。",false);
   }
  }
 }

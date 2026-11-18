@@ -21,16 +21,26 @@ namespace DragonIdle {
   IEnumerator RunShellSmoke(string dir){
    savePath=Path.Combine(dir,"shell-save.json");profile=new Profile();profile.OfflineBank=24;
    profile.StoryCleared[0]=true;profile.StoryUnlocked=1;Save();
-   running=false;BeginShellLoad("主页");
+   running=false;
+   var startupPaths=StartupResourcePaths();
+   rarityBadges.Clear();portraits.Clear();
+   BeginShellLoad("主页");
    AssertSmoke(page=="加载"&&loadingRoot.gameObject.activeInHierarchy&&!galleryChrome.gameObject.activeSelf&&!detailRoot.gameObject.activeSelf,"Loading leaked other pages");
-   int frames=0;double previous=0;
+   AssertSmoke(loadingPercent.text=="0%"&&loadingFill.fillAmount==0&&rarityBadges.Count==0&&portraits.Count==0,"Loading advanced before its first request");
+   AssertSmoke(loadingFill.sprite==InkRingSprite()&&loadingFill.fillMethod==UI.Image.FillMethod.Radial360&&
+    loadingRoot.GetComponentsInChildren<UI.RawImage>().Length==0,"Loading does not use the original radial meter");
+   int frames=0;double previous=0;bool showedPartial=false,showedComplete=false;
    while(shellLoad.Active){
-    AssertSmoke(shellLoad.Fraction>=previous&&shellLoad.Fraction<=1&&loadingFill.fillAmount>=(float)previous-.001f,"Loading progress went backwards");
+    AssertSmoke(shellLoad.Fraction>=previous&&shellLoad.Fraction<=1&&Math.Abs(loadingFill.fillAmount-shellLoad.Fraction)<.001&&
+     rarityBadges.Count+portraits.Count==shellLoad.Completed,"Loading ring diverged from completed resource requests");
+    showedPartial|=shellLoad.Completed>0&&shellLoad.Completed<shellLoad.Total&&loadingPercent.text!="100%";
+    showedComplete|=shellLoad.Completed==shellLoad.Total&&loadingPercent.text=="100%";
     previous=shellLoad.Fraction;AssertSmoke(frames++<600,"Resource loading stalled");yield return null;
    }
-   AssertSmoke(frames>0&&shellLoad.Completed==ShellKeys.Length&&shellLoad.Missing==0&&page=="主页","Asynchronous UI startup failed");
+   AssertSmoke(showedPartial&&showedComplete&&shellLoad.Completed==startupPaths.Length&&shellLoad.Missing==0&&page=="主页","Asynchronous UI startup failed");
    AssertSmoke(homeRoot.gameObject.activeInHierarchy&&!loadingRoot.gameObject.activeSelf&&!galleryChrome.gameObject.activeSelf&&!galleryListRoot.gameObject.activeSelf&&!workshopRoot.gameObject.activeSelf,"Home did not isolate pages");
-   AssertSmoke(shellAssets.Count==ShellKeys.Length&&ShellKeys.All(key=>shellAssets[key]!=null),"Loading UI resources missing");
+   AssertSmoke(Data.Rarities.All(rank=>rarityBadges[rank]!=null)&&
+    Enumerable.Range(0,Data.Cards.Length).All(index=>portraits[PortraitKey(index)]!=null),"Loading did not warm the gallery caches");
    AssertSmoke(homeRoot.GetComponentsInChildren<UI.RawImage>().Length==0,"Home still depends on an extracted background");
    var progress=homeRoot.Find("HomeProgress");
    var fill=progress.Find("HomeProgressFill").GetComponent<UI.Image>();
@@ -70,15 +80,21 @@ namespace DragonIdle {
    GalleryTestButton("HomeContinue").onClick.Invoke();AssertSmoke(page=="挑战"&&storyMode&&!running&&profile.StorySelected==profile.StoryUnlocked,"Home chapter route started or selected wrong battle");
    NavigateGallery("角色");ResetGalleryFilters();selectedCard=0;OpenGalleryCard(0);galleryScroll.verticalNormalizedPosition=.31f;float scroll=galleryScroll.verticalNormalizedPosition;
    NavigateGallery("主页");GalleryTestButton("HomeNav角色").onClick.Invoke();AssertSmoke(galleryDetailOpen&&selectedCard==0&&Math.Abs(galleryScroll.verticalNormalizedPosition-scroll)<.01,"Home roundtrip lost character context");
-   BeginShellLoad("主页");NavigateGallery("角色");for(int n=0;n<15;n++)yield return null;
+   BeginShellLoad("主页");yield return null;yield return null;
+   AssertSmoke(shellLoad.Active,"Loading completed before cancellation test");
+   NavigateGallery("角色");for(int n=0;n<15;n++)yield return null;
    AssertSmoke(!shellLoad.Active&&page=="角色","Cancelled loading stole navigation");
-   var old=shellAssets["loading-fill"];shellAssets["loading-fill"]=null;DrawShellLoading();
-   AssertSmoke(loadingFill.sprite==RoundedSurface(false),"Missing loading sprite disabled progress");
-   shellAssets["loading-fill"]=old;NavigateGallery("主页");
+   int missingGeneration=shellLoad.Begin(1);
+   page="加载";DrawShellLoading();RefreshModernFrame();previousPage=page;
+   StartCoroutine(LoadShellResources(missingGeneration,"主页",new[]{RarityResourcePrefix+"__missing_smoke__"}));
+   for(int n=0;shellLoad.Active&&n<120;n++)yield return null;
+   AssertSmoke(!shellLoad.Active&&shellLoad.Missing==1&&page=="主页"&&GalleryTestButton("HomeContinue").interactable,
+    "Missing optional resource blocked entry to home");
+   rarityBadges.Remove("__missing_smoke__");
    RunSummonPageSmoke();
    running=true;NavigateGallery("角色");AssertSmoke(page=="主页","Running battle allowed unsafe navigation");running=false;DrawHome();
    AssertSmoke(silentAudio&&!menuMusic.isPlaying&&uiSounds.volume==0,"Shell headless smoke produced sound");
-   Save();File.WriteAllText(Path.Combine(dir,"shell-smoke.json"),"{\"startupAsync\":true,\"assets\":"+ShellKeys.Length+",\"inkHome\":true,\"chapterRing\":true,\"summonPage\":true,\"firstWinMoved\":true,\"helpRemoved\":true,\"loadingFrames\":"+frames+",\"homeIsolation\":true,\"navigation\":true,\"offlineClaim\":true,\"saveRoundTrip\":true,\"modalIsolation\":true,\"focusReturn\":true,\"contextReturn\":true,\"loadingCancel\":true,\"missingArtFallback\":true,\"textLayout\":true,\"soundSilent\":true,\"renderVerified\":false}");
+   Save();File.WriteAllText(Path.Combine(dir,"shell-smoke.json"),"{\"startupAsync\":true,\"assets\":"+startupPaths.Length+",\"radialStartup\":true,\"completedRequests\":true,\"inkHome\":true,\"chapterRing\":true,\"summonPage\":true,\"firstWinMoved\":true,\"helpRemoved\":true,\"loadingFrames\":"+frames+",\"homeIsolation\":true,\"navigation\":true,\"offlineClaim\":true,\"saveRoundTrip\":true,\"modalIsolation\":true,\"focusReturn\":true,\"contextReturn\":true,\"loadingCancel\":true,\"missingArtFallback\":true,\"textLayout\":true,\"soundSilent\":true,\"renderVerified\":false}");
   }
   void RunSummonPageSmoke(){
    profile.Crystals=100;profile.SaiyanPulls=19;profile.Pulls=3;Save();

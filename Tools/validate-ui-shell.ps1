@@ -1,12 +1,12 @@
 ﻿$ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
-$manifest=Get-Content -LiteralPath (Join-Path $root 'Art/Production/V070/ui-assets.json') -Raw | ConvertFrom-Json
-if($manifest.assets.Count -ne 11){throw 'Incomplete UI asset manifest'}
+$resources=Join-Path $root 'Assets/DragonIdle/Resources'
+$legacy=Join-Path $resources 'Interface/V070'
+if(Test-Path -LiteralPath $legacy){throw 'Extracted interface assets must remain outside Unity Resources'}
 Add-Type -AssemblyName System.Drawing
-foreach($entry in $manifest.assets){
- $path=Join-Path $root $entry.target
- if((Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() -ne $entry.sha256){throw ('UI provenance mismatch: '+$entry.key)}
+foreach($rank in @('C','B','A','S')){
+ $path=Join-Path $resources ('Interface/Rarity/'+$rank+'.png')
  $image=[Drawing.Image]::FromFile($path)
- try{if($image.Width -ne $entry.width -or $image.Height -ne $entry.height){throw ('UI dimensions changed: '+$entry.key)}}finally{$image.Dispose()}
+ try{if($image.Width -ne 256 -or $image.Height -ne 192){throw ('Rarity badge dimensions changed: '+$rank)}}finally{$image.Dispose()}
 }
-Write-Output 'UI_SHELL_ASSETS_PASS 11 exact extracted assets / dimensions / SHA256'
+Write-Output 'UI_SHELL_ASSETS_PASS four original badges / no extracted interface bundle'

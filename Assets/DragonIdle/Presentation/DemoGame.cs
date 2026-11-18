@@ -24,7 +24,7 @@ namespace DragonIdle {
    if(saveError=="")Change(()=>{profile.OfflineBank+=profile.Offline(DateTime.UtcNow.Ticks);profile.LastClaimTicks=DateTime.UtcNow.Ticks;});
    InitializeMenuAudio(args.Contains("-logicSmoke")||Application.isBatchMode);
    if(args.Contains("-logicSmoke")){RunLogicSmoke(args);return;}
-   EnsureGallery();BeginShellLoad("主页");
+   BeginShellLoad("主页");
    if(args.Contains("-smoke"))StartCoroutine(Smoke(args));
   }
   void Load(){

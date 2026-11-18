@@ -1,7 +1,9 @@
 from pathlib import Path
 import plistlib,re,json,hashlib,shutil,argparse
 from PIL import Image
-p=argparse.ArgumentParser();p.add_argument('--source',default='.validation/apk-review/wangzhe-jizhan');p.add_argument('--output',default='Assets/DragonIdle/Resources/Interface/V070');a=p.parse_args();root=Path(a.source);out=Path(a.output);out.mkdir(parents=True,exist_ok=True);items=[]
+p=argparse.ArgumentParser();p.add_argument('--source',default='.validation/apk-review/wangzhe-jizhan');p.add_argument('--output',default='.validation/apk-review/legacy-shell-reference');a=p.parse_args();root=Path(a.source);out=Path(a.output)
+if (Path.cwd() / 'Assets').resolve() in (out.resolve(), *out.resolve().parents): p.error('Historical shell references must stay outside Unity Assets.')
+out.mkdir(parents=True,exist_ok=True);items=[]
 def save(im,key,source,frame=None,rect=None,rotated=False,canvas=None):
  dest=out/(key+'.png');im.save(dest);items.append(dict(key=key,target=dest.as_posix(),sourcePath=source,frame=frame,sourceRectangle=rect,rotated=rotated,sourceCanvas=canvas,width=im.width,height=im.height,sha256=hashlib.sha256(dest.read_bytes()).hexdigest()))
 for key,path in [('home-scene','asset/ui/bg/mainBg/bg_ZhuCheng.png'),('loading-scene','asset/ui/bg/LoadingBg/BG_DengLu.png'),('currency-crystal','asset/ui/icon/ico_diamond_3.png'),('currency-material','asset/ui/icon/ico_large_exp.png')]:
@@ -13,5 +15,5 @@ for atlas,name,key in frames:
  assert crop.size==(w,h)
  sw,sh=map(int,re.findall(r'-?\d+',f['spriteSourceSize']));ox,oy=map(int,re.findall(r'-?\d+',f['spriteOffset']));full=Image.new('RGBA',(sw,sh));full.paste(crop,((sw-w)//2+ox,(sh-h)//2-oy));save(full,key,source,name,[x,y,w,h],rot,[sw,sh])
 manifest=dict(version='0.7.0',origin='User-provided local APK; statically decoded ASTC; no original executable code is executed or imported.',apkSha256='0f14ab4c2f71e787bec9d03f0666f5f183915dba7946db513333edc15b7a2a28',operations='Exact atlas extraction, reverse stored rotation and restore transparent trim offsets; no repainting.',assets=items)
-Path('Art/Production/V070/ui-assets.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf8');print('UI_ASSETS_EXTRACTED',len(items),[(x['key'],x['width'],x['height']) for x in items])
+(out/'ui-assets.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf8');print('UI_ASSETS_EXTRACTED',len(items),[(x['key'],x['width'],x['height']) for x in items])
 

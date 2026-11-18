@@ -115,7 +115,6 @@ namespace DragonIdle {
    detailRoot=UPanel(galleryRoot,"Detail",222,112,1336,716,uiPanel);
    detailGroup=detailRoot.gameObject.AddComponent<CanvasGroup>();
    galleryToast=UText(galleryRoot,"Toast","",232,845,1320,42,17,uiAccent);
-   RefreshGallery(true);
    detailRoot.gameObject.SetActive(false);
   }
   void NavigateGallery(string target){
@@ -183,10 +182,11 @@ namespace DragonIdle {
    DrawGalleryDetail();
   }
   readonly Dictionary<string,Sprite> rarityBadges=new Dictionary<string,Sprite>();
+  const string RarityResourcePrefix="Interface/Rarity/";
   Sprite RarityBadge(string rank){
    Sprite sprite;
    if(!rarityBadges.TryGetValue(rank,out sprite)){
-    sprite=Resources.Load<Sprite>("Interface/Rarity/"+rank);
+    sprite=Resources.Load<Sprite>(RarityResourcePrefix+rank);
     rarityBadges[rank]=sprite;
    }
    return sprite;
