@@ -81,6 +81,8 @@ namespace DragonIdle {
    foreach(int i in Enumerable.Range(0,Data.Cards.Length)){
     selectedCard=i;DrawGalleryDetail();var images=detailRoot.GetComponentsInChildren<UI.RawImage>();AssertSmoke(images.Length==1,"Detail art missing");
     AssertSmoke(images[0].texture==PortraitTexture(i)&&images[0].texture!=FighterTexture(i)&&images[0].uvRect==new Rect(0,0,1,1),"Detail reused atlas or cropped portrait UV");
+    var rect=images[0].rectTransform.rect;var image=images[0].texture;
+    AssertSmoke(Mathf.Abs(rect.width/rect.height-image.width/(float)image.height)<.001f,"Detail distorted portrait aspect: "+Data.Cards[i].Id);
    }
    AssertSmoke(galleryCanvas.GetComponent<UI.CanvasScaler>().screenMatchMode==UI.CanvasScaler.ScreenMatchMode.Expand,"UI aspect ratio scaler incorrect");
    File.WriteAllText(Path.Combine(dir,"gallery-refresh-smoke.json"),"{\"dedicatedDetail\":true,\"cardCache\":true,\"focusReturn\":true,\"roundedSurfaces\":true,\"individualFilterClear\":true,\"fullPortraitAspect\":true,\"enabledTextContrast\":true,\"viewportMath\":[\"1280x720\",\"1600x900\",\"1920x1080\",\"2560x1080\"],\"renderVerified\":false}");

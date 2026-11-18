@@ -8,7 +8,9 @@ class InspectPortraits {
  static void Main(string[] args){try{
   var files=Directory.GetFiles(args[0],"*-portrait.png");if(files.Length!=9&&args.Length<2)throw new Exception("Expected 9 independent portraits");
   foreach(var path in files)using(var png=new Bitmap(path)){
-   int w=png.Width,h=png.Height;if(w!=1024||h!=1536)throw new Exception("Unexpected portrait resolution: "+path);
+   int w=png.Width,h=png.Height;
+   bool expectedSize=Path.GetFileName(path)=="piccolo-test-portrait.png"?w==1086&&h==1448:w==1024&&h==1536;
+   if(!expectedSize)throw new Exception("Unexpected portrait resolution: "+path);
    var locked=png.LockBits(new Rectangle(0,0,w,h),ImageLockMode.ReadOnly,PixelFormat.Format32bppArgb);
    byte[] pixels=new byte[locked.Stride*h];Marshal.Copy(locked.Scan0,pixels,0,pixels.Length);int stride=locked.Stride;png.UnlockBits(locked);
    int clear=0,solid=0,edge=0;
@@ -17,7 +19,7 @@ class InspectPortraits {
     if(alpha>64&&(x<3||x>=w-3||y<3||y>=h-3))edge++;
    }
    if(clear<w*h/5||solid<w*h/20||edge>8)throw new Exception("Portrait transparency/content/margin failed: "+Path.GetFileName(path)+" clear="+clear+" solid="+solid+" edge="+edge);
-   Console.WriteLine("PORTRAIT_PASS "+Path.GetFileName(path)+" 1024x1536 / alpha / margins");
+   Console.WriteLine("PORTRAIT_PASS "+Path.GetFileName(path)+" "+w+"x"+h+" / alpha / margins");
   }
  }catch(Exception e){Console.WriteLine(e.Message);Environment.Exit(1);}}
 }

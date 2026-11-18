@@ -48,12 +48,16 @@
     },
     {
       "cardId": "piccolo-test",
-      "pose": "张臂守护",
-      "prompt": "Use case: stylized-concept. Redesign a SINGLE high-quality collectible game CARD PORTRAIT for a personal Dragon Ball Z game. Input atlas is reference for this character's identity, era costume and APPROVED C art style ONLY. Do not reproduce atlas, grid, multiple poses, standing template or any original generic open-hand pose. Output ONE large polished FULL-BODY portrait, vertical1024x1536, TRUE TRANSPARENT background. Controlled hand-ink lines, crisp cel-shaded colors, subtle manga hatching, excellent face and hand anatomy, strong dramatic composition with clear signature pose, NOT chibi. Add only the specified restrained skill energy/motion accent around subject; no scene, opaque rectangle, painted background, fog blanket, text, logo, title or border. Preserve all fingers hair feet and described effects with at least8% transparent margin to every canvas edge. Character fills ~80% image, face remains legible at thumbnail scale. The posture and silhouette must match this specific action rather than a generic neutral fighting stance. Subject and action: Piccolo protecting Gohan in Saiyan invasion. Tall green Namekian pointed ears antennae pink ribbed arms, purple sleeveless gi blue waist sash brown pointedshoes, no turban or cape. Iconic self-sacrificing PROTECTIVE BLOCK: plant feet wide, chest upright, BOTH arms stretched far OUT TO SIDES at shoulder height, hands open outward, face stern toward incoming threat to viewer-right. Broad T-shaped guardian silhouette; thin translucent mint-green crescent shield arcs ahead of arms, restrained light on face. No other characters. Full body. Must look like intercepting an attack to protect someone behind, not ready-to-punch stance.",
-      "reference": "Assets/DragonIdle/Resources/Art/V050/piccolo-test-atlas.png",
+      "revision": "0.12.2",
+      "pose": "后仰张臂舍身保护",
+      "prompt": "New original full-body Piccolo artwork, transparent PNG, portrait frame. First attached concept image is the direct gesture/expression reference: an unmistakably asymmetrical instant of taking the hit while physically shielding the space behind him; face turned upward, mouth open, torso lifted and pulled back by the impact, arms thrown wide. His nearer arm on image left reaches low and out towards us, the farther arm reaches up and back to the upper right. Use unequal elbow and wrist heights. Near boot is forward and far boot behind, wide braced step and softly bent knees. Pose the figure along a dynamic diagonal at a slightly elevated three-quarter angle. Match the gesture of the first reference closely in a new drawing and camera; create fresh lines. Use the second reference only for C-style black manga contour linework, controlled cel shadows, garment colors and the correctly articulated hands with distinct thumbs and fingers. Single subject Piccolo only, two antennae, purple gi, navy sash and green skin; no other characters or objects. No lighting streaks, aura, floor, backdrop or text. Both hands, hairline antennae and boots visible with margin, true transparency.",
+      "reference": "Assets/DragonIdle/Resources/Art/CharaOriImg/0003.png",
+      "styleAndHandReference": "exec-d515c2d1-78d0-4f05-9dff-3e0baa9f7048.png",
       "asset": "Assets/DragonIdle/Resources/Art/V051/piccolo-test-portrait.png",
-      "output": "exec-822231cf-1a15-4015-98ef-b68454c2f70c.png",
-      "sha256": "339794d719810dac42ecd4c738dd5961a100aeba68fb73493e9c1918e958b1f9"
+      "output": "exec-b825e6b0-634c-43af-846c-c98c71758c32.png",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "a633d193463550b360e5de5599b7d94f5550adc5cc7cdb2a18d8c2abb3518a17"
     },
     {
       "cardId": "gohan-test",
