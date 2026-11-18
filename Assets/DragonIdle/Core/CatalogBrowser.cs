@@ -37,7 +37,7 @@ namespace DragonIdle {
    }
    if(Skill[i]=="guard"||Skill2[i]=="guard")u.Shield+=u.MaxHP*.04;
    u.UltimatePolicy=Policy[i];
-   if(Team.Contains(i))Data.GokuLink(u,Team.Select(n=>Data.Cards[n].Id));
+   if(Team.Contains(i))Data.ApplyTeamDesign(u,Team.Where(n=>n>=0).Select(n=>Data.Cards[n].Id));
    foreach(var item in Items.Where(x=>x.owner==i)){
     if(item.kind==1)u.Add("defense",item.Bonus,0,item.id);else u.Add("attack",item.Bonus,0,item.id);
     if(item.gem)u.Add("attack",.008,0,item.id+":gem");

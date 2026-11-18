@@ -41,7 +41,7 @@ namespace DragonIdle {
     float age=(float)(action.Elapsed-action.ImpactAt(0));
     foreach(var ally in last.Recipients){var point=FighterFeet(ally)+new Vector2(0,-38);Ring(point,38,52,new Color(.35f,.85f,1,Mathf.Clamp01(1-age/.6f)*intensity),3);if(age<.6f)Label(point.x-50,point.y-64,160,30,last.Actor.CardId=="piccolo-test"&&last.Move==Move.Ultimate?"护盾 +12%":last.Actor.CardId=="piccolo-test"?"防御强化 +4%":"攻击强化 +4%",15,new Color(.4f,.9f,1));}
     if(age<.6f&&last.HealthCost>0)Label(feet.x-48,feet.y-105,180,30,"生命代价 -"+last.HealthCost.ToString("0"),16,InkLowHealth);
-    if(age<.6f&&last.Healing>0)Label(feet.x-48,feet.y-80,180,30,"自然回复 +"+last.Healing.ToString("0"),16,InkDark);
+    if(age<.6f&&last.Healing>0)Label(feet.x-48,feet.y-80,180,30,(actor.CardId=="goku-saiyan-kaioken-v020"?"生命偷取 +":"自然回复 +")+last.Healing.ToString("0.#"),16,InkDark);
    }
    if(action.Elapsed<action.ReleaseAt&&!action.Melee){
     float r=(kind==BattleVisualKind.SpiritBomb?31:12)*((float)(action.Elapsed/action.ReleaseAt)+.25f);

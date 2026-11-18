@@ -42,9 +42,9 @@ namespace DragonIdle {
    AssertSmoke(selectedCard==-1&&cardButtons.Count==0&&galleryTrainButton==null&&gallerySwapButton==null,"Empty query leaked stale character actions");
    ResetGalleryFilters();ShowFilter(0);
    AssertSmoke(!mineTab.interactable&&!gallerySearch.interactable&&cardButtons.Values.All(b=>!b.interactable),"Modal does not isolate background input");
-   GalleryTestButton("Option4").onClick.Invoke();
+   GalleryTestButton("Option3").onClick.Invoke();
    AssertSmoke(mineTab.interactable&&gallerySearch.interactable,"Modal did not restore background input");
-   AssertSmoke(catalog.Rarity=="S"&&cardButtons.Keys.All(i=>Data.Cards[i].Rarity=="S")&&dialogRoot==null,"Direct rarity picker failed");
+   AssertSmoke(catalog.Rarity=="A"&&cardButtons.Keys.All(i=>Data.Cards[i].Rarity=="A")&&dialogRoot==null,"Direct rarity picker failed");
    GalleryTestButton("ClearFilter0").onClick.Invoke();AssertSmoke(catalog.Rarity==""&&cardButtons.Count==9,"Individual filter chip did not clear condition");
    ResetGalleryFilters();ShowFilter(1);GalleryTestButton("Option1").onClick.Invoke();
    AssertSmoke(catalog.Role=="自我强化"&&cardButtons.Count==Data.Cards.Count(c=>c.Keywords.Contains("自我强化"))&&cardButtons.Keys.All(i=>Data.Cards[i].Keywords.Contains("自我强化")),"Keyword picker did not filter actual role keywords");

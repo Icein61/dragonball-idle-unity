@@ -32,7 +32,7 @@ namespace DragonIdle {
   }
   void ShowFilter(int kind){
    string[] labels,values;
-   if(kind==0){values=new[]{""}.Concat(Data.Rarities).ToArray();labels=new[]{"全部稀有度"}.Concat(Data.Rarities).ToArray();}
+   if(kind==0){var ranks=Data.Rarities.Where(rank=>Data.Cards.Any(card=>card.Rarity==rank));values=new[]{""}.Concat(ranks).ToArray();labels=new[]{"全部稀有度"}.Concat(ranks).ToArray();}
    else if(kind==1){values=new[]{""}.Concat(Data.Cards.SelectMany(c=>c.Keywords).Distinct()).ToArray();labels=values.Select(v=>v==""?"全部定位":v).ToArray();}
    else if(kind==2){values=new[]{""}.Concat(Data.Cards.SelectMany(c=>c.Tags).Distinct()).ToArray();labels=values.Select(v=>v==""?"全部身份":v).ToArray();}
    else{values=new[]{"0","1","2","3"};labels=SortLabels;}
@@ -50,13 +50,12 @@ namespace DragonIdle {
   void ShowFormationPicker(int i){
    var c=Data.Cards[i];int existing=Array.IndexOf(profile.Team,i);
    var panel=NewGalleryDialog("选择 "+c.Name+" 的阵位",existing>=0?"角色已在阵位"+(existing+1)+"；选择其他位置会交换两位角色。队长身份跟随阵位。":"选择位置以替换当前成员。被替换的角色回到候补，装备和成长保留。");
-   for(int s=0;s<7;s++){
-    int slot=s;var current=Data.Cards[profile.Team[s]];
-    string value=(s<3?"前排 ":"后排 ")+(s+1)+(s==profile.Leader?" · 队长位":"")+"\n"+current.Name+" · "+current.Title;
-    UButton(panel,"Slot"+s,value,26+s%2*345,155+s/2*82,332,68,()=>{
-     string old=Data.Cards[profile.Team[slot]].Name;
+   for(int s=0;s<Data.TeamSlots;s++){
+    int slot=s,index=profile.Team[s];
+    string value=FormationSlotLabel(s)+(s==profile.Leader?" · 队长位":"")+"\n"+(index<0?"空位":Data.Cards[index].Name);
+    UButton(panel,"Slot"+s,value,26+s%Data.FrontSlots*232,155+s/Data.FrontSlots*91,218,73,()=>{
      if(Change(()=>{if(!profile.SetMember(slot,i))throw new InvalidOperationException("角色不可上阵");battle=null;})){
-      selectedSlot=slot;CloseGalleryDialog();GalleryNotice(c.Name+" 已进入阵位 "+(slot+1)+(existing>=0?"；已与 "+old+" 交换位置":"；"+old+" 回到候补"));RefreshGallery(false);
+      selectedSlot=slot;CloseGalleryDialog();GalleryNotice(c.Name+" 已进入 "+FormationSlotLabel(slot));RefreshGallery(false);
      }else GalleryNotice(notice,false);
     },enabled:saveError=="",selected:s==existing);
    }
@@ -66,7 +65,7 @@ namespace DragonIdle {
    float y=160;
    if(Data.InSaiyanPool(c)){UButton(panel,"GoSaiyanPool","前往赛亚人篇召唤 · 独立保底",26,y,682,46,()=>{saiyanPool=true;NavigateGallery("召唤");});y+=66;}
    if(Data.InClassicPool(c)){UButton(panel,"GoLegacyPool","前往基础常驻召唤 · 仅赛亚人篇",26,y,682,46,()=>{saiyanPool=false;NavigateGallery("召唤");});y+=66;}
-   UText(panel,"PityInfo","每抽50晶石；C72% / B20% / S8%，同级均分。每累计第20抽保证S，提前获得S不重置。",26,y+5,682,82,16,uiDim);
+   UText(panel,"PityInfo","每抽 50 晶石。概率和保底进度可在召唤页查看。",26,y+5,682,62,16,uiDim);
   }
   UI.Slider AudioSlider(Transform parent,string title,float y,float value,Action<float> update){
    var label=UText(parent,title+"Label",title+"  "+Mathf.RoundToInt(value*100)+"%",28,y,220,34,19,uiPaper);

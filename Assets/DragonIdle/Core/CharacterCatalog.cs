@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 namespace DragonIdle {
  // Identity is definition data. Equipment and save data cannot rewrite it.
@@ -50,15 +50,15 @@ namespace DragonIdle {
   public static readonly string[] RetiredCardIds={"dende-test","trunks-test","roshi-tournament-v020","goku-namek-ssj-v020","vegeta-namek-v020","piccolo-namek-v020","gohan-cell-ssj2-v020","frieza-namek-final-v020","android18-cell-v020","trunks-future-base-v020","goku-saiyan-guard-v020","piccolo-raditz-v030","raditz-arrival-v030","nappa-invasion-v030","yajirobe-saiyan-v030","saibaman-saiyan-v030"};
   public static readonly string[] StarterCardIds={"goku-test","vegeta-test","piccolo-test","krillin-test","gohan-test","tien-test","yamcha-saiyan-v020","chiaotzu-saiyan-v020"};
   public static readonly Card[] Cards={
-   new Card("goku-test","孙悟空","goku","赛亚人篇","常态","重返战场","B","fighter","赛亚人","Z战士","牵制连击","全力龟派气功","FF9F43",1050,116,42,110,"attack"),
-   new Card("vegeta-test","贝吉塔","vegeta","赛亚人篇","常态","孤傲王子","S","sniper","赛亚人","赛亚人军团","伽力克炮","全力爆发","599AFF",940,124,36,116,"focus",4),
-   new Card("piccolo-test","比克","piccolo","赛亚人篇","常态","无声守护","S","tank","那美克星人","Z战士","魔光波","魔贯光杀炮","7BCF92",1340,90,65,89,"guard"),
-   new Card("krillin-test","克林","krillin","赛亚人篇","常态","破局之光","B","control","地球人","Z战士","太阳拳","气圆斩","FFD580",950,95,40,106,"haste",4),
-   new Card("gohan-test","孙悟饭","gohan","赛亚人篇","常态","觉醒勇气","B","support","混血赛亚人","Z战士","连击","潜力爆发","BC9CFF",1010,104,44,102,"resolve"),
-   new Card("tien-test","天津饭","tien","赛亚人篇","常态","背水之阵","B","fighter","地球人","Z战士","洞洞波","气功炮","86D9DF",1020,111,46,99,"focus"),
-   new Card("yamcha-saiyan-v020","雅木茶","yamcha","赛亚人篇","常态","狼牙之志","C","fighter","地球人","Z战士","狼牙风风拳","操气弹","E4AA73",990,109,42,117,"haste"),
-   new Card("chiaotzu-saiyan-v020","饺子","chiaotzu","赛亚人篇","常态","坚定意志","C","control","地球人","Z战士","超能力束缚","全力念动","C7D7E7",930,88,43,112,"resolve",4),
-   new Card("goku-saiyan-kaioken-v020","孙悟空","goku","赛亚人篇","界王拳","极限应战","S","fighter","赛亚人","Z战士","界王拳突击","龟派气功","FF6870",980,125,35,119,"resolve",4),
+   new Card("goku-test","孙悟空","goku","赛亚人篇","常态","全新的故事","B","fighter","赛亚人","Z战士","牵制连击","全力龟派气功","FF9F43",1050,116,42,110,"attack"),
+   new Card("vegeta-test","贝吉塔","vegeta","赛亚人篇","常态","激烈的超级精英","B","sniper","赛亚人","赛亚人军团","伽力克炮","全力爆发","599AFF",940,124,36,116,"focus"),
+   new Card("piccolo-test","比克","piccolo","赛亚人篇","常态","萌芽的心","B","tank","那美克星人","Z战士","魔光波","魔贯光杀炮","7BCF92",1340,90,65,89,"guard"),
+   new Card("krillin-test","克林","krillin","赛亚人篇","常态","改变战况的好手","C","control","地球人","Z战士","太阳拳","气圆斩","FFD580",950,95,40,106,"haste"),
+   new Card("gohan-test","孙悟饭【幼年期】","gohan","赛亚人篇","常态","危机中爆发的力量","B","support","混血赛亚人","Z战士","连击","潜力爆发","BC9CFF",1010,104,44,102,"resolve"),
+   new Card("tien-test","天津饭","tien","赛亚人篇","常态","取胜的气势","C","fighter","地球人","Z战士","洞洞波","气功炮","86D9DF",1020,111,46,99,"focus"),
+   new Card("yamcha-saiyan-v020","雅木茶","yamcha","赛亚人篇","常态","地球顶尖的尖锐","C","fighter","地球人","Z战士","狼牙风风拳","操气弹","E4AA73",990,109,42,117,"haste"),
+   new Card("chiaotzu-saiyan-v020","饺子","chiaotzu","赛亚人篇","常态","各式各样的拿手绝活","C","control","地球人","Z战士","超能力束缚","全力念动","C7D7E7",930,88,43,112,"resolve"),
+   new Card("goku-saiyan-kaioken-v020","孙悟空【界王拳】","goku","赛亚人篇","界王拳","挑战极限","A","fighter","赛亚人","Z战士","界王拳突击","龟派气功","FF6870",980,125,35,119,"resolve"),
   };
   public static int Index(string id){return Array.FindIndex(Cards,x=>x.Id==id);}
   public static string[] Rarities={"C","B","A","S"};

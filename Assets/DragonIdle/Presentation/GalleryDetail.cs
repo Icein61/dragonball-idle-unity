@@ -21,9 +21,9 @@ namespace DragonIdle {
    UText(detailRoot,"CardKeywords",c.KeywordText,591,24,717,32,18,uiAccent);
    UText(detailRoot,"CharacterName",c.Name,520,68,788,45,32,uiPaper);
    UText(detailRoot,"CharacterTitle",c.Title,520,116,788,32,23,uiPaper);
-   UText(detailRoot,"Identity",c.Stage+"  ·  "+c.Form+"    "+string.Join(" / ",c.Tags.Distinct().ToArray()),520,158,788,32,17,uiDim);
+   UText(detailRoot,"Identity",string.Join(" · ",c.Tags.Distinct()),520,158,788,32,17,uiDim);
    int slot=Array.IndexOf(profile.Team,i);
-   UText(detailRoot,"Ownership",owned?(slot>=0?(slot<3?"前排 ":"后排 ")+(slot+1)+(slot==profile.Leader?" · 队长":" · 已上阵"):"已拥有 · 候补"):"尚未拥有 · 可查看全部信息",24,613,456,30,18,owned?uiAccent:uiDim);
+   UText(detailRoot,"Ownership",owned?(slot>=0?FormationSlotLabel(slot)+(slot==profile.Leader?" · 队长":" · 已上阵"):"已拥有 · 候补"):"尚未拥有",24,613,456,30,18,owned?uiAccent:uiDim);
    UButton(detailRoot,"Acquisition","查看获取途径",24,654,456,42,()=>ShowAcquisition(i));
    string[] tabs={"概览与培养","招式与队长","装备与技能"};
    for(int n=0;n<3;n++){int tab=n;UButton(detailRoot,"DetailTab"+n,tabs[n],520+n*264,202,252,42,()=>{detailTab=tab;DrawGalleryDetail();},selected:detailTab==n);}
@@ -65,7 +65,7 @@ namespace DragonIdle {
    }
    }
    DetailParagraph("战前效果","暴击 "+(personal.Crit*100).ToString("0.#")+"% · 闪避 "+(personal.Dodge*100).ToString("0.#")+"%\n个人开战护盾 "+personal.Shield.ToString("0")+" · 开战怒气 "+personal.Rage.ToString("0")+"\n"+(profile.Team.Contains(i)?"编队开战护盾 "+team.Shield.ToString("0")+"\n当前队长 生/攻/防 +"+(team.LeaderHealth*100).ToString("0")+"% / +"+(team.LeaderAttack*100).ToString("0")+"% / +"+(team.LeaderDefense*100).ToString("0")+"%":"候补不计队长加成；上阵后按队长条件计算。"));
-   if(!owned){DetailParagraph("获取后开始培养","图鉴展示初始形态与基础机制。获得卡片后可修炼、共鸣、装配和编队。");return;}
+   if(!owned){DetailParagraph("获取后开始培养","获得后可养成与编队。");return;}
    int cost=30+profile.Training[i]/10;
    DetailParagraph("修炼 "+profile.Training[i]+" · 共鸣 "+profile.Resonance[i],"修炼每次增加基础属性0.1%；共鸣每次增加基础属性0.4%。速度不随这两项提升。培养资源保存在本张卡片上。");
    galleryTrainButton=UButton(detailBody,"TrainOnce","修炼一次 · "+cost+" 素材",0,detailY,260,42,()=>{
@@ -80,36 +80,15 @@ namespace DragonIdle {
    DetailParagraph("当前资源","素材 "+profile.Materials+" / "+cost+"；本卡专属资源 "+profile.Shards[i]+" / "+(3+profile.Resonance[i])+"。按钮变暗表示资源不足或存档不可写。",uiDim);
   }
   void DrawGallerySkills(int i){
-   var c=Data.Cards[i];
-   DetailParagraph("定位 · "+c.KeywordText,string.Join("\n",c.Keywords.Select(k=>k+"："+Data.KeywordDescription(k)).ToArray()));
-   DetailParagraph("战术特点",TacticalSummary(c.Id,c.Role));
-   DetailParagraph("普通攻击",Data.Reworked(c.Id)?Data.UserSkill(c.Id,0):"单体1.00倍攻击。占用一次正常行动；绝招冷却期间使用，完成出手获得16怒气。");
+   var card=Data.Cards[i];
    bool replaced=profile.Owned[i]&&(profile.Skill[i]=="pierce"||profile.Skill2[i]=="pierce");
-   DetailParagraph(replaced?"当前绝招 · 贯穿气弹":"绝招 · "+c.Special,replaced?"单体1.14倍攻击，优先最近后排，无后排时回落；冷却4次正常出手。完成出手获得28怒气。已替换原绝招，不叠加原绝招效果。":c.SpecialText+" 完成出手获得28怒气。");
-   if(replaced){DetailParagraph("配置提醒","定位关键词概括固有技能组。原绝招已被替换，仅来自原绝招的能力当前不生效；必杀与被动保持。",uiAccent);DetailParagraph("原绝招 · 当前未装备",c.SpecialText,uiDim);}
-   DetailParagraph("必杀 · "+c.Ultimate,c.UltimateText);
-   DetailParagraph("被动",c.PassiveText);
-   if(Data.Reworked(c.Id))DetailParagraph("数值与结算补充（代理默认）","伤害低/中/高：1.00/1.14/1.30倍攻击；强化低/中：4%/8%；护盾中：受益者最大生命12%；比克损血：自身最大生命10%，至少保留1生命；自然回复低：最大生命3% / 每次自身正常行动机会结束。未标时长整场。原技能文字保持用户原稿；同排含自身，最低生命按剩余百分比。悟空与比克联动仅要求队伍存在，不要求存活。");
-   DetailParagraph("本卡队长技",c.LeaderText);
-   var captain=Data.Cards[profile.Team[profile.Leader]];var matches=captain.Captain.Matches(c);
-   string state=matches.Length==0?"不满足当前队长的任何标签条件。":"匹配「"+string.Join(" / ",matches)+"」；只获得一次加成。";
-   DetailParagraph("当前队伍适配",captain.DisplayName+"\n"+state+"\n"+(profile.Team.Contains(i)?"当前已上阵。":"尚未上阵；匹配只表示上阵后可受益。")+"\n"+captain.Captain.Text);
-   DetailParagraph("本卡担任队长时","对当前七人名单覆盖 "+profile.Team.Count(n=>c.Captain.Applies(Data.Cards[n]))+" / 7 人。此处仅检查标签，换人后按新名单重算。");
-   DetailParagraph("回合与状态","持续回合按状态持有者的正常行动机会计数，额外必杀不推进时长。同名贡献各自计时；未标时长为整场。");
-  }
-  string TacticalSummary(string id,string role){
-   if(id=="goku-test")return "自身攻击强化；编队中存在比克即可获得防御强化，不要求比克存活。";
-   if(id=="vegeta-test")return "强化同排存活队友（含自身），必杀追击剩余生命百分比最低的敌人。";
-   if(id=="piccolo-test")return "强化同排防御，以自身生命为代价保护低生命比例的两名队友，并在自身行动机会结束自然回复。";
-   switch(Data.Kit(id)){
-    case "goku":return "与比克同队时获得防御强化，适合从前排持续输出。";
-    case "beam":return "目标防御强化合计为负时，必杀穿防更高。天津饭等减防来源可以提供窗口。";
-    case "raditz":case "nappa":return "绝招覆盖最多两个不同目标，分散压迫前排；单个目标不会被同一招重复命中。";
-    case "krillin":case "chiaotzu":return "利用眩晕打断正常行动。目标有连续眩晕保护，不能永久锁住敌人。";
-    case "guard":return "自身护盾与低生命队友保护兼顾，适合承受前排压力。";
-    case "yamcha":case "yajirobe":case "vegeta":return "具有后排攻击手段。阵位与敌方前后排构成会影响目标选择。";
-    default:return "定位："+RoleText(role)+"。结合招式条件、队长覆盖与现有装备选择队伍位置。";
-   }
+   DetailParagraph("普攻",Data.UserSkill(card.Id,0));
+   DetailParagraph(replaced?"原绝招 · 已替换":"绝招 · "+card.Special,card.SpecialText);
+   if(replaced)DetailParagraph("当前绝招 · 贯穿气弹",Data.SkillDescription("pierce"));
+   DetailParagraph("必杀 · "+card.Ultimate,card.UltimateText);
+   DetailParagraph("被动",card.PassiveText);
+   DetailParagraph("队长技",card.LeaderText);
+   DetailParagraph("出招规则","绝招冷却 "+card.Cooldown+" 次正常行动。必杀消耗 100 怒气，额外释放。");
   }
   void DrawGalleryLoadout(int i){
    if(!profile.Owned[i]){DetailParagraph("尚未拥有","获得后可配置3件装备、2个额外技能，并在装备孔位镶嵌珠子。");return;}

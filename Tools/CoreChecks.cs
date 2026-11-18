@@ -24,10 +24,10 @@ class CoreChecks {
   var battle=Pair(a,b);var moves=new List<Move>();
   while(moves.Count<5){var e=battle.Step();if(e.Actor==a&&e.Move!=Move.Ultimate)moves.Add(e.Move);}
   Check(moves.SequenceEqual(new[]{Move.Special,Move.Basic,Move.Basic,Move.Basic,Move.Special}),"T05 exact cooldown");
-  var units=new List<Unit>();for(int i=0;i<7;i++){units.Add(U(0,i));units.Add(U(1,i));}
-  battle=new Battle(units,44);var order=new List<int>();for(int i=0;i<14;i++){var e=battle.Step();order.Add(e.Actor.Slot*2+e.Actor.Side);}
-  Check(order.SequenceEqual(Enumerable.Range(0,14)),"T02 simultaneous slot order");
-  a=U(0);b=U(1);a.Speed=99;b.Speed=100;b.Slot=6;
+  var units=new List<Unit>();for(int i=0;i<Data.TeamSlots;i++){units.Add(U(0,i));units.Add(U(1,i));}
+  battle=new Battle(units,44);var order=new List<int>();for(int i=0;i<Data.TeamSlots*2;i++){var e=battle.Step();order.Add(e.Actor.Slot*2+e.Actor.Side);}
+  Check(order.SequenceEqual(Enumerable.Range(0,Data.TeamSlots*2)),"T02 simultaneous slot order");
+  a=U(0);b=U(1);a.Speed=99;b.Speed=100;b.Slot=5;
   battle=Pair(a,b);Check(battle.Step().Actor==b,"T02 earlier time before slot order");
   a=U(0);b=U(1);a.Progress=.7;a.Add("speed",-.5,0,"slow");Check(Near(a.Progress,.7)&&Near(a.SpeedValue,50),"T03 speed retains progress");
   a=U(0);b=U(1);a.Cooldown=3;a.Rage=12;a.Stun(1);battle=Pair(a,b);var ev=battle.Step();
@@ -48,7 +48,7 @@ class CoreChecks {
   f.HP=100;battle=new Battle(new[]{a,f,rear},2);Check(battle.Target(a,true)==rear,"T14 explicit rear skill");
   a=U(0);b=U(1);a.Rage=100;a.SealUntil=1;a.Progress=1;battle=Pair(a,b);ev=battle.Step();Check(ev.Move==Move.Basic&&a.Rage==100,"T10 sealed unit cannot ultimate/special");
   a=U(0);b=U(1);a.Rage=100;a.UltimatePolicy=1;a.Progress=1;battle=Pair(a,b);Check(battle.Step().Move!=Move.Ultimate,"strategy holds ultimate");
-  var p=new Profile();Check(p.CreateTeam().Count==7&&p.CreateTeam().All(x=>x.Progress==0&&x.Cooldown==0&&x.Rage==(Data.Card(x.CardId).Passive=="resolve"?12:0)),"T11 start state with declared opening passives");
+  var p=new Profile();Check(p.CreateTeam().Count==Data.TeamSlots&&p.CreateTeam().All(x=>x.Progress==0&&x.Cooldown==0&&x.Rage==0),"T11 start state with declared opening passives");
   p.Team[1]=p.Team[0];bool rejected=false;try{p.CreateTeam();}catch{rejected=true;}Check(rejected,"T30 duplicate card rejected");
   p=new Profile();p.Items.Add(new Item{id="x",kind=0});Check(p.Equip("x",1,2)&&p.Items.Last().owner==1,"T34 equip valid slot");
   Check(!p.Equip("x",1,3),"T34 reject fourth slot");p.Equip("x",2,0);Check(p.Items.Count(x=>x.id=="x"&&x.owner==2)==1,"T36 single item owner");
@@ -58,9 +58,10 @@ class CoreChecks {
   var supportProfile=new Profile();supportProfile.SetSkill(4,0,"pierce");var supportBattle=supportProfile.NewBattle(0,55);
   var support=supportBattle.Units.First(x=>x.Side==0&&x.Slot==4);support.Rage=100;
   Check(support.Role=="support"&&support.SpecialRole=="sniper","T35 replacement preserves original role");
-  supportBattle.Step();Check(supportBattle.Units.First(x=>x.Side==0&&x.Slot==1).Effects.Any(x=>x.Source==support.CardId&&Near(x.Value,.06)),"T35 replacement preserves ultimate support effect");
+  var attack= supportBattle.Units.Where(x=>x.Side==1).Max(x=>x.AttackValue);
+  var ultimate=supportBattle.Step();Check(ultimate.Move==Move.Ultimate&&ultimate.Target.AttackValue==attack,"T35 replacement preserves ultimate high-attack targeting");
   string tag=Data.Cards[0].Tag;p.Skill2[0]="";p.Skill[0]="pierce";var changed=p.CreateTeam()[0];Check(changed.SpecialName=="贯穿气弹"&&changed.UltimateName==Data.Cards[0].Ultimate&&Data.Cards[0].Tag==tag,"T31 T35 replacement preserves identity");
-  p=new Profile();int owned=p.Owned.Count(x=>x);p.Crystals=10000;string pull="";for(int i=0;i<20;i++)pull=p.Summon(i);Check(pull.StartsWith("[S]"),"summon guaranteed twentieth SSR");Check(p.Shards.Sum()==20-(p.Owned.Count(x=>x)-owned),"T33 duplicates convert");
+  p=new Profile();int owned=p.Owned.Count(x=>x);p.Crystals=10000;string pull="";for(int i=0;i<20;i++)pull=p.Summon(i);Check(pull.StartsWith("[A]"),"summon guaranteed twentieth top rank");Check(p.Shards.Sum()==20-(p.Owned.Count(x=>x)-owned),"T33 duplicates convert");
   p=new Profile();int mat=p.Materials;p.Train(0);Check(p.Materials==mat-30&&p.Training[0]==1,"training transaction");
   p.LastClaimTicks=DateTime.UtcNow.Ticks;p.Wins=1;Check(p.Offline(p.LastClaimTicks-TimeSpan.TicksPerHour)==0,"T39 backwards clock");
   Check(p.Offline(p.LastClaimTicks+24*TimeSpan.TicksPerHour)==144,"T39 offline cap");

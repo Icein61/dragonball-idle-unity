@@ -32,7 +32,7 @@ namespace DragonIdle {
     UText(progress,"HomeChapterState"+stage,Data.StoryStages[stage]+" · "+(done?"已通关":open?"可挑战":"未解锁"),
      318,y+4,315,39,17,done||open?InkIvory:InkMuted,TextAnchor.MiddleLeft);
    }
-   UText(progress,"HomeCollectionCount","已收藏 "+profile.Owned.Count(x=>x)+" / "+Data.Cards.Length+"   ·   上阵 "+profile.Team.Length+" 人",
+   UText(progress,"HomeCollectionCount","已收藏 "+profile.Owned.Count(x=>x)+" / "+Data.Cards.Length+"   ·   上阵 "+profile.TeamCount+" / "+Data.TeamSlots,
     40,431,610,34,18,InkMuted);
    var next=InkPanel(homeRoot,"HomeJourney",758,148,802,249,InkDark);
    int chapter=Math.Min(profile.StoryUnlocked,Data.StoryStages.Length-1);

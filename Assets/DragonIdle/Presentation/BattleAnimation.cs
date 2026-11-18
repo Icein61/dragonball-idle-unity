@@ -20,7 +20,7 @@ namespace DragonIdle {
    }
    clock+=seconds*rate;if(clock>=.20f){clock=0;Advance();}
   }
-  Vector2 FighterFeet(Unit u){return new Vector2(u.Side==0?(u.Slot<3?560:360):(u.Slot<3?935:1135),u.Slot<3?407+u.Slot*120:390+(u.Slot-3)*96);}
+  Vector2 FighterFeet(Unit u){return new Vector2(u.Side==0?(u.Slot<3?560:360):(u.Slot<3?935:1135),407+(u.Slot%Data.FrontSlots)*120);}
   Vector2 AnimatedFeet(Unit u){
    var p=FighterFeet(u);if(action==null||action.Complete||ReducedBattleMotion)return p;
    float sign=u.Side==0?1:-1;

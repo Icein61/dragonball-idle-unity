@@ -4,14 +4,15 @@ using System.Linq;
 namespace DragonIdle {
  // Card identity and the expanded catalog live in CharacterCatalog.cs.
  public static partial class Data {
-  public const string Version="0.11.0";
+  public const string Version="0.12.0";
   public const string GameTitle="龙珠爆裂激斗";
+  public const int FrontSlots=3,TeamSlots=6;
   // Keep the original storage identity when the public game title changes.
   public static string DefaultSavePath(string persistentDirectory){return System.IO.Path.Combine(System.IO.Directory.GetParent(persistentDirectory).FullName,"Dragon Idle Demo","profile-v1.json");}
   public static Card Card(string id){return Cards.First(x=>x.Id==id);}
   public static string[] Stages={"荒野修炼","防线试炼","后排突破","极限演武"};
   public static double[] StageScale={.68,.84,1.0,1.17};
-  public static int[][] StageTeams={new[]{0,1,2,3,4,5,6},new[]{2,5,4,3,6,7,0},new[]{0,2,6,1,3,8,7},new[]{1,2,5,6,8,0,4}};
+  public static int[][] StageTeams={new[]{0,1,2,3,4,5},new[]{2,5,4,3,6,7},new[]{0,2,6,1,3,8},new[]{1,2,5,6,8,0}};
   public static Unit Make(string id,int side,int slot,int training,int resonance,string skill,double scale) {
    var c=Card(id);double growth=1+training*.001+resonance*.004;
    var u=new Unit {CardId=id,Name=c.Name,Role=c.Role,Side=side,Slot=slot,MaxHP=c.HP*growth*scale,HP=c.HP*growth*scale,Attack=c.Attack*growth*scale,Defense=c.Defense*growth,Speed=c.Speed,SpecialName=c.Special,UltimateName=c.Ultimate,CooldownLength=c.Cooldown};
@@ -33,11 +34,11 @@ namespace DragonIdle {
   public double Bonus {get{return new[]{.012,.018,.055}[kind];}}
  }
  [Serializable] public partial class Profile {
-  public int schemaVersion=3,Materials=120,Crystals=150,Gems=3,Unlocked=0,Wins=0,Pulls=0,Leader=0,SelectedStage=0;
+  public int schemaVersion=4,Materials=120,Crystals=150,Gems=3,Unlocked=0,Wins=0,Pulls=0,Leader=0,SelectedStage=0;
   public string[] CardIds=Data.Cards.Select(c=>c.Id).ToArray();
   public int[] Training=new int[Data.Cards.Length],Shards=new int[Data.Cards.Length],Resonance=new int[Data.Cards.Length],Policy=new int[Data.Cards.Length];
   public bool[] Owned=Data.Cards.Select(c=>Data.StarterCardIds.Contains(c.Id)).ToArray();
-  public int[] Team={0,1,2,3,4,5,6};
+  public int[] Team={0,1,2,3,4,5};
   public string[] Skill=Enumerable.Repeat("",Data.Cards.Length).ToArray();
   public string[] Skill2=Enumerable.Repeat("",Data.Cards.Length).ToArray();
   public int OfflineBank;
@@ -46,7 +47,8 @@ namespace DragonIdle {
   public bool FirstMission;
   public Profile() {Items.Add(new Item{id="starter-bracer",kind=0,owner=0,slot=0});}
   public List<Unit> CreateTeam(int side=0) {
-   Validate();return Team.Select((i,s)=>BuildCharacter(i,side,s,true)).ToList();
+   Validate();
+   return Enumerable.Range(0,Team.Length).Where(slot=>Team[slot]>=0).Select(slot=>BuildCharacter(Team[slot],side,slot,true)).ToList();
   }
   public Battle NewBattle(int stage,int seed){
    if(stage<0||stage>Unlocked||stage>=Data.Stages.Length)throw new ArgumentException("Stage locked");
@@ -77,9 +79,16 @@ namespace DragonIdle {
   }
   public string Summon(int seed) {
    if(Crystals<50)return "晶石不足，需要 50";
-   Crystals-=50;Pulls++;var rng=new Random(seed);double roll=rng.NextDouble();string rarity=Pulls%20==0||roll<.08?"S":roll<.28?"B":"C";
-   var pool=Enumerable.Range(0,Data.Cards.Length).Where(i=>Data.InClassicPool(Data.Cards[i])&&Data.Cards[i].Rarity==rarity).ToArray();int index=pool[rng.Next(pool.Length)];
-   return "["+rarity+"] "+Acquire(index);
+   var result=DrawSummonCard(seed,Pulls+1,Data.InClassicPool);
+   Crystals-=50;Pulls++;
+   return result;
+  }
+  string DrawSummonCard(int seed,int pull,Func<Card,bool> eligible){
+   var rng=new Random(seed);
+   double roll=rng.NextDouble();
+   string rank=pull%20==0||roll<.08?Data.TopSummonRank(eligible):roll<.28?"B":"C";
+   var pool=Enumerable.Range(0,Data.Cards.Length).Where(index=>eligible(Data.Cards[index])&&Data.Cards[index].Rarity==rank).ToArray();
+   return "["+rank+"] "+Acquire(pool[rng.Next(pool.Length)]);
   }
   public int Offline(long ticks) {
    if(Wins==0)return 0;

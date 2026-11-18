@@ -169,10 +169,10 @@ namespace DragonIdle {
     UText(r,"Owned","",140,14,160,25,16,uiDim,TextAnchor.UpperRight);
     UArt(r,index,16,44,284,278);
     UText(r,"Name",c.Name,16,330,284,30,24,uiPaper);
-    UText(r,"Theme",c.Title+" · "+c.Form,16,363,284,28,17,uiDim);
+    UText(r,"Theme",c.Title,16,363,284,28,17,uiDim);
     UText(r,"Keywords",c.KeywordText,16,398,284,26,16,uiAccent);
    }
-   foreach(var pair in cardButtons){int slot=Array.IndexOf(profile.Team,pair.Key);pair.Value.transform.Find("Owned").GetComponent<UI.Text>().text=slot>=0?"上阵 "+(slot+1):profile.Owned[pair.Key]?"已拥有":"未拥有";}
+   foreach(var pair in cardButtons){int slot=Array.IndexOf(profile.Team,pair.Key);pair.Value.transform.Find("Owned").GetComponent<UI.Text>().text=slot>=0?FormationSlotLabel(slot):profile.Owned[pair.Key]?"候补":"未拥有";}
    if(rebuild&&results.Length==0){
     UText(gridRoot,"EmptyTitle","没有符合条件的角色",350,100,620,45,25,uiPaper,TextAnchor.MiddleCenter);
     UText(gridRoot,"EmptyHelp","尝试清空筛选，或切换到全部图鉴。",350,151,620,40,18,uiDim,TextAnchor.MiddleCenter);

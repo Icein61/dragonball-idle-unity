@@ -83,25 +83,31 @@ namespace DragonIdle {
   }
   void DrawModernTeam(){
    var leader=Data.Cards[profile.Team[profile.Leader]];
-   UText(workshopRoot,"FormationHint","先选阵位，再选角色换入；已上阵角色会交换位置，队长跟随阵位。",0,52,1336,30,18,uiDim);
-   for(int n=0;n<7;n++){
-    int slot=n,i=profile.Team[n];float x=(n<3?n:n-3)*336,y=n<3?94:266;
-    var tile=UPanel(workshopRoot,"Formation"+n,x,y,324,160,profile.Leader==n?InkLight:InkPaper);
-    UPanel(tile,"PortraitMat",8,8,80,104,InkMist);UArt(tile,i,8,8,80,104);
-    UText(tile,"Member",(n<3?"前排 ":"后排 ")+(n+1)+(profile.Leader==n?" · 队长":"")+"\n"+Data.Cards[i].DisplayName,100,10,212,70,18,uiPaper);
-    UText(tile,"Coverage",leader.Captain.Applies(Data.Cards[i])?"受到队长加成":"未匹配队长条件",100,86,212,27,16,uiDim);
-    UButton(tile,"SelectPosition"+n,selectedSlot==n?"已选择":"选择阵位",10,116,145,34,()=>{selectedSlot=slot;DrawWorkshop();},selected:selectedSlot==n);
-    UButton(tile,"Captain"+n,"设为队长",167,116,145,34,()=>WorkChange(()=>profile.Leader=slot,"队长已更新，覆盖按当前名单重算"),false,saveError=="");
+   UText(workshopRoot,"FormationHint","上阵 "+profile.TeamCount+" / "+Data.TeamSlots+"　·　前三后三　·　选中阵位后可换人或下阵",0,52,1336,30,18,uiDim);
+   for(int n=0;n<Data.TeamSlots;n++){
+    int slot=n,i=profile.Team[n];
+    float x=(n%Data.FrontSlots)*448,y=n<Data.FrontSlots?94:266;
+    var tile=UPanel(workshopRoot,"Formation"+n,x,y,432,160,profile.Leader==n?InkLight:InkPaper);
+    UPanel(tile,"PortraitMat",8,8,80,104,InkMist);
+    if(i>=0)UArt(tile,i,8,8,80,104);
+    UText(tile,"Member",FormationSlotLabel(n)+(profile.Leader==n?" · 队长":"")+"\n"+(i<0?"空位":Data.Cards[i].DisplayName),100,10,310,70,18,uiPaper);
+    UText(tile,"Coverage",i<0?"可从下方选择角色":leader.Captain.Applies(Data.Cards[i])?"获得队长加成":"未匹配队长条件",100,86,308,27,16,uiDim);
+    UButton(tile,"SelectPosition"+n,selectedSlot==n?"已选择":"选择阵位",10,116,130,34,()=>{selectedSlot=slot;DrawWorkshop();},selected:selectedSlot==n);
+    UButton(tile,"Captain"+n,"设为队长",150,116,130,34,()=>WorkChange(()=>profile.Leader=slot,"已更新队长"),enabled:i>=0&&saveError=="");
+    UButton(tile,"RemoveMember"+n,"下阵",290,116,130,34,()=>WorkChange(()=>{
+     if(!profile.RemoveMember(slot))throw new InvalidOperationException("队伍至少保留一人");
+    },"角色已下阵"),enabled:i>=0&&profile.TeamCount>1&&saveError=="");
    }
    var coverage=UPanel(workshopRoot,"CaptainSummary",0,432,1330,66,InkDark);
-   UText(coverage,"CaptainRule",leader.LeaderText+"\n覆盖 "+profile.Team.Count(i=>leader.Captain.Applies(Data.Cards[i]))+" / 7 人",14,5,1302,58,18,InkIvory);
+   UText(coverage,"CaptainRule",leader.LeaderText+"\n覆盖 "+profile.Team.Count(i=>i>=0&&leader.Captain.Applies(Data.Cards[i]))+" / "+profile.TeamCount+" 人",14,5,1302,58,18,InkIvory);
    for(int n=0;n<3;n++){int p=n;UButton(workshopRoot,"SaveTeam"+n,"保存阵容 "+(n+1),n*448,510,210,40,()=>WorkChange(()=>profile.SavePreset(p),"已保存阵容 "+(p+1)),false,saveError=="");UButton(workshopRoot,"LoadTeam"+n,"载入阵容 "+(n+1),n*448+222,510,210,40,()=>WorkChange(()=>profile.LoadPreset(p),"已载入阵容 "+(p+1)),false,p<profile.Presets.Count&&saveError=="");}
-   UText(workshopRoot,"ReserveHint","换入阵位 "+(selectedSlot+1)+" · 可用角色",0,566,1336,28,18,uiDim);
+   UText(workshopRoot,"ReserveHint","换入 "+FormationSlotLabel(selectedSlot)+" · 可用角色",0,566,1336,28,18,uiDim);
    workScroll=UScroll(workshopRoot,"ReserveScroll",0,604,1336,112,out workBody);
    var owned=Enumerable.Range(0,Data.Cards.Length).Where(i=>profile.Owned[i]).ToArray();
    for(int n=0;n<owned.Length;n++){int i=owned[n],slot=Array.IndexOf(profile.Team,i);UButton(workBody,"Reserve"+i,Data.Cards[i].DisplayName+"\n"+(slot<0?"候补":"当前阵位 "+(slot+1)),n%4*334,n/4*80,320,68,()=>WorkChange(()=>{if(!profile.SetMember(selectedSlot,i))throw new InvalidOperationException("角色不可上阵");},"已更新阵位 "+(selectedSlot+1)),enabled:saveError=="",selected:slot==selectedSlot);}
    workBody.sizeDelta=new Vector2(1322,Math.Max(112,((owned.Length+3)/4)*80));
   }
+  static string FormationSlotLabel(int slot){return (slot<Data.FrontSlots?"前排 ":"后排 ")+(slot%Data.FrontSlots+1);}
   void DrawModernEquipment(){
    UButton(workBody,"EquipmentTab0","装备与珠子",0,0,450,44,()=>{equipmentTab=0;DrawWorkshop();},selected:equipmentTab==0);
    UButton(workBody,"EquipmentTab1","额外技能",474,0,450,44,()=>{equipmentTab=1;DrawWorkshop();},selected:equipmentTab==1);

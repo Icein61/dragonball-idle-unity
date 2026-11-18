@@ -16,6 +16,9 @@ namespace DragonIdle {
    "素材21 / 晶石9；装备：护腕45% / 战斗服45% / 核心10%；珠20% / 随机残页25%"};
   public static bool InSaiyanPool(Card c){return c.Stage=="赛亚人篇";}
   public static bool InClassicPool(Card c){return PreviousCardIds.Take(20).Contains(c.Id)&&c.Stage=="赛亚人篇";}
+  public static string TopSummonRank(Func<Card,bool> eligible){
+   return Rarities.Last(rank=>Cards.Any(card=>card.Rarity==rank&&eligible(card)));
+  }
  }
  public partial class Profile {
   public int StoryUnlocked,StorySelected,SaiyanPulls;
@@ -59,9 +62,9 @@ namespace DragonIdle {
   }
   public string SummonSaiyan(int seed){
    if(Crystals<50)return "晶石不足，需要50";
-   Crystals-=50;SaiyanPulls++;var rng=new Random(seed);double roll=rng.NextDouble();string rarity=SaiyanPulls%20==0||roll<.08?"S":roll<.28?"B":"C";
-   var pool=Enumerable.Range(0,Data.Cards.Length).Where(i=>Data.InSaiyanPool(Data.Cards[i])&&Data.Cards[i].Rarity==rarity).ToArray();
-   return "["+rarity+"] "+Acquire(pool[rng.Next(pool.Length)]);
+   var result=DrawSummonCard(seed,SaiyanPulls+1,Data.InSaiyanPool);
+   Crystals-=50;SaiyanPulls++;
+   return result;
   }
  }
 }

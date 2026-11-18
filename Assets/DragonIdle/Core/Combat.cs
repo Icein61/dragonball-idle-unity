@@ -41,12 +41,12 @@ namespace DragonIdle {
   int chain;
   public Battle(IEnumerable<Unit> units,int seed) {
    Units=units.ToList(); Random=new Random(seed);
-   if(Units.GroupBy(x=>x.Side*10+x.Slot).Any(g=>g.Count()>1)||Units.Any(x=>x.Slot<0||x.Slot>6)) throw new ArgumentException("Invalid formation");
+   if(Units.GroupBy(x=>x.Side*Data.TeamSlots+x.Slot).Any(g=>g.Count()>1)||Units.Any(x=>x.Side<0||x.Side>1||x.Slot<0||x.Slot>=Data.TeamSlots)) throw new ArgumentException("Invalid formation");
    if(Units.GroupBy(x=>x.Side).Any(g=>g.GroupBy(x=>x.CardId).Any(c=>c.Count()>1))) throw new ArgumentException("Duplicate card");
-   foreach(var u in Units)Data.GokuLink(u,Units.Where(x=>x.Side==u.Side).Select(x=>x.CardId));
+   foreach(var u in Units)Data.ApplyTeamDesign(u,Units.Where(x=>x.Side==u.Side).Select(x=>x.CardId));
   }
   public int Result {get {if(!Units.Any(x=>x.Side==0&&x.Alive))return -1;if(!Units.Any(x=>x.Side==1&&x.Alive))return 1;return 0;}}
-  public static double Y(int slot) {return slot<3 ? (slot-1)*1.3 : (slot-4-1.5)*1.1;}
+  public static double Y(int slot) {return (slot%Data.FrontSlots-1)*1.3;}
   public Unit Target(Unit actor,bool rear) {
    var candidates=Units.Where(x=>x.Side!=actor.Side&&x.Alive).ToList();
    var row=candidates.Where(x=>rear?x.Slot>=3:x.Slot<3).ToList();
@@ -114,7 +114,15 @@ namespace DragonIdle {
   }
   BattleEvent Act(Unit actor,Move move) {
    Events++;
-   if(Data.Reworked(actor.CardId)&&!(move==Move.Special&&actor.SpecialReplaced))return ReworkAct(actor,move);
+   var e=Data.Reworked(actor.CardId)&&!(move==Move.Special&&actor.SpecialReplaced)?ReworkAct(actor,move):LegacyAct(actor,move);
+   if(actor.CardId=="goku-saiyan-kaioken-v020"&&actor.Alive&&e.HealthDamage>0){
+    e.Healing=Math.Min(actor.MaxHP-actor.HP,e.HealthDamage*Data.LifeSteal);
+    actor.HP+=e.Healing;
+    if(e.Healing>0)e.Text+=" · 生命偷取 +"+e.Healing.ToString("0.#");
+   }
+   return e;
+  }
+  BattleEvent LegacyAct(Unit actor,Move move) {
    string specialRole=actor.SpecialRole??actor.Role;
    string k=Data.Kit(actor.CardId);
    if(move==Move.Special&&actor.SpecialReplaced)k="";

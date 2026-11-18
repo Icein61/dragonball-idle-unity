@@ -30,10 +30,11 @@ namespace DragonIdle {
   void Load(){
    try{if(File.Exists(savePath)){
     profile=JsonUtility.FromJson<Profile>(File.ReadAllText(savePath));if(profile==null)throw new Exception("空存档");
-    bool migrating=profile.NeedsRosterMigration;
-    if(migrating)File.Copy(savePath,savePath+(profile.schemaVersion<3?".pre-v041-":".pre-v080-")+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak",false);
+    bool rosterMigration=profile.NeedsRosterMigration,formationMigration=profile.NeedsFormationMigration;
+    if(rosterMigration||formationMigration)File.Copy(savePath,savePath+(profile.schemaVersion<3?".pre-v041-":rosterMigration?".pre-v080-":".pre-v0120-")+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak",false);
     profile.Normalize();profile.CreateTeam();
-    if(migrating)notice="已更新角色目录。退役卡成长已归档，装备已退回背包，阵容已补齐。";
+    if(formationMigration)notice="已升级为前三后三。原成员仍在收藏中。";
+    if(rosterMigration)notice+=" 退役卡成长已归档，装备已退回背包。";
    }else{profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;Save();}}
    catch(Exception ex){profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;saveError="存档读取失败，原文件保留。请检查备份："+ex.Message;}
   }

@@ -19,23 +19,25 @@ namespace DragonIdle {
    UButton(summonRoot,"ClassicPool","基础常驻",242,67,230,44,()=>SelectSummonPool(false),selected:!saiyanPool);
 
    var pool=UPanel(summonRoot,"PoolOverview",0,131,755,537,InkPaper);
-   int count=Data.Cards.Count(saiyanPool?(Func<Card,bool>)Data.InSaiyanPool:Data.InClassicPool);
+   Func<Card,bool> eligible=saiyanPool?(Func<Card,bool>)Data.InSaiyanPool:Data.InClassicPool;
+   int count=Data.Cards.Count(eligible);
+   string topRank=Data.TopSummonRank(eligible);
    int pulls=saiyanPool?profile.SaiyanPulls:profile.Pulls;
    string result=saiyanPool?saiyanSummonResult:classicSummonResult;
    int cycle=pulls%20;
    UText(pool,"PoolTitle",saiyanPool?"赛亚人篇":"基础常驻",28,23,530,40,27,InkText);
    UText(pool,"PoolCount",count+" 张角色 · 同级均分",29,75,680,32,19,uiDim);
-   string[] ranks={"C","B","S"},rates={"72%","20%","8%"};
+   string[] ranks={"C","B",topRank},rates={"72%","20%","8%"};
    for(int i=0;i<ranks.Length;i++){
     int x=28+i*237;
     var tile=UPanel(pool,"PoolRate"+ranks[i],x,134,223,99,InkLight);
     DrawRarityBadge(tile,ranks[i],10,14,79,69);
     UText(tile,"Rate",rates[i],88,24,122,50,24,InkText,TextAnchor.MiddleCenter);
    }
-   UText(pool,"PityReadout","距保底 S 还需 "+(20-cycle)+" 次",28,270,680,35,21,InkText);
+   UText(pool,"PityReadout","距保底 "+topRank+" 还需 "+(20-cycle)+" 次",28,270,680,35,21,InkText);
    UPanel(pool,"PityTrack",28,321,698,8,InkBorder);
    if(cycle>0)UPanel(pool,"PityFill",28,321,698f*cycle/20,8,InkCharge);
-   UText(pool,"PityRules","本池累计 "+pulls+" 次。两个卡池各自计数，每第 20 次保证 S，提前获得 S 时进度继续累计。",28,354,698,72,19,uiDim);
+   UText(pool,"PityRules","本池累计 "+pulls+" 次 · 每第 20 次保证 "+topRank+" · 提前获得不重置计数",28,354,698,72,19,uiDim);
    UText(pool,"DuplicateRule","重复卡转为该卡的专属成长资源。",28,454,690,44,19,uiDim);
 
    var pull=UPanel(summonRoot,"SummonAction",778,131,558,537,InkDark);

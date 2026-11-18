@@ -103,7 +103,7 @@ namespace DragonIdle {
    AssertSmoke(summonRoot.gameObject.activeInHierarchy&&!homeRoot.gameObject.activeSelf&&!workshopRoot.gameObject.activeSelf&&
     GalleryTestButton("SaiyanPool").targetGraphic.color==InkDark,"Summon did not isolate its page or mark the active pool");
    GalleryTestButton("SummonOnce").onClick.Invoke();Load();
-   AssertSmoke(profile.SaiyanPulls==20&&profile.Pulls==3&&profile.Crystals==50&&saiyanSummonResult.StartsWith("[S]"),"Summon pity result or save failed");
+   AssertSmoke(profile.SaiyanPulls==20&&profile.Pulls==3&&profile.Crystals==50&&saiyanSummonResult.StartsWith("[A]"),"Summon pity result or save failed");
    GalleryTestButton("ClassicPool").onClick.Invoke();
    GalleryTestButton("SummonOnce").onClick.Invoke();Load();
    AssertSmoke(profile.SaiyanPulls==20&&profile.Pulls==4&&profile.Crystals==0&&!GalleryTestButton("SummonOnce").interactable,"Classic pool spent or counted incorrectly");
