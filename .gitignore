@@ -37,6 +37,7 @@ artifacts/
 LocalSaves/
 # Local editable, image-heavy design workbooks; maps and provenance stay versioned.
 outputs/character-rebuild-20261118/*.xlsx
+outputs/character-rework-20261116/角色设计简表-新版.xlsx
 # OS
 .DS_Store
 Thumbs.db
