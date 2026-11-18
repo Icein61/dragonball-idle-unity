@@ -35,21 +35,6 @@ namespace DragonIdle {
    return panel;
   }
 
-  UI.Button InkButton(Transform parent,string name,string label,float x,float y,float w,float h,Action click,bool primary=false,bool enabled=true) {
-   var control=UButton(parent,name,label,x,y,w,h,click,primary,enabled);
-   var image=(UI.Image)control.targetGraphic;
-   image.pixelsPerUnitMultiplier=2;
-   image.color=!enabled?InkDisabled:primary?InkGold:InkLight;
-   control.GetComponentInChildren<UI.Text>().color=primary&&enabled?InkWarmText:InkText;
-   control.GetComponent<UI.Outline>().effectColor=InkCharge;
-   var colors=control.colors;
-   colors.highlightedColor=new Color(.96f,.96f,.96f);
-   colors.selectedColor=new Color(.95f,.95f,.95f);
-   colors.disabledColor=Color.white;
-   control.colors=colors;
-   return control;
-  }
-
   Sprite InkRingSprite() {
    if(inkRing!=null)return inkRing;
    const int size=96;

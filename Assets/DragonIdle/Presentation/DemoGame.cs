@@ -8,16 +8,14 @@ namespace DragonIdle {
  public partial class DemoGame:MonoBehaviour {
   Profile profile;Battle battle;BattleEvent last;
   string page="主页",notice="",reward="",savePath,saveError="";
-  int selectedCard,selectedSlot,selectedSkillSlot,seed=1024,rate=1;bool running,settled,autoRepeat,paused;
-  float clock,fx,repeatTimer,saveClock;Font font;Texture2D gradient,disc;
-  List<string> log=new List<string>();Vector2 bagScroll;
-  readonly Color bg=new Color(.035f,.055f,.09f), panel=new Color(.07f,.10f,.15f), muted=new Color(.53f,.62f,.73f),gold=new Color(1,.72f,.30f),ink=new Color(.90f,.94f,1);
-  GUIStyle text,button;
+  int selectedCard,selectedSlot,seed=1024,rate=1;bool running,settled,autoRepeat,paused;
+  float clock,fx,repeatTimer,saveClock;Font font;Texture2D disc;
+  List<string> log=new List<string>();
+  GUIStyle text;
   [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]static void Boot(){if(FindObjectOfType<DemoGame>()==null)new GameObject("Dragon Idle").AddComponent<DemoGame>();}
   void Awake(){
    Application.targetFrameRate=60;Application.runInBackground=true;
    font=Font.CreateDynamicFontFromOSFont(new[]{"Microsoft YaHei","SimHei","Arial"},20);
-   gradient=new Texture2D(1,256);for(int i=0;i<256;i++)gradient.SetPixel(0,i,Color.Lerp(new Color(.025f,.04f,.07f),new Color(.12f,.19f,.25f),i/255f));gradient.Apply();
    disc=new Texture2D(64,64);for(int y=0;y<64;y++)for(int x=0;x<64;x++)disc.SetPixel(x,y,Vector2.Distance(new Vector2(x,y),new Vector2(31.5f,31.5f))<31?Color.white:Color.clear);disc.Apply();
    string[] args=Environment.GetCommandLineArgs();
    int saveArg=Array.IndexOf(args,"-savePath");savePath=saveArg>=0&&saveArg+1<args.Length?args[saveArg+1]:Data.DefaultSavePath(Application.persistentDataPath);
@@ -82,49 +80,21 @@ namespace DragonIdle {
   void Styles(){
    if(text!=null)return;
    text=new GUIStyle(GUI.skin.label){font=font,fontSize=18,wordWrap=true,richText=false};
-   button=new GUIStyle(GUI.skin.button){font=font,fontSize=17,alignment=TextAnchor.MiddleCenter};
-   button.normal.background=Texture2D.whiteTexture;button.hover.background=Texture2D.whiteTexture;button.active.background=Texture2D.whiteTexture;
-   button.normal.textColor=ink;button.hover.textColor=Color.white;button.active.textColor=Color.white;
   }
   void Box(float x,float y,float w,float h,Color c){GUI.color=c;GUI.DrawTexture(new Rect(x,y,w,h),Texture2D.whiteTexture);GUI.color=Color.white;}
   void Circle(float x,float y,float size,Color c){GUI.color=c;GUI.DrawTexture(new Rect(x,y,size,size),disc);GUI.color=Color.white;}
-  void Label(float x,float y,float w,float h,string s,int size=18,Color? c=null){text.fontSize=size;text.normal.textColor=c??ink;GUI.Label(new Rect(x,y,w,h),s,text);}
-  bool Button(float x,float y,float w,float h,string s,bool active=false,bool enabled=true){
-   bool old=GUI.enabled;GUI.enabled=old&&enabled;GUI.backgroundColor=active?new Color(.63f,.36f,.10f):new Color(.13f,.19f,.27f);
-   bool clicked=GUI.Button(new Rect(x,y,w,h),s,button);GUI.enabled=old;GUI.backgroundColor=Color.white;if(clicked)PlayUISound(0);return clicked;
-  }
-  void Bar(float x,float y,float w,float h,double value,Color c){Box(x,y,w,h,new Color(.02f,.035f,.055f));Box(x,y,w*(float)Math.Max(0,Math.Min(1,value)),h,c);}
+  void Label(float x,float y,float w,float h,string s,int size=18,Color? c=null){text.fontSize=size;text.normal.textColor=c??InkIvory;GUI.Label(new Rect(x,y,w,h),s,text);}
   Color CardColor(int i){Color c;ColorUtility.TryParseHtmlString("#"+Data.Cards[i].Color,out c);return c;}
   string RoleText(string role){switch(role){case "tank":return "守护";case "healer":return "治疗";case "support":return "支援";case "control":return "控制";case "sniper":return "后排突破";default:return "均衡输出";}}
-  string SkillText(string id){return Data.SkillName(id);}
   string EffectText(string id){return id=="attack"?"攻击强化":id=="defense"?"防御强化":id=="damage"?"伤害强化":id=="speed"?"速度修正":id=="amplify"?"增幅":id;}
   void Line(Vector2 a,Vector2 b,float width,Color c){
    Matrix4x4 m=GUI.matrix;float angle=Mathf.Atan2(b.y-a.y,b.x-a.x)*Mathf.Rad2Deg;GUIUtility.RotateAroundPivot(angle,a);Box(a.x,a.y,(b-a).magnitude,width,c);GUI.matrix=m;
   }
   void OnGUI(){
-   if(IsModernPage(page))return;
+   if(page!="挑战")return;
    Styles();float scale=Math.Min(Screen.width/1600f,Screen.height/900f);
    GUI.matrix=Matrix4x4.TRS(new Vector3((Screen.width-1600*scale)/2,(Screen.height-900*scale)/2,0),Quaternion.identity,new Vector3(scale,scale,1));
-   if(page=="挑战"){DrawInkBattlePage();return;}
-   GUI.DrawTexture(new Rect(0,0,1600,900),gradient);
-   Box(0,0,1600,90,bg);Box(0,90,190,810,new Color(.045f,.07f,.11f));Box(0,88,1600,2,new Color(.25f,.22f,.16f));
-   Label(26,20,320,40,Data.GameTitle,29,gold);Label(360,34,350,30,"技术 DEMO  /  v"+Data.Version,16,muted);
-   Label(890,30,670,36,"素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems+"     胜场  "+profile.Wins,19);
-   string[] pages={"挑战","角色","编队","养成","装备","召唤","说明"};
-   for(int i=0;i<pages.Length;i++)if(Button(18,126+i*68,154,50,pages[i],page==pages[i],!running||pages[i]=="挑战")){page=pages[i];notice="";if(page!="挑战")autoRepeat=false;}
-   Label(22,620,144,130,"自动行动\n战前构筑\n离线单机",18,muted);
-   if(Button(18,730,154,46,"返回主页",false,!running))NavigateGallery("主页");
-   Label(22,810,145,70,"C风格 · 2D演出\n观感待验收",14,gold);
-   if(page=="编队")DrawTeam();
-   else if(page=="养成")DrawTraining();
-   else if(page=="装备")DrawEquipment();
-   else if(page=="召唤")DrawSummon();
-   else DrawAbout();
-   if(notice!=""){Box(220,815,1340,58,panel);Label(238,826,1290,45,notice,17,gold);}
-   if(saveError!="")Label(220,760,1300,50,saveError,16,Color.red);
-  }
-  void Heading(string title,string subtitle){
-   Label(224,112,1000,44,title,30);Label(226,162,1280,45,subtitle,17,muted);
+   DrawInkBattlePage();
   }
   void DrawInkBattlePage(){
    Box(0,0,1600,900,InkMist);
@@ -133,9 +103,9 @@ namespace DragonIdle {
    Box(0,88,1600,2,InkBorder);
    Label(26,20,355,42,Data.GameTitle,29,InkIvory);
    Label(955,28,610,38,"素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems,19,InkOnDark);
-   string[] routes={"挑战","角色","编队","养成","装备","召唤","说明"};
-   for(int i=0;i<routes.Length;i++){
-    string target=routes[i];
+
+   for(int i=0;i<FeatureRoutes.Length;i++){
+    string target=FeatureRoutes[i];
     if(InkGuiButton(18,126+i*62,154,45,target,enabled:!running||target=="挑战",selected:target=="挑战")&&target!="挑战"){
      NavigateGallery(target);
      return;
@@ -180,79 +150,6 @@ namespace DragonIdle {
     Label(241,808,1010,39,feedback,17,InkIvory);
    }
   }
-  void CardTabs(){
-   var owned=Enumerable.Range(0,Data.Cards.Length).Where(i=>profile.Owned[i]).ToArray();
-   if(selectedCard<0||selectedCard>=profile.Owned.Length||!profile.Owned[selectedCard])selectedCard=owned[0];int pos=Array.IndexOf(owned,selectedCard);
-   if(Button(224,214,150,42,"上一位"))selectedCard=owned[(pos+owned.Length-1)%owned.Length];
-   Label(395,220,700,36,Data.Cards[selectedCard].DisplayName+"  /  "+(pos+1)+" / "+owned.Length,22,gold);
-   if(Button(1100,214,150,42,"下一位"))selectedCard=owned[(pos+1)%owned.Length];
-   if(Button(1270,214,290,42,"返回角色与图鉴"))page="角色";
-  }
-  void DrawTraining(){
-   Heading("角色养成","每次修炼提供细小积累；演示数值尚未完成长期平衡。所有角色均为机制测试卡。");CardTabs();
-   int i=selectedCard;var c=Data.Cards[i];var u=Data.Make(c.Id,0,0,profile.Training[i],profile.Resonance[i],profile.Skill[i]=="pierce"||profile.Skill2[i]=="pierce"?"pierce":"",1);
-   Box(224,280,410,480,panel);DrawPortrait(i,new Rect(315,292,225,275));
-   Label(250,570,360,70,c.DisplayName,25);Label(250,635,360,40,c.Stage+" · "+c.Form,18,muted);
-   Label(250,680,360,70,c.KeywordText+"\n完整队长条件见角色详情",16,gold);
-   Box(655,280,910,480,panel);
-   Label(680,305,840,45,"生命 "+u.MaxHP.ToString("0")+"    攻击 "+u.Attack.ToString("0.0")+"    防御 "+u.Defense.ToString("0.0")+"    速度 "+u.Speed.ToString("0"),23);
-   Label(680,360,840,98,"绝招："+u.SpecialName+" / 冷却 "+u.CooldownLength+" 次正常出手\n必杀："+u.UltimateName+" / 消耗 100 怒气，额外行动\n被动："+c.PassiveText,19);
-   if(Button(680,475,400,48,"修炼 "+profile.Training[i]+" · 消耗 "+(30+profile.Training[i]/10)+" 素材")){
-    Change(()=>notice=profile.Train(i)?"修炼完成：基础属性 +0.1%。":"素材不足");
-   }
-   if(Button(1100,475,430,48,"共鸣 "+profile.Resonance[i]+" · 专属资源 "+profile.Shards[i]))Change(()=>notice=profile.ResonanceUp(i)?"共鸣提升：基础属性 +0.4%。":"需要 "+(3+profile.Resonance[i])+" 份本卡专属资源");
-   Label(680,545,840,34,"战前必杀策略",20,gold);
-   string[] policies={"怒气足够即释放","自身生命 ≤ 60%","目标生命 ≤ 50%"};
-   for(int p=0;p<3;p++){int policy=p;if(Button(680+p*285,591,270,43,policies[p],profile.Policy[i]==p))Change(()=>profile.Policy[i]=policy);}
-   Label(680,667,840,65,"修炼增加永久属性；战斗内强化按来源独立到期。\n完整分支成长、更多技能条件将在后续版本扩展。",17,muted);
-  }
-  void DrawEquipment(){
-   Heading("装备工坊","3 个装备槽 · 珠子可无损拆卸 · 绝招替换不改变身份标签");CardTabs();
-   int card=selectedCard;
-   for(int slot=0;slot<3;slot++){
-    int s=slot;float x=224+slot*445;var item=profile.Items.FirstOrDefault(a=>a.owner==card&&a.slot==s);
-    Box(x,280,425,157,panel);Label(x+15,294,390,33,"装备 "+(slot+1)+" / "+(item==null?"空":item.Name),21,item!=null&&item.kind==2?gold:ink);
-    if(item!=null){
-     Label(x+15,332,390,28,(item.kind==1?"防御":"攻击强化")+" +"+(item.Bonus*100).ToString("0.#")+"% · 1 珠孔",16,muted);
-     if(Button(x+15,378,190,40,item.gem?"拆下攻击珠":"镶嵌攻击珠",false,item.gem||profile.Gems>0))Change(()=>{if(item.gem){item.gem=false;profile.Gems++;}else{item.gem=true;profile.Gems--;}});
-     if(Button(x+220,378,190,40,"卸下装备"))Change(()=>item.owner=-1);
-    }
-   }
-   Label(224,457,480,34,"额外技能 · 最多 1 个绝招替换",20,gold);
-   if(Button(750,451,390,36,"技能槽 1："+SkillText(profile.Skill[card]),selectedSkillSlot==0))selectedSkillSlot=0;
-   if(Button(1160,451,390,36,"技能槽 2："+SkillText(profile.Skill2[card]),selectedSkillSlot==1))selectedSkillSlot=1;
-   for(int k=0;k<4;k++){
-    int skill=k;string id=Data.SkillIds[k];bool unlocked=profile.CanUseSkill(id);
-    string title=k==0?"卸下技能":Data.SkillName(id)+(unlocked?" · 可装备":" · 残页 "+profile.SkillPages[k]+"/3 解锁");
-    if(Button(224+k*337,498,321,40,title,(selectedSkillSlot==0?profile.Skill[card]:profile.Skill2[card])==id,unlocked||profile.SkillPages[k]>=3))Change(()=>{
-     if(!unlocked){profile.UnlockSkill(skill);notice="已解锁 "+Data.SkillName(id)+"，点击可装备。";}
-     else notice=profile.SetSkill(card,selectedSkillSlot,id)?Data.SkillDescription(id):"同一技能不能重复装备。";
-    });
-    if(new Rect(224+k*337,498,321,40).Contains(Event.current.mousePosition))Label(224,541,1330,26,Data.SkillDescription(id),15,gold);
-   }
-   DrawInventory(card);
-  }
-  void DrawSummon(){
-   Heading("时空召唤","Demo 测试卡池 · 完全离线 · 无付费入口");
-   Box(224,230,1340,520,panel);
-   if(Button(270,248,340,44,"赛亚人篇 · 9卡",saiyanPool))saiyanPool=true;
-   if(Button(1160,248,340,44,"基础常驻 · 9卡",!saiyanPool))saiyanPool=false;
-   Circle(740,282,180,new Color(.8f,.45f,.16f));Circle(758,300,144,gold);Label(796,337,150,100,"★",67,bg);
-   Label(290,510,1190,47,"每次 50 晶石 · C 72% / B 20% / S 8% · 每第 20 次保证 S",24,gold);
-   Label(290,570,1180,70,(saiyanPool?"赛亚人篇9卡":"基础常驻9卡")+"，同级均分；两池均仅含赛亚人篇；原两池保底分别保留，提前出S不重置。重复卡转本卡专属资源。\n本池召唤 "+(saiyanPool?profile.SaiyanPulls:profile.Pulls)+" 次；距保证S "+(20-(saiyanPool?profile.SaiyanPulls:profile.Pulls)%20)+" 次。详情见角色图鉴。",19);
-   if(Button(655,658,480,58,"召唤一次",true,profile.Crystals>=50))Change(()=>notice=saiyanPool?profile.SummonSaiyan(++seed):profile.Summon(++seed));
-  }
-  void DrawAbout(){
-   Heading("技术 Demo / 开发边界","先验证战斗规则和可玩循环，再迭代正式角色与美术");
-   Box(224,225,1340,560,panel);
-   Label(250,250,1270,220,"已开放：9 张赛亚人篇卡、镜像修炼4关、角色图鉴、独立卡片身份、多标签队长、候补换人、3 组阵容预设、定向掉落、技能残页与收藏筛选。\n\n角色阶段、稀有度与技能数值是可调整默认。全角色使用 C 风格 AI 立绘与 12 姿态 2D 小人，已接入进攻、蓄气、闪避、受击、倒地及招式特效。当前为关键姿态动画；没有3D模型，观感与试听待验收。旧存档按 CardId 迁移，迁移前自动保留独立备份。",21);
-   int offline=profile.OfflineBank;
-   Label(250,510,1250,75,"离线素材：每小时 12，最多累计 12 小时；至少通关一次后开放。\n当前可领取 "+offline+"。本版本离线只提供素材，物品掉落后续扩展。",19,muted);
-   if(Button(250,610,360,47,"领取离线素材",false,offline>0))Change(()=>{int count=profile.OfflineBank;profile.Materials+=count;profile.OfflineBank=0;notice="已领取离线素材 "+count;});
-   if(Button(635,610,360,47,"首胜任务 · 领取 50 晶石",false,profile.Wins>0&&!profile.FirstMission))Change(()=>{profile.Crystals+=50;profile.FirstMission=true;notice="首胜任务奖励已领取";});
-   if(Button(1020,610,360,47,"打开存档目录"))Application.OpenURL(Path.GetDirectoryName(savePath));
-   Label(250,690,1270,65,"存档："+savePath+"\n操作：鼠标选择；战斗时空格暂停；可调 1/2/4 倍演出。",15,muted);
-  }
   IEnumerator Smoke(string[] args){
    int o=Array.IndexOf(args,"-smokeOut");string dir=o>=0?args[o+1]:Path.Combine(Application.persistentDataPath,"smoke");Directory.CreateDirectory(dir);
    yield return new WaitForSeconds(1);ScreenCapture.CaptureScreenshot(Path.Combine(dir,"01-menu.png"));yield return new WaitForSeconds(.5f);
@@ -268,7 +165,6 @@ namespace DragonIdle {
    page="装备";yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"05-equipment.png"));yield return new WaitForSeconds(.5f);
    page="编队";yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"06-team.png"));yield return new WaitForSeconds(.5f);
    page="召唤";yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"07-summon.png"));yield return new WaitForSeconds(.5f);
-   page="说明";yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"08-about.png"));yield return new WaitForSeconds(.5f);
    File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"version\":\""+Data.Version+"\",\"battleWon\":true,\"saveRoundTrip\":true,\"events\":"+events+"}");
    Application.Quit(0);
   }

@@ -57,26 +57,40 @@ namespace DragonIdle {
    UText(next,"HomeJourneyLabel","继续剧情",26,22,420,29,17,InkOnDark);
    UText(next,"HomeChapter",Data.StoryStages[chapter],26,59,740,53,32,InkIvory);
    UText(next,"HomeChapterBrief",Data.StoryBriefs[chapter],26,118,739,51,19,InkOnDark);
-   InkButton(next,"HomeContinue","前往剧情",25,179,310,48,()=>{
+   UButton(next,"HomeContinue","前往剧情",25,179,310,48,()=>{
     if(Change(()=>profile.StorySelected=chapter)){storyMode=true;battle=null;settled=false;ClearBattlePresentation();NavigateGallery("挑战");}else GalleryNotice(notice,false);
    },true,saveError=="");
    var bank=InkPanel(homeRoot,"HomeBank",758,422,802,150,InkPaper);
    UText(bank,"HomeBankTitle","离线修炼",25,21,310,32,22,InkText);
    UText(bank,"HomeBankCount","待领取素材  "+profile.OfflineBank,25,69,400,37,20,InkMuted);
    string bankLabel=profile.OfflineBank>0?"领取 "+profile.OfflineBank+" 素材":profile.Wins==0?"首胜后开启积累":"暂无待领取素材";
-   InkButton(bank,"HomeClaim",bankLabel,448,57,329,51,()=>{
+   UButton(bank,"HomeClaim",bankLabel,448,57,329,51,()=>{
     if(Change(()=>{if(profile.OfflineBank<=0)throw new InvalidOperationException("暂无可领取素材");profile.Materials+=profile.OfflineBank;profile.OfflineBank=0;}))GalleryNotice("离线素材已存入背包");else GalleryNotice(notice,false);
     DrawHome();
    },false,profile.OfflineBank>0&&saveError=="");
-   InkButton(homeRoot,"HomeSettings","声音与显示",758,600,310,52,ShowAudioSettings);
+   UButton(homeRoot,"HomeSettings","声音与显示",758,600,310,52,ShowAudioSettings);
+   string firstWin=profile.FirstMission?"首胜奖励已领取":profile.Wins>0?"领取首胜奖励 · 50 晶石":"首胜后可领取 50 晶石";
+   UButton(homeRoot,"HomeFirstWin",firstWin,1088,600,472,52,ClaimFirstWin,
+    primary:profile.Wins>0&&!profile.FirstMission,enabled:profile.Wins>0&&!profile.FirstMission&&saveError=="");
    var toast=InkPanel(homeRoot,"HomeNoticePanel",40,684,1520,55,InkDark);
    homeNotice=UText(toast,"HomeNotice","",18,7,1484,44,18,InkIvory);
    InkPanel(homeRoot,"HomeDock",0,766,1600,134,InkPaper,true);
-   string[] names={"角色","编队","养成","装备","召唤","说明"},titles={"人物志","队伍编成","角色养成","装备工坊","时空召唤","帮助与记录"};
-   string[] help={"收藏与招式","阵位与队长","修炼与策略","搭配与比较","寻找新同伴","玩法与存档"};
-   for(int n=0;n<names.Length;n++){string target=names[n];float x=40+n*256;InkButton(homeRoot,"HomeNav"+target,titles[n],x,786,240,62,()=>NavigateGallery(target));UText(homeRoot,"HomeNavHint"+n,help[n],x,855,240,27,16,InkMuted,TextAnchor.MiddleCenter);}
+   string[] names={"角色","编队","养成","装备","召唤"},titles={"人物志","队伍编成","角色养成","装备工坊","时空召唤"};
+   string[] help={"收藏与招式","阵位与队长","修炼与策略","搭配与比较","寻找新同伴"};
+   for(int n=0;n<names.Length;n++){
+    string target=names[n];
+    float x=40+n*308;
+    UButton(homeRoot,"HomeNav"+target,titles[n],x,786,288,62,()=>NavigateGallery(target));
+    UText(homeRoot,"HomeNavHint"+n,help[n],x,855,288,27,16,InkMuted,TextAnchor.MiddleCenter);
+   }
    RefreshHomeNotice();
    if(EventSystem.current!=null){var b=homeRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(x=>x.name==focus&&x.interactable);EventSystem.current.SetSelectedGameObject(b!=null?b.gameObject:ActiveBackButton(homeRoot,"HomeNav角色"));}
+  }
+  void ClaimFirstWin(){
+   if(profile.Wins==0||profile.FirstMission||saveError!="")return;
+   if(Change(()=>{profile.Crystals+=50;profile.FirstMission=true;}))GalleryNotice("已领取首胜奖励 · 晶石 +50");
+   else GalleryNotice(notice,false);
+   DrawHome();
   }
   void RefreshHomeNotice(){if(homeNotice!=null){homeNotice.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"从人物志了解同伴，或前往剧情开始冒险。";}}
   void DrawShellLoading(){

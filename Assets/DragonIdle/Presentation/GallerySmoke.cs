@@ -24,7 +24,10 @@ namespace DragonIdle {
    AssertSmoke(!galleryDetailOpen&&galleryListRoot.gameObject.activeSelf&&cardButtons[0]==cachedCard&&gridRoot.GetChild(0)==cachedGrid&&Math.Abs(priorScroll-galleryScroll.verticalNormalizedPosition)<.001,"Returning rebuilt card grid or lost scroll");
    AssertSmoke(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject==cachedCard.gameObject,"Return did not restore keyboard focus");
    AssertSmoke(cachedCard.targetGraphic is UI.Image&&((UI.Image)cachedCard.targetGraphic).type==UI.Image.Type.Sliced,"Rounded card surface missing");
-   AssertSmoke(ThemeContrast(uiPaper,uiPanel)>=4.5&&ThemeContrast(uiDim,uiPanel)>=4.5&&ThemeContrast(Color.white,uiAccent)>=4.5,"Enabled theme text contrast below target");
+   AssertSmoke(ThemeContrast(uiPaper,uiPanel)>=4.5&&ThemeContrast(uiDim,InkMist)>=4.5&&
+    ThemeContrast(InkIvory,InkDark)>=4.5&&ThemeContrast(InkWarmText,InkGold)>=4.5,"Ink text contrast below target");
+   AssertSmoke(mineTab.targetGraphic.color==InkLight&&allTab.targetGraphic.color==InkDark&&
+    ((UI.Image)allTab.targetGraphic).pixelsPerUnitMultiplier==2,"Ink tab states or button radius missing");
    RefreshGallery(false);AssertSmoke(cardButtons[0]==cachedCard,"Unchanged refresh rebuilt card nodes");
    foreach(var pair in cardButtons){var art=pair.Value.GetComponentInChildren<UI.RawImage>();AssertSmoke(art!=null&&Math.Abs(art.rectTransform.rect.width/art.rectTransform.rect.height-PortraitAspect(pair.Key))<.001&&art.uvRect==new Rect(0,0,1,1),"Card portrait stretched or cropped");}
    foreach(var viewport in new[]{new Vector2(1280,720),new Vector2(1600,900),new Vector2(1920,1080),new Vector2(2560,1080)}){

@@ -91,7 +91,7 @@ namespace DragonIdle {
    }
    if(last.Move==Move.Ultimate&&p<.30f){
     int index=Data.Index(actor.CardId);Box(680,304,150,188,new Color(.025f,.045f,.07f,.90f));Box(680,304,150,2,color);
-    PaintPortrait(index,new Rect(694,311,122,140));Label(690,457,130,33,actor.UltimateName,15,gold);
+    PaintPortrait(index,new Rect(694,311,122,140));Label(690,457,130,33,actor.UltimateName,15,InkGold);
    }
   }
  }

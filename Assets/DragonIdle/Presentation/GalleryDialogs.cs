@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,7 +44,7 @@ namespace DragonIdle {
     UButton(body,"Option"+n,labels[n],n%2*337,n/2*58,324,46,()=>{
      if(kind==0)catalog.Rarity=value;else if(kind==1)catalog.Role=value;else if(kind==2)catalog.Tag=value;else catalog.Sort=index;
      CloseGalleryDialog();RefreshGallery(true);
-    },active);
+    },selected:active);
    }
   }
   void ShowFormationPicker(int i){
@@ -57,7 +58,7 @@ namespace DragonIdle {
      if(Change(()=>{if(!profile.SetMember(slot,i))throw new InvalidOperationException("角色不可上阵");battle=null;})){
       selectedSlot=slot;CloseGalleryDialog();GalleryNotice(c.Name+" 已进入阵位 "+(slot+1)+(existing>=0?"；已与 "+old+" 交换位置":"；"+old+" 回到候补"));RefreshGallery(false);
      }else GalleryNotice(notice,false);
-    },s==existing,saveError=="");
+    },enabled:saveError=="",selected:s==existing);
    }
   }
   void ShowAcquisition(int i){
@@ -69,22 +70,22 @@ namespace DragonIdle {
   }
   UI.Slider AudioSlider(Transform parent,string title,float y,float value,Action<float> update){
    var label=UText(parent,title+"Label",title+"  "+Mathf.RoundToInt(value*100)+"%",28,y,220,34,19,uiPaper);
-   var track=UPanel(parent,title+"Slider",260,y+12,440,8,new Color(.22f,.27f,.30f),true);
-   var handle=UPanel(track,"Handle",0,0,18,26,uiAccent,true);handle.pivot=new Vector2(.5f,.5f);
+   var track=UPanel(parent,title+"Slider",260,y+12,440,8,InkBorder,true);
+   var handle=UPanel(track,"Handle",0,0,18,26,InkDark,true);handle.pivot=new Vector2(.5f,.5f);
    var slider=track.gameObject.AddComponent<UI.Slider>();slider.direction=UI.Slider.Direction.LeftToRight;slider.minValue=0;slider.maxValue=1;slider.handleRect=handle;slider.targetGraphic=handle.GetComponent<UI.Image>();slider.SetValueWithoutNotify(value);
    slider.onValueChanged.AddListener(v=>{update(v);label.text=title+"  "+Mathf.RoundToInt(v*100)+"%";ScheduleAudioSave();});return slider;
   }
   void ApplyGalleryMotion(){foreach(var b in galleryRoot.GetComponentsInChildren<UI.Button>()){var c=b.colors;c.fadeDuration=audioSettings.ReducedMotion?0:.12f;b.colors=c;}}
   void ShowAudioSettings(){
-   var panel=NewGalleryDialog("声音与显示","浏览角色时保持轻量反馈。设置自动保存；音乐切页不断播。当前配乐为原创合成氛围样曲。");
+   var panel=NewGalleryDialog("声音与显示","设置自动保存。音量调为 0 即静音。");
    AudioSlider(panel,"总音量",156,audioSettings.Master,v=>audioSettings.Master=v);
    AudioSlider(panel,"音乐",218,audioSettings.Music,v=>audioSettings.Music=v);
    AudioSlider(panel,"音效",280,audioSettings.Effects,v=>audioSettings.Effects=v);
-   UButton(panel,"FocusMute",audioSettings.MuteUnfocused?"失焦静音：开":"失焦静音：关",28,350,330,44,()=>{audioSettings.MuteUnfocused=!audioSettings.MuteUnfocused;ScheduleAudioSave();ShowAudioSettings();},audioSettings.MuteUnfocused);
-   UButton(panel,"Motion",audioSettings.ReducedMotion?"减少动效：开":"减少动效：关",382,350,330,44,()=>{audioSettings.ReducedMotion=!audioSettings.ReducedMotion;ApplyGalleryMotion();ScheduleAudioSave();ShowAudioSettings();},audioSettings.ReducedMotion);
+   UButton(panel,"FocusMute",audioSettings.MuteUnfocused?"失焦静音：开":"失焦静音：关",28,350,330,44,()=>{audioSettings.MuteUnfocused=!audioSettings.MuteUnfocused;ScheduleAudioSave();ShowAudioSettings();},selected:audioSettings.MuteUnfocused);
+   UButton(panel,"Motion",audioSettings.ReducedMotion?"减少动效：开":"减少动效：关",382,350,330,44,()=>{audioSettings.ReducedMotion=!audioSettings.ReducedMotion;ApplyGalleryMotion();ScheduleAudioSave();ShowAudioSettings();},selected:audioSettings.ReducedMotion);
    UButton(panel,"PreviewSound","试听确认音",28,424,330,44,()=>PlayUISound(1));
    UButton(panel,"SaveSettings","完成",382,424,330,44,CloseGalleryDialog,true);
-   UText(panel,"AudioHint","音量为0即静音；切换到其他应用时默认静音。",28,487,684,28,15,uiDim);
+   UButton(panel,"OpenSaveFolder","打开存档目录",28,478,330,40,()=>Application.OpenURL(new Uri(Path.GetDirectoryName(savePath)).AbsoluteUri));
   }
  }
 }

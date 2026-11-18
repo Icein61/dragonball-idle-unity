@@ -45,17 +45,27 @@ namespace DragonIdle {
    Canvas.ForceUpdateCanvases();
    AssertSmoke(homeRoot.GetComponentsInChildren<UI.Text>().All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Home text clipped");
    AssertSmoke(loadingRoot.GetComponentsInChildren<UI.Text>(true).All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Loading text clipped");
-   foreach(string target in new[]{"角色","编队","养成","装备","召唤","说明"}){
+   foreach(string target in new[]{"角色","编队","养成","装备","召唤"}){
     GalleryTestButton("HomeNav"+target).onClick.Invoke();AssertSmoke(page==target,"Home route failed: "+target);NavigateGallery("主页");
    }
+   AssertSmoke(!IsModernPage("说明")&&homeRoot.Find("HomeNav说明")==null&&galleryChrome.Find("Nav说明")==null&&
+    !FeatureRoutes.Contains("说明"),"Removed help still has a route");
+   AssertSmoke(!GalleryTestButton("HomeFirstWin").interactable,"First-win reward enabled before winning");
    var settings=GalleryTestButton("HomeSettings");EventSystem.current.SetSelectedGameObject(settings.gameObject);settings.onClick.Invoke();
    AssertSmoke(dialogRoot!=null&&!settings.interactable&&!GalleryTestButton("HomeContinue").interactable,"Home modal failed input isolation");
+   AssertSmoke(GalleryTestButton("OpenSaveFolder").interactable,"Save folder action missing from settings");
    GalleryTestButton("Motion").onClick.Invoke();CloseGalleryDialog();
    AssertSmoke(settings.interactable&&EventSystem.current.currentSelectedGameObject==settings.gameObject,"Settings rebuild lost home focus");
    int material=profile.Materials;EventSystem.current.SetSelectedGameObject(GalleryTestButton("HomeClaim").gameObject);GalleryTestButton("HomeClaim").onClick.Invoke();Load();
    AssertSmoke(profile.OfflineBank==0&&profile.Materials==material+24&&!GalleryTestButton("HomeClaim").interactable,"Offline claim not persisted");
    AssertSmoke(EventSystem.current.currentSelectedGameObject==GalleryTestButton("HomeNav角色").gameObject,"Home rebuild focused a deferred destroyed button");
    GalleryTestButton("HomeClaim").onClick.Invoke();AssertSmoke(profile.Materials==material+24,"Offline claim duplicated");
+   profile.Wins=1;DrawHome();
+   int crystals=profile.Crystals;
+   GalleryTestButton("HomeFirstWin").onClick.Invoke();Load();
+   AssertSmoke(profile.Crystals==crystals+50&&profile.FirstMission&&!GalleryTestButton("HomeFirstWin").interactable,"Moved first-win reward did not persist");
+   GalleryTestButton("HomeFirstWin").onClick.Invoke();
+   AssertSmoke(profile.Crystals==crystals+50,"Moved first-win reward repeated");
    saveError="测试只读存档";DrawHome();AssertSmoke(!GalleryTestButton("HomeContinue").interactable&&!GalleryTestButton("HomeClaim").interactable,"Home ignored read-only save");saveError="";DrawHome();
    GalleryTestButton("HomeContinue").onClick.Invoke();AssertSmoke(page=="挑战"&&storyMode&&!running&&profile.StorySelected==profile.StoryUnlocked,"Home chapter route started or selected wrong battle");
    NavigateGallery("角色");ResetGalleryFilters();selectedCard=0;OpenGalleryCard(0);galleryScroll.verticalNormalizedPosition=.31f;float scroll=galleryScroll.verticalNormalizedPosition;
@@ -65,9 +75,27 @@ namespace DragonIdle {
    var old=shellAssets["loading-fill"];shellAssets["loading-fill"]=null;DrawShellLoading();
    AssertSmoke(loadingFill.sprite==RoundedSurface(false),"Missing loading sprite disabled progress");
    shellAssets["loading-fill"]=old;NavigateGallery("主页");
+   RunSummonPageSmoke();
    running=true;NavigateGallery("角色");AssertSmoke(page=="主页","Running battle allowed unsafe navigation");running=false;DrawHome();
    AssertSmoke(silentAudio&&!menuMusic.isPlaying&&uiSounds.volume==0,"Shell headless smoke produced sound");
-   Save();File.WriteAllText(Path.Combine(dir,"shell-smoke.json"),"{\"startupAsync\":true,\"assets\":"+ShellKeys.Length+",\"inkHome\":true,\"chapterRing\":true,\"loadingFrames\":"+frames+",\"homeIsolation\":true,\"navigation\":true,\"offlineClaim\":true,\"saveRoundTrip\":true,\"modalIsolation\":true,\"focusReturn\":true,\"contextReturn\":true,\"loadingCancel\":true,\"missingArtFallback\":true,\"textLayout\":true,\"soundSilent\":true,\"renderVerified\":false}");
+   Save();File.WriteAllText(Path.Combine(dir,"shell-smoke.json"),"{\"startupAsync\":true,\"assets\":"+ShellKeys.Length+",\"inkHome\":true,\"chapterRing\":true,\"summonPage\":true,\"firstWinMoved\":true,\"helpRemoved\":true,\"loadingFrames\":"+frames+",\"homeIsolation\":true,\"navigation\":true,\"offlineClaim\":true,\"saveRoundTrip\":true,\"modalIsolation\":true,\"focusReturn\":true,\"contextReturn\":true,\"loadingCancel\":true,\"missingArtFallback\":true,\"textLayout\":true,\"soundSilent\":true,\"renderVerified\":false}");
+  }
+  void RunSummonPageSmoke(){
+   profile.Crystals=100;profile.SaiyanPulls=19;profile.Pulls=3;Save();
+   saiyanPool=true;
+   GalleryTestButton("HomeNav召唤").onClick.Invoke();
+   AssertSmoke(summonRoot.gameObject.activeInHierarchy&&!homeRoot.gameObject.activeSelf&&!workshopRoot.gameObject.activeSelf&&
+    GalleryTestButton("SaiyanPool").targetGraphic.color==InkDark,"Summon did not isolate its page or mark the active pool");
+   GalleryTestButton("SummonOnce").onClick.Invoke();Load();
+   AssertSmoke(profile.SaiyanPulls==20&&profile.Pulls==3&&profile.Crystals==50&&saiyanSummonResult.StartsWith("[S]"),"Summon pity result or save failed");
+   GalleryTestButton("ClassicPool").onClick.Invoke();
+   GalleryTestButton("SummonOnce").onClick.Invoke();Load();
+   AssertSmoke(profile.SaiyanPulls==20&&profile.Pulls==4&&profile.Crystals==0&&!GalleryTestButton("SummonOnce").interactable,"Classic pool spent or counted incorrectly");
+   GalleryTestButton("SaiyanPool").onClick.Invoke();
+   AssertSmoke(summonRoot.GetComponentsInChildren<UI.Text>().Single(t=>t.name=="SummonResultText").text==saiyanSummonResult,"Switching pools lost its result");
+   Canvas.ForceUpdateCanvases();
+   AssertSmoke(summonRoot.GetComponentsInChildren<UI.Text>().All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Summon label clipped");
+   NavigateGallery("主页");
   }
  }
 }
