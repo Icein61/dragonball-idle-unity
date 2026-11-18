@@ -6,12 +6,15 @@
   "portraits": [
     {
       "cardId": "goku-test",
-      "pose": "龟派气功蓄力",
-      "prompt": "Use case: stylized-concept. Redesign a SINGLE high-quality collectible game CARD PORTRAIT for a personal Dragon Ball Z game. Input atlas is reference for this character's identity, era costume and APPROVED C art style ONLY. Do not reproduce atlas, grid, multiple poses, standing template or any original generic open-hand pose. Output ONE large polished FULL-BODY portrait, vertical1024x1536, TRUE TRANSPARENT background. Controlled hand-ink lines, crisp cel-shaded colors, subtle manga hatching, excellent face and hand anatomy, strong dramatic composition with clear signature pose, NOT chibi. Add only the specified restrained skill energy/motion accent around subject; no scene, opaque rectangle, painted background, fog blanket, text, logo, title or border. Preserve all fingers hair feet and described effects with at least8% transparent margin to every canvas edge. Character fills ~80% image, face remains legible at thumbnail scale. The posture and silhouette must match this specific action rather than a generic neutral fighting stance. Subject and action: Goku fighting Raditz at the very start of DBZ. Black spiky hair, orange sleeveless gi WITHOUT blue undershirt, blue sash and wristbands, BARE FEET. Iconic Kamehameha CHARGING stance: deep wide bent-knee crouch in profile, torso twisted to viewer, BOTH hands cupped together at rear hip around a compact bright cyan ki sphere, elbows pulled far behind, head looking toward upper-right opponent. Diagonal flowing sash; tense fingers and focused angular face. Clear low triangular body silhouette. Do NOT use upright one-open-palm ready stance.",
-      "reference": "Assets/DragonIdle/Resources/Art/V050/goku-test-atlas.png",
+      "revision": "0.12.1",
+      "pose": "低重心双手蓄气",
+      "prompt": "Edit the costume area of this supplied original project illustration. Keep this exact full-figure crouching pose, facial features, hair, hands, feet, bright blue energy marble, and hand-inked comic palette. Raise the closure of his orange wrap top to cover the chest; a small narrow V only at the collarbones. Add a clearly visible, small white fabric medallion with black edge and a neatly inked black 龜 on the viewer's right upper chest lapel. The only changes are neckline and this small sewn school badge. No letters elsewhere. Transparent alpha vertical portrait, keep the same framing and character rendering.",
+      "reference": "Assets/DragonIdle/Resources/Art/CharaOriImg/0001.png",
+      "styleReference": "Art/Candidates/Goku-Raditz-20261116/C-hand-ink-v1.png",
+      "editInput": "exec-b95cc7b2-98e6-4888-aa4e-66bd718b0041.png",
       "asset": "Assets/DragonIdle/Resources/Art/V051/goku-test-portrait.png",
-      "output": "exec-58ae54a5-7b9d-476a-bb3f-caa2d5167ac7.png",
-      "sha256": "b7ac63b7bfbfe8993195ca670ae8c2a515414d9848b81ea37894394357e1e930"
+      "output": "exec-75001c58-8bb9-4215-aeb4-417ebc47683a.png",
+      "sha256": "a10ffea4ba6183de598ed8c2b391fcf804b7865bd02a926ca7e397171dc81e44"
     },
     {
       "cardId": "goku-saiyan-guard-v020",
@@ -33,12 +36,15 @@
     },
     {
       "cardId": "vegeta-test",
-      "pose": "伽力克炮起手",
-      "prompt": "Use case: stylized-concept. Redesign a SINGLE high-quality collectible game CARD PORTRAIT for a personal Dragon Ball Z game. Input atlas is reference for this character's identity, era costume and APPROVED C art style ONLY. Do not reproduce atlas, grid, multiple poses, standing template or any original generic open-hand pose. Output ONE large polished FULL-BODY portrait, vertical1024x1536, TRUE TRANSPARENT background. Controlled hand-ink lines, crisp cel-shaded colors, subtle manga hatching, excellent face and hand anatomy, strong dramatic composition with clear signature pose, NOT chibi. Add only the specified restrained skill energy/motion accent around subject; no scene, opaque rectangle, painted background, fog blanket, text, logo, title or border. Preserve all fingers hair feet and described effects with at least8% transparent margin to every canvas edge. Character fills ~80% image, face remains legible at thumbnail scale. The posture and silhouette must match this specific action rather than a generic neutral fighting stance. Subject and action: Early Saiyan invasion Vegeta, compact muscular adult, very tall upright black widow-peak hair, classic brown/gold-white armor with shoulder/hip guards, darkblue bodysuit, white gloves boots goldtoes, brown tail wrapped waist, no scouter. Iconic GALICK GUN: leaning sharply backward in a braced floating crouch, knees bent, both hands together beside his right shoulder, palms aimed diagonally up-left, fingers curved around a violet-white energy orb. Head faces front-left, angry princely sneer. Purple short streaks echo diagonal attack direction. Not a generic open hand ready stance. Full figure and armor entirely in frame.",
-      "reference": "Assets/DragonIdle/Resources/Art/V050/vegeta-test-atlas.png",
+      "revision": "0.12.1",
+      "pose": "悬空伸掌",
+      "prompt": "Precisely edit the supplied project portrait. Preserve the illustration of the character exactly, including same position, hair, gloved hands and fingers, face and half-smile, red eyepiece, split leggings, white boots, shoulder plates, brown tail, indigo colors and manga contours. Completely erase the purple projectile, all sparks and all bloom. Leave his open hand empty. Keep only the full-body character as a clean, sharp, isolated sprite. Pixels OUTSIDE the black outer contour must be exactly 0 alpha. No drop shadow, no lighting haze, no vignette, no gradient, no surrounding glow, no text. Keep the whole figure in the vertical 2:3 canvas, with head and feet visible.",
+      "reference": "Assets/DragonIdle/Resources/Art/CharaOriImg/0002.png",
+      "styleReference": "Art/Candidates/Goku-Raditz-20261116/C-hand-ink-v1.png",
+      "editInput": "exec-fed3dca7-d238-469b-9c82-2dfbc5e09d08.png",
       "asset": "Assets/DragonIdle/Resources/Art/V051/vegeta-test-portrait.png",
-      "output": "exec-ef0660e2-c336-46a8-a8f4-86ca404041bf.png",
-      "sha256": "5c01ff2dc008fedf3843a87b3425f839dd60ea9b5876ece4630c0bb74acfd6e6"
+      "output": "exec-35d91a33-b29a-4784-bc1a-ea4955ad9a73.png",
+      "sha256": "0427a8a809701427f74f354df6ad43b78fa6d89ad2e926bb1d47360080655d6e"
     },
     {
       "cardId": "piccolo-test",

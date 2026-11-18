@@ -1,10 +1,10 @@
 # 龙珠爆裂激斗 — Unity 技术 Demo
-当前源码 **v0.12.0 角色与六人编队预览版**。个人离线养成游戏的战斗核心与角色构筑原型。发布状态及本地验证见[本轮记录](Releases/v0.12.0.md)。
+当前源码 **v0.12.1 角色立绘更新**。个人离线养成游戏的战斗核心与角色构筑原型。发布内容见[本轮记录](Releases/v0.12.1.md)。
 GitHub：https://github.com/Icein61/dragonball-idle-unity
 
 ## 下载与试玩
 [查看 Windows x64 Demo 发布附件](https://github.com/Icein61/dragonball-idle-unity/releases)。
-下载对应版本的龙珠爆裂激斗-v0.12.0-Windows-x64.zip，完整解压后运行龙珠爆裂激斗.exe。
+下载对应版本的龙珠爆裂激斗-v0.12.1-Windows-x64.zip，完整解压后运行龙珠爆裂激斗.exe。
 需要Windows，不需要Unity、开发账号或联网。请保留Data目录及附带运行库，不要只复制EXE。
 
 启动时用聚气环显示徽章与角色立绘的实际异步加载进度。主页左侧显示修炼进度与通关状态，右侧提供剧情、奖励和设置。底栏进入人物志、编队、养成、装备和召唤。原剧情和试炼也可从“挑战”进入。
@@ -48,11 +48,11 @@ GitHub：https://github.com/Icein61/dragonball-idle-unity
 - [美术方向](docs/production/art-direction.md)
 - [工程与发布约定](docs/engineering/handoff.md)
 - [完整目标验收场景](docs/verification/acceptance.md)
-- [本版本验证结果](Releases/v0.12.0.md)
+- [当前验证与交付记录](docs/STATUS.md)
 
 后续每个可玩版本仍需对应源码提交、标签、版本说明与可运行PC包。不要提交Library或Builds缓存。
 
-新版简表中的九张上线卡均已接入实战。图鉴展示表内技能原文和实战数值，沿用现有立绘与战斗图集。可见体验待验收。
+新版简表中的九张上线卡均已接入实战。图鉴展示表内技能原文和实战数值，悟空与贝吉塔已换为确认后的手绘立绘。可见体验待验收。
 
 角色页已升级暖白圆角主题、四列大卡与独立详情屏，当前有效属性可展开拆解。返回保留浏览状态及键盘焦点；筛选可单独清除，选卡不重建列表。第二阶段编队、养成、装备也已接入，角色上下文与装配比较见docs/engineering/workshop-v061.md。详见docs/engineering/gallery-v060.md。可见观感与试听仍未验收。
 

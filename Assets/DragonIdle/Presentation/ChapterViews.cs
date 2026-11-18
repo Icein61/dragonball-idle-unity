@@ -8,7 +8,7 @@ namespace DragonIdle {
   readonly Dictionary<string,Texture2D> portraits=new Dictionary<string,Texture2D>();
   static string PortraitKey(int index){
    string id=Data.Cards[index].Id;
-   if(id=="goku-test"||id=="vegeta-test"||id=="piccolo-test")return "CharaOriImg/"+(id=="goku-test"?"0001":id=="vegeta-test"?"0002":"0003");
+   if(id=="piccolo-test")return "CharaOriImg/0003";
    return "V051/"+id+"-portrait";
   }
   Texture2D PortraitTexture(int index){return LoadCharacterTexture(PortraitKey(index));}
