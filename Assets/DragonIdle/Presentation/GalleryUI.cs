@@ -9,7 +9,7 @@ namespace DragonIdle {
   readonly CatalogFilter catalog=new CatalogFilter();
   RectTransform galleryRoot,gridRoot,detailRoot,dialogRoot;
   GameObject galleryCanvas;UI.ScrollRect galleryScroll;UI.InputField gallerySearch;
-  UI.Text galleryCount,galleryResources,galleryFilterText,galleryToast;
+  UI.Text galleryCount,galleryResources,galleryToast;
   UI.Button mineTab,allTab;readonly List<UI.Button> filterButtons=new List<UI.Button>();
   readonly Dictionary<int,UI.Button> cardButtons=new Dictionary<int,UI.Button>();
   readonly List<UI.Text> measuredText=new List<UI.Text>();
@@ -93,23 +93,22 @@ namespace DragonIdle {
    galleryResources=UText(galleryChrome,"Resources","",900,27,650,40,19,InkOnDark,TextAnchor.MiddleRight);
    for(int i=0;i<FeatureRoutes.Length;i++){
     string target=FeatureRoutes[i];
-    UButton(galleryChrome,"Nav"+target,target,18,126+i*62,154,45,()=>NavigateGallery(target),selected:target=="角色");
+    UButton(galleryChrome,"Nav"+target,target=="角色"?"图鉴":target,18,126+i*62,154,45,()=>NavigateGallery(target),selected:target=="角色");
    }
    UButton(galleryChrome,"AudioSettings","声音与显示",18,735,154,44,ShowAudioSettings);
    UText(galleryChrome,"Version","v"+Data.Version+"  /  预览版",20,840,160,30,13,uiDim);
    UButton(galleryChrome,"Nav主页","返回主页",18,819,154,47,()=>NavigateGallery("主页"));
    galleryListRoot=UNode(galleryRoot,"CardLibrary",0,0,1600,900);
-   UText(galleryListRoot,"Title","人物志",222,108,300,46,32,uiPaper);
+   UText(galleryListRoot,"Title","图鉴",222,108,300,46,32,uiPaper);
    galleryCount=UText(galleryListRoot,"CollectionCount","",1040,119,510,30,17,uiDim,TextAnchor.MiddleRight);
    mineTab=UButton(galleryListRoot,"OwnedTab","我的角色",222,166,152,42,()=>{catalog.OwnedOnly=true;RefreshGallery(true);},true);
-   allTab=UButton(galleryListRoot,"AllTab","全部图鉴",386,166,152,42,()=>{catalog.OwnedOnly=false;RefreshGallery(true);});
+   allTab=UButton(galleryListRoot,"AllTab","全部角色",386,166,152,42,()=>{catalog.OwnedOnly=false;RefreshGallery(true);});
    var input=UPanel(galleryListRoot,"Search",558,166,354,42,InkLight,true);
    gallerySearch=input.gameObject.AddComponent<UI.InputField>();gallerySearch.textComponent=UText(input,"InputText","",12,7,328,28,17,uiPaper);gallerySearch.placeholder=UText(input,"Placeholder","搜索名字、形态、称号",12,7,328,28,17,uiDim);gallerySearch.characterLimit=60;
    gallerySearch.onValueChanged.AddListener(v=>{catalog.Search=v;RefreshGallery(true);});
-   string[] filters={"稀有度","定位","身份","排序"};
-   for(int i=0;i<4;i++){int n=i;filterButtons.Add(UButton(galleryListRoot,"Filter"+i,filters[i],932+i*158,166,148,42,()=>ShowFilter(n)));}
+   string[] filters={"稀有度","标签",SortLabels[0]};
+   for(int i=0;i<filters.Length;i++){int n=i;filterButtons.Add(UButton(galleryListRoot,"Filter"+i,filters[i],932+i*208,166,198,42,()=>ShowFilterDropdown(n)));}
    UButton(galleryListRoot,"ResetFilters","清空条件",1422,218,126,32,ResetGalleryFilters);
-   galleryFilterText=UText(galleryListRoot,"AppliedFilters","",222,218,1180,30,16,uiDim);
    filterChipRoot=UNode(galleryListRoot,"FilterChips",222,218,1180,32);
    galleryScroll=UScroll(galleryListRoot,"CardScroll",222,258,1336,570,out gridRoot);
    detailRoot=UPanel(galleryRoot,"Detail",222,112,1336,716,uiPanel);
@@ -122,7 +121,7 @@ namespace DragonIdle {
    if(shellLoad.Active&&target!="加载")shellLoad.Cancel();
    if(page=="角色"&&IsWorkshop(target))browseCard=selectedCard;
    if(IsWorkshop(page)&&target=="角色"&&browseCard>=0)selectedCard=browseCard;
-   CloseGalleryDialog();page=target;autoRepeat=false;notice="";galleryDirty=true;
+   CloseFilterDropdown();CloseGalleryDialog();page=target;autoRepeat=false;notice="";galleryDirty=true;
    galleryCanvas.SetActive(IsModernPage(target));previousPage="";UpdateGallery();
    if(target=="角色"&&EventSystem.current!=null){
     if(galleryDetailOpen&&selectedCard>=0)EventSystem.current.SetSelectedGameObject(ActiveBackButton(detailRoot,"BackToCards"));
@@ -134,28 +133,25 @@ namespace DragonIdle {
   void UpdateGallery(){
    if(IsModernPage(page)){EnsureGallery();if(!galleryCanvas.activeSelf)galleryCanvas.SetActive(true);
     if((previousPage!=page||galleryDirty)&&dialogRoot==null){if(page=="角色")RefreshGallery(false);else if(IsWorkshop(page))DrawWorkshop();else if(page=="主页")DrawHome();else if(page=="召唤")DrawModernSummon();galleryDirty=false;RefreshModernFrame();}
-    if(Input.GetKeyDown(KeyCode.Escape)){if(dialogRoot!=null)CloseGalleryDialog();else if(IsWorkshop(page))NavigateGallery("角色");else if(page=="角色"&&galleryDetailOpen)ReturnToCards();else if(page=="角色"||page=="召唤")NavigateGallery("主页");else if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(null);}
+    if(Input.GetKeyDown(KeyCode.Escape)){if(filterDropdown!=null)CloseFilterDropdown();else if(dialogRoot!=null)CloseGalleryDialog();else if(IsWorkshop(page))NavigateGallery("角色");else if(page=="角色"&&galleryDetailOpen)ReturnToCards();else if(page=="角色"||page=="召唤")NavigateGallery("主页");else if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(null);}
     if(detailGroup!=null){detailFade=Math.Min(1,detailFade+Time.unscaledDeltaTime*8);detailGroup.alpha=audioSettings!=null&&audioSettings.ReducedMotion?1:detailFade;}
     galleryToast.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"";
     if(page=="主页")RefreshHomeNotice();
-   }else if(galleryCanvas!=null&&galleryCanvas.activeSelf)galleryCanvas.SetActive(false);
+   }else if(galleryCanvas!=null&&galleryCanvas.activeSelf){CloseFilterDropdown();galleryCanvas.SetActive(false);}
    previousPage=page;
   }
   void GalleryNotice(string message,bool success=true){notice=message;toastUntil=Time.unscaledTime+5;PlayUISound(success?1:2);galleryDirty=true;}
-  void ResetGalleryFilters(){catalog.Rarity=catalog.Role=catalog.Tag=catalog.Search="";catalog.Sort=0;gallerySearch.SetTextWithoutNotify("");RefreshGallery(true);}
+  void ResetGalleryFilters(){CloseFilterDropdown();catalog.Rarity=catalog.Role=catalog.Tag=catalog.Search="";catalog.Sort=0;gallerySearch.SetTextWithoutNotify("");RefreshGallery(true);}
   void RefreshGallery(bool reset){
    galleryDirty=false;if(galleryCanvas==null)return;
    int[] results=catalog.Results(profile);selectedCard=CatalogFilter.Reconcile(selectedCard,results);
    galleryResources.text="素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems;
    galleryCount.text="已收藏 "+profile.Owned.Count(x=>x)+" / "+Data.Cards.Length+"    ·    当前显示 "+results.Length+" 张";
    SetButtonActive(mineTab,catalog.OwnedOnly);SetButtonActive(allTab,!catalog.OwnedOnly);
-   string[] labels={catalog.Rarity==""?"全部稀有度":catalog.Rarity,catalog.Role==""?"全部定位":catalog.Role,catalog.Tag==""?"全部身份":catalog.Tag,SortLabels[catalog.Sort]};
-   for(int i=0;i<4;i++)filterButtons[i].GetComponentInChildren<UI.Text>().text=labels[i]+"  ▾";
-   galleryFilterText.text=string.Join("   ·   ",labels.Take(3).Where(label=>!label.StartsWith("全部")).ToArray());
-   if(galleryFilterText.text=="")galleryFilterText.text="点击角色查看详情 · 卡面完整显示，不裁切原图";
+   string[] labels={catalog.Rarity==""?"稀有度":catalog.Rarity,catalog.Tag==""?"标签":catalog.Tag,SortLabels[catalog.Sort]};
+   for(int i=0;i<labels.Length;i++)filterButtons[i].GetComponentInChildren<UI.Text>().text=labels[i]+"  ▾";
    ClearUI(filterChipRoot);int chips=0;
-   for(int n=0;n<3;n++){int kind=n;string value=new[]{catalog.Rarity,catalog.Role,catalog.Tag}[n];if(value=="")continue;UButton(filterChipRoot,"ClearFilter"+n,value+" ×",chips++*188,0,178,32,()=>{if(kind==0)catalog.Rarity="";else if(kind==1)catalog.Role="";else catalog.Tag="";RefreshGallery(true);});}
-   galleryFilterText.gameObject.SetActive(chips==0);
+   for(int n=0;n<2;n++){int kind=n;string value=n==0?catalog.Rarity:catalog.Tag;if(value=="")continue;UButton(filterChipRoot,"ClearFilter"+n,value+" ×",chips++*188,0,178,32,()=>{if(kind==0)catalog.Rarity="";else catalog.Tag="";RefreshGallery(true);});}
    float old=galleryScroll.verticalNormalizedPosition;bool rebuild=renderedCards==null||!renderedCards.SequenceEqual(results);
    if(rebuild){ClearUI(gridRoot);cardButtons.Clear();renderedCards=(int[])results.Clone();}
    gridRoot.sizeDelta=new Vector2(1322,Math.Max(570,((results.Length+3)/4)*448));
@@ -172,10 +168,10 @@ namespace DragonIdle {
     UText(r,"Theme",c.Title,16,363,284,28,17,uiDim);
     UText(r,"Keywords",c.KeywordText,16,398,284,26,16,uiAccent);
    }
-   foreach(var pair in cardButtons){int slot=Array.IndexOf(profile.Team,pair.Key);pair.Value.transform.Find("Owned").GetComponent<UI.Text>().text=slot>=0?FormationSlotLabel(slot):profile.Owned[pair.Key]?"候补":"未拥有";}
+   foreach(var pair in cardButtons)pair.Value.transform.Find("Owned").GetComponent<UI.Text>().text=profile.Owned[pair.Key]?"":"未拥有";
    if(rebuild&&results.Length==0){
     UText(gridRoot,"EmptyTitle","没有符合条件的角色",350,100,620,45,25,uiPaper,TextAnchor.MiddleCenter);
-    UText(gridRoot,"EmptyHelp","尝试清空筛选，或切换到全部图鉴。",350,151,620,40,18,uiDim,TextAnchor.MiddleCenter);
+    UText(gridRoot,"EmptyHelp","尝试清空筛选，或切换到全部角色。",350,151,620,40,18,uiDim,TextAnchor.MiddleCenter);
     UButton(gridRoot,"EmptyReset","清空筛选",550,220,220,44,ResetGalleryFilters,true);
    }
    Canvas.ForceUpdateCanvases();galleryScroll.StopMovement();galleryScroll.verticalNormalizedPosition=reset?1:old;

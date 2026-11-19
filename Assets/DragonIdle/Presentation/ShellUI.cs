@@ -57,7 +57,7 @@ namespace DragonIdle {
    var toast=InkPanel(homeRoot,"HomeNoticePanel",40,684,1520,55,InkDark);
    homeNotice=UText(toast,"HomeNotice","",18,7,1484,44,18,InkIvory);
    InkPanel(homeRoot,"HomeDock",0,766,1600,134,InkPaper,true);
-   string[] names={"角色","编队","养成","装备","召唤"},titles={"人物志","队伍编成","角色养成","装备工坊","时空召唤"};
+   string[] names={"角色","编队","养成","装备","召唤"},titles={"图鉴","队伍编成","角色养成","装备工坊","时空召唤"};
    string[] help={"收藏与招式","阵位与队长","修炼与策略","搭配与比较","寻找新同伴"};
    for(int n=0;n<names.Length;n++){
     string target=names[n];
@@ -74,7 +74,7 @@ namespace DragonIdle {
    else GalleryNotice(notice,false);
    DrawHome();
   }
-  void RefreshHomeNotice(){if(homeNotice!=null){homeNotice.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"从人物志了解同伴，或前往剧情开始冒险。";}}
+  void RefreshHomeNotice(){if(homeNotice!=null){homeNotice.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"从图鉴了解同伴，或前往剧情开始冒险。";}}
   void DrawShellLoading(){
    if(loadingRoot==null)loadingRoot=InkPanel(galleryRoot,"Loading",0,0,1600,900,InkMist,true);
    else ClearUI(loadingRoot);

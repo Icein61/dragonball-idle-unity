@@ -14,7 +14,7 @@ namespace DragonIdle {
    ClearUI(detailRoot);measuredText.Clear();galleryTrainButton=galleryEquipButton=gallerySwapButton=null;
    if(selectedCard<0){UText(detailRoot,"NoSelection","从左侧选择一张角色卡",30,300,544,80,23,uiDim,TextAnchor.MiddleCenter);return;}
    int i=selectedCard;var c=Data.Cards[i];bool owned=profile.Owned[i];
-   UButton(detailRoot,"BackToCards","‹ 返回人物志",24,18,190,40,ReturnToCards);
+   UButton(detailRoot,"BackToCards","‹ 返回图鉴",24,18,190,40,ReturnToCards);
    UPanel(detailRoot,"PortraitMat",24,72,456,532,InkMist);
    UArt(detailRoot,i,24,72,456,532);
    DrawRarityBadge(detailRoot,c.Rarity,520,14,62,46);

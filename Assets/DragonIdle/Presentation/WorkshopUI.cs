@@ -33,7 +33,7 @@ namespace DragonIdle {
    string focus=focused!=null&&workshopRoot!=null&&focused.transform.IsChildOf(workshopRoot)?focused.name:null;
    if(workshopRoot==null)workshopRoot=UNode(galleryRoot,"Workshop",222,112,1336,716);else ClearUI(workshopRoot);
    if(selectedCard<0||!profile.Owned[selectedCard])selectedCard=Enumerable.Range(0,Data.Cards.Length).First(i=>profile.Owned[i]);
-   UButton(workshopRoot,"WorkshopBack","‹ 返回人物志",0,0,194,42,()=>NavigateGallery("角色"));
+   UButton(workshopRoot,"WorkshopBack","‹ 返回图鉴",0,0,194,42,()=>NavigateGallery("角色"));
    UText(workshopRoot,"WorkTitle",page=="编队"?"队伍编成":Data.Cards[selectedCard].DisplayName,214,0,900,44,26,uiPaper);
    if(page=="编队")DrawModernTeam();else{
     var portrait=UPanel(workshopRoot,"CharacterContext",0,62,300,654,uiPanel);

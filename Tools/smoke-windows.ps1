@@ -15,7 +15,7 @@ $art=Get-Content -LiteralPath (Join-Path $OutputDirectory 'battle-art-smoke.json
 if($art.atlases -ne 9 -or $art.signaturePortraits -ne 9 -or $art.poses -ne 108 -or !$art.inkCharge -or !$art.frameUpdate -or !$art.rewardAfterAnimation -or !$art.replayCleanup -or !$art.soundSilent){throw 'Battle art/presentation smoke incomplete'}
 
 $refresh=Get-Content -LiteralPath (Join-Path $OutputDirectory 'gallery-refresh-smoke.json') -Raw | ConvertFrom-Json
-if(!$refresh.dedicatedDetail -or !$refresh.cardCache -or !$refresh.focusReturn -or !$refresh.roundedSurfaces -or !$refresh.individualFilterClear -or !$refresh.fullPortraitAspect -or !$refresh.enabledTextContrast){throw 'Gallery refresh verification incomplete'}
+if(!$refresh.dedicatedDetail -or !$refresh.cardCache -or !$refresh.focusReturn -or !$refresh.roundedSurfaces -or !$refresh.individualFilterClear -or !$refresh.filterDropdowns -or !$refresh.simplifiedCards -or !$refresh.fullPortraitAspect -or !$refresh.enabledTextContrast){throw 'Gallery refresh verification incomplete'}
 
 
 $workshop=Get-Content -LiteralPath (Join-Path $OutputDirectory 'workshop-smoke.json') -Raw | ConvertFrom-Json

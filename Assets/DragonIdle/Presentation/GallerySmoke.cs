@@ -13,6 +13,10 @@ namespace DragonIdle {
    AssertSmoke(brand.text==Data.GameTitle&&brand.preferredWidth<=brand.rectTransform.rect.width&&brand.preferredHeight<=brand.rectTransform.rect.height,"New game title clipped or missing");
    AssertSmoke(cardButtons.Count==8&&selectedCard==0,"Owned gallery failed");
    allTab.onClick.Invoke();AssertSmoke(cardButtons.Count==9&&!catalog.OwnedOnly,"All gallery tab failed");
+   AssertSmoke(galleryListRoot.Find("Title").GetComponent<UI.Text>().text=="图鉴"&&allTab.GetComponentInChildren<UI.Text>().text=="全部角色"&&
+    galleryListRoot.Find("AppliedFilters")==null&&filterButtons.Count==3,"Gallery rename, help removal or filter count failed");
+   AssertSmoke(cardButtons.All(pair=>pair.Value.transform.Find("Owned").GetComponent<UI.Text>().text==(profile.Owned[pair.Key]?"":"未拥有")),
+    "Card still shows formation position or lost unowned marker");
    AssertSmoke(Data.Rarities.SequenceEqual(new[]{"C","B","A","S"})&&Data.Rarities.All(rank=>RarityBadge(rank)!=null),"Rarity badge resource missing");
    AssertSmoke(cardButtons.All(pair=>pair.Value.transform.Find("Rarity_"+Data.Cards[pair.Key].Rarity)!=null),"Gallery card missing rarity badge");
    var cachedCard=cardButtons[0];var cachedGrid=gridRoot.GetChild(0);float priorScroll=galleryScroll.verticalNormalizedPosition;
@@ -40,14 +44,30 @@ namespace DragonIdle {
    AssertSmoke(selectedCard==kaioken&&cardButtons.Count==1&&!galleryEquipButton.interactable,"Search selection or unowned actions failed");
    gallerySearch.text="不存在的角色";
    AssertSmoke(selectedCard==-1&&cardButtons.Count==0&&galleryTrainButton==null&&gallerySwapButton==null,"Empty query leaked stale character actions");
-   ResetGalleryFilters();ShowFilter(0);
-   AssertSmoke(!mineTab.interactable&&!gallerySearch.interactable&&cardButtons.Values.All(b=>!b.interactable),"Modal does not isolate background input");
-   GalleryTestButton("Option3").onClick.Invoke();
-   AssertSmoke(mineTab.interactable&&gallerySearch.interactable,"Modal did not restore background input");
-   AssertSmoke(catalog.Rarity=="A"&&cardButtons.Keys.All(i=>Data.Cards[i].Rarity=="A")&&dialogRoot==null,"Direct rarity picker failed");
-   GalleryTestButton("ClearFilter0").onClick.Invoke();AssertSmoke(catalog.Rarity==""&&cardButtons.Count==9,"Individual filter chip did not clear condition");
-   ResetGalleryFilters();ShowFilter(1);GalleryTestButton("Option1").onClick.Invoke();
-   AssertSmoke(catalog.Role=="自我强化"&&cardButtons.Count==Data.Cards.Count(c=>c.Keywords.Contains("自我强化"))&&cardButtons.Keys.All(i=>Data.Cards[i].Keywords.Contains("自我强化")),"Keyword picker did not filter actual role keywords");
+   ResetGalleryFilters();GalleryTestButton("Filter0").onClick.Invoke();
+   var menu=(RectTransform)filterDropdown.Find("FilterOptions");
+   var trigger=(RectTransform)filterButtons[0].transform;
+   AssertSmoke(dialogRoot==null&&menu.anchoredPosition.x==trigger.anchoredPosition.x&&
+    menu.anchoredPosition.y<trigger.anchoredPosition.y-trigger.rect.height&&filterDropdown.GetComponent<UI.Image>().color.a==0,
+    "Gallery filter is not an anchored dropdown");
+   var firstOption=GalleryTestButton("FilterOption0");
+   var events=UnityEngine.EventSystems.EventSystem.current;
+   firstOption.OnMove(new UnityEngine.EventSystems.AxisEventData(events){moveDir=UnityEngine.EventSystems.MoveDirection.Down});
+   AssertSmoke(events.currentSelectedGameObject==GalleryTestButton("FilterOption1").gameObject,"Dropdown keyboard focus escaped menu");
+   GalleryTestButton("FilterOption3").onClick.Invoke();
+   AssertSmoke(catalog.Rarity=="A"&&cardButtons.Count>0&&cardButtons.Keys.All(i=>Data.Cards[i].Rarity=="A")&&filterDropdown==null&&
+    UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject==trigger.gameObject,"Rarity selection, dismissal or focus failed");
+   GalleryTestButton("Filter1").onClick.Invoke();
+   var tagOption=filterDropdown.GetComponentsInChildren<UI.Button>().Single(b=>b.GetComponentInChildren<UI.Text>()?.text=="赛亚人");
+   tagOption.onClick.Invoke();
+   AssertSmoke(catalog.Tag=="赛亚人"&&catalog.Role==""&&cardButtons.Count>0&&cardButtons.Keys.All(i=>Data.Cards[i].Tags.Contains("赛亚人")&&Data.Cards[i].Rarity=="A"),"Tag and rarity did not combine");
+   GalleryTestButton("ClearFilter0").onClick.Invoke();
+   AssertSmoke(catalog.Rarity==""&&catalog.Tag=="赛亚人"&&cardButtons.Count==Data.Cards.Count(c=>c.Tags.Contains("赛亚人")),"Individual filter chip did not preserve other filters");
+   GalleryTestButton("Filter2").onClick.Invoke();
+   GalleryTestButton("FilterOption1").onClick.Invoke();
+   AssertSmoke(catalog.Sort==1&&filterDropdown==null&&filterButtons[2].GetComponentInChildren<UI.Text>().text.StartsWith(SortLabels[1]),"Sort dropdown failed");
+   GalleryTestButton("Filter1").onClick.Invoke();filterDropdown.GetComponent<UI.Button>().onClick.Invoke();
+   AssertSmoke(filterDropdown==null&&catalog.Tag=="赛亚人","Clicking outside changed selection or failed to close");
    ResetGalleryFilters();cardButtons[0].onClick.Invoke();detailTab=0;DrawGalleryDetail();
    int material=profile.Materials;galleryTrainButton.onClick.Invoke();
    AssertSmoke(profile.Training[0]==1&&profile.Materials==material-30,"Training action transaction failed");
@@ -85,7 +105,7 @@ namespace DragonIdle {
     AssertSmoke(Mathf.Abs(rect.width/rect.height-image.width/(float)image.height)<.001f,"Detail distorted portrait aspect: "+Data.Cards[i].Id);
    }
    AssertSmoke(galleryCanvas.GetComponent<UI.CanvasScaler>().screenMatchMode==UI.CanvasScaler.ScreenMatchMode.Expand,"UI aspect ratio scaler incorrect");
-   File.WriteAllText(Path.Combine(dir,"gallery-refresh-smoke.json"),"{\"dedicatedDetail\":true,\"cardCache\":true,\"focusReturn\":true,\"roundedSurfaces\":true,\"individualFilterClear\":true,\"fullPortraitAspect\":true,\"enabledTextContrast\":true,\"viewportMath\":[\"1280x720\",\"1600x900\",\"1920x1080\",\"2560x1080\"],\"renderVerified\":false}");
+   File.WriteAllText(Path.Combine(dir,"gallery-refresh-smoke.json"),"{\"dedicatedDetail\":true,\"cardCache\":true,\"focusReturn\":true,\"roundedSurfaces\":true,\"individualFilterClear\":true,\"filterDropdowns\":true,\"simplifiedCards\":true,\"fullPortraitAspect\":true,\"enabledTextContrast\":true,\"viewportMath\":[\"1280x720\",\"1600x900\",\"1920x1080\",\"2560x1080\"],\"renderVerified\":false}");
    File.WriteAllText(Path.Combine(dir,"gallery-smoke.json"),"{\"eventsWired\":true,\"filters\":true,\"stats\":true,\"navigation\":true,\"textLayout\":true,\"audioPreferences\":true,\"audioSilentDuringTest\":true,\"visualVerified\":false,\"listened\":false}");
    Save();
   }

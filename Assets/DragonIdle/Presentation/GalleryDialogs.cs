@@ -8,8 +8,11 @@ using UI=UnityEngine.UI;
 namespace DragonIdle {
  public partial class DemoGame {
   GameObject dialogReturnFocus;
+  RectTransform filterDropdown;
+  UI.Button filterDropdownTrigger;
   readonly Dictionary<UI.Selectable,bool> modalSelectables=new Dictionary<UI.Selectable,bool>();
   RectTransform NewGalleryDialog(string title,string subtitle){
+   CloseFilterDropdown();
    var restore=dialogRoot!=null?dialogReturnFocus:EventSystem.current==null?null:EventSystem.current.currentSelectedGameObject;
    CloseGalleryDialog();dialogReturnFocus=restore;
    foreach(var control in galleryRoot.GetComponentsInChildren<UI.Selectable>()){modalSelectables[control]=control.interactable;control.interactable=false;}
@@ -30,22 +33,40 @@ namespace DragonIdle {
    var focus=dialogReturnFocus;dialogReturnFocus=null;
    if(EventSystem.current!=null){var control=focus==null?null:focus.GetComponent<UI.Selectable>();EventSystem.current.SetSelectedGameObject(control!=null&&control.isActiveAndEnabled&&control.interactable?focus:null);}
   }
-  void ShowFilter(int kind){
-   string[] labels,values;
-   if(kind==0){var ranks=Data.Rarities.Where(rank=>Data.Cards.Any(card=>card.Rarity==rank));values=new[]{""}.Concat(ranks).ToArray();labels=new[]{"全部稀有度"}.Concat(ranks).ToArray();}
-   else if(kind==1){values=new[]{""}.Concat(Data.Cards.SelectMany(c=>c.Keywords).Distinct()).ToArray();labels=values.Select(v=>v==""?"全部定位":v).ToArray();}
-   else if(kind==2){values=new[]{""}.Concat(Data.Cards.SelectMany(c=>c.Tags).Distinct()).ToArray();labels=values.Select(v=>v==""?"全部身份":v).ToArray();}
-   else{values=new[]{"0","1","2","3"};labels=SortLabels;}
-   var panel=NewGalleryDialog(new[]{"选择稀有度","选择战斗定位","选择身份标签","选择排序方式"}[kind],"直接选择一个条件；不同类别同时生效。筛选不会改变角色身份或队伍。");
-   RectTransform body;UScroll(panel,"Options",26,151,685,355,out body);
-   body.sizeDelta=new Vector2(671,Math.Max(355,((values.Length+1)/2)*58));
+  void ShowFilterDropdown(int kind){
+   if(dialogRoot!=null||!galleryListRoot.gameObject.activeInHierarchy)return;
+   var trigger=filterButtons[kind];bool toggle=filterDropdownTrigger==trigger;
+   CloseFilterDropdown();if(toggle)return;
+   filterDropdownTrigger=trigger;
+   string[] values=kind==0?new[]{""}.Concat(Data.Rarities.Where(rank=>Data.Cards.Any(card=>card.Rarity==rank))).ToArray():
+    kind==1?new[]{""}.Concat(Data.Cards.SelectMany(c=>c.Tags).Distinct()).ToArray():SortLabels;
+   int selected=kind==0?Array.IndexOf(values,catalog.Rarity):kind==1?Array.IndexOf(values,catalog.Tag):catalog.Sort;
+   var anchor=(RectTransform)trigger.transform;
+   filterDropdown=UPanel(galleryListRoot,"FilterDropdown",0,0,1600,900,Color.clear,true);
+   var dismiss=filterDropdown.gameObject.AddComponent<UI.Button>();
+   dismiss.transition=UI.Selectable.Transition.None;dismiss.navigation=new UI.Navigation{mode=UI.Navigation.Mode.None};
+   dismiss.onClick.AddListener(CloseFilterDropdown);
+   float width=anchor.rect.width;
+   var panel=UPanel(filterDropdown,"FilterOptions",anchor.anchoredPosition.x,-anchor.anchoredPosition.y+anchor.rect.height+4,width,values.Length*38+12,InkPaper,true);
+   var options=new UI.Button[values.Length];
    for(int n=0;n<values.Length;n++){
-    string value=values[n];int index=n;bool active=kind==0?catalog.Rarity==value:kind==1?catalog.Role==value:kind==2?catalog.Tag==value:catalog.Sort==n;
-    UButton(body,"Option"+n,labels[n],n%2*337,n/2*58,324,46,()=>{
-     if(kind==0)catalog.Rarity=value;else if(kind==1)catalog.Role=value;else if(kind==2)catalog.Tag=value;else catalog.Sort=index;
-     CloseGalleryDialog();RefreshGallery(true);
-    },selected:active);
+    string value=values[n];int index=n;
+    options[n]=UButton(panel,"FilterOption"+n,kind!=2&&n==0?"不限":value,6,6+n*38,width-12,34,()=>{
+     if(kind==0)catalog.Rarity=value;else if(kind==1)catalog.Tag=value;else catalog.Sort=index;
+     CloseFilterDropdown();RefreshGallery(true);
+    },selected:selected==n);
    }
+   for(int n=0;n<options.Length;n++){
+    options[n].navigation=new UI.Navigation{mode=UI.Navigation.Mode.Explicit,
+     selectOnUp=options[(n+options.Length-1)%options.Length],selectOnDown=options[(n+1)%options.Length]};
+   }
+   if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(options[Math.Max(0,selected)].gameObject);
+  }
+  void CloseFilterDropdown(){
+   if(filterDropdown==null)return;
+   filterDropdown.gameObject.SetActive(false);Destroy(filterDropdown.gameObject);filterDropdown=null;
+   var trigger=filterDropdownTrigger;filterDropdownTrigger=null;
+   if(EventSystem.current!=null&&trigger!=null&&trigger.isActiveAndEnabled)EventSystem.current.SetSelectedGameObject(trigger.gameObject);
   }
   void ShowFormationPicker(int i){
    var c=Data.Cards[i];int existing=Array.IndexOf(profile.Team,i);
