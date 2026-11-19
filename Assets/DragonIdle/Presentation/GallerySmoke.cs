@@ -18,12 +18,17 @@ namespace DragonIdle {
    AssertSmoke(galleryResources.text=="拥有8/9"&&galleryListRoot.Find("CollectionCount")==null,"Gallery header does not show owned/total exclusively");
    foreach(var pair in cardButtons){
     var card=Data.Cards[pair.Key];var root=pair.Value.transform;
-    AssertSmoke(root.Find("CharacterPower").GetComponent<UI.Text>().text=="战斗力："+profile.CharacterPower(pair.Key)&&
+    bool owned=profile.Owned[pair.Key];var power=root.Find("CharacterPower").GetComponent<UI.Text>();
+    AssertSmoke(power.gameObject.activeSelf==owned&&power.text==(owned?"战斗力："+profile.CharacterPower(pair.Key):"")&&
      root.Find("CharacterType").GetComponent<UI.Text>().text==card.TypeText&&root.Find("Keywords")==null&&
      root.Find("Unowned").gameObject.activeSelf!=profile.Owned[pair.Key],"Card power, type or unowned marker incorrect");
     var badge=(RectTransform)root.Find("Rarity_"+card.Rarity);var mat=(RectTransform)root.Find("PortraitMat");
     AssertSmoke(badge!=null&&Math.Abs(badge.anchoredPosition.x-mat.anchoredPosition.x)<.001,"Rarity badge lost portrait mat alignment");
    }
+   int lockedCard=Data.Index("goku-saiyan-kaioken-v020");
+   profile.Owned[lockedCard]=true;RefreshGallery(false);
+   AssertSmoke(cardButtons[lockedCard].transform.Find("CharacterPower").gameObject.activeSelf&&galleryResources.text=="拥有9/9","Card power stayed hidden after acquisition");
+   profile.Owned[lockedCard]=false;RefreshGallery(false);
    AssertSmoke(Data.Rarities.SequenceEqual(new[]{"C","B","A","S"})&&Data.Rarities.All(rank=>RarityBadge(rank)!=null),"Rarity badge resource missing");
    AssertSmoke(cardButtons.All(pair=>pair.Value.transform.Find("Rarity_"+Data.Cards[pair.Key].Rarity)!=null),"Gallery card missing rarity badge");
    var cachedCard=cardButtons[0];var cachedGrid=gridRoot.GetChild(0);float priorScroll=galleryScroll.verticalNormalizedPosition;
@@ -34,10 +39,16 @@ namespace DragonIdle {
    GalleryTestButton("BackToCards").onClick.Invoke();
    AssertSmoke(!galleryDetailOpen&&galleryListRoot.gameObject.activeSelf&&cardButtons[0]==cachedCard&&gridRoot.GetChild(0)==cachedGrid&&Math.Abs(priorScroll-galleryScroll.verticalNormalizedPosition)<.001,"Returning rebuilt card grid or lost scroll");
    AssertSmoke(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject==cachedCard.gameObject,"Return did not restore keyboard focus");
-   var border=cachedCard.GetComponent<GalleryFocus>().InsetBorder;var cardRect=(RectTransform)cachedCard.transform;
-   var borderRect=border.rectTransform;var inset=borderRect.anchoredPosition;
-   AssertSmoke(border.enabled&&!border.fillCenter&&!cachedCard.GetComponent<UI.Outline>().enabled&&inset.x>0&&inset.y<0&&
-    inset.x+borderRect.rect.width<cardRect.rect.width&&-inset.y+borderRect.rect.height<cardRect.rect.height,"Card focus border intersects the clipping edge");
+   var cardFocus=cachedCard.GetComponent<GalleryFocus>();
+   var surface=(UI.Image)cachedCard.targetGraphic;var focused=surface.overrideSprite;var plain=surface.sprite;
+   AssertSmoke(focused==cardFocus.CardFocusSprite&&focused!=plain&&focused.rect==plain.rect&&focused.border==plain.border&&
+    surface.fillCenter&&!cachedCard.GetComponent<UI.Outline>().enabled,"Selected card does not use the same silhouette as the plain card");
+   var tex=focused.texture;int mid=tex.width/2,last=tex.width-1;
+   var sides=new[]{tex.GetPixel(0,mid),tex.GetPixel(last,mid),tex.GetPixel(mid,0),tex.GetPixel(mid,last)};
+   AssertSmoke(sides.All(color=>Vector4.Distance(color,InkDark)<.02f)&&Vector4.Distance(tex.GetPixel(mid,mid),InkPaper)<.02f,
+    "Selected surface leaves a paper rim at its outer edges");
+   UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+   AssertSmoke(surface.overrideSprite==plain&&surface.color==InkPaper,"Deselect did not restore plain card surface");
    AssertSmoke(cachedCard.targetGraphic is UI.Image&&((UI.Image)cachedCard.targetGraphic).type==UI.Image.Type.Sliced,"Rounded card surface missing");
    AssertSmoke(ThemeContrast(uiPaper,uiPanel)>=4.5&&ThemeContrast(uiDim,InkMist)>=4.5&&
     ThemeContrast(InkIvory,InkDark)>=4.5&&ThemeContrast(InkWarmText,InkGold)>=4.5,"Ink text contrast below target");
@@ -124,7 +135,7 @@ namespace DragonIdle {
     AssertSmoke(Mathf.Abs(rect.width/rect.height-image.width/(float)image.height)<.001f,"Detail distorted portrait aspect: "+Data.Cards[i].Id);
    }
    AssertSmoke(galleryCanvas.GetComponent<UI.CanvasScaler>().screenMatchMode==UI.CanvasScaler.ScreenMatchMode.Expand,"UI aspect ratio scaler incorrect");
-   File.WriteAllText(Path.Combine(dir,"gallery-refresh-smoke.json"),"{\"dedicatedDetail\":true,\"cardCache\":true,\"focusReturn\":true,\"roundedSurfaces\":true,\"individualFilterClear\":true,\"filterDropdowns\":true,\"simplifiedCards\":true,\"characterPowerAndTypes\":true,\"insetCardFocus\":true,\"sixRowFilterScroll\":true,\"fullPortraitAspect\":true,\"enabledTextContrast\":true,\"viewportMath\":[\"1280x720\",\"1600x900\",\"1920x1080\",\"2560x1080\"],\"renderVerified\":false}");
+   File.WriteAllText(Path.Combine(dir,"gallery-refresh-smoke.json"),"{\"dedicatedDetail\":true,\"cardCache\":true,\"focusReturn\":true,\"roundedSurfaces\":true,\"individualFilterClear\":true,\"filterDropdowns\":true,\"simplifiedCards\":true,\"characterPowerAndTypes\":true,\"flushCardFocus\":true,\"unownedPowerHidden\":true,\"sixRowFilterScroll\":true,\"fullPortraitAspect\":true,\"enabledTextContrast\":true,\"viewportMath\":[\"1280x720\",\"1600x900\",\"1920x1080\",\"2560x1080\"],\"renderVerified\":false}");
    File.WriteAllText(Path.Combine(dir,"gallery-smoke.json"),"{\"eventsWired\":true,\"filters\":true,\"stats\":true,\"navigation\":true,\"textLayout\":true,\"audioPreferences\":true,\"audioSilentDuringTest\":true,\"visualVerified\":false,\"listened\":false}");
    Save();
   }

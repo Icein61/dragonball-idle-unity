@@ -5,22 +5,33 @@ namespace DragonIdle {
  // Shared, code-native nine-slice surfaces; character pixels are never modified.
  public sealed class GalleryFocus:MonoBehaviour,ISelectHandler,IDeselectHandler {
   public UI.Outline Outline;
-  public UI.Image InsetBorder;
   public System.Action Focused;
-  public void OnSelect(BaseEventData e){if(InsetBorder!=null)InsetBorder.enabled=true;else Outline.enabled=true;Focused?.Invoke();}
-  public void OnDeselect(BaseEventData e){if(InsetBorder!=null)InsetBorder.enabled=false;else Outline.enabled=false;}
+  public UI.Image CardSurface;
+  public Sprite CardFocusSprite;
+  public Color CardNormalTint;
+  void SetFocus(bool active){
+   if(CardSurface==null){Outline.enabled=active;return;}
+   CardSurface.overrideSprite=active?CardFocusSprite:null;
+   CardSurface.color=active?Color.white:CardNormalTint;
+  }
+  public void OnSelect(BaseEventData e){SetFocus(true);Focused?.Invoke();}
+  public void OnDeselect(BaseEventData e){SetFocus(false);}
+  void OnDisable(){if(CardSurface!=null)SetFocus(false);}
  }
  public partial class DemoGame {
-  Sprite roundedControl,roundedPanel;
-  Sprite RoundedSurface(bool panel){
-   if(panel&&roundedPanel!=null)return roundedPanel;if(!panel&&roundedControl!=null)return roundedControl;
-   int radius=panel?24:14,size=radius*4;var texture=new Texture2D(size,size,TextureFormat.RGBA32,false);texture.name=panel?"RoundedPanel":"RoundedControl";texture.wrapMode=TextureWrapMode.Clamp;
+  Sprite roundedControl,roundedPanel,roundedCardFocus;
+  Sprite RoundedSurface(bool panel,bool cardFocus=false){
+   var cached=cardFocus?roundedCardFocus:panel?roundedPanel:roundedControl;if(cached!=null)return cached;
+   int radius=panel?24:14,size=radius*4;var texture=new Texture2D(size,size,TextureFormat.RGBA32,false);texture.name=cardFocus?"RoundedCardFocus":panel?"RoundedPanel":"RoundedControl";texture.wrapMode=TextureWrapMode.Clamp;
    for(int y=0;y<size;y++)for(int x=0;x<size;x++){
     float dx=Mathf.Max(radius-(x+.5f),x+.5f-(size-radius),0),dy=Mathf.Max(radius-(y+.5f),y+.5f-(size-radius),0);
-    texture.SetPixel(x,y,new Color(1,1,1,Mathf.Clamp01(radius+.5f-Mathf.Sqrt(dx*dx+dy*dy))));
+    float inside=radius-Mathf.Sqrt(dx*dx+dy*dy),alpha=Mathf.Clamp01(inside+.5f);
+    // Paint the border and paper on one silhouette so the ordinary card cannot show through at the edge.
+    Color pixel=cardFocus?Color.Lerp(InkDark,InkPaper,Mathf.Clamp01(inside-5.5f)):Color.white;
+    pixel.a=alpha;texture.SetPixel(x,y,pixel);
    }
-   texture.Apply(false,true);var sprite=Sprite.Create(texture,new Rect(0,0,size,size),new Vector2(.5f,.5f),100,0,SpriteMeshType.FullRect,new Vector4(radius,radius,radius,radius));
-   if(panel)roundedPanel=sprite;else roundedControl=sprite;return sprite;
+   texture.Apply(false,!cardFocus||!Application.isBatchMode);var sprite=Sprite.Create(texture,new Rect(0,0,size,size),new Vector2(.5f,.5f),100,0,SpriteMeshType.FullRect,new Vector4(radius,radius,radius,radius));
+   if(cardFocus)roundedCardFocus=sprite;else if(panel)roundedPanel=sprite;else roundedControl=sprite;return sprite;
   }
   RectTransform galleryListRoot,filterChipRoot;bool galleryDetailOpen,statsExpanded;int[] renderedCards;
   static double ThemeLuminance(Color c){return .2126*ThemeChannel(c.r)+.7152*ThemeChannel(c.g)+.0722*ThemeChannel(c.b);}

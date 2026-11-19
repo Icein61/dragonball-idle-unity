@@ -167,14 +167,16 @@ namespace DragonIdle {
     UText(r,"Theme",c.Title,16,363,284,28,17,uiDim);
     UText(r,"CharacterType",c.TypeText,16,398,160,26,16,uiAccent);
     UText(r,"Unowned","未拥有",190,398,110,26,16,uiDim,TextAnchor.UpperRight);
-    var border=UPanel(r,"FocusBorder",3,3,310,424,InkDark).GetComponent<UI.Image>();
-    border.fillCenter=false;border.enabled=false;
-    b.GetComponent<GalleryFocus>().InsetBorder=border;
+    var focus=b.GetComponent<GalleryFocus>();
+    focus.CardSurface=(UI.Image)b.targetGraphic;focus.CardFocusSprite=RoundedSurface(false,cardFocus:true);focus.CardNormalTint=InkPaper;
    }
    foreach(var pair in cardButtons){
     var r=pair.Value.transform;
-    r.Find("CharacterPower").GetComponent<UI.Text>().text="战斗力："+profile.CharacterPower(pair.Key);
-    r.Find("Unowned").gameObject.SetActive(!profile.Owned[pair.Key]);
+    bool owned=profile.Owned[pair.Key];
+    var power=r.Find("CharacterPower").GetComponent<UI.Text>();
+    power.text=owned?"战斗力："+profile.CharacterPower(pair.Key):"";
+    power.gameObject.SetActive(owned);
+    r.Find("Unowned").gameObject.SetActive(!owned);
    }
    if(rebuild&&results.Length==0){
     UText(gridRoot,"EmptyTitle","没有符合条件的角色",350,100,620,45,25,uiPaper,TextAnchor.MiddleCenter);
