@@ -7,6 +7,8 @@
 
 v0.12.5 承接 [v0.12.4 开发单](release-plans/v0.12.4.md)的详细开发计划【一】：精简图鉴文案与卡片阵位信息，稀有度、标签和排序改为按钮下方的下拉框，移除战斗定位筛选。
 
+[v0.12.5 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.5) 对应源码 `ccdb5078544d935c8e627eb320aec1f507ab9dd6`。811 项核心检查、Unity 后台构建和无图形 Player 交互验证 `release-smoke-20261120011934` 通过，覆盖下拉筛选、焦点返回与卡片信息。远端标签及三份附件已回读；ZIP 为 73037190 字节，SHA256 为 `00a7c9558d32b2b6daa30769910274deb6892b9cb41ffa8829aa0b0acb73c527`。可见验收待进行。
+
 v0.12.4 接入用户确认的雅木茶、饺子和孙悟空【界王拳】立绘。雅木茶以替换后的概念图重画，饺子沿用首稿，悟空采用用户贴图确认的蓝白光波版本。至此初版九张已上线卡都使用已确认的立绘。
 
 [v0.12.4 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.4) 对应源码 `510dd90f291784f248584a8acc572131da258b5b`。811 项核心检查、立绘透明度及原图尺寸检查、Unity 后台构建和隔离静音 Player 验证 `release-smoke-20261120004439` 通过。已回读远端标签及三份附件，ZIP 为 73036881 字节，SHA256 为 `de2261b00034a815eaef6a2d6d1cc62ddf01b3026161b78ffe273ccd99d44aaa`。可见验收待进行。
