@@ -7,6 +7,8 @@
 
 v0.12.8 接入角色详情快捷切换、标签与八项属性，并修复图鉴下拉滑块越界。新版简表可按列勾选身份标签；运行时仍使用现有九卡的身份配置。
 
+[v0.12.8 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.8) 对应源码 `9485b4ed5bf6588f033e68c14b28d162a8586873`。817 项核心检查、Unity 后台构建和无图形 Player 验证 `release-smoke-20261120023524` 通过，包含详情导航、属性信息和滑块边界。远端标签及三份附件已核对；ZIP 为 73040937 字节，SHA256 为 `7537d9be4db126e2dfd346dd95d606c9b1e804f3d90d361976e349e4bba052ba`。实际观感留待试玩。
+
 v0.12.7 修复 [v0.12.5 开发单](release-plans/v0.12.5.md)里的两项试玩反馈：未拥有卡隐藏战力；卡片选中边沿与外轮廓重合，保留滚动区留边。
 
 [v0.12.7 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.7) 对应源码 `b76869c77704549cf680d89299486381a7894569`。817 项核心检查、Unity 后台构建和无图形 Player 验证 `release-smoke-20261120020503` 通过，覆盖未拥有卡获得前后的战力显示、选中外沿与取消选中。已核对远端标签及三份附件；ZIP 为 73040027 字节，SHA256 为 `179ff29b5bb3384fd7d90c5cbbcd11860342b582c35da4b357f4d23952aa33b9`。可见验收待进行。
