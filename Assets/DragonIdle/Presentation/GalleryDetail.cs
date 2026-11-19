@@ -4,38 +4,94 @@ using UnityEngine;
 using UI=UnityEngine.UI;
 namespace DragonIdle {
  public partial class DemoGame {
-  RectTransform detailBody;float detailY;UI.ScrollRect galleryDetailScroll;int renderedDetailCard=-2,renderedDetailTab=-1;UI.Button galleryTrainButton,galleryEquipButton,gallerySwapButton;
+  RectTransform detailBody;float detailY;UI.ScrollRect galleryDetailScroll;int renderedDetailCard=-2,renderedDetailTab=-1;UI.Button galleryEquipButton,gallerySwapButton;
   void DrawGalleryDetail(){
    var eventSystem=UnityEngine.EventSystems.EventSystem.current;
    var focused=eventSystem!=null?eventSystem.currentSelectedGameObject:null;
    string restoreFocus=focused!=null&&focused.transform.IsChildOf(detailRoot)?focused.name:null;
    float oldScroll=galleryDetailScroll!=null&&renderedDetailCard==selectedCard&&renderedDetailTab==detailTab?galleryDetailScroll.verticalNormalizedPosition:1;
    renderedDetailCard=selectedCard;renderedDetailTab=detailTab;
-   ClearUI(detailRoot);measuredText.Clear();galleryTrainButton=galleryEquipButton=gallerySwapButton=null;
+   ClearUI(detailRoot);measuredText.Clear();galleryEquipButton=gallerySwapButton=null;
    if(selectedCard<0){UText(detailRoot,"NoSelection","从左侧选择一张角色卡",30,300,544,80,23,uiDim,TextAnchor.MiddleCenter);return;}
    int i=selectedCard;var c=Data.Cards[i];bool owned=profile.Owned[i];
    UButton(detailRoot,"BackToCards","‹ 返回图鉴",24,18,190,40,ReturnToCards);
    UPanel(detailRoot,"PortraitMat",24,72,456,532,InkMist);
    UArt(detailRoot,i,24,72,456,532);
-   DrawRarityBadge(detailRoot,c.Rarity,520,14,62,46);
-   UText(detailRoot,"CardKeywords",c.KeywordText,591,24,717,32,18,uiAccent);
-   UText(detailRoot,"CharacterName",c.Name,520,68,788,45,32,uiPaper);
-   UText(detailRoot,"CharacterTitle",c.Title,520,116,788,32,23,uiPaper);
-   UText(detailRoot,"Identity",string.Join(" · ",c.Tags.Distinct()),520,158,788,32,17,uiDim);
-   int slot=Array.IndexOf(profile.Team,i);
-   UText(detailRoot,"Ownership",owned?(slot>=0?FormationSlotLabel(slot)+(slot==profile.Leader?" · 队长":" · 已上阵"):"已拥有 · 候补"):"尚未拥有",24,613,456,30,18,owned?uiAccent:uiDim);
+   DrawRarityBadge(detailRoot,c.Rarity,520,14,62,46,leftAligned:true);
+   UText(detailRoot,"DetailType",c.TypeText,591,24,210,32,18,uiAccent);
+   DrawDetailNeighbors(i);
+   UText(detailRoot,"CharacterName",c.Name,520,68,530,45,32,uiPaper);
+   UText(detailRoot,"CharacterTitle",c.Title,520,116,788,28,17,uiDim).fontStyle=FontStyle.Normal;
+   float tabY=DrawDetailTagChips(c.Tags.Distinct().ToArray())+16;
+   if(!owned)UText(detailRoot,"Ownership","尚未拥有",24,613,456,30,18,uiDim);
    UButton(detailRoot,"Acquisition","查看获取途径",24,654,456,42,()=>ShowAcquisition(i));
-   string[] tabs={"概览与培养","招式与队长","装备与技能"};
-   for(int n=0;n<3;n++){int tab=n;UButton(detailRoot,"DetailTab"+n,tabs[n],520+n*264,202,252,42,()=>{detailTab=tab;DrawGalleryDetail();},selected:detailTab==n);}
-   galleryDetailScroll=UScroll(detailRoot,"DetailScroll",520,260,788,370,out detailBody);detailY=0;
+   string[] tabs={"信息","招式与队长","装备与技能"};
+   for(int n=0;n<3;n++){int tab=n;UButton(detailRoot,"DetailTab"+n,tabs[n],520+n*264,tabY,252,42,()=>{detailTab=tab;DrawGalleryDetail();},selected:detailTab==n);}
+   float detailTop=tabY+58,detailHeight=Math.Max(110,630-detailTop);
+   galleryDetailScroll=UScroll(detailRoot,"DetailScroll",520,detailTop,788,detailHeight,out detailBody);detailY=0;
    if(detailTab==0)DrawGalleryStats(i);
    else if(detailTab==1)DrawGallerySkills(i);
    else DrawGalleryLoadout(i);
-   detailBody.sizeDelta=new Vector2(774,Math.Max(370,detailY+10));
+   detailBody.sizeDelta=new Vector2(774,Math.Max(detailHeight,detailY+10));
    Canvas.ForceUpdateCanvases();galleryDetailScroll.verticalNormalizedPosition=oldScroll;
    gallerySwapButton=UButton(detailRoot,"ChooseSlot",owned?"选择阵位":"查看获取途径",520,654,382,42,()=>{if(owned)ShowFormationPicker(i);else ShowAcquisition(i);},true,saveError=="");
    galleryEquipButton=UButton(detailRoot,"OpenEquipment","前往装备工坊",918,654,390,42,()=>NavigateGallery("装备"),false,owned&&saveError=="");
    if(restoreFocus!=null&&eventSystem!=null){var control=detailRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(b=>b.name==restoreFocus&&b.interactable);eventSystem.SetSelectedGameObject(control!=null?control.gameObject:ActiveBackButton(detailRoot,"BackToCards"));}
+  }
+  float DrawDetailTagChips(string[] tags){
+   const float left=520,available=788,height=30;
+   float x=0,y=151;
+   var tray=UNode(detailRoot,"DetailTags",left,0,available,0);
+   for(int n=0;n<tags.Length;n++){
+    var chip=UPanel(tray,"TagChip"+n,0,0,100,height,InkLight);
+    var label=UText(chip,"TagText",tags[n],10,0,available-20,height,15,uiPaper,TextAnchor.MiddleCenter);
+    float w=Mathf.Clamp(Mathf.Ceil(label.preferredWidth)+20,52,available);
+    if(x>0&&x+w>available){x=0;y+=height+6;}
+    chip.anchoredPosition=new Vector2(x,-y);chip.sizeDelta=new Vector2(w,height);
+    label.rectTransform.sizeDelta=new Vector2(w-20,height);x+=w+8;
+   }
+   return y+height;
+  }
+  void DrawDetailNeighbors(int index){
+   var cards=renderedCards??Array.Empty<int>();int pos=Array.IndexOf(cards,index);
+   int prev=pos>0?cards[pos-1]:-1,next=pos>=0&&pos+1<cards.Length?cards[pos+1]:-1;
+   UButton(detailRoot,"PreviousCard","‹",1058,27,44,42,()=>SwitchDetailCard(prev),enabled:prev>=0);
+   DrawNeighborAvatar("PreviousAvatar",prev,1108);
+   DrawNeighborAvatar("NextAvatar",next,1180);
+   UButton(detailRoot,"NextCard","›",1250,27,44,42,()=>SwitchDetailCard(next),enabled:next>=0);
+  }
+  void SwitchDetailCard(int index){
+   if(!galleryDetailOpen||index<0||index==selectedCard)return;
+   selectedCard=index;DrawGalleryDetail();
+  }
+  void DrawNeighborAvatar(string name,int index,float x){
+   const float size=64;
+   var frame=UButton(detailRoot,name,"",x,16,size,size,()=>SwitchDetailCard(index),enabled:index>=0);
+   frame.GetComponentInChildren<UI.Text>().gameObject.SetActive(false);
+   if(index<0)return;
+   var texture=PortraitTexture(index);
+   if(texture!=null){
+    var r=UNode(frame.transform,"Face",3,3,size-6,size-6);
+    var image=r.gameObject.AddComponent<UI.RawImage>();image.texture=texture;image.raycastTarget=false;
+    var center=DetailAvatarFace(Data.Cards[index].Id);
+    const float h=.29f;float w=h/PortraitAspect(index);
+    image.uvRect=new Rect(Mathf.Clamp(center.x-w/2,0,1-w),Mathf.Clamp(1-center.y-h/2,0,1-h),w,h);
+   }else UArt(frame.transform,index,3,3,size-6,size-6);
+   DrawRarityBadge(frame.transform,Data.Cards[index].Rarity,1,1,24,19,leftAligned:true);
+  }
+  static Vector2 DetailAvatarFace(string cardId){
+   switch(cardId){
+    case "goku-test":return new Vector2(.47f,.28f);
+    case "vegeta-test":return new Vector2(.35f,.22f);
+    case "piccolo-test":return new Vector2(.56f,.20f);
+    case "krillin-test":return new Vector2(.68f,.36f);
+    case "gohan-test":return new Vector2(.51f,.27f);
+    case "tien-test":return new Vector2(.58f,.21f);
+    case "yamcha-saiyan-v020":return new Vector2(.65f,.22f);
+    case "chiaotzu-saiyan-v020":return new Vector2(.60f,.29f);
+    case "goku-saiyan-kaioken-v020":return new Vector2(.53f,.26f);
+    default:return new Vector2(.5f,.24f);
+   }
   }
   void DetailParagraph(string title,string content,Color? color=null){
    UText(detailBody,"SectionTitle",title,0,detailY,750,29,20,color??uiAccent);detailY+=36;
@@ -43,41 +99,19 @@ namespace DragonIdle {
    float height=Math.Max(28,t.preferredHeight+6);t.rectTransform.sizeDelta=new Vector2(748,height);measuredText.Add(t);detailY+=height+24;
   }
   void DrawGalleryStats(int i){
-   var c=Data.Cards[i];bool owned=profile.Owned[i];var personal=profile.InspectCharacter(i);var team=profile.InspectCharacter(i,true);
-   if(!statsExpanded){
-    var effective=owned&&profile.Team.Contains(i)?team:personal;
-    DetailParagraph(owned&&profile.Team.Contains(i)?"当前编队开战属性":"个人开战属性","生命  "+effective.MaxHP.ToString("0.0")+"      攻击  "+effective.AttackValue.ToString("0.0")+"\n防御  "+effective.DefenseValue.ToString("0.0")+"      速度  "+effective.SpeedValue.ToString("0.0"));
+   bool teamed=profile.Owned[i]&&profile.Team.Contains(i);
+   var unit=profile.InspectCharacter(i,teamed);
+   UText(detailBody,"StatsContext",teamed?"当前编队属性":profile.Owned[i]?"个人属性":"基础属性预览",0,0,760,30,18,uiAccent);
+   string[] labels={"生命","攻击","防御","速度","会心","韧性","穿透","闪避"};
+   // Current combat has no permanent tenacity or penetration stat. Skill penetration is separate.
+   string[] values={unit.MaxHP.ToString("0.#"),unit.AttackValue.ToString("0.#"),unit.DefenseValue.ToString("0.#"),unit.SpeedValue.ToString("0.#"),
+    (unit.Crit*100).ToString("0.#")+"%","0%","0%",(unit.Dodge*100).ToString("0.#")+"%"};
+   for(int n=0;n<labels.Length;n++){
+    var tile=UPanel(detailBody,"StatTile"+n,(n%4)*193,39+(n/4)*90,182,78,InkLight);
+    UText(tile,"StatLabel",labels[n],12,7,158,22,15,uiDim);
+    UText(tile,"StatValue",values[n],12,32,158,35,24,uiPaper);
    }
-   UButton(detailBody,"ToggleStatBreakdown",statsExpanded?"收起属性拆解":"展开基础 / 个人 / 编队属性",0,detailY,748,40,()=>{statsExpanded=!statsExpanded;DrawGalleryDetail();});detailY+=56;
-   if(statsExpanded){
-   DetailParagraph(owned?"开战属性拆解":"未培养预览","个人包含培养、装备、技能及已生效常驻被动，不计临时战斗强化；未上阵角色不计队长加成。");
-   UText(detailBody,"ColumnName","属性",0,detailY,100,25,15,uiDim);
-   UText(detailBody,"ColumnBase","基础",124,detailY,123,25,15,uiDim);
-   UText(detailBody,"ColumnPersonal","个人",269,detailY,123,25,15,uiDim);
-   UText(detailBody,"ColumnTeam","编队",414,detailY,123,25,15,uiDim);detailY+=32;
-   string[] names={"生命","攻击","防御","速度"};
-   double[] basis={c.HP,c.Attack,c.Defense,c.Speed},one={personal.MaxHP,personal.AttackValue,personal.DefenseValue,personal.SpeedValue},two={team.MaxHP,team.AttackValue,team.DefenseValue,team.SpeedValue};
-   for(int n=0;n<4;n++){
-    UText(detailBody,"StatName"+n,names[n],0,detailY,100,30,18,uiPaper);
-    UText(detailBody,"Base"+n,basis[n].ToString("0.0"),124,detailY,123,30,18,uiDim);
-    UText(detailBody,"Personal"+n,one[n].ToString("0.0"),269,detailY,123,30,18,uiPaper);
-    UText(detailBody,"Team"+n,owned&&profile.Team.Contains(i)?two[n].ToString("0.0"):"未上阵",414,detailY,123,30,18,uiAccent);detailY+=36;
-   }
-   }
-   DetailParagraph("战前效果","暴击 "+(personal.Crit*100).ToString("0.#")+"% · 闪避 "+(personal.Dodge*100).ToString("0.#")+"%\n个人开战护盾 "+personal.Shield.ToString("0")+" · 开战怒气 "+personal.Rage.ToString("0")+"\n"+(profile.Team.Contains(i)?"编队开战护盾 "+team.Shield.ToString("0")+"\n当前队长 生/攻/防 +"+(team.LeaderHealth*100).ToString("0")+"% / +"+(team.LeaderAttack*100).ToString("0")+"% / +"+(team.LeaderDefense*100).ToString("0")+"%":"候补不计队长加成；上阵后按队长条件计算。"));
-   if(!owned){DetailParagraph("获取后开始培养","获得后可养成与编队。");return;}
-   int cost=30+profile.Training[i]/10;
-   DetailParagraph("修炼 "+profile.Training[i]+" · 共鸣 "+profile.Resonance[i],"修炼每次增加基础属性0.1%；共鸣每次增加基础属性0.4%。速度不随这两项提升。培养资源保存在本张卡片上。");
-   galleryTrainButton=UButton(detailBody,"TrainOnce","修炼一次 · "+cost+" 素材",0,detailY,260,42,()=>{
-    var before=profile.InspectCharacter(i);
-    if(Change(()=>{if(!profile.Train(i))throw new InvalidOperationException("素材不足");})){
-     var after=profile.InspectCharacter(i);GalleryNotice("修炼完成 · 个人攻击 "+before.AttackValue.ToString("0.0")+" → "+after.AttackValue.ToString("0.0")+"，生命 "+before.MaxHP.ToString("0.0")+" → "+after.MaxHP.ToString("0.0"));RefreshGallery(false);
-    }else GalleryNotice(notice,false);
-   },true,profile.Materials>=cost&&saveError=="");
-   UButton(detailBody,"Resonance","共鸣 · "+(3+profile.Resonance[i])+" 专属资源",278,detailY,260,42,()=>{
-    if(Change(()=>{if(!profile.ResonanceUp(i))throw new InvalidOperationException("专属资源不足");})){GalleryNotice("共鸣提升 · 本卡基础属性 +0.4%");RefreshGallery(false);}else GalleryNotice(notice,false);
-   },false,profile.Shards[i]>=3+profile.Resonance[i]&&saveError=="");detailY+=54;
-   DetailParagraph("当前资源","素材 "+profile.Materials+" / "+cost+"；本卡专属资源 "+profile.Shards[i]+" / "+(3+profile.Resonance[i])+"。按钮变暗表示资源不足或存档不可写。",uiDim);
+   detailY=218;
   }
   void DrawGallerySkills(int i){
    var card=Data.Cards[i];
@@ -99,7 +133,6 @@ namespace DragonIdle {
    foreach(var id in new[]{profile.Skill[i],profile.Skill2[i]})DetailParagraph("额外技能 · "+Data.SkillName(id),Data.SkillDescription(id));
    string[] policy={"怒气足够即释放","自身生命 ≤ 60%","目标生命 ≤ 50%"};
    DetailParagraph("必杀策略",policy[profile.Policy[i]]+"；可在养成页调整。");
-   UButton(detailBody,"OpenTraining","前往养成与策略",0,detailY,538,42,()=>NavigateGallery("养成"));detailY+=58;
   }
  }
 }

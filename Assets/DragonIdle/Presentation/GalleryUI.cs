@@ -61,7 +61,11 @@ namespace DragonIdle {
    scroll.viewport=viewport;scroll.content=content;scroll.horizontal=false;scroll.vertical=true;scroll.movementType=UI.ScrollRect.MovementType.Clamped;scroll.scrollSensitivity=35;
    if(!showBar)return scroll;
    var track=UPanel(parent,name+"Track",x+w-12,y,10,h,InkPaper,true);
-   var handle=UPanel(track,"Handle",0,0,10,60,InkDark,true);
+   var slide=UNode(track,"SlidingArea",0,0,10,h);
+   slide.anchorMin=Vector2.zero;slide.anchorMax=Vector2.one;slide.pivot=new Vector2(.5f,.5f);slide.offsetMin=slide.offsetMax=Vector2.zero;
+   var handle=UPanel(slide,"Handle",0,0,10,0,InkDark,true);
+   // Scrollbar controls its handle anchors; explicit size or position offsets make it spill past the track.
+   handle.pivot=new Vector2(.5f,.5f);handle.anchorMin=Vector2.zero;handle.anchorMax=Vector2.one;handle.offsetMin=handle.offsetMax=Vector2.zero;
    var bar=track.gameObject.AddComponent<UI.Scrollbar>();bar.handleRect=handle;bar.targetGraphic=handle.GetComponent<UI.Image>();bar.direction=UI.Scrollbar.Direction.BottomToTop;scroll.verticalScrollbar=bar;
    return scroll;
   }

@@ -33,9 +33,22 @@ namespace DragonIdle {
    AssertSmoke(cardButtons.All(pair=>pair.Value.transform.Find("Rarity_"+Data.Cards[pair.Key].Rarity)!=null),"Gallery card missing rarity badge");
    var cachedCard=cardButtons[0];var cachedGrid=gridRoot.GetChild(0);float priorScroll=galleryScroll.verticalNormalizedPosition;
    cachedCard.onClick.Invoke();AssertSmoke(galleryDetailOpen&&!galleryListRoot.gameObject.activeSelf&&detailRoot.gameObject.activeSelf,"Dedicated detail screen did not replace grid");
-   var breakdown=GalleryTestButton("ToggleStatBreakdown");UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(breakdown.gameObject);breakdown.onClick.Invoke();
-   AssertSmoke(statsExpanded&&detailRoot.GetComponentsInChildren<UI.Text>().Any(t=>t.name=="Base0")&&UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject==GalleryTestButton("ToggleStatBreakdown").gameObject,"Stat breakdown failed or lost focus on refresh");
-   GalleryTestButton("ToggleStatBreakdown").onClick.Invoke();AssertSmoke(!statsExpanded&&!detailRoot.GetComponentsInChildren<UI.Text>().Any(t=>t.name=="Base0"),"Stat breakdown did not collapse");
+   AssertSmoke(GalleryTestButton("DetailTab0").GetComponentInChildren<UI.Text>().text=="信息"&&detailRoot.Find("Ownership")==null&&
+    detailRoot.Find("DetailType").GetComponent<UI.Text>().text==Data.Cards[0].TypeText&&
+    detailRoot.Find("CharacterTitle").GetComponent<UI.Text>().fontStyle==FontStyle.Normal,"Detail identity or information tab incorrect");
+   var info=detailBody.GetComponentsInChildren<UI.Text>();
+   AssertSmoke(info.Where(t=>t.name=="StatLabel").Select(t=>t.text).SequenceEqual(new[]{"生命","攻击","防御","速度","会心","韧性","穿透","闪避"})&&
+    info.All(t=>!t.text.StartsWith("修炼")&&!t.text.StartsWith("共鸣")&&t.text!="战前效果")&&
+    detailBody.GetComponentsInChildren<UI.Button>().Length==0,"Attribute grid or read-only info failed");
+   AssertSmoke(detailRoot.Find("DetailTags").GetComponentsInChildren<UI.Text>().Select(t=>t.text).SequenceEqual(Data.Cards[0].Tags),"Identity chips do not match card");
+   int adjacent=renderedCards[1];
+   AssertSmoke(!GalleryTestButton("PreviousCard").interactable&&GalleryTestButton("NextCard").interactable,"Detail neighbors do not respect result bounds");
+   var nextAvatar=GalleryTestButton("NextAvatar");
+   var avatarRect=(RectTransform)nextAvatar.transform;
+   AssertSmoke(avatarRect.rect.width==avatarRect.rect.height&&nextAvatar.transform.Find("Rarity_"+Data.Cards[adjacent].Rarity)!=null&&
+    nextAvatar.GetComponentInChildren<UI.RawImage>().texture==PortraitTexture(adjacent),"Detail avatar or badge incorrect");
+   GalleryTestButton("NextCard").onClick.Invoke();AssertSmoke(selectedCard==adjacent&&galleryDetailOpen,"Next arrow did not switch detail card");
+   GalleryTestButton("PreviousAvatar").onClick.Invoke();AssertSmoke(selectedCard==0&&galleryDetailOpen,"Previous avatar did not switch detail card");
    GalleryTestButton("BackToCards").onClick.Invoke();
    AssertSmoke(!galleryDetailOpen&&galleryListRoot.gameObject.activeSelf&&cardButtons[0]==cachedCard&&gridRoot.GetChild(0)==cachedGrid&&Math.Abs(priorScroll-galleryScroll.verticalNormalizedPosition)<.001,"Returning rebuilt card grid or lost scroll");
    AssertSmoke(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject==cachedCard.gameObject,"Return did not restore keyboard focus");
@@ -64,8 +77,11 @@ namespace DragonIdle {
    gallerySearch.text="界王拳";
    int kaioken=Data.Index("goku-saiyan-kaioken-v020");
    AssertSmoke(selectedCard==kaioken&&cardButtons.Count==1&&!galleryEquipButton.interactable,"Search selection or unowned actions failed");
+   cardButtons[kaioken].onClick.Invoke();
+   AssertSmoke(!GalleryTestButton("PreviousCard").interactable&&!GalleryTestButton("NextCard").interactable,"Filtered detail escaped single-card results");
+   GalleryTestButton("BackToCards").onClick.Invoke();
    gallerySearch.text="不存在的角色";
-   AssertSmoke(selectedCard==-1&&cardButtons.Count==0&&galleryTrainButton==null&&gallerySwapButton==null,"Empty query leaked stale character actions");
+   AssertSmoke(selectedCard==-1&&cardButtons.Count==0&&galleryEquipButton==null&&gallerySwapButton==null,"Empty query leaked stale character actions");
    ResetGalleryFilters();GalleryTestButton("Filter0").onClick.Invoke();
    var menu=(RectTransform)filterDropdown.Find("FilterOptions");
    var trigger=(RectTransform)filterButtons[0].transform;
@@ -84,6 +100,14 @@ namespace DragonIdle {
    var lastOption=tagScroll.content.GetComponentsInChildren<UI.Button>().Last();
    AssertSmoke(tagScroll.viewport.GetComponent<UI.RectMask2D>()!=null&&tagScroll.verticalScrollbar!=null&&
     tagScroll.viewport.rect.height==6*FilterRowHeight&&tagScroll.content.rect.height>tagScroll.viewport.rect.height,"Tag list is not limited to six visible rows");
+   var bar=tagScroll.verticalScrollbar;var track=(RectTransform)bar.transform;
+   foreach(float value in new[]{0f,.5f,1f}){
+    bar.size=tagScroll.viewport.rect.height/tagScroll.content.rect.height;bar.value=value;
+    var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(track,bar.handleRect);
+    AssertSmoke(bounds.min.y>=track.rect.yMin-.01f&&bounds.max.y<=track.rect.yMax+.01f&&
+     bounds.min.x>=track.rect.xMin-.01f&&bounds.max.x<=track.rect.xMax+.01f,"Scrollbar handle spilled outside track");
+   }
+   tagScroll.verticalNormalizedPosition=1;
    tagScroll.OnScroll(new UnityEngine.EventSystems.PointerEventData(events){scrollDelta=new Vector2(0,-2)});
    AssertSmoke(tagScroll.verticalNormalizedPosition<.99f,"Wheel did not scroll tag options");
    events.SetSelectedGameObject(lastOption.gameObject);
@@ -99,9 +123,7 @@ namespace DragonIdle {
    GalleryTestButton("Filter1").onClick.Invoke();filterDropdown.GetComponent<UI.Button>().onClick.Invoke();
    AssertSmoke(filterDropdown==null&&catalog.Tag=="赛亚人","Clicking outside changed selection or failed to close");
    ResetGalleryFilters();cardButtons[0].onClick.Invoke();detailTab=0;DrawGalleryDetail();
-   int material=profile.Materials;galleryTrainButton.onClick.Invoke();
-   AssertSmoke(profile.Training[0]==1&&profile.Materials==material-30,"Training action transaction failed");
-   Load();AssertSmoke(profile.Training[0]==1&&profile.Materials==material-30,"Training UI persistence failed");
+   AssertSmoke(detailRoot.GetComponentsInChildren<UI.Button>().All(b=>b.name!="TrainOnce"&&b.name!="Resonance"),"Information page leaked training entry");
    RefreshGallery(false);ShowFormationPicker(0);GalleryTestButton("Slot1").onClick.Invoke();
    AssertSmoke(profile.Team[1]==0&&profile.Team[0]==1&&profile.Leader==0&&selectedCard==0,"Formation picker swap failed");
    var snapshot=profile.InspectCharacter(0,true);var actual=profile.CreateTeam()[1];
@@ -125,17 +147,17 @@ namespace DragonIdle {
    foreach(int i in Enumerable.Range(0,Data.Cards.Length)){
     selectedCard=i;detailTab=1;DrawGalleryDetail();Canvas.ForceUpdateCanvases();
     AssertSmoke(measuredText.All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Leader or keyword detail clipped");
-    AssertSmoke(detailRoot.GetComponentsInChildren<UI.Text>().Any(t=>t.text.Contains(Data.Cards[i].KeywordText)),"Role summary missing");
+    AssertSmoke(detailRoot.GetComponentsInChildren<UI.Text>().Any(t=>t.name=="DetailType"&&t.text==Data.Cards[i].TypeText),"Detail type missing");
     AssertSmoke(detailRoot.GetComponentsInChildren<UI.Text>().Any(t=>t.text==Data.Cards[i].LeaderText),"Leader definition UI mismatch");
    }
    foreach(int i in Enumerable.Range(0,Data.Cards.Length)){
-    selectedCard=i;DrawGalleryDetail();var images=detailRoot.GetComponentsInChildren<UI.RawImage>();AssertSmoke(images.Length==1,"Detail art missing");
-    AssertSmoke(images[0].texture==PortraitTexture(i)&&images[0].texture!=FighterTexture(i)&&images[0].uvRect==new Rect(0,0,1,1),"Detail reused atlas or cropped portrait UV");
-    var rect=images[0].rectTransform.rect;var image=images[0].texture;
+    selectedCard=i;DrawGalleryDetail();var art=detailRoot.Find("Portrait").GetComponent<UI.RawImage>();AssertSmoke(art!=null,"Detail art missing");
+    AssertSmoke(art.texture==PortraitTexture(i)&&art.texture!=FighterTexture(i)&&art.uvRect==new Rect(0,0,1,1),"Detail reused atlas or cropped portrait UV");
+    var rect=art.rectTransform.rect;var image=art.texture;
     AssertSmoke(Mathf.Abs(rect.width/rect.height-image.width/(float)image.height)<.001f,"Detail distorted portrait aspect: "+Data.Cards[i].Id);
    }
    AssertSmoke(galleryCanvas.GetComponent<UI.CanvasScaler>().screenMatchMode==UI.CanvasScaler.ScreenMatchMode.Expand,"UI aspect ratio scaler incorrect");
-   File.WriteAllText(Path.Combine(dir,"gallery-refresh-smoke.json"),"{\"dedicatedDetail\":true,\"cardCache\":true,\"focusReturn\":true,\"roundedSurfaces\":true,\"individualFilterClear\":true,\"filterDropdowns\":true,\"simplifiedCards\":true,\"characterPowerAndTypes\":true,\"flushCardFocus\":true,\"unownedPowerHidden\":true,\"sixRowFilterScroll\":true,\"fullPortraitAspect\":true,\"enabledTextContrast\":true,\"viewportMath\":[\"1280x720\",\"1600x900\",\"1920x1080\",\"2560x1080\"],\"renderVerified\":false}");
+   File.WriteAllText(Path.Combine(dir,"gallery-refresh-smoke.json"),"{\"dedicatedDetail\":true,\"cardCache\":true,\"focusReturn\":true,\"roundedSurfaces\":true,\"individualFilterClear\":true,\"filterDropdowns\":true,\"simplifiedCards\":true,\"characterPowerAndTypes\":true,\"flushCardFocus\":true,\"unownedPowerHidden\":true,\"sixRowFilterScroll\":true,\"boundedScrollbarHandle\":true,\"detailNavigationAndInfo\":true,\"fullPortraitAspect\":true,\"enabledTextContrast\":true,\"viewportMath\":[\"1280x720\",\"1600x900\",\"1920x1080\",\"2560x1080\"],\"renderVerified\":false}");
    File.WriteAllText(Path.Combine(dir,"gallery-smoke.json"),"{\"eventsWired\":true,\"filters\":true,\"stats\":true,\"navigation\":true,\"textLayout\":true,\"audioPreferences\":true,\"audioSilentDuringTest\":true,\"visualVerified\":false,\"listened\":false}");
    Save();
   }

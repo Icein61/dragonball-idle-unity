@@ -33,7 +33,7 @@ namespace DragonIdle {
    texture.Apply(false,!cardFocus||!Application.isBatchMode);var sprite=Sprite.Create(texture,new Rect(0,0,size,size),new Vector2(.5f,.5f),100,0,SpriteMeshType.FullRect,new Vector4(radius,radius,radius,radius));
    if(cardFocus)roundedCardFocus=sprite;else if(panel)roundedPanel=sprite;else roundedControl=sprite;return sprite;
   }
-  RectTransform galleryListRoot,filterChipRoot;bool galleryDetailOpen,statsExpanded;int[] renderedCards;
+  RectTransform galleryListRoot,filterChipRoot;bool galleryDetailOpen;int[] renderedCards;
   static double ThemeLuminance(Color c){return .2126*ThemeChannel(c.r)+.7152*ThemeChannel(c.g)+.0722*ThemeChannel(c.b);}
   static double ThemeChannel(double value){return value<=.04045?value/12.92:System.Math.Pow((value+.055)/1.055,2.4);}
   static double ThemeContrast(Color a,Color b){double x=ThemeLuminance(a),y=ThemeLuminance(b);return (System.Math.Max(x,y)+.05)/(System.Math.Min(x,y)+.05);}
