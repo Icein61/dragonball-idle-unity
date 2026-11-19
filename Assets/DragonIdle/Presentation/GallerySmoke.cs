@@ -151,7 +151,8 @@ namespace DragonIdle {
     AssertSmoke(detailRoot.GetComponentsInChildren<UI.Text>().Any(t=>t.text==Data.Cards[i].LeaderText),"Leader definition UI mismatch");
    }
    foreach(int i in Enumerable.Range(0,Data.Cards.Length)){
-    selectedCard=i;DrawGalleryDetail();var art=detailRoot.Find("Portrait").GetComponent<UI.RawImage>();AssertSmoke(art!=null,"Detail art missing");
+    selectedCard=i;DrawGalleryDetail();var art=detailRoot.GetComponentsInChildren<UI.RawImage>()
+     .SingleOrDefault(image=>image.transform.parent==detailRoot&&image.name=="Portrait");AssertSmoke(art!=null,"Detail art missing");
     AssertSmoke(art.texture==PortraitTexture(i)&&art.texture!=FighterTexture(i)&&art.uvRect==new Rect(0,0,1,1),"Detail reused atlas or cropped portrait UV");
     var rect=art.rectTransform.rect;var image=art.texture;
     AssertSmoke(Mathf.Abs(rect.width/rect.height-image.width/(float)image.height)<.001f,"Detail distorted portrait aspect: "+Data.Cards[i].Id);
