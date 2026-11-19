@@ -7,6 +7,8 @@
 
 v0.12.6 按 [v0.12.5 开发单](release-plans/v0.12.5.md)更新角色简表和图鉴。卡面显示个人战斗力与角色类型，卡片焦点边框改为内描边，稀有度角标与立绘底板左对齐，下拉框最多显示六项，右上角仅显示拥有数量。
 
+[v0.12.6 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.6) 对应源码 `7ac6f287a5e4c35e2d73f67c0eff44c2a9dc114e`。817 项核心检查、Unity 后台构建和无图形 Player 验证 `release-smoke-20261120014921` 通过，覆盖类型、战力、边框几何和六行滚动。已核对远端标签及三份附件，ZIP 为 73039355 字节，SHA256 为 `86074e3e129ffd3f8701be203af2db7b47fdec0620098454da798dc9a254ad59`。实际界面观感待试玩。
+
 v0.12.5 承接 [v0.12.4 开发单](release-plans/v0.12.4.md)的详细开发计划【一】：精简图鉴文案与卡片阵位信息，稀有度、标签和排序改为按钮下方的下拉框，移除战斗定位筛选。
 
 [v0.12.5 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.5) 对应源码 `ccdb5078544d935c8e627eb320aec1f507ab9dd6`。811 项核心检查、Unity 后台构建和无图形 Player 交互验证 `release-smoke-20261120011934` 通过，覆盖下拉筛选、焦点返回与卡片信息。远端标签及三份附件已回读；ZIP 为 73037190 字节，SHA256 为 `00a7c9558d32b2b6daa30769910274deb6892b9cb41ffa8829aa0b0acb73c527`。可见验收待进行。
