@@ -15,8 +15,15 @@ namespace DragonIdle {
    allTab.onClick.Invoke();AssertSmoke(cardButtons.Count==9&&!catalog.OwnedOnly,"All gallery tab failed");
    AssertSmoke(galleryListRoot.Find("Title").GetComponent<UI.Text>().text=="图鉴"&&allTab.GetComponentInChildren<UI.Text>().text=="全部角色"&&
     galleryListRoot.Find("AppliedFilters")==null&&filterButtons.Count==3,"Gallery rename, help removal or filter count failed");
-   AssertSmoke(cardButtons.All(pair=>pair.Value.transform.Find("Owned").GetComponent<UI.Text>().text==(profile.Owned[pair.Key]?"":"未拥有")),
-    "Card still shows formation position or lost unowned marker");
+   AssertSmoke(galleryResources.text=="拥有8/9"&&galleryListRoot.Find("CollectionCount")==null,"Gallery header does not show owned/total exclusively");
+   foreach(var pair in cardButtons){
+    var card=Data.Cards[pair.Key];var root=pair.Value.transform;
+    AssertSmoke(root.Find("CharacterPower").GetComponent<UI.Text>().text=="战斗力："+profile.CharacterPower(pair.Key)&&
+     root.Find("CharacterType").GetComponent<UI.Text>().text==card.TypeText&&root.Find("Keywords")==null&&
+     root.Find("Unowned").gameObject.activeSelf!=profile.Owned[pair.Key],"Card power, type or unowned marker incorrect");
+    var badge=(RectTransform)root.Find("Rarity_"+card.Rarity);var mat=(RectTransform)root.Find("PortraitMat");
+    AssertSmoke(badge!=null&&Math.Abs(badge.anchoredPosition.x-mat.anchoredPosition.x)<.001,"Rarity badge lost portrait mat alignment");
+   }
    AssertSmoke(Data.Rarities.SequenceEqual(new[]{"C","B","A","S"})&&Data.Rarities.All(rank=>RarityBadge(rank)!=null),"Rarity badge resource missing");
    AssertSmoke(cardButtons.All(pair=>pair.Value.transform.Find("Rarity_"+Data.Cards[pair.Key].Rarity)!=null),"Gallery card missing rarity badge");
    var cachedCard=cardButtons[0];var cachedGrid=gridRoot.GetChild(0);float priorScroll=galleryScroll.verticalNormalizedPosition;
@@ -27,6 +34,10 @@ namespace DragonIdle {
    GalleryTestButton("BackToCards").onClick.Invoke();
    AssertSmoke(!galleryDetailOpen&&galleryListRoot.gameObject.activeSelf&&cardButtons[0]==cachedCard&&gridRoot.GetChild(0)==cachedGrid&&Math.Abs(priorScroll-galleryScroll.verticalNormalizedPosition)<.001,"Returning rebuilt card grid or lost scroll");
    AssertSmoke(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject==cachedCard.gameObject,"Return did not restore keyboard focus");
+   var border=cachedCard.GetComponent<GalleryFocus>().InsetBorder;var cardRect=(RectTransform)cachedCard.transform;
+   var borderRect=border.rectTransform;var inset=borderRect.anchoredPosition;
+   AssertSmoke(border.enabled&&!border.fillCenter&&!cachedCard.GetComponent<UI.Outline>().enabled&&inset.x>0&&inset.y<0&&
+    inset.x+borderRect.rect.width<cardRect.rect.width&&-inset.y+borderRect.rect.height<cardRect.rect.height,"Card focus border intersects the clipping edge");
    AssertSmoke(cachedCard.targetGraphic is UI.Image&&((UI.Image)cachedCard.targetGraphic).type==UI.Image.Type.Sliced,"Rounded card surface missing");
    AssertSmoke(ThemeContrast(uiPaper,uiPanel)>=4.5&&ThemeContrast(uiDim,InkMist)>=4.5&&
     ThemeContrast(InkIvory,InkDark)>=4.5&&ThemeContrast(InkWarmText,InkGold)>=4.5,"Ink text contrast below target");
@@ -38,7 +49,7 @@ namespace DragonIdle {
     float scale=Mathf.Min(viewport.x/1600,viewport.y/900);Vector2 offset=(viewport-new Vector2(1600,900)*scale)/2;
     AssertSmoke(offset.x>=-.001f&&offset.y>=-.001f&&offset.x+1558*scale<=viewport.x+.001f&&offset.y+887*scale<=viewport.y+.001f,"Reference canvas exceeds viewport mathematical bounds");
    }
-   Canvas.ForceUpdateCanvases();AssertSmoke(gridRoot.GetComponentsInChildren<UI.Text>().Where(t=>t.name=="Theme"||t.name=="Keywords").All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Card form/title text clipped");
+   Canvas.ForceUpdateCanvases();AssertSmoke(gridRoot.GetComponentsInChildren<UI.Text>().Where(t=>t.name=="Theme"||t.name=="CharacterType"||t.name=="CharacterPower").All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Card form/title/power/type text clipped");
    gallerySearch.text="界王拳";
    int kaioken=Data.Index("goku-saiyan-kaioken-v020");
    AssertSmoke(selectedCard==kaioken&&cardButtons.Count==1&&!galleryEquipButton.interactable,"Search selection or unowned actions failed");
@@ -58,6 +69,14 @@ namespace DragonIdle {
    AssertSmoke(catalog.Rarity=="A"&&cardButtons.Count>0&&cardButtons.Keys.All(i=>Data.Cards[i].Rarity=="A")&&filterDropdown==null&&
     UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject==trigger.gameObject,"Rarity selection, dismissal or focus failed");
    GalleryTestButton("Filter1").onClick.Invoke();
+   var tagScroll=filterDropdown.GetComponentInChildren<UI.ScrollRect>();
+   var lastOption=tagScroll.content.GetComponentsInChildren<UI.Button>().Last();
+   AssertSmoke(tagScroll.viewport.GetComponent<UI.RectMask2D>()!=null&&tagScroll.verticalScrollbar!=null&&
+    tagScroll.viewport.rect.height==6*FilterRowHeight&&tagScroll.content.rect.height>tagScroll.viewport.rect.height,"Tag list is not limited to six visible rows");
+   tagScroll.OnScroll(new UnityEngine.EventSystems.PointerEventData(events){scrollDelta=new Vector2(0,-2)});
+   AssertSmoke(tagScroll.verticalNormalizedPosition<.99f,"Wheel did not scroll tag options");
+   events.SetSelectedGameObject(lastOption.gameObject);
+   AssertSmoke(tagScroll.verticalNormalizedPosition<.01f,"Keyboard focus did not reveal last clipped tag");
    var tagOption=filterDropdown.GetComponentsInChildren<UI.Button>().Single(b=>b.GetComponentInChildren<UI.Text>()?.text=="赛亚人");
    tagOption.onClick.Invoke();
    AssertSmoke(catalog.Tag=="赛亚人"&&catalog.Role==""&&cardButtons.Count>0&&cardButtons.Keys.All(i=>Data.Cards[i].Tags.Contains("赛亚人")&&Data.Cards[i].Rarity=="A"),"Tag and rarity did not combine");
@@ -105,7 +124,7 @@ namespace DragonIdle {
     AssertSmoke(Mathf.Abs(rect.width/rect.height-image.width/(float)image.height)<.001f,"Detail distorted portrait aspect: "+Data.Cards[i].Id);
    }
    AssertSmoke(galleryCanvas.GetComponent<UI.CanvasScaler>().screenMatchMode==UI.CanvasScaler.ScreenMatchMode.Expand,"UI aspect ratio scaler incorrect");
-   File.WriteAllText(Path.Combine(dir,"gallery-refresh-smoke.json"),"{\"dedicatedDetail\":true,\"cardCache\":true,\"focusReturn\":true,\"roundedSurfaces\":true,\"individualFilterClear\":true,\"filterDropdowns\":true,\"simplifiedCards\":true,\"fullPortraitAspect\":true,\"enabledTextContrast\":true,\"viewportMath\":[\"1280x720\",\"1600x900\",\"1920x1080\",\"2560x1080\"],\"renderVerified\":false}");
+   File.WriteAllText(Path.Combine(dir,"gallery-refresh-smoke.json"),"{\"dedicatedDetail\":true,\"cardCache\":true,\"focusReturn\":true,\"roundedSurfaces\":true,\"individualFilterClear\":true,\"filterDropdowns\":true,\"simplifiedCards\":true,\"characterPowerAndTypes\":true,\"insetCardFocus\":true,\"sixRowFilterScroll\":true,\"fullPortraitAspect\":true,\"enabledTextContrast\":true,\"viewportMath\":[\"1280x720\",\"1600x900\",\"1920x1080\",\"2560x1080\"],\"renderVerified\":false}");
    File.WriteAllText(Path.Combine(dir,"gallery-smoke.json"),"{\"eventsWired\":true,\"filters\":true,\"stats\":true,\"navigation\":true,\"textLayout\":true,\"audioPreferences\":true,\"audioSilentDuringTest\":true,\"visualVerified\":false,\"listened\":false}");
    Save();
   }

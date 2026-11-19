@@ -5,8 +5,10 @@ namespace DragonIdle {
  // Shared, code-native nine-slice surfaces; character pixels are never modified.
  public sealed class GalleryFocus:MonoBehaviour,ISelectHandler,IDeselectHandler {
   public UI.Outline Outline;
-  public void OnSelect(BaseEventData e){Outline.enabled=true;}
-  public void OnDeselect(BaseEventData e){Outline.enabled=false;}
+  public UI.Image InsetBorder;
+  public System.Action Focused;
+  public void OnSelect(BaseEventData e){if(InsetBorder!=null)InsetBorder.enabled=true;else Outline.enabled=true;Focused?.Invoke();}
+  public void OnDeselect(BaseEventData e){if(InsetBorder!=null)InsetBorder.enabled=false;else Outline.enabled=false;}
  }
  public partial class DemoGame {
   Sprite roundedControl,roundedPanel;

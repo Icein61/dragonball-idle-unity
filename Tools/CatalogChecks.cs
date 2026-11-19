@@ -29,5 +29,19 @@ static class CatalogChecks {
   var reserve=p.InspectCharacter(7,true);check(reserve.LeaderAttack==0,"U16 reserve no applied leader");
   one.Add("attack",100,1,"ui-probe");check(p.InspectCharacter(0).Sum("attack")<1,"U17 snapshot cannot mutate profile");
   int locked=Data.Index("goku-saiyan-kaioken-v020");p.Training[locked]=100;var unowned=p.InspectCharacter(locked);check(Near(unowned.MaxHP,Data.Cards[locked].HP),"U18 unowned shows base preview");
+  p=new Profile();
+  var initial=Data.Cards.Select((c,i)=>p.CharacterPower(i)).ToArray();
+  check(initial.All(power=>power>=350&&power<=700),"U19 new card power stays in a compact band");
+  check(Data.Cards.Select(card=>card.Type).Distinct().Count()==3&&Data.Card("piccolo-test").Type==CharacterType.Defense&&
+   Data.Card("chiaotzu-saiyan-v020").Type==CharacterType.Support,"U20 catalog types describe all three display roles");
+  int baseline=initial[0];p.SetMember(2,7);
+  check(p.CharacterPower(0)==baseline,"U21 opening team and captain bonuses cannot inflate catalog power");
+  p.Items.Add(new Item{id="power-probe",kind=2,owner=0,slot=1});
+  int equipped=p.CharacterPower(0);p.Training[0]=200;p.Resonance[0]=12;
+  check(equipped>baseline&&p.CharacterPower(0)>equipped,"U22 equipment and growth increase personal power");
+  p.Training[0]=1000000;p.Resonance[0]=1000000;
+  check(p.CharacterPower(0)<1500,"U23 extreme growth remains below the display ceiling");
+  p.Training[locked]=1000;
+  check(p.CharacterPower(locked)==initial[locked],"U24 unowned card uses base power");
  }
 }

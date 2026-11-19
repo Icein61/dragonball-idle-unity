@@ -20,9 +20,13 @@ namespace DragonIdle {
    if(loadingRoot!=null)loadingRoot.gameObject.SetActive(page=="加载");
    galleryChrome.gameObject.SetActive(!IsShellPage(page));
    galleryChrome.Find("Section").GetComponent<UI.Text>().text=page=="角色"?"角色收藏":page=="编队"?"队伍编成":page=="养成"?"角色养成":page=="召唤"?"时空召唤":"装备工坊";
-   galleryResources.text="素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems;
+   RefreshFeatureHeaderCount();
    foreach(string name in FeatureRoutes)SetButtonActive(galleryChrome.Find("Nav"+name).GetComponent<UI.Button>(),page==name);
    galleryToast.gameObject.SetActive(!IsShellPage(page));
+  }
+  void RefreshFeatureHeaderCount(){
+   galleryResources.text=page=="角色"?"拥有"+profile.Owned.Count(owned=>owned)+"/"+Data.Cards.Length:
+    "素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems;
   }
   GameObject ActiveBackButton(Transform root,string name){return root.GetComponentsInChildren<UI.Button>().First(b=>b.name==name).gameObject;}
   string WorkshopKey(){return page+":"+selectedCard+":"+equipmentTab;}

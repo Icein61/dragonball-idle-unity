@@ -1,0 +1,173 @@
+{
+  "workbook": "outputs/character-rework-20261116/角色设计简表-含类型.xlsx",
+  "sheet": "角色设计",
+  "cards": [
+    {
+      "cardId": "goku-test",
+      "originalName": "孙悟空 · 重返战场",
+      "sectionRow": 5,
+      "fields": {
+        "概念图": "A7",
+        "名字": "C6",
+        "时期描述": "C7",
+        "稀有度": "C8",
+        "是否上线": "C9",
+        "普攻描述": "C10",
+        "绝招描述": "C11",
+        "必杀描述": "C12",
+        "被动描述": "C13",
+        "类型": "C14"
+      },
+      "conceptImageAnchor": "A7"
+    },
+    {
+      "cardId": "vegeta-test",
+      "originalName": "贝吉塔 · 孤傲王子",
+      "sectionRow": 15,
+      "fields": {
+        "概念图": "A17",
+        "名字": "C16",
+        "时期描述": "C17",
+        "稀有度": "C18",
+        "是否上线": "C19",
+        "普攻描述": "C20",
+        "绝招描述": "C21",
+        "必杀描述": "C22",
+        "被动描述": "C23",
+        "类型": "C24"
+      },
+      "conceptImageAnchor": "A17"
+    },
+    {
+      "cardId": "piccolo-test",
+      "originalName": "比克 · 无声守护",
+      "sectionRow": 25,
+      "fields": {
+        "概念图": "A27",
+        "名字": "C26",
+        "时期描述": "C27",
+        "稀有度": "C28",
+        "是否上线": "C29",
+        "普攻描述": "C30",
+        "绝招描述": "C31",
+        "必杀描述": "C32",
+        "被动描述": "C33",
+        "类型": "C34"
+      },
+      "conceptImageAnchor": "A27"
+    },
+    {
+      "cardId": "krillin-test",
+      "originalName": "克林 · 破局之光",
+      "sectionRow": 35,
+      "fields": {
+        "概念图": "A37",
+        "名字": "C36",
+        "时期描述": "C37",
+        "稀有度": "C38",
+        "是否上线": "C39",
+        "普攻描述": "C40",
+        "绝招描述": "C41",
+        "必杀描述": "C42",
+        "被动描述": "C43",
+        "类型": "C44"
+      },
+      "conceptImageAnchor": "A37"
+    },
+    {
+      "cardId": "gohan-test",
+      "originalName": "孙悟饭 · 觉醒勇气",
+      "sectionRow": 45,
+      "fields": {
+        "概念图": "A47",
+        "名字": "C46",
+        "时期描述": "C47",
+        "稀有度": "C48",
+        "是否上线": "C49",
+        "普攻描述": "C50",
+        "绝招描述": "C51",
+        "必杀描述": "C52",
+        "被动描述": "C53",
+        "类型": "C54"
+      },
+      "conceptImageAnchor": "A47"
+    },
+    {
+      "cardId": "tien-test",
+      "originalName": "天津饭 · 背水之阵",
+      "sectionRow": 55,
+      "fields": {
+        "概念图": "A57",
+        "名字": "C56",
+        "时期描述": "C57",
+        "稀有度": "C58",
+        "是否上线": "C59",
+        "普攻描述": "C60",
+        "绝招描述": "C61",
+        "必杀描述": "C62",
+        "被动描述": "C63",
+        "类型": "C64"
+      },
+      "conceptImageAnchor": "A57"
+    },
+    {
+      "cardId": "yamcha-saiyan-v020",
+      "originalName": "雅木茶 · 狼牙之志",
+      "sectionRow": 65,
+      "fields": {
+        "概念图": "A67",
+        "名字": "C66",
+        "时期描述": "C67",
+        "稀有度": "C68",
+        "是否上线": "C69",
+        "普攻描述": "C70",
+        "绝招描述": "C71",
+        "必杀描述": "C72",
+        "被动描述": "C73",
+        "类型": "C74"
+      },
+      "conceptImageAnchor": "A67"
+    },
+    {
+      "cardId": "chiaotzu-saiyan-v020",
+      "originalName": "饺子 · 坚定意志",
+      "sectionRow": 75,
+      "fields": {
+        "概念图": "A77",
+        "名字": "C76",
+        "时期描述": "C77",
+        "稀有度": "C78",
+        "是否上线": "C79",
+        "普攻描述": "C80",
+        "绝招描述": "C81",
+        "必杀描述": "C82",
+        "被动描述": "C83",
+        "类型": "C84"
+      },
+      "conceptImageAnchor": "A77"
+    },
+    {
+      "cardId": "goku-saiyan-kaioken-v020",
+      "originalName": "孙悟空 · 极限应战",
+      "sectionRow": 85,
+      "fields": {
+        "概念图": "A87",
+        "名字": "C86",
+        "时期描述": "C87",
+        "稀有度": "C88",
+        "是否上线": "C89",
+        "普攻描述": "C90",
+        "绝招描述": "C91",
+        "必杀描述": "C92",
+        "被动描述": "C93",
+        "类型": "C94"
+      },
+      "conceptImageAnchor": "A87"
+    }
+  ],
+  "typeOptions": [
+    "输出",
+    "防御",
+    "援助"
+  ]
+}

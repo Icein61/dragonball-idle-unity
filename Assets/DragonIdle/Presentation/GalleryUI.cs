@@ -9,7 +9,7 @@ namespace DragonIdle {
   readonly CatalogFilter catalog=new CatalogFilter();
   RectTransform galleryRoot,gridRoot,detailRoot,dialogRoot;
   GameObject galleryCanvas;UI.ScrollRect galleryScroll;UI.InputField gallerySearch;
-  UI.Text galleryCount,galleryResources,galleryToast;
+  UI.Text galleryResources,galleryToast;
   UI.Button mineTab,allTab;readonly List<UI.Button> filterButtons=new List<UI.Button>();
   readonly Dictionary<int,UI.Button> cardButtons=new Dictionary<int,UI.Button>();
   readonly List<UI.Text> measuredText=new List<UI.Text>();
@@ -55,10 +55,11 @@ namespace DragonIdle {
    b.targetGraphic.color=!b.interactable?InkDisabled:active?InkDark:InkLight;
    b.GetComponentInChildren<UI.Text>().color=active&&b.interactable?InkIvory:InkText;
   }
-  UI.ScrollRect UScroll(Transform parent,string name,float x,float y,float w,float h,out RectTransform content){
+  UI.ScrollRect UScroll(Transform parent,string name,float x,float y,float w,float h,out RectTransform content,bool showBar=true){
    var viewport=UPanel(parent,name,x,y,w,h,Color.clear,true);viewport.gameObject.AddComponent<UI.RectMask2D>();
-   var scroll=viewport.gameObject.AddComponent<UI.ScrollRect>();content=UNode(viewport,"Content",0,0,w-14,h);
+   var scroll=viewport.gameObject.AddComponent<UI.ScrollRect>();content=UNode(viewport,"Content",0,0,w-(showBar?14:0),h);
    scroll.viewport=viewport;scroll.content=content;scroll.horizontal=false;scroll.vertical=true;scroll.movementType=UI.ScrollRect.MovementType.Clamped;scroll.scrollSensitivity=35;
+   if(!showBar)return scroll;
    var track=UPanel(parent,name+"Track",x+w-12,y,10,h,InkPaper,true);
    var handle=UPanel(track,"Handle",0,0,10,60,InkDark,true);
    var bar=track.gameObject.AddComponent<UI.Scrollbar>();bar.handleRect=handle;bar.targetGraphic=handle.GetComponent<UI.Image>();bar.direction=UI.Scrollbar.Direction.BottomToTop;scroll.verticalScrollbar=bar;
@@ -100,7 +101,6 @@ namespace DragonIdle {
    UButton(galleryChrome,"Nav主页","返回主页",18,819,154,47,()=>NavigateGallery("主页"));
    galleryListRoot=UNode(galleryRoot,"CardLibrary",0,0,1600,900);
    UText(galleryListRoot,"Title","图鉴",222,108,300,46,32,uiPaper);
-   galleryCount=UText(galleryListRoot,"CollectionCount","",1040,119,510,30,17,uiDim,TextAnchor.MiddleRight);
    mineTab=UButton(galleryListRoot,"OwnedTab","我的角色",222,166,152,42,()=>{catalog.OwnedOnly=true;RefreshGallery(true);},true);
    allTab=UButton(galleryListRoot,"AllTab","全部角色",386,166,152,42,()=>{catalog.OwnedOnly=false;RefreshGallery(true);});
    var input=UPanel(galleryListRoot,"Search",558,166,354,42,InkLight,true);
@@ -145,8 +145,7 @@ namespace DragonIdle {
   void RefreshGallery(bool reset){
    galleryDirty=false;if(galleryCanvas==null)return;
    int[] results=catalog.Results(profile);selectedCard=CatalogFilter.Reconcile(selectedCard,results);
-   galleryResources.text="素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems;
-   galleryCount.text="已收藏 "+profile.Owned.Count(x=>x)+" / "+Data.Cards.Length+"    ·    当前显示 "+results.Length+" 张";
+   RefreshFeatureHeaderCount();
    SetButtonActive(mineTab,catalog.OwnedOnly);SetButtonActive(allTab,!catalog.OwnedOnly);
    string[] labels={catalog.Rarity==""?"稀有度":catalog.Rarity,catalog.Tag==""?"标签":catalog.Tag,SortLabels[catalog.Sort]};
    for(int i=0;i<labels.Length;i++)filterButtons[i].GetComponentInChildren<UI.Text>().text=labels[i]+"  ▾";
@@ -156,19 +155,27 @@ namespace DragonIdle {
    if(rebuild){ClearUI(gridRoot);cardButtons.Clear();renderedCards=(int[])results.Clone();}
    gridRoot.sizeDelta=new Vector2(1322,Math.Max(570,((results.Length+3)/4)*448));
    for(int n=0;rebuild&&n<results.Length;n++){
-    int index=results[n];var c=Data.Cards[index];float x=n%4*334,y=n/4*448;
+    int index=results[n];var c=Data.Cards[index];float x=6+n%4*330,y=6+n/4*448;
     var b=UButton(gridRoot,"Card_"+c.Id,"",x,y,316,430,()=>OpenGalleryCard(index));
     cardButtons[index]=b;b.GetComponentInChildren<UI.Text>().gameObject.SetActive(false);
     var r=b.GetComponent<RectTransform>();b.targetGraphic.color=InkPaper;
     UPanel(r,"PortraitMat",10,46,296,278,InkMist);
-    DrawRarityBadge(r,c.Rarity,12,1,69,47);
-    UText(r,"Owned","",140,14,160,25,16,uiDim,TextAnchor.UpperRight);
+    DrawRarityBadge(r,c.Rarity,10,2,55,42,leftAligned:true);
+    UText(r,"CharacterPower","",140,11,160,26,17,uiDim,TextAnchor.MiddleRight);
     UArt(r,index,16,44,284,278);
     UText(r,"Name",c.Name,16,330,284,30,24,uiPaper);
     UText(r,"Theme",c.Title,16,363,284,28,17,uiDim);
-    UText(r,"Keywords",c.KeywordText,16,398,284,26,16,uiAccent);
+    UText(r,"CharacterType",c.TypeText,16,398,160,26,16,uiAccent);
+    UText(r,"Unowned","未拥有",190,398,110,26,16,uiDim,TextAnchor.UpperRight);
+    var border=UPanel(r,"FocusBorder",3,3,310,424,InkDark).GetComponent<UI.Image>();
+    border.fillCenter=false;border.enabled=false;
+    b.GetComponent<GalleryFocus>().InsetBorder=border;
    }
-   foreach(var pair in cardButtons)pair.Value.transform.Find("Owned").GetComponent<UI.Text>().text=profile.Owned[pair.Key]?"":"未拥有";
+   foreach(var pair in cardButtons){
+    var r=pair.Value.transform;
+    r.Find("CharacterPower").GetComponent<UI.Text>().text="战斗力："+profile.CharacterPower(pair.Key);
+    r.Find("Unowned").gameObject.SetActive(!profile.Owned[pair.Key]);
+   }
    if(rebuild&&results.Length==0){
     UText(gridRoot,"EmptyTitle","没有符合条件的角色",350,100,620,45,25,uiPaper,TextAnchor.MiddleCenter);
     UText(gridRoot,"EmptyHelp","尝试清空筛选，或切换到全部角色。",350,151,620,40,18,uiDim,TextAnchor.MiddleCenter);
@@ -178,6 +185,7 @@ namespace DragonIdle {
    DrawGalleryDetail();
   }
   readonly Dictionary<string,Sprite> rarityBadges=new Dictionary<string,Sprite>();
+  readonly Dictionary<string,Sprite> alignedRarityBadges=new Dictionary<string,Sprite>();
   const string RarityResourcePrefix="Interface/Rarity/";
   Sprite RarityBadge(string rank){
    Sprite sprite;
@@ -187,11 +195,25 @@ namespace DragonIdle {
    }
    return sprite;
   }
-  void DrawRarityBadge(Transform parent,string rank,float x,float y,float width,float height){
+  void DrawRarityBadge(Transform parent,string rank,float x,float y,float width,float height,bool leftAligned=false){
    var sprite=RarityBadge(rank);
    if(sprite==null){
     UText(parent,"Rarity",rank,x,y,width,height,18,uiAccent,TextAnchor.MiddleCenter);
     return;
+   }
+   if(leftAligned){
+    float scale=Math.Min(width/sprite.rect.width,height/sprite.rect.height);
+    float actualHeight=sprite.rect.height*scale;
+    // The four original badges have different transparent margins inside the same 256 px canvas.
+    if(!alignedRarityBadges.TryGetValue(rank,out var cut)){
+     var rect=sprite.rect;
+     int blank=rank=="C"?71:rank=="B"?62:rank=="A"?37:24;
+     float trim=rect.width*blank/256;
+     cut=Sprite.Create(sprite.texture,new Rect(rect.x+trim,rect.y,rect.width-trim,rect.height),new Vector2(.5f,.5f),sprite.pixelsPerUnit);
+     alignedRarityBadges[rank]=cut;
+    }
+    sprite=cut;
+    y+=(height-actualHeight)/2;width=sprite.rect.width*scale;height=actualHeight;
    }
    var badge=UNode(parent,"Rarity_"+rank,x,y,width,height).gameObject.AddComponent<UI.Image>();
    badge.sprite=sprite;

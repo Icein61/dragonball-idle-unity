@@ -10,6 +10,7 @@ namespace DragonIdle {
   GameObject dialogReturnFocus;
   RectTransform filterDropdown;
   UI.Button filterDropdownTrigger;
+  const int FilterVisibleRows=6,FilterRowHeight=38;
   readonly Dictionary<UI.Selectable,bool> modalSelectables=new Dictionary<UI.Selectable,bool>();
   RectTransform NewGalleryDialog(string title,string subtitle){
    CloseFilterDropdown();
@@ -47,20 +48,39 @@ namespace DragonIdle {
    dismiss.transition=UI.Selectable.Transition.None;dismiss.navigation=new UI.Navigation{mode=UI.Navigation.Mode.None};
    dismiss.onClick.AddListener(CloseFilterDropdown);
    float width=anchor.rect.width;
-   var panel=UPanel(filterDropdown,"FilterOptions",anchor.anchoredPosition.x,-anchor.anchoredPosition.y+anchor.rect.height+4,width,values.Length*38+12,InkPaper,true);
-   var options=new UI.Button[values.Length];
-   for(int n=0;n<values.Length;n++){
-    string value=values[n];int index=n;
-    options[n]=UButton(panel,"FilterOption"+n,kind!=2&&n==0?"不限":value,6,6+n*38,width-12,34,()=>{
-     if(kind==0)catalog.Rarity=value;else if(kind==1)catalog.Tag=value;else catalog.Sort=index;
-     CloseFilterDropdown();RefreshGallery(true);
-    },selected:selected==n);
+   var panel=UPanel(filterDropdown,"FilterOptions",anchor.anchoredPosition.x,-anchor.anchoredPosition.y+anchor.rect.height+4,width,
+    Math.Min(values.Length,FilterVisibleRows)*FilterRowHeight+12,InkPaper,true);
+   BuildFilterOptions(panel,values.Select((value,n)=>kind!=2&&n==0?"不限":value).ToArray(),selected,index=>{
+    string value=values[index];
+    if(kind==0)catalog.Rarity=value;else if(kind==1)catalog.Tag=value;else catalog.Sort=index;
+    CloseFilterDropdown();RefreshGallery(true);
+   });
+  }
+  void BuildFilterOptions(RectTransform panel,string[] labels,int selected,Action<int> choose){
+   int rows=Math.Min(labels.Length,FilterVisibleRows);
+   var scroll=UScroll(panel,"FilterOptionScroll",6,6,panel.rect.width-12,rows*FilterRowHeight,out var body,labels.Length>rows);
+   body.sizeDelta=new Vector2(body.sizeDelta.x,labels.Length*FilterRowHeight);
+   var options=new UI.Button[labels.Length];
+   for(int n=0;n<labels.Length;n++){
+    int index=n;
+    options[n]=UButton(body,"FilterOption"+n,labels[n],3,n*FilterRowHeight+2,body.sizeDelta.x-6,34,()=>choose(index),selected:selected==n);
+    options[n].GetComponent<GalleryFocus>().Focused=()=>RevealFilterOption(scroll,index);
    }
    for(int n=0;n<options.Length;n++){
     options[n].navigation=new UI.Navigation{mode=UI.Navigation.Mode.Explicit,
      selectOnUp=options[(n+options.Length-1)%options.Length],selectOnDown=options[(n+1)%options.Length]};
    }
+   Canvas.ForceUpdateCanvases();
+   scroll.verticalNormalizedPosition=1;
    if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(options[Math.Max(0,selected)].gameObject);
+  }
+  static void RevealFilterOption(UI.ScrollRect scroll,int index){
+   float height=scroll.viewport.rect.height,range=scroll.content.rect.height-height;
+   if(range<=0)return;
+   float old=(1-scroll.verticalNormalizedPosition)*range,top=index*FilterRowHeight,bottom=top+FilterRowHeight;
+   float next=top<old?top:bottom>old+height?bottom-height:old;
+   if(Math.Abs(next-old)<.01f)return;
+   scroll.StopMovement();scroll.verticalNormalizedPosition=1-Mathf.Clamp01(next/range);
   }
   void CloseFilterDropdown(){
    if(filterDropdown==null)return;
