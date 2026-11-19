@@ -13,6 +13,8 @@ class InspectPortraits {
    bool expectedSize;
    switch(name){
     case "gohan-test-portrait.png":expectedSize=w==1080&&h==1456;break;
+    case "chiaotzu-saiyan-v020-portrait.png":
+    case "yamcha-saiyan-v020-portrait.png":
     case "krillin-test-portrait.png":
     case "piccolo-test-portrait.png":
     case "tien-test-portrait.png":expectedSize=w==1086&&h==1448;break;
@@ -24,7 +26,10 @@ class InspectPortraits {
    int clear=0,solid=0,edge=0;
    for(int y=0;y<h;y++)for(int x=0;x<w;x++){
     int alpha=pixels[y*stride+x*4+3];if(alpha<4)clear++;if(alpha>200)solid++;
-    if(alpha>64&&(x<3||x>=w-3||y<3||y>=h-3))edge++;
+    // The approved Kaioken artwork deliberately sends the beam off the lower-right edge.
+    bool beamExit=name=="goku-saiyan-kaioken-v020-portrait.png"&&
+     ((x>=w-3&&y>=h*2/5)||(y>=h-3&&x>=w*4/5));
+    if(alpha>64&&!beamExit&&(x<3||x>=w-3||y<3||y>=h-3))edge++;
    }
    if(clear<w*h/5||solid<w*h/20||edge>8)throw new Exception("Portrait transparency/content/margin failed: "+Path.GetFileName(path)+" clear="+clear+" solid="+solid+" edge="+edge);
    Console.WriteLine("PORTRAIT_PASS "+Path.GetFileName(path)+" "+w+"x"+h+" / alpha / margins");

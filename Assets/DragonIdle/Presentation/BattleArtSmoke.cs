@@ -10,7 +10,8 @@ namespace DragonIdle {
     var portrait=PortraitTexture(i);
     var cardId=Data.Cards[i].Id;
     var expectedSize=cardId=="gohan-test"?new Vector2Int(1080,1456):
-     (cardId=="piccolo-test"||cardId=="krillin-test"||cardId=="tien-test")?new Vector2Int(1086,1448):new Vector2Int(1024,1536);
+     (cardId=="piccolo-test"||cardId=="krillin-test"||cardId=="tien-test"||
+      cardId=="yamcha-saiyan-v020"||cardId=="chiaotzu-saiyan-v020")?new Vector2Int(1086,1448):new Vector2Int(1024,1536);
     AssertSmoke(portrait!=null&&portrait!=texture&&portrait.width==expectedSize.x&&portrait.height==expectedSize.y,"Portrait missing, resized or using battle atlas: "+cardId);
     AssertSmoke(texture!=null&&texture.width==1536&&texture.height==1024,"Atlas resource missing/rescaled: "+Data.Cards[i].Id);
     AssertSmoke(regions.frames.Length==13&&regions.frames.All(r=>r.w>0&&r.h>0&&r.x>=0&&r.y>=0&&r.x+r.w<=texture.width&&r.y+r.h<=texture.height),"Bad sprite import bounds");
