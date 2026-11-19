@@ -5,6 +5,8 @@
 
 v0.12.4 接入用户确认的雅木茶、饺子和孙悟空【界王拳】立绘。雅木茶以替换后的概念图重画，饺子沿用首稿，悟空采用用户贴图确认的蓝白光波版本。至此初版九张已上线卡都使用已确认的立绘。
 
+[v0.12.4 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.4) 对应源码 `510dd90f291784f248584a8acc572131da258b5b`。811 项核心检查、立绘透明度及原图尺寸检查、Unity 后台构建和隔离静音 Player 验证 `release-smoke-20261120004439` 通过。已回读远端标签及三份附件，ZIP 为 73036881 字节，SHA256 为 `de2261b00034a815eaef6a2d6d1cc62ddf01b3026161b78ffe273ccd99d44aaa`。可见验收待进行。
+
 v0.12.3 接入已确认的克林、孙悟饭【幼年期】与天津饭单人立绘。悟饭采用初版表情的发型修订版，天津饭采用五指修正版。三个透明 PNG 以原尺寸替换独立人物立绘，保留资源标识。
 
 [v0.12.3 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.3) 对应源码 `f9934bc079457821d27884c9e4acb310881a38ab`。811 项核心检查、透明度及原图尺寸检查、Unity 后台构建和隔离静音 Player 验证 `release-smoke-20261119133309` 通过。已回读远端标签及三份附件，ZIP 为 76875436 字节，SHA256 为 `c47c62a219698aff49438b1c5f85fa46af9ea5c8402986be45138ae222934a0f`。可见验收待进行。
