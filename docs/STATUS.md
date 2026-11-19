@@ -5,6 +5,8 @@
 
 v0.12.3 接入已确认的克林、孙悟饭【幼年期】与天津饭单人立绘。悟饭采用初版表情的发型修订版，天津饭采用五指修正版。三个透明 PNG 以原尺寸替换独立人物立绘，保留资源标识。
 
+[v0.12.3 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.3) 对应源码 `f9934bc079457821d27884c9e4acb310881a38ab`。811 项核心检查、透明度及原图尺寸检查、Unity 后台构建和隔离静音 Player 验证 `release-smoke-20261119133309` 通过。已回读远端标签及三份附件，ZIP 为 76875436 字节，SHA256 为 `c47c62a219698aff49438b1c5f85fa46af9ea5c8402986be45138ae222934a0f`。可见验收待进行。
+
 v0.12.2 接入用户确认的比克「萌芽的心」立绘。沿用独立立绘资源路径，原 PNG 保留 1086 × 1448 尺寸并按比例显示。比克立绘复盘已写入 [C 版角色美术规范](production/character-style-c.md#比克立绘复盘)。
 
 [v0.12.2 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.2)对应源码 `fd123834969518959fca83fd3e95d3d65c043b79`。811 项核心检查、透明度与比例检查、干净源码构建和隔离静音 Player 验证 `release-smoke-20261119030429` 通过。已核对远端标签及三份附件。ZIP 为 80484875 字节，SHA256 为 `98f5599cd2397a073e90796cfffffa3c5623a8ecbbac0432db374421df963750`。可见验收待进行。
