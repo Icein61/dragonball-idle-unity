@@ -9,7 +9,15 @@ class InspectPortraits {
   var files=Directory.GetFiles(args[0],"*-portrait.png");if(files.Length!=9&&args.Length<2)throw new Exception("Expected 9 independent portraits");
   foreach(var path in files)using(var png=new Bitmap(path)){
    int w=png.Width,h=png.Height;
-   bool expectedSize=Path.GetFileName(path)=="piccolo-test-portrait.png"?w==1086&&h==1448:w==1024&&h==1536;
+   string name=Path.GetFileName(path);
+   bool expectedSize;
+   switch(name){
+    case "gohan-test-portrait.png":expectedSize=w==1080&&h==1456;break;
+    case "krillin-test-portrait.png":
+    case "piccolo-test-portrait.png":
+    case "tien-test-portrait.png":expectedSize=w==1086&&h==1448;break;
+    default:expectedSize=w==1024&&h==1536;break;
+   }
    if(!expectedSize)throw new Exception("Unexpected portrait resolution: "+path);
    var locked=png.LockBits(new Rectangle(0,0,w,h),ImageLockMode.ReadOnly,PixelFormat.Format32bppArgb);
    byte[] pixels=new byte[locked.Stride*h];Marshal.Copy(locked.Scan0,pixels,0,pixels.Length);int stride=locked.Stride;png.UnlockBits(locked);

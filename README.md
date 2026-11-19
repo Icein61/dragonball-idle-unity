@@ -1,10 +1,10 @@
 # 龙珠爆裂激斗 — Unity 技术 Demo
-当前源码 **v0.12.2 比克立绘更新**。个人离线养成游戏的战斗核心与角色构筑原型。发布内容见[本轮记录](Releases/v0.12.2.md)。
+当前源码 **v0.12.3 克林、悟饭与天津饭立绘更新**。个人离线养成游戏的战斗核心与角色构筑原型。发布内容见[本轮记录](Releases/v0.12.3.md)。
 GitHub：https://github.com/Icein61/dragonball-idle-unity
 
 ## 下载与试玩
 [查看 Windows x64 Demo 发布附件](https://github.com/Icein61/dragonball-idle-unity/releases)。
-下载对应版本的龙珠爆裂激斗-v0.12.2-Windows-x64.zip，完整解压后运行龙珠爆裂激斗.exe。
+下载对应版本的龙珠爆裂激斗-v0.12.3-Windows-x64.zip，完整解压后运行龙珠爆裂激斗.exe。
 需要Windows，不需要Unity、开发账号或联网。请保留Data目录及附带运行库，不要只复制EXE。
 
 启动时用聚气环显示徽章与角色立绘的实际异步加载进度。主页左侧显示修炼进度与通关状态，右侧提供剧情、奖励和设置。底栏进入人物志、编队、养成、装备和召唤。原剧情和试炼也可从“挑战”进入。

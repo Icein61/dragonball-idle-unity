@@ -27,12 +27,16 @@
     },
     {
       "cardId": "krillin-test",
-      "pose": "气圆斩托举",
-      "prompt": "Use case: stylized-concept. Redesign a SINGLE high-quality collectible game CARD PORTRAIT for a personal Dragon Ball Z game. Input atlas is reference for this character's identity, era costume and APPROVED C art style ONLY. Do not reproduce atlas, grid, multiple poses, standing template or any original generic open-hand pose. Output ONE large polished FULL-BODY portrait, vertical1024x1536, TRUE TRANSPARENT background. Controlled hand-ink lines, crisp cel-shaded colors, subtle manga hatching, excellent face and hand anatomy, strong dramatic composition with clear signature pose, NOT chibi. Add only the specified restrained skill energy/motion accent around subject; no scene, opaque rectangle, painted background, fog blanket, text, logo, title or border. Preserve all fingers hair feet and described effects with at least8% transparent margin to every canvas edge. Character fills ~80% image, face remains legible at thumbnail scale. The posture and silhouette must match this specific action rather than a generic neutral fighting stance. Subject and action: Krillin during Saiyan invasion: short stocky adult bald six temple dots, no nose, orange sleeveless gi with blue sash wristbands and blue boots/redtrim. Iconic DESTRUCTO DISC / Kienzan pose: wide low stance, one arm raised with elbow slightly bent, open palm facing SKY supporting a thin broad golden horizontal razor-edge energy disc ABOVE his head. The other hand is clenched at hip, shoulders rotated, stern intent face aiming at foe to viewer-left. Disc seen as elliptical flattened luminous ring, NOT an ordinary spherical ki ball. Full body, entire energy disc fits within generous margins. Distinct asymmetric raised-arm silhouette.",
-      "reference": "Assets/DragonIdle/Resources/Art/V050/krillin-test-atlas.png",
+      "revision": "0.12.3",
+      "pose": "压低重心单手托举气圆斩",
+      "prompt": "按概念图重绘赛亚人篇克林：低重心、单手托举薄金色气圆斩、低位握拳、咬牙。以已确认比克稿作为 C 版线条与色块参考。",
+      "reference": "角色设计简表-新版.xlsx / 角色设计!A37",
+      "styleReference": "Assets/DragonIdle/Resources/Art/V051/piccolo-test-portrait.png",
       "asset": "Assets/DragonIdle/Resources/Art/V051/krillin-test-portrait.png",
-      "output": "exec-ebbea7c0-b637-4c3a-9d55-38e142187e2d.png",
-      "sha256": "0b1b8ff551163a0f7a8141f1ce08ebc1795949a7deb7a3f27712992487cd784b"
+      "output": "call_vEtY66BstuGakYLJhTVhKODe.png",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "5abeb49f3aa56394aa54de1877dca56088b3adad895243a2ab866f169d5ea187"
     },
     {
       "cardId": "vegeta-test",
@@ -61,21 +65,29 @@
     },
     {
       "cardId": "gohan-test",
-      "pose": "潜力爆发",
-      "prompt": "Use case: stylized-concept. Redesign a SINGLE high-quality collectible game CARD PORTRAIT for a personal Dragon Ball Z game. Input atlas is reference for this character's identity, era costume and APPROVED C art style ONLY. Do not reproduce atlas, grid, multiple poses, standing template or any original generic open-hand pose. Output ONE large polished FULL-BODY portrait, vertical1024x1536, TRUE TRANSPARENT background. Controlled hand-ink lines, crisp cel-shaded colors, subtle manga hatching, excellent face and hand anatomy, strong dramatic composition with clear signature pose, NOT chibi. Add only the specified restrained skill energy/motion accent around subject; no scene, opaque rectangle, painted background, fog blanket, text, logo, title or border. Preserve all fingers hair feet and described effects with at least8% transparent margin to every canvas edge. Character fills ~80% image, face remains legible at thumbnail scale. The posture and silhouette must match this specific action rather than a generic neutral fighting stance. Subject and action: Young CHILD Gohan during Saiyan invasion, bowl-like short tousled black hair, purple Piccolo sleeveless gi, red sash wristbands, brown softshoes, child face/body proportions, no adult muscles or sword. Iconic Masenko-like awakened rage RELEASE: knees bent while airborne, BOTH hands held together ABOVE forehead, palms pointing diagonally toward upper-right, open-mouth determined shout, golden-white wedge of ki emerging from hands without obscuring face. Tucked one knee and extended other leg make an angled small body silhouette. Golden sparks show potential burst. Full body and hands entirely visible.",
-      "reference": "Assets/DragonIdle/Resources/Art/V050/gohan-test-atlas.png",
+      "revision": "0.12.3",
+      "pose": "双手过顶聚气爆发",
+      "prompt": "以初版立绘作底，保留喊击表情、举手姿势与服装；按简表概念图修正黑发轮廓，画面左侧碎发收短，右侧发束从手臂后伸出。",
+      "reference": "角色设计简表-新版.xlsx / 角色设计!A47",
+      "styleReference": "Assets/DragonIdle/Resources/Art/V051/piccolo-test-portrait.png",
       "asset": "Assets/DragonIdle/Resources/Art/V051/gohan-test-portrait.png",
-      "output": "exec-5adbd1c6-2975-4f7c-af14-1f19af740c4e.png",
-      "sha256": "9059d35f29ef3ea02a15d077a7609f6ebee9c78663302d2ed3562cacffbf711c"
+      "output": "exec-b3791bf5-d59b-4203-96d3-46f997192e46.png",
+      "width": 1080,
+      "height": 1456,
+      "sha256": "e4de68225d5f779693cee0370461d39bf304236be08b6bb04016aeea456c713a"
     },
     {
       "cardId": "tien-test",
-      "pose": "气功炮三角手势",
-      "prompt": "Use case: stylized-concept. Redesign a SINGLE high-quality collectible game CARD PORTRAIT for a personal Dragon Ball Z game. Input atlas is reference for this character's identity, era costume and APPROVED C art style ONLY. Do not reproduce atlas, grid, multiple poses, standing template or any original generic open-hand pose. Output ONE large polished FULL-BODY portrait, vertical1024x1536, TRUE TRANSPARENT background. Controlled hand-ink lines, crisp cel-shaded colors, subtle manga hatching, excellent face and hand anatomy, strong dramatic composition with clear signature pose, NOT chibi. Add only the specified restrained skill energy/motion accent around subject; no scene, opaque rectangle, painted background, fog blanket, text, logo, title or border. Preserve all fingers hair feet and described effects with at least8% transparent margin to every canvas edge. Character fills ~80% image, face remains legible at thumbnail scale. The posture and silhouette must match this specific action rather than a generic neutral fighting stance. Subject and action: Tien Shinhan in Saiyan saga: tall muscular bald human with THIRD EYE centered forehead, shirtless, green trousers red waist sash and wristbands, black kungfu shoes with pale socks. Iconic TRI-BEAM: hovering tilted forward as seen slightly from BELOW, both arms reaching forward/down with thumbs/index fingers touching to form a clear triangular/diamond viewing aperture, intense three-eyed face visible ABOVE hands. One knee bent under torso, other leg trailing, no ordinary upright stance. A small golden geometric triangular energy rim in front of hands, fading downward rays, effects do not hide hand anatomy. Full figure.",
-      "reference": "Assets/DragonIdle/Resources/Art/V050/tien-test-atlas.png",
+      "revision": "0.12.3",
+      "pose": "斜向前扑伸掌",
+      "prompt": "以概念图的斜向前扑、张口喊击和前后手关系为准，采用 C 版手绘风格；局部修订前伸掌，使拇指与其余四指清楚可辨。",
+      "reference": "角色设计简表-新版.xlsx / 角色设计!A57",
+      "styleReference": "Assets/DragonIdle/Resources/Art/V051/piccolo-test-portrait.png",
       "asset": "Assets/DragonIdle/Resources/Art/V051/tien-test-portrait.png",
-      "output": "exec-a26ddae9-edb5-4b7e-8cf9-87fc3889e1a8.png",
-      "sha256": "454e875767eae9499e9b8f569fea91ef50e2e778fa4f1d46bc40430a9bce36bc"
+      "output": "call_YnnIn7Swg31TdaDO1pi49g3i.png",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "965ef160890a028e97c98e2a35feb680582b78b8110bc3d24960a5b8cabef3a6"
     },
     {
       "cardId": "yamcha-saiyan-v020",
