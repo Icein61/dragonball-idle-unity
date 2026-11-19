@@ -3,9 +3,11 @@
 
 ## 当前阶段
 
-需求与试玩反馈请填写[当前版本开发单](release-plans/v0.12.7.md)。[版本索引和模板](release-plans/README.md)。
+下版需求请填写[v0.12.8 开发单](release-plans/v0.12.8.md)；已发布版反馈请填写[v0.12.7 修订单](release-plans/v0.12.7.md)。[版本索引和模板](release-plans/README.md)。
 
 v0.12.7 修复 [v0.12.5 开发单](release-plans/v0.12.5.md)里的两项试玩反馈：未拥有卡隐藏战力；卡片选中边沿与外轮廓重合，保留滚动区留边。
+
+[v0.12.7 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.7) 对应源码 `b76869c77704549cf680d89299486381a7894569`。817 项核心检查、Unity 后台构建和无图形 Player 验证 `release-smoke-20261120020503` 通过，覆盖未拥有卡获得前后的战力显示、选中外沿与取消选中。已核对远端标签及三份附件；ZIP 为 73040027 字节，SHA256 为 `179ff29b5bb3384fd7d90c5cbbcd11860342b582c35da4b357f4d23952aa33b9`。可见验收待进行。
 
 v0.12.6 按 [v0.12.5 开发单](release-plans/v0.12.5.md)更新角色简表和图鉴。卡面显示个人战斗力与角色类型，卡片焦点边框改为内描边，稀有度角标与立绘底板左对齐，下拉框最多显示六项，右上角仅显示拥有数量。
 

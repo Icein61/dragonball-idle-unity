@@ -2,7 +2,7 @@
 当前源码 **v0.12.7 图鉴卡片显示修复**。个人离线养成游戏的战斗核心与角色构筑原型。发布内容见[本轮记录](Releases/v0.12.7.md)。
 GitHub：https://github.com/Icein61/dragonball-idle-unity
 
-开发指令与试玩反馈：[当前版本开发单](docs/release-plans/v0.12.7.md) · [全部版本](docs/release-plans/README.md)。
+开发指令与试玩反馈：[当前版本修订](docs/release-plans/v0.12.7.md) · [下一小版本开发单](docs/release-plans/v0.12.8.md) · [全部版本](docs/release-plans/README.md)。
 
 ## 下载与试玩
 [查看 Windows x64 Demo 发布附件](https://github.com/Icein61/dragonball-idle-unity/releases)。
