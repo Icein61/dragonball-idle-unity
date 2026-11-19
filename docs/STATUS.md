@@ -3,6 +3,8 @@
 
 ## 当前阶段
 
+需求与试玩反馈请填写[当前版本开发单](release-plans/v0.12.4.md)。[版本索引和模板](release-plans/README.md)。
+
 v0.12.4 接入用户确认的雅木茶、饺子和孙悟空【界王拳】立绘。雅木茶以替换后的概念图重画，饺子沿用首稿，悟空采用用户贴图确认的蓝白光波版本。至此初版九张已上线卡都使用已确认的立绘。
 
 [v0.12.4 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.4) 对应源码 `510dd90f291784f248584a8acc572131da258b5b`。811 项核心检查、立绘透明度及原图尺寸检查、Unity 后台构建和隔离静音 Player 验证 `release-smoke-20261120004439` 通过。已回读远端标签及三份附件，ZIP 为 73036881 字节，SHA256 为 `de2261b00034a815eaef6a2d6d1cc62ddf01b3026161b78ffe273ccd99d44aaa`。可见验收待进行。

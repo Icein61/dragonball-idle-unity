@@ -2,6 +2,8 @@
 当前源码 **v0.12.4 雅木茶、饺子与界王拳悟空立绘更新**。个人离线养成游戏的战斗核心与角色构筑原型。发布内容见[本轮记录](Releases/v0.12.4.md)。
 GitHub：https://github.com/Icein61/dragonball-idle-unity
 
+开发指令与试玩反馈：[当前版本开发单](docs/release-plans/v0.12.4.md) · [全部版本](docs/release-plans/README.md)。
+
 ## 下载与试玩
 [查看 Windows x64 Demo 发布附件](https://github.com/Icein61/dragonball-idle-unity/releases)。
 下载对应版本的龙珠爆裂激斗-v0.12.4-Windows-x64.zip，完整解压后运行龙珠爆裂激斗.exe。
