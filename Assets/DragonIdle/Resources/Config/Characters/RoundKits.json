@@ -1,0 +1,13 @@
+{
+ "cards": [
+  {"cardId":"goku-test","basic":"拳脚连击","ultimate":"全力龟派气功","pursuit":"近身追击","basicPower":1,"ultimatePower":2.4,"pursuitPower":0.55,"skills":[{"name":"蓄势","trigger":"opening","effect":"attack","value":0.04},{"name":"乘势一击","trigger":"afterBasic","effect":"strike","value":0.32}]},
+  {"cardId":"vegeta-test","basic":"高速突击","ultimate":"决胜强袭","pursuit":"能量追击","basicPower":1,"ultimatePower":2.4,"pursuitPower":0.55,"skills":[{"name":"王子傲气","trigger":"opening","effect":"attack","value":0.06},{"name":"压制射击","trigger":"afterBasic","effect":"strike","value":0.38}]},
+  {"cardId":"piccolo-test","basic":"近身反击","ultimate":"全力魔光炮","pursuit":"快速回击","basicPower":1,"ultimatePower":2.4,"pursuitPower":0.55,"skills":[{"name":"坚守","trigger":"opening","effect":"shield","value":0.12},{"name":"援护","trigger":"afterBasic","effect":"aid","value":0.08}]},
+  {"cardId":"krillin-test","basic":"连环踢","ultimate":"气圆斩","pursuit":"连环追击","basicPower":1,"ultimatePower":2.4,"pursuitPower":0.55,"skills":[{"name":"临阵应变","trigger":"afterBasic","effect":"strike","value":0.3}]},
+  {"cardId":"gohan-test","basic":"猛冲","ultimate":"潜力爆发","pursuit":"奋起追击","basicPower":1,"ultimatePower":2.4,"pursuitPower":0.55,"skills":[{"name":"决意","trigger":"opening","effect":"attack","value":0.04},{"name":"爆发一击","trigger":"afterBasic","effect":"strike","value":0.36}]},
+  {"cardId":"tien-test","basic":"武道连击","ultimate":"气功炮","pursuit":"强袭追打","basicPower":1,"ultimatePower":2.4,"pursuitPower":0.55,"skills":[{"name":"武者斗志","trigger":"afterBasic","effect":"strike","value":0.34}]},
+  {"cardId":"yamcha-saiyan-v020","basic":"狼牙连击","ultimate":"操气弹","pursuit":"狼牙追打","basicPower":1,"ultimatePower":2.4,"pursuitPower":0.55,"skills":[{"name":"乘胜追击","trigger":"afterBasic","effect":"strike","value":0.32}]},
+  {"cardId":"chiaotzu-saiyan-v020","basic":"指尖气弹","ultimate":"全力念动","pursuit":"念力追击","basicPower":1,"ultimatePower":2.4,"pursuitPower":0.55,"skills":[{"name":"念动援护","trigger":"afterBasic","effect":"aid","value":0.1}]},
+  {"cardId":"goku-saiyan-kaioken-v020","basic":"界王拳突击","ultimate":"龟派气功","pursuit":"高速追打","basicPower":1,"ultimatePower":2.65,"pursuitPower":0.55,"skills":[{"name":"挑战极限","trigger":"opening","effect":"attack","value":0.07},{"name":"连续进击","trigger":"afterBasic","effect":"strike","value":0.4}]}
+ ]
+}

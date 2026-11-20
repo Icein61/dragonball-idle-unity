@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 namespace DragonIdle {
@@ -91,6 +91,7 @@ namespace DragonIdle {
    if(Retired==null||Retired.Any(r=>r==null||!Data.RetiredCardIds.Contains(r.cardId)||r.training<0||r.shards<0||r.resonance<0||r.policy<0||r.policy>2)||Retired.Select(r=>r.cardId).Distinct().Count()!=Retired.Count)throw new InvalidOperationException("角色归档损坏");
    if(CardIds==null||!CardIds.SequenceEqual(Data.Cards.Select(c=>c.Id))||Training==null||Training.Length!=n||Shards==null||Shards.Length!=n||Resonance==null||Resonance.Length!=n||Policy==null||Policy.Length!=n||Owned==null||Owned.Length!=n||Skill==null||Skill.Length!=n||Skill2==null||Skill2.Length!=n)throw new InvalidOperationException("角色存档需要迁移");
    if(!ValidTeam(Team,Leader))throw new InvalidOperationException("队伍必须有 1 至 6 张已拥有的不同卡，且队长在阵");
+   RoundFormation(); // Validate the optional v0.13.0 formation without rewriting legacy lineups.
    if(Materials<0||Crystals<0||Gems<0||Unlocked<0||Unlocked>=Data.Stages.Length||SelectedStage<0||SelectedStage>Unlocked||Training.Any(x=>x<0)||Shards.Any(x=>x<0)||Resonance.Any(x=>x<0)||Policy.Any(x=>x<0||x>2))throw new InvalidOperationException("无效成长或进度数据");
    if(SkillUnlocked==null||SkillUnlocked.Length!=4||SkillPages==null||SkillPages.Length!=4||SkillPages.Any(x=>x<0))throw new InvalidOperationException("技能收藏数据损坏");
    if(Retired.Any(r=>!CanUseSkill(r.skill)||!CanUseSkill(r.skill2)||(r.skill!=""&&r.skill==r.skill2)))throw new InvalidOperationException("归档技能配置损坏");

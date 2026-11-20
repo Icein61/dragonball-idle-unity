@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UI=UnityEngine.UI;
 namespace DragonIdle {
  public partial class DemoGame {
-  readonly CatalogFilter catalog=new CatalogFilter();
+  readonly CatalogFilter catalog=new CatalogFilter{RoundFormat=true};
   RectTransform galleryRoot,gridRoot,detailRoot,dialogRoot;
   GameObject galleryCanvas;UI.ScrollRect galleryScroll;UI.InputField gallerySearch;
   UI.Text galleryResources,galleryToast;
@@ -18,8 +18,8 @@ namespace DragonIdle {
   static Color uiPaper=>InkText;
   static Color uiPanel=>InkPaper;
   static readonly Color uiDim=new Color32(55,67,62,255),uiAccent=new Color32(105,70,39,255);
-  static readonly string[] FeatureRoutes={"挑战","角色","编队","养成","装备","召唤"};
-  static string[] SortLabels={"上阵优先","稀有度优先","角色名称","培养程度"};
+  static readonly string[] FeatureRoutes={"角色","编队"};
+  static string[] SortLabels={"上阵优先","稀有度优先","角色名称","角色类型"};
 
   RectTransform UNode(Transform parent,string name,float x,float y,float w,float h){
    var r=new GameObject(name,typeof(RectTransform)).GetComponent<RectTransform>();r.SetParent(parent,false);
@@ -121,10 +121,11 @@ namespace DragonIdle {
    detailRoot.gameObject.SetActive(false);
   }
   void NavigateGallery(string target){
-   if(running&&target!="挑战"){GalleryNotice("请先退出当前战斗，再切换功能。",false);return;}
+   if(!IsModernPage(target)||target==RoundPreviewPage&&roundBattle==null)return;
    if(shellLoad.Active&&target!="加载")shellLoad.Cancel();
-   if(page=="角色"&&IsWorkshop(target))browseCard=selectedCard;
-   if(IsWorkshop(page)&&target=="角色"&&browseCard>=0)selectedCard=browseCard;
+   if(page=="角色"&&target=="编队")browseCard=selectedCard;
+   if(page=="编队"&&target=="角色"&&browseCard>=0)selectedCard=browseCard;
+   if(page==RoundPreviewPage&&target!=RoundPreviewPage){roundBattle=null;roundLast=null;roundLog.Clear();}
    CloseFilterDropdown();CloseGalleryDialog();page=target;autoRepeat=false;notice="";galleryDirty=true;
    galleryCanvas.SetActive(IsModernPage(target));previousPage="";UpdateGallery();
    if(target=="角色"&&EventSystem.current!=null){
@@ -132,12 +133,11 @@ namespace DragonIdle {
     else if(cardButtons.ContainsKey(selectedCard))EventSystem.current.SetSelectedGameObject(cardButtons[selectedCard].gameObject);
    }
    if(target=="主页"&&EventSystem.current!=null&&homeRoot!=null)EventSystem.current.SetSelectedGameObject(ActiveBackButton(homeRoot,"HomeNav角色"));
-   if(target=="召唤"&&EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(ActiveBackButton(summonRoot,saiyanPool?"SaiyanPool":"ClassicPool"));
   }
   void UpdateGallery(){
    if(IsModernPage(page)){EnsureGallery();if(!galleryCanvas.activeSelf)galleryCanvas.SetActive(true);
-    if((previousPage!=page||galleryDirty)&&dialogRoot==null){if(page=="角色")RefreshGallery(false);else if(IsWorkshop(page))DrawWorkshop();else if(page=="主页")DrawHome();else if(page=="召唤")DrawModernSummon();galleryDirty=false;RefreshModernFrame();}
-    if(Input.GetKeyDown(KeyCode.Escape)){if(filterDropdown!=null)CloseFilterDropdown();else if(dialogRoot!=null)CloseGalleryDialog();else if(IsWorkshop(page))NavigateGallery("角色");else if(page=="角色"&&galleryDetailOpen)ReturnToCards();else if(page=="角色"||page=="召唤")NavigateGallery("主页");else if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(null);}
+    if((previousPage!=page||galleryDirty)&&dialogRoot==null){if(page=="角色")RefreshGallery(false);else if(page=="编队")DrawRoundFormation();else if(page=="主页")DrawHome();else if(page==RoundPreviewPage)DrawRoundPreview();galleryDirty=false;RefreshModernFrame();}
+    if(Input.GetKeyDown(KeyCode.Escape)){if(filterDropdown!=null)CloseFilterDropdown();else if(dialogRoot!=null)CloseGalleryDialog();else if(page==RoundPreviewPage)NavigateGallery("编队");else if(page=="编队")NavigateGallery("角色");else if(page=="角色"&&galleryDetailOpen)ReturnToCards();else if(page=="角色")NavigateGallery("主页");else if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(null);}
     if(detailGroup!=null){detailFade=Math.Min(1,detailFade+Time.unscaledDeltaTime*8);detailGroup.alpha=audioSettings!=null&&audioSettings.ReducedMotion?1:detailFade;}
     galleryToast.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"";
     if(page=="主页")RefreshHomeNotice();
@@ -178,7 +178,7 @@ namespace DragonIdle {
     var r=pair.Value.transform;
     bool owned=profile.Owned[pair.Key];
     var power=r.Find("CharacterPower").GetComponent<UI.Text>();
-    power.text=owned?"战斗力："+profile.CharacterPower(pair.Key):"";
+    power.text=owned?"战斗力："+RoundPower(pair.Key):"";
     power.gameObject.SetActive(owned);
     r.Find("Unowned").gameObject.SetActive(!owned);
    }

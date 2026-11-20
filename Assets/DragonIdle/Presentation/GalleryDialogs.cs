@@ -89,16 +89,18 @@ namespace DragonIdle {
    if(EventSystem.current!=null&&trigger!=null&&trigger.isActiveAndEnabled)EventSystem.current.SetSelectedGameObject(trigger.gameObject);
   }
   void ShowFormationPicker(int i){
-   var c=Data.Cards[i];int existing=Array.IndexOf(profile.Team,i);
-   var panel=NewGalleryDialog("选择 "+c.Name+" 的阵位",existing>=0?"角色已在阵位"+(existing+1)+"；选择其他位置会交换两位角色。队长身份跟随阵位。":"选择位置以替换当前成员。被替换的角色回到候补，装备和成长保留。");
-   for(int s=0;s<Data.TeamSlots;s++){
-    int slot=s,index=profile.Team[s];
-    string value=FormationSlotLabel(s)+(s==profile.Leader?" · 队长位":"")+"\n"+(index<0?"空位":Data.Cards[index].Name);
-    UButton(panel,"Slot"+s,value,26+s%Data.FrontSlots*232,155+s/Data.FrontSlots*91,218,73,()=>{
-     if(Change(()=>{if(!profile.SetMember(slot,i))throw new InvalidOperationException("角色不可上阵");battle=null;})){
-      selectedSlot=slot;CloseGalleryDialog();GalleryNotice(c.Name+" 已进入 "+FormationSlotLabel(slot));RefreshGallery(false);
+   if(i<0||!profile.Owned[i])return;
+   var c=Data.Cards[i];var occupied=profile.RoundFormation();int existing=Array.IndexOf(occupied,i);
+   var panel=NewGalleryDialog("选择 "+c.Name+" 的阵位","九宫格依次从上到下、从右到左编号；最多五人。");
+   int count=occupied.Count(n=>n>=0);
+   for(int n=0;n<RoundBoard.Cells;n++){
+    int cell=n+1,index=occupied[n];
+    string label=cell+" 号位\n"+(index<0?"空位":Data.Cards[index].Name);
+    UButton(panel,"RoundPick"+cell,label,26+RoundBoard.Column(cell,0)*232,153+RoundBoard.Row(cell)*97,218,75,()=>{
+     if(Change(()=>{if(!profile.SetRoundMember(cell,i))throw new InvalidOperationException("阵位不合法或已满");})){
+      roundPosition=cell;CloseGalleryDialog();GalleryNotice(c.Name+" 已进入 "+cell+" 号位");RefreshGallery(false);
      }else GalleryNotice(notice,false);
-    },enabled:saveError=="",selected:s==existing);
+    },enabled:saveError==""&&(existing>=0||count<RoundBoard.PlayerLimit||index>=0),selected:n==existing);
    }
   }
   void ShowAcquisition(int i){

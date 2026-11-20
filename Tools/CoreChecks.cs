@@ -78,6 +78,8 @@ class CoreChecks {
   CatalogChecks.Run(Check);
   ScopeChecks.Run(Check);
   PresentationChecks.Run(Check);MenuChecks.Run(Check);
+
+  RoundChecks.Run(Check);
   Console.WriteLine("ALL PASS "+count);
  }
 }

@@ -21,11 +21,9 @@ namespace DragonIdle {
    int saveArg=Array.IndexOf(args,"-savePath");savePath=saveArg>=0&&saveArg+1<args.Length?args[saveArg+1]:Data.DefaultSavePath(Application.persistentDataPath);
    if(args.Contains("-logicSmoke")&&saveArg<0){Debug.LogError("Smoke requires isolated -savePath");Application.Quit(1);return;}
    Load();
-   if(saveError=="")Change(()=>{profile.OfflineBank+=profile.Offline(DateTime.UtcNow.Ticks);profile.LastClaimTicks=DateTime.UtcNow.Ticks;});
    InitializeMenuAudio(args.Contains("-logicSmoke")||Application.isBatchMode);
-   if(args.Contains("-logicSmoke")){RunLogicSmoke(args);return;}
+   if(args.Contains("-logicSmoke")){StartCoroutine(RunRoundSmoke(args));return;}
    BeginShellLoad("主页");
-   if(args.Contains("-smoke"))StartCoroutine(Smoke(args));
   }
   void Load(){
    try{if(File.Exists(savePath)){
@@ -71,13 +69,9 @@ namespace DragonIdle {
   }
   void Update(){
    UpdateGallery();UpdateMenuAudio();
-   saveClock+=Time.unscaledDeltaTime;if(saveClock>60&&saveError==""){saveClock=0;Change(()=>profile.LastClaimTicks=DateTime.UtcNow.Ticks);}
-   UpdateBattlePresentation(Time.unscaledDeltaTime);
-   if(!running&&settled&&autoRepeat&&battle!=null&&battle.Result==1){repeatTimer+=Time.unscaledDeltaTime;if(repeatTimer>3)StartBattle();}
-   if(Input.GetKeyDown(KeyCode.Space)&&running)paused=!paused;
-   if(Input.GetKeyDown(KeyCode.Escape)&&running)paused=!paused;
+   UpdateRoundPreview(Time.unscaledDeltaTime);
   }
-  void OnApplicationQuit(){FlushAudioSettings();if(profile!=null&&saveError==""){try{profile.LastClaimTicks=DateTime.UtcNow.Ticks;Save();}catch(Exception ex){Debug.LogWarning(ex.Message);}}}
+  void OnApplicationQuit(){FlushAudioSettings();}
   void Styles(){
    if(text!=null)return;
    text=new GUIStyle(GUI.skin.label){font=font,fontSize=18,wordWrap=true,richText=false};
@@ -90,12 +84,6 @@ namespace DragonIdle {
   string EffectText(string id){return id=="attack"?"攻击强化":id=="defense"?"防御强化":id=="damage"?"伤害强化":id=="speed"?"速度修正":id=="amplify"?"增幅":id;}
   void Line(Vector2 a,Vector2 b,float width,Color c){
    Matrix4x4 m=GUI.matrix;float angle=Mathf.Atan2(b.y-a.y,b.x-a.x)*Mathf.Rad2Deg;GUIUtility.RotateAroundPivot(angle,a);Box(a.x,a.y,(b-a).magnitude,width,c);GUI.matrix=m;
-  }
-  void OnGUI(){
-   if(page!="挑战")return;
-   Styles();float scale=Math.Min(Screen.width/1600f,Screen.height/900f);
-   GUI.matrix=Matrix4x4.TRS(new Vector3((Screen.width-1600*scale)/2,(Screen.height-900*scale)/2,0),Quaternion.identity,new Vector3(scale,scale,1));
-   DrawInkBattlePage();
   }
   void DrawInkBattlePage(){
    Box(0,0,1600,900,InkMist);

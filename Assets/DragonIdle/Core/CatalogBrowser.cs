@@ -3,6 +3,7 @@ using System.Linq;
 namespace DragonIdle {
  public sealed class CatalogFilter {
   public bool OwnedOnly=true;
+  public bool RoundFormat;
   public string Search="",Rarity="",Role="",Tag="";
   public int Sort;
   public int[] Results(Profile p){
@@ -14,8 +15,9 @@ namespace DragonIdle {
    });
    if(Sort==1)return q.OrderByDescending(i=>Array.IndexOf(Data.Rarities,Data.Cards[i].Rarity)).ThenBy(i=>i).ToArray();
    if(Sort==2)return q.OrderBy(i=>Data.Cards[i].Name,StringComparer.Ordinal).ThenBy(i=>Data.Cards[i].Title,StringComparer.Ordinal).ThenBy(i=>i).ToArray();
-   if(Sort==3)return q.OrderByDescending(i=>p.Training[i]).ThenByDescending(i=>p.Resonance[i]).ThenBy(i=>i).ToArray();
-   return q.OrderBy(i=>Array.IndexOf(p.Team,i)<0?99:Array.IndexOf(p.Team,i)).ThenByDescending(i=>p.Owned[i]).ThenBy(i=>i).ToArray();
+   if(Sort==3)return RoundFormat?q.OrderBy(i=>Data.Cards[i].Type).ThenBy(i=>i).ToArray():q.OrderByDescending(i=>p.Training[i]).ThenByDescending(i=>p.Resonance[i]).ThenBy(i=>i).ToArray();
+   var team=RoundFormat?p.RoundFormation():p.Team;
+   return q.OrderBy(i=>Array.IndexOf(team,i)<0?99:Array.IndexOf(team,i)).ThenByDescending(i=>p.Owned[i]).ThenBy(i=>i).ToArray();
   }
   public static int Reconcile(int selected,int[] results){return results.Contains(selected)?selected:results.Length>0?results[0]:-1;}
  }

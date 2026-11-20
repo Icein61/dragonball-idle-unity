@@ -10,23 +10,25 @@ namespace DragonIdle {
   readonly Dictionary<string,float> workPositions=new Dictionary<string,float>();
   string renderedWorkshop="";int browseCard=-1,equipmentTab,selectedSkillSlot;
   static bool IsWorkshop(string p){return p=="编队"||p=="养成"||p=="装备";}
-  static bool IsModernPage(string p){return p=="角色"||p=="召唤"||IsWorkshop(p)||IsShellPage(p);}
+  static bool IsModernPage(string p){return p=="角色"||p=="编队"||p==RoundPreviewPage||IsShellPage(p);}
   void RefreshModernFrame(){
    galleryListRoot.gameObject.SetActive(page=="角色"&&!galleryDetailOpen);
    detailRoot.gameObject.SetActive(page=="角色"&&galleryDetailOpen);
-   if(workshopRoot!=null)workshopRoot.gameObject.SetActive(IsWorkshop(page));
-   if(summonRoot!=null)summonRoot.gameObject.SetActive(page=="召唤");
+   if(workshopRoot!=null)workshopRoot.gameObject.SetActive(false);
+   if(summonRoot!=null)summonRoot.gameObject.SetActive(false);
+   if(roundFormationRoot!=null)roundFormationRoot.gameObject.SetActive(page=="编队");
+   if(roundPreviewRoot!=null)roundPreviewRoot.gameObject.SetActive(page==RoundPreviewPage);
    if(homeRoot!=null)homeRoot.gameObject.SetActive(page=="主页");
    if(loadingRoot!=null)loadingRoot.gameObject.SetActive(page=="加载");
    galleryChrome.gameObject.SetActive(!IsShellPage(page));
-   galleryChrome.Find("Section").GetComponent<UI.Text>().text=page=="角色"?"角色收藏":page=="编队"?"队伍编成":page=="养成"?"角色养成":page=="召唤"?"时空召唤":"装备工坊";
+   galleryChrome.Find("Section").GetComponent<UI.Text>().text=page=="角色"?"角色收藏":page=="编队"?"队伍编成":"回合试阵";
    RefreshFeatureHeaderCount();
    foreach(string name in FeatureRoutes)SetButtonActive(galleryChrome.Find("Nav"+name).GetComponent<UI.Button>(),page==name);
    galleryToast.gameObject.SetActive(!IsShellPage(page));
   }
   void RefreshFeatureHeaderCount(){
    galleryResources.text=page=="角色"?"拥有"+profile.Owned.Count(owned=>owned)+"/"+Data.Cards.Length:
-    "素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems;
+    page=="编队"?"上阵 "+profile.RoundFormation().Count(i=>i>=0)+"/"+RoundBoard.PlayerLimit:"";
   }
   GameObject ActiveBackButton(Transform root,string name){return root.GetComponentsInChildren<UI.Button>().First(b=>b.name==name).gameObject;}
   string WorkshopKey(){return page+":"+selectedCard+":"+equipmentTab;}

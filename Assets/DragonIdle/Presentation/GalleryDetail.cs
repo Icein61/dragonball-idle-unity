@@ -24,18 +24,15 @@ namespace DragonIdle {
    UText(detailRoot,"CharacterTitle",c.Title,520,116,788,28,17,uiDim).fontStyle=FontStyle.Normal;
    float tabY=DrawDetailTagChips(c.Tags.Distinct().ToArray())+16;
    if(!owned)UText(detailRoot,"Ownership","尚未拥有",24,613,456,30,18,uiDim);
-   UButton(detailRoot,"Acquisition","查看获取途径",24,654,456,42,()=>ShowAcquisition(i));
-   string[] tabs={"信息","招式与队长","装备与技能"};
+   string[] tabs={"信息","招式"};
    for(int n=0;n<3;n++){int tab=n;UButton(detailRoot,"DetailTab"+n,tabs[n],520+n*264,tabY,252,42,()=>{detailTab=tab;DrawGalleryDetail();},selected:detailTab==n);}
    float detailTop=tabY+58,detailHeight=Math.Max(110,630-detailTop);
    galleryDetailScroll=UScroll(detailRoot,"DetailScroll",520,detailTop,788,detailHeight,out detailBody);detailY=0;
-   if(detailTab==0)DrawGalleryStats(i);
-   else if(detailTab==1)DrawGallerySkills(i);
-   else DrawGalleryLoadout(i);
+   if(detailTab!=1)DrawGalleryStats(i);
+   else DrawGallerySkills(i);
    detailBody.sizeDelta=new Vector2(774,Math.Max(detailHeight,detailY+10));
    Canvas.ForceUpdateCanvases();galleryDetailScroll.verticalNormalizedPosition=oldScroll;
-   gallerySwapButton=UButton(detailRoot,"ChooseSlot",owned?"选择阵位":"查看获取途径",520,654,382,42,()=>{if(owned)ShowFormationPicker(i);else ShowAcquisition(i);},true,saveError=="");
-   galleryEquipButton=UButton(detailRoot,"OpenEquipment","前往装备工坊",918,654,390,42,()=>NavigateGallery("装备"),false,owned&&saveError=="");
+   if(owned)gallerySwapButton=UButton(detailRoot,"ChooseSlot","选择阵位",520,654,382,42,()=>ShowFormationPicker(i),true,saveError=="");
    if(restoreFocus!=null&&eventSystem!=null){var control=detailRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(b=>b.name==restoreFocus&&b.interactable);eventSystem.SetSelectedGameObject(control!=null?control.gameObject:ActiveBackButton(detailRoot,"BackToCards"));}
   }
   float DrawDetailTagChips(string[] tags){
@@ -99,12 +96,11 @@ namespace DragonIdle {
    float height=Math.Max(28,t.preferredHeight+6);t.rectTransform.sizeDelta=new Vector2(748,height);measuredText.Add(t);detailY+=height+24;
   }
   void DrawGalleryStats(int i){
-   bool teamed=profile.Owned[i]&&profile.Team.Contains(i);
-   var unit=profile.InspectCharacter(i,teamed);
-   UText(detailBody,"StatsContext",teamed?"当前编队属性":profile.Owned[i]?"个人属性":"基础属性预览",0,0,760,30,18,uiAccent);
-   string[] labels={"生命","攻击","防御","速度","会心","韧性","穿透","闪避"};
+   var unit=RoundCardPreview(i);
+   UText(detailBody,"StatsContext","回合制属性预览",0,0,760,30,18,uiAccent);
+   string[] labels={"生命","攻击","防御","会心","韧性","穿透","闪避"};
    // Current combat has no permanent tenacity or penetration stat. Skill penetration is separate.
-   string[] values={unit.MaxHP.ToString("0.#"),unit.AttackValue.ToString("0.#"),unit.DefenseValue.ToString("0.#"),unit.SpeedValue.ToString("0.#"),
+   string[] values={unit.MaxHP.ToString("0.#"),unit.Attack.ToString("0.#"),unit.Defense.ToString("0.#"),
     (unit.Crit*100).ToString("0.#")+"%","0%","0%",(unit.Dodge*100).ToString("0.#")+"%"};
    for(int n=0;n<labels.Length;n++){
     var tile=UPanel(detailBody,"StatTile"+n,(n%4)*193,39+(n/4)*90,182,78,InkLight);
@@ -114,26 +110,19 @@ namespace DragonIdle {
    detailY=218;
   }
   void DrawGallerySkills(int i){
-   var card=Data.Cards[i];
-   bool replaced=profile.Owned[i]&&(profile.Skill[i]=="pierce"||profile.Skill2[i]=="pierce");
-   DetailParagraph("普攻",Data.UserSkill(card.Id,0));
-   DetailParagraph(replaced?"原绝招 · 已替换":"绝招 · "+card.Special,card.SpecialText);
-   if(replaced)DetailParagraph("当前绝招 · 贯穿气弹",Data.SkillDescription("pierce"));
-   DetailParagraph("必杀 · "+card.Ultimate,card.UltimateText);
-   DetailParagraph("被动",card.PassiveText);
-   DetailParagraph("队长技",card.LeaderText);
-   DetailParagraph("出招规则","绝招冷却 "+card.Cooldown+" 次正常行动。必杀消耗 100 怒气，额外释放。");
-  }
-  void DrawGalleryLoadout(int i){
-   if(!profile.Owned[i]){DetailParagraph("尚未拥有","获得后可配置3件装备、2个额外技能，并在装备孔位镶嵌珠子。");return;}
-   for(int s=0;s<3;s++){
-    int slot=s;var item=profile.Items.FirstOrDefault(x=>x.owner==i&&x.slot==slot);
-    DetailParagraph("装备槽 "+(s+1),item==null?"空槽 · 前往装备工坊选择已拥有的装备。":item.Name+"\n"+(item.kind==1?"防御强化":"攻击强化")+" +"+(item.Bonus*100).ToString("0.#")+"% / 整场"+(item.gem?"\n攻击珠：攻击强化 +0.8% / 整场":"\n珠孔：空"));
+   var k=RoundRules().For(Data.Cards[i].Id);
+   DetailParagraph("普攻 · "+k.basic,"按固定手位使用。伤害倍率 "+k.basicPower.ToString("0.##")+"。");
+   DetailParagraph("必杀 · "+k.ultimate,"怒气满时插入行动，不消耗本轮普攻手位。伤害倍率 "+k.ultimatePower.ToString("0.##")+"。");
+   DetailParagraph("追打 · "+k.pursuit,"友方普攻会心后，由手位最靠前且本轮未追打的其他存活队友追击。伤害倍率 "+k.pursuitPower.ToString("0.##")+"。");
+   foreach(var s in k.skills){
+    string effect=s.effect=="attack"?"开场自身攻击增加 "+(s.value*100).ToString("0.#")+"%。":
+     s.effect=="defense"?"开场自身防御增加 "+(s.value*100).ToString("0.#")+"%。":
+     s.effect=="shield"?"开场获得相当于自身最大生命 "+(s.value*100).ToString("0.#")+"% 的护盾。":
+     s.effect=="strike"?"自身普攻命中后，目标生命不高于 50% 时追加攻击，伤害倍率 "+s.value.ToString("0.##")+"。":
+     "自身普攻后，为生命比例最低且低于 65% 的队友回复其最大生命的 "+(s.value*100).ToString("0.#")+"%。";
+    DetailParagraph((s.trigger=="opening"?"被动型技能":"行动型技能")+" · "+s.name,effect);
    }
-   foreach(var id in new[]{profile.Skill[i],profile.Skill2[i]})DetailParagraph("额外技能 · "+Data.SkillName(id),Data.SkillDescription(id));
-   string[] policy={"怒气足够即释放","自身生命 ≤ 60%","目标生命 ≤ 50%"};
-   DetailParagraph("必杀策略",policy[profile.Policy[i]]+"；可在养成页调整。");
+   DetailParagraph("当前配置","回合制验证用配置，角色正式设计将在后续版本填写。");
   }
  }
 }
-
