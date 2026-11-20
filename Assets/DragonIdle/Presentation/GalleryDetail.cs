@@ -25,7 +25,7 @@ namespace DragonIdle {
    float tabY=DrawDetailTagChips(c.Tags.Distinct().ToArray())+16;
    if(!owned)UText(detailRoot,"Ownership","尚未拥有",24,613,456,30,18,uiDim);
    string[] tabs={"信息","招式"};
-   for(int n=0;n<3;n++){int tab=n;UButton(detailRoot,"DetailTab"+n,tabs[n],520+n*264,tabY,252,42,()=>{detailTab=tab;DrawGalleryDetail();},selected:detailTab==n);}
+   for(int n=0;n<tabs.Length;n++){int tab=n;UButton(detailRoot,"DetailTab"+n,tabs[n],520+n*264,tabY,252,42,()=>{detailTab=tab;DrawGalleryDetail();},selected:detailTab==n);}
    float detailTop=tabY+58,detailHeight=Math.Max(110,630-detailTop);
    galleryDetailScroll=UScroll(detailRoot,"DetailScroll",520,detailTop,788,detailHeight,out detailBody);detailY=0;
    if(detailTab!=1)DrawGalleryStats(i);
