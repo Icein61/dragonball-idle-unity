@@ -5,6 +5,8 @@
 
 v0.13.0 按[版本开发单](release-plans/v0.13.0.md)切换为九宫格固定手位回合制。保留图鉴和编队；挑战、养成、装备、召唤与相关奖励暂退，旧数据保留。三套试阵为角色重构预留配置验证入口。[版本索引和模板](release-plans/README.md)。
 
+[v0.13.0 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.13.0) 对应源码 `f6a628bdaf1e0bd731c9a9779a2a69faf75098ed`。834 项核心检查、Unity 后台构建和无图形 Player 验证 `release-smoke-20261120204019` 通过，覆盖试阵、阵容保存与停用入口，已核对远端标签及三份附件；ZIP 为 73052096 字节，SHA256 为 `9e374d5489b9484ae286363d305af50a26132baac2c275c5aa977b1b3fbde3fe`。实际画面待试玩。
+
 v0.12.8 接入角色详情快捷切换、标签与八项属性，并修复图鉴下拉滑块越界。新版简表可按列勾选身份标签；运行时仍使用现有九卡的身份配置。
 
 [v0.12.8 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.12.8) 对应源码 `9485b4ed5bf6588f033e68c14b28d162a8586873`。817 项核心检查、Unity 后台构建和无图形 Player 验证 `release-smoke-20261120023524` 通过，包含详情导航、属性信息和滑块边界。远端标签及三份附件已核对；ZIP 为 73040937 字节，SHA256 为 `7537d9be4db126e2dfd346dd95d606c9b1e804f3d90d361976e349e4bba052ba`。实际观感留待试玩。
