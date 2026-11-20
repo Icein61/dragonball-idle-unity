@@ -2,7 +2,7 @@
 当前源码 **v0.12.8 角色详情与快速切换**。个人离线养成游戏的战斗核心与角色构筑原型。发布内容见[本轮记录](Releases/v0.12.8.md)。
 GitHub：https://github.com/Icein61/dragonball-idle-unity
 
-开发指令与试玩反馈：[当前版本开发单](docs/release-plans/v0.12.8.md) · [全部版本](docs/release-plans/README.md)。
+开发指令与试玩反馈：[v0.13.0 开发单](docs/release-plans/v0.13.0.md) · [v0.12.8 试玩反馈](docs/release-plans/v0.12.8.md) · [全部版本](docs/release-plans/README.md)。
 
 ## 下载与试玩
 [查看 Windows x64 Demo 发布附件](https://github.com/Icein61/dragonball-idle-unity/releases)。
