@@ -3,6 +3,8 @@
 
 ## 当前阶段
 
+v0.13.1 已建立[开发单](release-plans/v0.13.1.md)，交付九宫格回合制简表供填写。正式普攻、必杀、追打和技能留空，原身份字段与图片按卡对应。当前可玩版本仍为 v0.13.0。
+
 v0.13.0 按[版本开发单](release-plans/v0.13.0.md)切换为九宫格固定手位回合制。保留图鉴和编队；挑战、养成、装备、召唤与相关奖励暂退，旧数据保留。三套试阵为角色重构预留配置验证入口。[版本索引和模板](release-plans/README.md)。
 
 [v0.13.0 Windows 预览版](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.13.0) 对应源码 `f6a628bdaf1e0bd731c9a9779a2a69faf75098ed`。834 项核心检查、Unity 后台构建和无图形 Player 验证 `release-smoke-20261120204019` 通过，覆盖试阵、阵容保存与停用入口，已核对远端标签及三份附件；ZIP 为 73052096 字节，SHA256 为 `9e374d5489b9484ae286363d305af50a26132baac2c275c5aa977b1b3fbde3fe`。实际画面待试玩。
