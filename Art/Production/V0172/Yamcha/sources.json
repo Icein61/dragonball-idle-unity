@@ -1,0 +1,139 @@
+{
+  "version": "0.17.2",
+  "generator": "ImageGen built-in",
+  "selected": {
+    "portrait": "A",
+    "icons": "BAAA"
+  },
+  "images": [
+    {
+      "candidate": "portrait-a",
+      "path": "Assets/DragonIdle/Resources/Art/V0172/Yamcha/portrait.png",
+      "sha256": "ffb372dcf0a008da7d8a7ca13414ef8102fdc930a632de817230c69f7423017a",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/yamcha-saiyan-v020-portrait.png"
+      ],
+      "prompt": "Use the supplied original project illustration of the same fighter as the model reference. Keep his swept black mane, two cheek scars, orange wrap-front sleeveless martial arts uniform, navy wraps/belt, and white ankle wraps over navy soft shoes. Match crisp C-series hand-drawn cel-comic line weights. Do not imitate a screenshot, game render, or any external assets. Full body cutout, transparent edge-to-edge. Original wolf-fang forward fighting stance, front three-quarter view at eye level: a single claw-hand reaching to camera at shoulder level with exactly five anatomically clear fingers and the other naturally guarding the chest, stern battle cry. In both legs hips and kneecaps face in the same direction as their feet, front knee bent over toe, back foot planted visibly. Distinct fresh silhouette, readable eyes, generous clear padding around fingers and soles. No opponent, no effects, no text."
+    },
+    {
+      "candidate": "portrait-b",
+      "path": "Art/Production/V0172/Yamcha/candidates/portrait-b.png",
+      "sha256": "1bc10258b7250fb86d46904b9b916d3a8d3056d6b2fb4bb7a20c4b0dcf747fd5",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/yamcha-saiyan-v020-portrait.png"
+      ],
+      "prompt": "Use the supplied original project illustration of the same fighter as the model reference. Keep his swept black mane, two cheek scars, orange wrap-front sleeveless martial arts uniform, navy wraps/belt, and white ankle wraps over navy soft shoes. Match crisp C-series hand-drawn cel-comic line weights. Do not imitate a screenshot, game render, or any external assets. Full-body transparent portrait. Original wolf-fang crouched stance in side three-quarter view, shoulders and pelvis naturally aligned, wide planted feet with knees aligned to toes, a deep measured inhale and focused eyes looking right, both claw-hands at clearly different heights in silhouette, five fingers on each. Clean warm saturated oranges and neutral shadows, open thumbnail-safe surrounding margin. No opponent, no effects, no text."
+    },
+    {
+      "candidate": "moves",
+      "path": "Assets/DragonIdle/Resources/Art/V0172/Yamcha/moves.png",
+      "sha256": "d27bb24e4aa1d7b727b9ab842b653c2508f9863ee825e2a8cfac4ea5cb9d60ee",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/yamcha-saiyan-v020-portrait.png",
+        "Assets/DragonIdle/Resources/Art/V050/yamcha-saiyan-v020-atlas.png"
+      ],
+      "prompt": "Use the supplied original project illustration of the same fighter as the model reference. Keep his swept black mane, two cheek scars, orange wrap-front sleeveless martial arts uniform, navy wraps/belt, and white ankle wraps over navy soft shoes. Match crisp C-series hand-drawn cel-comic line weights. Do not imitate a screenshot, game render, or any external assets. Game sprite atlas, 3 columns x 2 rows of six equal exact cells, landscape 3:2, transparent background. All six poses are the same stature, head and feet visible, isolated from neighboring cells with generous empty gutters, looking toward screen right; no dividers, labels, glow, effects, floor, shadows or repeated illustration outside the six. Top row from left: full-body planted lead straight punch; body turned slightly with rear punch delivered to the right; weight loaded forward and BOTH closed fists pushing apart at chest level in a compact equally clear outward double strike. Bottom row: compact right-facing claw stance winding up; right-facing wolf-fang half-turn lunge with front clawed hand and off hand guarding at the ribs, strong readable impact pose; right-facing LOW shin-height sweep, front leg extended horizontally just above ground to the right and rear knee sharply bent, upper body leans a little, NOT a high kick. Draw a single character per cell, five-finger anatomy, natural hips, knees and shoulders. Pose changes do not change body size."
+    },
+    {
+      "candidate": "states",
+      "path": "Assets/DragonIdle/Resources/Art/V0172/Yamcha/states.png",
+      "sha256": "2e24e24cfce4a6da6410018fa69dc21fcfe6741ceefeb7419a4ee30948327b8c",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/yamcha-saiyan-v020-portrait.png",
+        "Assets/DragonIdle/Resources/Art/V050/yamcha-saiyan-v020-atlas.png"
+      ],
+      "prompt": "Use the supplied original project illustration of the same fighter as the model reference. Keep his swept black mane, two cheek scars, orange wrap-front sleeveless martial arts uniform, navy wraps/belt, and white ankle wraps over navy soft shoes. Match crisp C-series hand-drawn cel-comic line weights. Do not imitate a screenshot, game render, or any external assets. 2D game sprite atlas, 3 columns x 2 rows, landscape 3:2, transparent canvas, exactly six equally sized rectangular grid cells. One clean full-body isolated silhouette per cell. Top left natural low guarding idle, top middle shoulders pitched forward rightward run with right leg ahead and hair streaming, top right same runner with opposite leg ahead and the opposite arm forward. Bottom left knockback rocking backward eyes open, bottom middle in small float curled recoil arms close, bottom right defeated lying curled on side with eyes closed, head left feet right. Maintain same proportions/shoes/scars across all cells. Transparent spacious gutters, margins above hair and below toes, no border, no ground, no floor shadow, no text, no sparks, no effects."
+    },
+    {
+      "candidate": "recovery",
+      "path": "Assets/DragonIdle/Resources/Art/V0172/Yamcha/recovery.png",
+      "sha256": "2ad74b7abf70fe12a39adcd3801c27f4fed0edfa7e14abf629b0b453e787f17b",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/yamcha-saiyan-v020-portrait.png",
+        "Assets/DragonIdle/Resources/Art/V050/yamcha-saiyan-v020-atlas.png"
+      ],
+      "prompt": "Use the supplied original project illustration of the same fighter as the model reference. Keep his swept black mane, two cheek scars, orange wrap-front sleeveless martial arts uniform, navy wraps/belt, and white ankle wraps over navy soft shoes. Match crisp C-series hand-drawn cel-comic line weights. Do not imitate a screenshot, game render, or any external assets. Game sprite atlas, 2 columns and 2 rows exact equal square cells. Same adult fighter facing screen right in all poses. Top-left kneeling on right knee supporting himself on one fist about to get back up, head lifting; top-right standing at full height with confident grin raising both fists, no aggression; bottom-left landing from a short hop with both knees bent and both hands open in balance; bottom-right recoiling higher off ground with visible open mouth, legs bent and arms up, strong airborne read. Transparent entire sheet, no line separators, no text, no glow, no ground/shadow. Full feet/hair/hands visible in every frame, no overlap or cropped limbs, large clear gutters."
+    },
+    {
+      "candidate": "icons-a",
+      "path": "Assets/DragonIdle/Resources/Art/V0172/Yamcha/icons-a.png",
+      "sha256": "48dd2a7f72b7592c0fa23932dc485a2ce6488dad447200c25321edb3ba56f58a",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/yamcha-saiyan-v020-portrait.png",
+        "Assets/DragonIdle/Resources/Art/V0154/Krillin/skill-icons.png"
+      ],
+      "prompt": "Use the supplied original project illustration of the same fighter as the model reference. Keep his swept black mane, two cheek scars, orange wrap-front sleeveless martial arts uniform, navy wraps/belt, and white ankle wraps over navy soft shoes. Match crisp C-series hand-drawn cel-comic line weights. Do not imitate a screenshot, game render, or any external assets. Create a 2x2 atlas of four tight SQUARE videogame skill icons. Reference image 2 only informs the low-poly-free hand-drawn edge and saturated gold thin trim. Four evenly spaced equal squares fill transparent atlas without overlap. Top left the fighter throwing two outward fists with white warm impact strokes, top right the fighter sweeping one open wolf-claw toward the viewer sharply in a forward lunge with blue-white stylized wolf-shaped wind accents, bottom left a low horizontal shin kick with a warm gold crescent, bottom right this fighter standing up from a crouch eyes determined, warm green rising streaks, one hand on knee. Frame each with delicate small rounded gold border and deep blue-teal background. No printed symbols, no text, no extra limb or opponent."
+    },
+    {
+      "candidate": "icons-b",
+      "path": "Assets/DragonIdle/Resources/Art/V0172/Yamcha/icons-b.png",
+      "sha256": "9f03d64df480e98199de9800b1b3c6613151c3d0f8dca4a4a2f0f3a4e47b2e8a",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/yamcha-saiyan-v020-portrait.png",
+        "Assets/DragonIdle/Resources/Art/V0154/Krillin/skill-icons.png"
+      ],
+      "prompt": "Use the supplied original project illustration of the same fighter as the model reference. Keep his swept black mane, two cheek scars, orange wrap-front sleeveless martial arts uniform, navy wraps/belt, and white ankle wraps over navy soft shoes. Match crisp C-series hand-drawn cel-comic line weights. Do not imitate a screenshot, game render, or any external assets. Make a 2 by 2 square game icon atlas with 4 equally sized skill icons, inspired by the gold rim and deep blue-teal background treatment of reference image 2. Inside: (top left) a tight shot of both wrists and both clenched fists pushed out diagonally; (top right) framed face and sharply foreshortened open claw toward viewer under a subtle icy blue wolf profile made from strokes; (bottom left) a cropped side view of low kick foot and bent balancing knee, a horizontal amber arc; (bottom right) strong expression lifting head and shoulders from a crouch, green updraft and fist pushed into ground. Quiet outer border, saturated clean cel inks, no letters or enemy. Clean transparent atlas gutters. Each icon immediately distinguishable at 48 px."
+    }
+  ],
+  "audio": {
+    "sourceRoot": "D:/Projects/dragonball-idle-unity/artifacts/xenoverse2-audio/赛亚人篇-角色音频素材库/01-角色音频/雅木茶",
+    "cues": [
+      {
+        "id": "entry",
+        "source": "01-战斗语音/雅木茶-攻击-内嵌0005.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0172/Yamcha/entry.wav",
+        "sha256": "2f5d1a5206ec661de4e8384a898738429605ca5668d51518b7c9bfb006d23e89",
+        "seconds": 0.318
+      },
+      {
+        "id": "land",
+        "source": "02-专属音效/雅木茶-音效-内嵌0001.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0172/Yamcha/land.wav",
+        "sha256": "37dfc09a07aacfb7470e02dd91f30bc1cb608ee8aada3e3806d1ecf8ba7c0337",
+        "seconds": 0.589
+      },
+      {
+        "id": "basic",
+        "source": "01-战斗语音/雅木茶-攻击-内嵌0008.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0172/Yamcha/basic.wav",
+        "sha256": "0589e2b0dca971bf250ea9f7615a3c79ebf706c2f04fbf112e7e56724bf155b6",
+        "seconds": 0.322
+      },
+      {
+        "id": "wolf",
+        "source": "03-技能语音/01-本篇优先/狼牙风风拳-S110_RWK/雅木茶-狼牙风风拳-内嵌0001.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0172/Yamcha/wolf.wav",
+        "sha256": "f1887149152f67fbc56f1e854c52dc96f7a1c6eb6f6207d0b9412bdcf191001d",
+        "seconds": 1.778
+      },
+      {
+        "id": "sweep",
+        "source": "01-战斗语音/雅木茶-攻击-内嵌0016.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0172/Yamcha/sweep.wav",
+        "sha256": "950c9e3361b2d206b57b699b484e8e0a5d40b883235d19ce3c4e2c49578b6809",
+        "seconds": 0.555
+      },
+      {
+        "id": "rise",
+        "source": "01-战斗语音/雅木茶-蓄气-内嵌0061.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0172/Yamcha/rise.wav",
+        "sha256": "a0ec580ee801adccd2eeb0e33ab928fe1b0b387c6036db5fe98ebbafd83ccaf4",
+        "seconds": 1.455
+      },
+      {
+        "id": "hit-light",
+        "source": "01-战斗语音/雅木茶-轻受击-内嵌0028.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0172/Yamcha/hit-light.wav",
+        "sha256": "c040293bb13bc4d963724b8ab3c0fb994165c93b02544831912933350dee6172",
+        "seconds": 0.358
+      },
+      {
+        "id": "hit-heavy",
+        "source": "01-战斗语音/雅木茶-重受击-内嵌0033.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0172/Yamcha/hit-heavy.wav",
+        "sha256": "aa33d315793effebdeceecefb62086ba526136ff1af59554fb9eb8309c972a3b",
+        "seconds": 0.538
+      }
+    ]
+  }
+}

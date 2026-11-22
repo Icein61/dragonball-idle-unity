@@ -1,0 +1,35 @@
+{
+  "mode": "built-in ImageGen",
+  "assets": [
+    {
+      "asset": "Assets/DragonIdle/Resources/Art/V0162/Raditz/shining-friday.png",
+      "reference": "Assets/DragonIdle/Resources/Art/V0161/Raditz/skill-icons.png",
+      "prompt": "Redraw only the standalone upper-left skill icon from the supplied 2×2 Raditz sheet as one square image. Full-bleed original C-style hand-inked comic game illustration. Keep Saiyan-saga Raditz, long spiky black hair, green left-eye scouter, warm-brown shoulders, and magenta-black background and electrical energy. Correct anatomy is the most important requirement. Use a medium 3/4 shot allowing the near open palm and whole wrist to be seen. His near hand occupies the lower-left to center, facing the viewer with moderate foreshortening, and has EXACTLY FIVE visibly distinct digit tips, anatomically correct: a low outward thumb plus four individually separated fingers (little, ring, middle, index) with clear gaps. All five tips surrounded by dark space, inside frame and separate from the glow. Keep the glow concentrated in front of the palm, sharply pink-white in the lower half of the palm, and thin lightning around it, never covering or merging any digits. Far hand outside composition. Leave Raditz’s face and scouter clearly visible in upper right. High contrast clean confident outlines and cel shadows. No typography, badge, frame, words, or border.",
+      "sha256": "b588d19077f9e4da9f0f93d19618af955c1bca6133924bf908b9b6d21f9ae408"
+    },
+    {
+      "asset": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/C.png",
+      "reference": "Assets/DragonIdle/Resources/Interface/Rarity/C.png",
+      "prompt": "Original minimal 1:1 square background material for a character portrait card in the user's Dragon Ball fan game. Entire tile opaque, edge-to-edge, neutral soft light. A nearly uniform flat color, very gentle low-contrast texture, quiet corners. The whole center 80% should remain empty and even behind dark hair and vivid character art. Ultra subtle paper/satin surface texture and a couple extremely faint abstract brush lines near outer corners. Use the supplied badge purely as palette reference. No lettering, no logo, no crest, no central mark, no border, no illustrated scene, no halo or strong gradients, no symbols, no particles. Main fill a light steel blue-gray close to the badge's steel-blue trim (#adc4cb), slightly pale so black hair reads well. Flat cool slate paper.",
+      "sha256": "ec6d877586db8a4066900e2f9ac79ada880f3726727d4d18f2c131ce427ebeae"
+    },
+    {
+      "asset": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/B.png",
+      "reference": "Assets/DragonIdle/Resources/Interface/Rarity/B.png",
+      "prompt": "Original minimal 1:1 square background material for a character portrait card in the user's Dragon Ball fan game. Entire tile opaque, edge-to-edge, neutral soft light. A nearly uniform flat color, very gentle low-contrast texture, quiet corners. The whole center 80% should remain empty and even behind dark hair and vivid character art. Ultra subtle paper/satin surface texture and a couple extremely faint abstract brush lines near outer corners. Use the supplied badge purely as palette reference. No lettering, no logo, no crest, no central mark, no border, no illustrated scene, no halo or strong gradients, no symbols, no particles. Main fill a muted medium-light cyan-teal close to the badge's blue cyan trim (#70ccd8), slightly desaturated and soft. Flat cool turquoise paper.",
+      "sha256": "96c1c2c71784c6530cb784e344d0fa95d22c21825a1b3e1e9d22c5f4a9ffb0e3"
+    },
+    {
+      "asset": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/A.png",
+      "reference": "Assets/DragonIdle/Resources/Interface/Rarity/A.png",
+      "prompt": "Original minimal 1:1 square background material for a character portrait card in the user's Dragon Ball fan game. Entire tile opaque, edge-to-edge, neutral soft light. A nearly uniform flat color, very gentle low-contrast texture, quiet corners. The whole center 80% should remain empty and even behind dark hair and vivid character art. Ultra subtle paper/satin surface texture and a couple extremely faint abstract brush lines near outer corners. Use the supplied badge purely as palette reference. No lettering, no logo, no crest, no central mark, no border, no illustrated scene, no halo or strong gradients, no symbols, no particles. Main fill a mid-light amethyst violet close to the badge's lilac trim (#c4a2e1), clean subtle textile texture. Mostly flat lavender violet.",
+      "sha256": "0ac811cdbe996275647b74d9ff8179ff0879a06c1e8c9f1e211017c7ce6ee609"
+    },
+    {
+      "asset": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/S.png",
+      "reference": "Assets/DragonIdle/Resources/Interface/Rarity/S.png",
+      "prompt": "Original minimal 1:1 square background material for a character portrait card in the user's Dragon Ball fan game. Entire tile opaque, edge-to-edge, neutral soft light. A nearly uniform flat color, very gentle low-contrast texture, quiet corners. The whole center 80% should remain empty and even behind dark hair and vivid character art. Ultra subtle paper/satin surface texture and a couple extremely faint abstract brush lines near outer corners. Use the supplied badge purely as palette reference. No lettering, no logo, no crest, no central mark, no border, no illustrated scene, no halo or strong gradients, no symbols, no particles. Main fill a pale warm amber gold close to the badge gold trim (#ebc279). Gentle matte gold paper with a delicate small satin shimmer at outer corners only.",
+      "sha256": "04a7bcb7b6465ae94868c5bca820f79b2d43a312964b35c97e1e06a62c5dadd6"
+    }
+  ]
+}

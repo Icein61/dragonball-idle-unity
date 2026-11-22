@@ -1,0 +1,26 @@
+{
+ "cardId": "goku-test",
+ "cues": [
+  {"id": "opening-passive", "resource": "Audio/V0139/Shared/opening-passive", "gain": 0.40},
+  {"id": "pursuit-start", "resource": "Audio/V0138/Goku/pursuit-start", "gain": 0.7},
+  {"id": "voice-entry", "resource": "Audio/V0138/Goku/voice-entry", "gain": 0.68},
+  {"id": "voice-opening", "resource": "Audio/V0138/Goku/voice-opening", "gain": 0.6},
+  {"id": "cloth", "resource": "Audio/V0138/Goku/cloth", "gain": 0.4},
+  {"id": "voice-punch", "resource": "Audio/V0138/Goku/voice-punch", "gain": 0.83},
+  {"id": "punch", "resource": "Audio/V0138/Goku/punch", "gain": 0.78},
+  {"id": "heavy", "resource": "Audio/V0138/Goku/heavy", "gain": 0.82},
+  {"id": "sweep", "resource": "Audio/V0138/Goku/sweep", "gain": 0.76},
+  {"id": "guard", "resource": "Audio/V0138/Goku/guard", "gain": 0.55},
+  {"id": "voice-kick", "resource": "Audio/V0138/Goku/voice-kick", "gain": 0.83},
+  {"id": "uppercut", "resource": "Audio/V0138/Goku/uppercut", "gain": 0.68},
+  {"id": "voice-gather", "resource": "Audio/V0138/Goku/voice-gather", "gain": 0.92},
+  {"id": "charge", "resource": "Audio/V0138/Goku/charge", "gain": 0.32},
+  {"id": "voice-fire", "resource": "Audio/V0138/Goku/voice-fire", "gain": 0.96},
+  {"id": "beam", "resource": "Audio/V0138/Goku/beam", "gain": 0.62},
+  {"id": "beam-tail", "resource": "Audio/V0138/Goku/beam-tail", "gain": 0.35},
+  {"id": "dodge", "resource": "Audio/V0138/Goku/dodge", "gain": 0.55},
+  {"id": "land", "resource": "Audio/V0138/Goku/land", "gain": 0.46},
+  {"id": "voice-hit-light", "resource": "Audio/V0138/Goku/voice-hit-light", "gain": 0.72},
+  {"id": "voice-hit-heavy", "resource": "Audio/V0138/Goku/voice-hit-heavy", "gain": 0.75}
+ ]
+}

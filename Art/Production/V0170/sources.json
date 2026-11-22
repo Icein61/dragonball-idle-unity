@@ -1,0 +1,35 @@
+{
+  "mode": "built-in ImageGen",
+  "assets": [
+    {
+      "asset": "Assets/DragonIdle/Resources/Interface/Rarity/V0170/C.png",
+      "reference": "Assets/DragonIdle/Resources/Interface/Rarity/C.png",
+      "prompt": "Edit the existing original C-rank badge. Freeze its visual design, silhouette, six sided steel structure, bevel, legible single Latin capital C, exact typographic placement, overall composition and shadow. Recolor primarily around green: brushed desaturated celadon light metal rim, emerald secondary bevel, dark forest green inset, pale spring-green letter C with dark forest shadow. The C looks engraved with the same weight and is easy to read very small. Preserve its centered size relative to transparent margin. Transparent outer background, no opaque backdrop, no new ornament, no glow beyond the border.",
+      "sha256": "8b42928f30b6af05df8d15c9d3530ca1c5de452891bcf40a1f0b041d8b0e62a3"
+    },
+    {
+      "asset": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/C.png",
+      "reference": "Assets/DragonIdle/Resources/Interface/Rarity/C.png",
+      "prompt": "Square opaque background texture for portrait cards in a hand-inked manga action game. Edge-to-edge illustration, art only. Keep the center at least 65% quiet and noticeably lighter than black portrait hair. Concentrate legible layered texture in the outer 20%, with corners and sides showing detail even when slightly cropped. Mostly monochromatic tonal palette from the rank badge supplied as visual reference. No text, no letters, no badge, no frame, no logo, no portraits, no literal setting. C rank forest/sage green (#75ae91 center with deep jade outer strokes). Show clear visible fibrous rice paper crosshatching and edge-brushed malachite grain; texture has shape and depth, while staying restrained. Two restrained circular ink sweeps near opposing edges. Simple tier.",
+      "sha256": "656760a665e246d96471765f7208bb0436aa6e6347fc947a7f39f4fac573870a"
+    },
+    {
+      "asset": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/B.png",
+      "reference": "Assets/DragonIdle/Resources/Interface/Rarity/B.png",
+      "prompt": "Square opaque background texture for portrait cards in a hand-inked manga action game. Edge-to-edge illustration, art only. Keep the center at least 65% quiet and noticeably lighter than black portrait hair. Concentrate legible layered texture in the outer 20%, with corners and sides showing detail even when slightly cropped. Mostly monochromatic tonal palette from the rank badge supplied as visual reference. No text, no letters, no badge, no frame, no logo, no portraits, no literal setting. B rank duck-egg cyan (#67cadb center with blue-teal edges). Add a sweeping pair of translucent overlapping ink wave shapes and clean diagonal brush striations from the corners. Fine brushed foil fibers at the rim, brighter shadows and more complexity than a low tier, composed uncluttered center.",
+      "sha256": "7f7a8991223ff117250c44e22c6c650b9ac334216adab5f12f21f4618c277be6"
+    },
+    {
+      "asset": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/A.png",
+      "reference": "Assets/DragonIdle/Resources/Interface/Rarity/A.png",
+      "prompt": "Square opaque background texture for portrait cards in a hand-inked manga action game. Edge-to-edge illustration, art only. Keep the center at least 65% quiet and noticeably lighter than black portrait hair. Concentrate legible layered texture in the outer 20%, with corners and sides showing detail even when slightly cropped. Mostly monochromatic tonal palette from the rank badge supplied as visual reference. No text, no letters, no badge, no frame, no logo, no portraits, no literal setting. A rank amethyst and lilac (#bd9be2 center, violet edges). Layer dynamic delicate engraved arcs and fine faceted silk grain, with slender violet filigree around outer areas. Soft pearl wisps, fuller texture and ornament than cyan, centered open portrait area.",
+      "sha256": "0b0e7fb27acefe611f39ab027c580182800aa6f78e85508fbb4dc69219d9cb94"
+    },
+    {
+      "asset": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/S.png",
+      "reference": "Assets/DragonIdle/Resources/Interface/Rarity/S.png",
+      "prompt": "Square opaque background texture for portrait cards in a hand-inked manga action game. Edge-to-edge illustration, art only. Keep the center at least 65% quiet and noticeably lighter than black portrait hair. Concentrate legible layered texture in the outer 20%, with corners and sides showing detail even when slightly cropped. Mostly monochromatic tonal palette from the rank badge supplied as visual reference. No text, no letters, no badge, no frame, no logo, no portraits, no literal setting. S rank warm amber-gold (#e8b563 center). Fine gold-leaf foil fabric with dramatic engraved nested flowing arcs, highly refined diagonal filigree and a few glints of gilding near corners. Give the edges the richest layering and gold relief of the series, maintain a clear medium-light center with no bright white flare.",
+      "sha256": "946839ae3fe4712bcef4820dceedb928e05e5304eae8dc85e8ba7ac92f1f12f4"
+    }
+  ]
+}

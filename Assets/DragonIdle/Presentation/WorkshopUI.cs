@@ -8,27 +8,26 @@ namespace DragonIdle {
  public partial class DemoGame {
   RectTransform workshopRoot,workBody;UI.ScrollRect workScroll;
   readonly Dictionary<string,float> workPositions=new Dictionary<string,float>();
-  string renderedWorkshop="";int browseCard=-1,equipmentTab,selectedSkillSlot;
-  static bool IsWorkshop(string p){return p=="编队"||p=="养成"||p=="装备";}
-  static bool IsModernPage(string p){return p=="角色"||p=="编队"||p==RoundPreviewPage||IsShellPage(p);}
+  string renderedWorkshop="";int equipmentTab,selectedSkillSlot;
+  static bool IsWorkshop(string p){return p=="养成"||p=="装备";}
+  static bool IsModernPage(string p){return p=="角色"||p==FormationRoute||p==RoundPreviewPage||IsShellPage(p);}
   void RefreshModernFrame(){
    galleryListRoot.gameObject.SetActive(page=="角色"&&!galleryDetailOpen);
    detailRoot.gameObject.SetActive(page=="角色"&&galleryDetailOpen);
    if(workshopRoot!=null)workshopRoot.gameObject.SetActive(false);
    if(summonRoot!=null)summonRoot.gameObject.SetActive(false);
-   if(roundFormationRoot!=null)roundFormationRoot.gameObject.SetActive(page=="编队");
+   if(formationRoot!=null)formationRoot.gameObject.SetActive(page==FormationRoute);
    if(roundPreviewRoot!=null)roundPreviewRoot.gameObject.SetActive(page==RoundPreviewPage);
    if(homeRoot!=null)homeRoot.gameObject.SetActive(page=="主页");
    if(loadingRoot!=null)loadingRoot.gameObject.SetActive(page=="加载");
    galleryChrome.gameObject.SetActive(!IsShellPage(page));
-   galleryChrome.Find("Section").GetComponent<UI.Text>().text=page=="角色"?"角色收藏":page=="编队"?"队伍编成":"回合试阵";
+   galleryChrome.Find("Section").GetComponent<UI.Text>().text=page=="角色"?"角色":page==FormationRoute?FormationRoute:roundDemo?DemoBattleRoute:"回合试阵";
    RefreshFeatureHeaderCount();
-   foreach(string name in FeatureRoutes)SetButtonActive(galleryChrome.Find("Nav"+name).GetComponent<UI.Button>(),page==name);
+   foreach(string name in FeatureRoutes)SetButtonActive(galleryChrome.Find("Nav"+name).GetComponent<UI.Button>(),page==name||(name==DemoBattleRoute&&page==RoundPreviewPage&&roundDemo));
    galleryToast.gameObject.SetActive(!IsShellPage(page));
   }
   void RefreshFeatureHeaderCount(){
-   galleryResources.text=page=="角色"?"拥有"+profile.Owned.Count(owned=>owned)+"/"+Data.Cards.Length:
-    page=="编队"?"上阵 "+profile.RoundFormation().Count(i=>i>=0)+"/"+RoundBoard.PlayerLimit:"";
+   galleryResources.text=page=="角色"?"拥有"+RoundOwnedCount+"/"+Data.RoundRoster.Count:"";
   }
   GameObject ActiveBackButton(Transform root,string name){return root.GetComponentsInChildren<UI.Button>().First(b=>b.name==name).gameObject;}
   string WorkshopKey(){return page+":"+selectedCard+":"+equipmentTab;}
@@ -40,19 +39,17 @@ namespace DragonIdle {
    if(workshopRoot==null)workshopRoot=UNode(galleryRoot,"Workshop",222,112,1336,716);else ClearUI(workshopRoot);
    if(selectedCard<0||!profile.Owned[selectedCard])selectedCard=Enumerable.Range(0,Data.Cards.Length).First(i=>profile.Owned[i]);
    UButton(workshopRoot,"WorkshopBack","‹ 返回图鉴",0,0,194,42,()=>NavigateGallery("角色"));
-   UText(workshopRoot,"WorkTitle",page=="编队"?"队伍编成":Data.Cards[selectedCard].DisplayName,214,0,900,44,26,uiPaper);
-   if(page=="编队")DrawModernTeam();else{
-    var portrait=UPanel(workshopRoot,"CharacterContext",0,62,300,654,uiPanel);
-    UPanel(portrait,"PortraitMat",16,18,268,366,InkMist);UArt(portrait,selectedCard,16,18,268,366);
-    UText(portrait,"ContextName",Data.Cards[selectedCard].Name,20,400,260,38,26,uiPaper);
-    UText(portrait,"ContextIdentity",Data.Cards[selectedCard].Stage+"\n"+Data.Cards[selectedCard].KeywordText,20,448,260,70,18,uiDim);
-    UButton(portrait,"PreviousCharacter","上一位",16,538,128,42,()=>CycleWorkshopCard(-1));
-    UButton(portrait,"NextCharacter","下一位",156,538,128,42,()=>CycleWorkshopCard(1));
-    UButton(portrait,"SwitchWorkshop",page=="养成"?"装备与技能 ›":"培养与策略 ›",16,596,268,42,()=>NavigateGallery(page=="养成"?"装备":"养成"));
-    UPanel(workshopRoot,"WorkPanel",320,62,1016,654,uiPanel);
-    workScroll=UScroll(workshopRoot,"WorkScroll",344,82,968,614,out workBody);
-    if(page=="养成")DrawModernTraining();else DrawModernEquipment();
-   }
+   UText(workshopRoot,"WorkTitle",Data.Cards[selectedCard].DisplayName,214,0,900,44,26,uiPaper);
+   var portrait=UPanel(workshopRoot,"CharacterContext",0,62,300,654,uiPanel);
+   UPanel(portrait,"PortraitMat",16,18,268,366,InkMist);UArt(portrait,selectedCard,16,18,268,366);
+   UText(portrait,"ContextName",Data.Cards[selectedCard].Name,20,400,260,38,26,uiPaper);
+   UText(portrait,"ContextIdentity",Data.Cards[selectedCard].Stage+"\n"+Data.Cards[selectedCard].KeywordText,20,448,260,70,18,uiDim);
+   UButton(portrait,"PreviousCharacter","上一位",16,538,128,42,()=>CycleWorkshopCard(-1));
+   UButton(portrait,"NextCharacter","下一位",156,538,128,42,()=>CycleWorkshopCard(1));
+   UButton(portrait,"SwitchWorkshop",page=="养成"?"装备与技能 ›":"培养与策略 ›",16,596,268,42,()=>NavigateGallery(page=="养成"?"装备":"养成"));
+   UPanel(workshopRoot,"WorkPanel",320,62,1016,654,uiPanel);
+   workScroll=UScroll(workshopRoot,"WorkScroll",344,82,968,614,out workBody);
+   if(page=="养成")DrawModernTraining();else DrawModernEquipment();
    renderedWorkshop=WorkshopKey();Canvas.ForceUpdateCanvases();float position;
    workScroll.verticalNormalizedPosition=workPositions.TryGetValue(renderedWorkshop,out position)?position:1;
    RefreshModernFrame();
@@ -87,33 +84,6 @@ namespace DragonIdle {
    y=WorkParagraph("PolicyHelp","策略只控制额外必杀的释放条件，不改变正常行动、绝招冷却和状态计时。装备与策略跟随角色，换阵位时保留。",y);
    workBody.sizeDelta=new Vector2(954,Math.Max(614,y));
   }
-  void DrawModernTeam(){
-   var leader=Data.Cards[profile.Team[profile.Leader]];
-   UText(workshopRoot,"FormationHint","上阵 "+profile.TeamCount+" / "+Data.TeamSlots+"　·　前三后三　·　选中阵位后可换人或下阵",0,52,1336,30,18,uiDim);
-   for(int n=0;n<Data.TeamSlots;n++){
-    int slot=n,i=profile.Team[n];
-    float x=(n%Data.FrontSlots)*448,y=n<Data.FrontSlots?94:266;
-    var tile=UPanel(workshopRoot,"Formation"+n,x,y,432,160,profile.Leader==n?InkLight:InkPaper);
-    UPanel(tile,"PortraitMat",8,8,80,104,InkMist);
-    if(i>=0)UArt(tile,i,8,8,80,104);
-    UText(tile,"Member",FormationSlotLabel(n)+(profile.Leader==n?" · 队长":"")+"\n"+(i<0?"空位":Data.Cards[i].DisplayName),100,10,310,70,18,uiPaper);
-    UText(tile,"Coverage",i<0?"可从下方选择角色":leader.Captain.Applies(Data.Cards[i])?"获得队长加成":"未匹配队长条件",100,86,308,27,16,uiDim);
-    UButton(tile,"SelectPosition"+n,selectedSlot==n?"已选择":"选择阵位",10,116,130,34,()=>{selectedSlot=slot;DrawWorkshop();},selected:selectedSlot==n);
-    UButton(tile,"Captain"+n,"设为队长",150,116,130,34,()=>WorkChange(()=>profile.Leader=slot,"已更新队长"),enabled:i>=0&&saveError=="");
-    UButton(tile,"RemoveMember"+n,"下阵",290,116,130,34,()=>WorkChange(()=>{
-     if(!profile.RemoveMember(slot))throw new InvalidOperationException("队伍至少保留一人");
-    },"角色已下阵"),enabled:i>=0&&profile.TeamCount>1&&saveError=="");
-   }
-   var coverage=UPanel(workshopRoot,"CaptainSummary",0,432,1330,66,InkDark);
-   UText(coverage,"CaptainRule",leader.LeaderText+"\n覆盖 "+profile.Team.Count(i=>i>=0&&leader.Captain.Applies(Data.Cards[i]))+" / "+profile.TeamCount+" 人",14,5,1302,58,18,InkIvory);
-   for(int n=0;n<3;n++){int p=n;UButton(workshopRoot,"SaveTeam"+n,"保存阵容 "+(n+1),n*448,510,210,40,()=>WorkChange(()=>profile.SavePreset(p),"已保存阵容 "+(p+1)),false,saveError=="");UButton(workshopRoot,"LoadTeam"+n,"载入阵容 "+(n+1),n*448+222,510,210,40,()=>WorkChange(()=>profile.LoadPreset(p),"已载入阵容 "+(p+1)),false,p<profile.Presets.Count&&saveError=="");}
-   UText(workshopRoot,"ReserveHint","换入 "+FormationSlotLabel(selectedSlot)+" · 可用角色",0,566,1336,28,18,uiDim);
-   workScroll=UScroll(workshopRoot,"ReserveScroll",0,604,1336,112,out workBody);
-   var owned=Enumerable.Range(0,Data.Cards.Length).Where(i=>profile.Owned[i]).ToArray();
-   for(int n=0;n<owned.Length;n++){int i=owned[n],slot=Array.IndexOf(profile.Team,i);UButton(workBody,"Reserve"+i,Data.Cards[i].DisplayName+"\n"+(slot<0?"候补":"当前阵位 "+(slot+1)),n%4*334,n/4*80,320,68,()=>WorkChange(()=>{if(!profile.SetMember(selectedSlot,i))throw new InvalidOperationException("角色不可上阵");},"已更新阵位 "+(selectedSlot+1)),enabled:saveError=="",selected:slot==selectedSlot);}
-   workBody.sizeDelta=new Vector2(1322,Math.Max(112,((owned.Length+3)/4)*80));
-  }
-  static string FormationSlotLabel(int slot){return (slot<Data.FrontSlots?"前排 ":"后排 ")+(slot%Data.FrontSlots+1);}
   void DrawModernEquipment(){
    UButton(workBody,"EquipmentTab0","装备与珠子",0,0,450,44,()=>{equipmentTab=0;DrawWorkshop();},selected:equipmentTab==0);
    UButton(workBody,"EquipmentTab1","额外技能",474,0,450,44,()=>{equipmentTab=1;DrawWorkshop();},selected:equipmentTab==1);

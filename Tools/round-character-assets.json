@@ -1,0 +1,339 @@
+{
+ "0001": {
+  "cardId": "goku-test",
+  "portrait": "V051/goku-test-portrait",
+  "moves": {
+   "basicIcon": {
+    "resource": "Art/V0131/Goku/skill-icons",
+    "region": [
+     67,
+     58,
+     538,
+     538
+    ]
+   },
+   "ultimateIcon": {
+    "resource": "Art/V0131/Goku/skill-icons",
+    "region": [
+     649,
+     58,
+     538,
+     538
+    ]
+   },
+   "pursuitIcon": {
+    "resource": "Art/V0142/Goku/uppercut-icon"
+   }
+  },
+  "skills": [
+   {
+    "resource": "Art/V0131/Goku/passive-training"
+   }
+  ]
+ },
+ "0002": {
+  "cardId": "vegeta-test",
+  "portrait": "V0143/Vegeta/portrait",
+  "moves": {
+   "basicIcon": {
+    "resource": "Art/V0144/Vegeta/skill-icons",
+    "region": [
+     30,
+     30,
+     585,
+     585
+    ]
+   },
+   "ultimateIcon": {
+    "resource": "Art/V0153/Vegeta/continuous-energy-volley",
+    "region": [
+     9,
+     9,
+     1237,
+     1237
+    ]
+   },
+   "pursuitIcon": {
+    "resource": "Art/V0144/Vegeta/skill-icons",
+    "region": [
+     30,
+     635,
+     585,
+     585
+    ]
+   }
+  },
+  "skills": [
+   {
+    "resource": "Art/V0151/Vegeta/saiyan-elite",
+    "region": [
+     13,
+     15,
+     1229,
+     1229
+    ]
+   }
+  ]
+ },
+ "0003": {
+  "cardId": "piccolo-test",
+  "portrait": "V0152/Piccolo/portrait",
+  "moves": {
+   "basicIcon": {
+    "resource": "Art/V0143/Piccolo/skill-icons",
+    "region": [
+     0,
+     0,
+     627,
+     627
+    ]
+   },
+   "ultimateIcon": {
+    "resource": "Art/V0143/Piccolo/skill-icons",
+    "region": [
+     627,
+     0,
+     627,
+     627
+    ]
+   },
+   "pursuitIcon": {
+    "resource": "Art/V0143/Piccolo/skill-icons",
+    "region": [
+     0,
+     627,
+     627,
+     627
+    ]
+   }
+  },
+  "skills": [
+   {
+    "resource": "Art/V0143/Piccolo/skill-icons",
+    "region": [
+     627,
+     627,
+     627,
+     627
+    ]
+   }
+  ]
+ },
+ "0004": {
+  "cardId": "gohan-test",
+  "portrait": "V0153/Gohan/portrait",
+  "moves": {
+   "basicIcon": {
+    "resource": "Art/V0151/Gohan/skill-icons",
+    "region": [
+     27,
+     27,
+     589,
+     589
+    ]
+   },
+   "ultimateIcon": {
+    "resource": "Art/V0151/Gohan/skill-icons",
+    "region": [
+     636,
+     27,
+     589,
+     589
+    ]
+   },
+   "pursuitIcon": {
+    "resource": "Art/V0151/Gohan/skill-icons",
+    "region": [
+     27,
+     636,
+     589,
+     589
+    ]
+   }
+  },
+  "skills": [
+   {
+    "resource": "Art/V0151/Gohan/skill-icons",
+    "region": [
+     636,
+     636,
+     589,
+     589
+    ]
+   }
+  ]
+ },
+ "0005": {
+  "cardId": "krillin-test",
+  "portrait": "V0154/Krillin/portrait",
+  "moves": {
+   "basicIcon": {
+    "resource": "Art/V0154/Krillin/skill-icons",
+    "region": [
+     3,
+     2,
+     623,
+     623
+    ]
+   },
+   "ultimateIcon": {
+    "resource": "Art/V0154/Krillin/skill-icons",
+    "region": [
+     629,
+     2,
+     623,
+     623
+    ]
+   },
+   "pursuitIcon": {
+    "resource": "Art/V0154/Krillin/skill-icons",
+    "region": [
+     3,
+     629,
+     623,
+     623
+    ]
+   }
+  },
+  "skills": [
+   {
+    "resource": "Art/V0154/Krillin/skill-icons",
+    "region": [
+     629,
+     629,
+     623,
+     623
+    ]
+   }
+  ]
+ },
+ "0006": {
+  "cardId": "raditz-arrival-v030",
+  "portrait": "V0161/Raditz/portrait",
+  "moves": {
+   "basicIcon": {
+    "resource": "Art/V0162/Raditz/shining-friday"
+   },
+   "ultimateIcon": {
+    "resource": "Art/V0161/Raditz/skill-icons",
+    "region": [
+     627,
+     0,
+     627,
+     627
+    ]
+   },
+   "pursuitIcon": {
+    "resource": "Art/V0161/Raditz/skill-icons",
+    "region": [
+     0,
+     627,
+     627,
+     627
+    ]
+   }
+  },
+  "skills": [
+   {
+    "resource": "Art/V0161/Raditz/skill-icons",
+    "region": [
+     627,
+     627,
+     627,
+     627
+    ]
+   }
+  ]
+ },
+ "0007": {
+  "cardId": "yamcha-saiyan-v020",
+  "portrait": "V0172/Yamcha/portrait",
+  "defaultTitle": "地球顶尖的尖锐",
+  "moves": {
+   "basicIcon": {
+    "resource": "Art/V0172/Yamcha/icons-b",
+    "region": [
+     4,
+     4,
+     619,
+     619
+    ]
+   },
+   "ultimateIcon": {
+    "resource": "Art/V0172/Yamcha/icons-a",
+    "region": [
+     631,
+     4,
+     619,
+     619
+    ]
+   },
+   "pursuitIcon": {
+    "resource": "Art/V0172/Yamcha/icons-a",
+    "region": [
+     4,
+     631,
+     619,
+     619
+    ]
+   }
+  },
+  "skills": [
+   {
+    "resource": "Art/V0172/Yamcha/icons-a",
+    "region": [
+     631,
+     631,
+     619,
+     619
+    ]
+   }
+  ]
+ },
+ "0008": {
+  "cardId": "tien-test",
+  "portrait": "V0173/Tien/portrait",
+  "defaultTitle": "取胜的气势",
+  "defaultRarity": "C",
+  "moves": {
+   "basicIcon": {
+    "resource": "Art/V0173/Tien/skills-b",
+    "region": [
+     4,
+     4,
+     619,
+     619
+    ]
+   },
+   "ultimateIcon": {
+    "resource": "Art/V0173/Tien/skills-a",
+    "region": [
+     631,
+     4,
+     619,
+     619
+    ]
+   },
+   "pursuitIcon": {
+    "resource": "Art/V0173/Tien/skills-b",
+    "region": [
+     4,
+     631,
+     619,
+     619
+    ]
+   }
+  },
+  "skills": [
+   {
+    "resource": "Art/V0173/Tien/skills-b",
+    "region": [
+     631,
+     631,
+     619,
+     619
+    ]
+   }
+  ]
+ }
+}

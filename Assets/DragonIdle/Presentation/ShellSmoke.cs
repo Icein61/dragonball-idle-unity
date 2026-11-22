@@ -78,8 +78,10 @@ namespace DragonIdle {
    AssertSmoke(profile.Crystals==crystals+50,"Moved first-win reward repeated");
    saveError="测试只读存档";DrawHome();AssertSmoke(!GalleryTestButton("HomeContinue").interactable&&!GalleryTestButton("HomeClaim").interactable,"Home ignored read-only save");saveError="";DrawHome();
    GalleryTestButton("HomeContinue").onClick.Invoke();AssertSmoke(page=="挑战"&&storyMode&&!running&&profile.StorySelected==profile.StoryUnlocked,"Home chapter route started or selected wrong battle");
-   NavigateGallery("角色");ResetGalleryFilters();selectedCard=0;OpenGalleryCard(0);galleryScroll.verticalNormalizedPosition=.31f;float scroll=galleryScroll.verticalNormalizedPosition;
-   NavigateGallery("主页");GalleryTestButton("HomeNav角色").onClick.Invoke();AssertSmoke(galleryDetailOpen&&selectedCard==0&&Math.Abs(galleryScroll.verticalNormalizedPosition-scroll)<.01,"Home roundtrip lost character context");
+   NavigateGallery("角色");ResetGalleryFilters();selectedCard=0;OpenGalleryCard(0);galleryScroll.verticalNormalizedPosition=.31f;
+   NavigateGallery("主页");GalleryTestButton("HomeNav角色").onClick.Invoke();
+   AssertSmoke(!galleryDetailOpen&&galleryListRoot.gameObject.activeSelf&&Math.Abs(galleryScroll.verticalNormalizedPosition-1)<.01,
+    "Home roundtrip must reopen the character list");
    BeginShellLoad("主页");yield return null;yield return null;
    AssertSmoke(shellLoad.Active,"Loading completed before cancellation test");
    NavigateGallery("角色");for(int n=0;n<15;n++)yield return null;
@@ -93,7 +95,7 @@ namespace DragonIdle {
    rarityBadges.Remove("__missing_smoke__");
    RunSummonPageSmoke();
    running=true;NavigateGallery("角色");AssertSmoke(page=="主页","Running battle allowed unsafe navigation");running=false;DrawHome();
-   AssertSmoke(silentAudio&&!menuMusic.isPlaying&&uiSounds.volume==0,"Shell headless smoke produced sound");
+   AssertSmoke(silentAudio&&!uiSounds.isPlaying&&uiSounds.volume==0,"Shell headless smoke produced sound");
    Save();File.WriteAllText(Path.Combine(dir,"shell-smoke.json"),"{\"startupAsync\":true,\"assets\":"+startupPaths.Length+",\"radialStartup\":true,\"completedRequests\":true,\"inkHome\":true,\"chapterRing\":true,\"summonPage\":true,\"firstWinMoved\":true,\"helpRemoved\":true,\"loadingFrames\":"+frames+",\"homeIsolation\":true,\"navigation\":true,\"offlineClaim\":true,\"saveRoundTrip\":true,\"modalIsolation\":true,\"focusReturn\":true,\"contextReturn\":true,\"loadingCancel\":true,\"missingArtFallback\":true,\"textLayout\":true,\"soundSilent\":true,\"renderVerified\":false}");
   }
   void RunSummonPageSmoke(){

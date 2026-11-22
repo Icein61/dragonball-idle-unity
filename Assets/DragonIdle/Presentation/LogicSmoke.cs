@@ -11,7 +11,7 @@ namespace DragonIdle {
     AssertSmoke(args.Contains("-savePath"),"Smoke requires isolated save path");Directory.CreateDirectory(dir);
     AssertSmoke(Application.productName==Data.GameTitle,"Packaged game title incorrect");
     AssertSmoke(saveError=="","Profile load failed: "+saveError);
-    AssertSmoke(Data.Cards.Length==9&&profile.Owned.Count(x=>x)==8,"Catalog initialization failed");
+    AssertSmoke(Data.Cards.Length==10&&profile.Owned.Count(x=>x)==9,"Catalog initialization failed");
     var art=Resources.Load<Texture2D>("Art/goku-raditz-c-v030");AssertSmoke(art!=null&&art.width==1024&&art.height==1536,"Character sample resource missing or aspect changed");
     storyMode=false;StartBattle();int events=0;while(running&&events++<4000)Advance();
     AssertSmoke(battle.Result==1&&settled,"Smoke battle or reward failed");int wins=profile.Wins;Load();AssertSmoke(profile.Wins==wins,"Save roundtrip failed");
@@ -26,7 +26,7 @@ namespace DragonIdle {
     File.WriteAllText(savePath,"{\"schemaVersion\":1,\"Materials\":481,\"Crystals\":100,\"Gems\":3,\"Unlocked\":1,\"Wins\":2,\"Pulls\":19,\"Leader\":0,\"SelectedStage\":0,\"Training\":[23,0,0,0,0,0,0,0],\"Shards\":[0,0,0,0,0,0,0,9],\"Resonance\":[0,0,0,0,0,0,0,0],\"Policy\":[0,0,0,0,0,0,0,0],\"Owned\":[true,true,true,true,true,true,true,true],\"Team\":[0,1,2,3,4,5,7],\"Skill\":[\"focus\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"Skill2\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"Items\":[{\"id\":\"legacy-bracer\",\"kind\":0,\"owner\":7,\"slot\":0,\"gem\":true}],\"OfflineBank\":24,\"LastClaimTicks\":638000000000000000,\"FirstMission\":true}");
     Load();AssertSmoke(saveError==""&&profile.schemaVersion==4&&profile.Training[0]==23&&profile.Retired.Single(r=>r.cardId=="trunks-test").shards==9&&profile.Items[0].owner==-1&&profile.Team.Length==Data.TeamSlots&&profile.Materials==481&&profile.OfflineBank==24&&profile.Pulls==19,"Unity v1 migration failed: "+saveError);
     AssertSmoke(Directory.GetFiles(dir,"legacy-save.json.pre-v041-*.bak").Length==1,"Pre-migration backup missing");
-    Save();Load();AssertSmoke(profile.schemaVersion==4&&profile.Owned.Count(x=>x)==8&&profile.Retired.Single(r=>r.cardId=="trunks-test").shards==9,"Migrated save second load failed");
+    Save();Load();AssertSmoke(profile.schemaVersion==4&&profile.Owned.Count(x=>x)==9&&profile.Retired.Single(r=>r.cardId=="trunks-test").shards==9,"Migrated save second load failed");
     RunBattleArtSmoke(dir);
     RunGallerySmoke(dir);RunWorkshopSmoke(dir);
     StartCoroutine(RunShellSmokeAndFinish(dir,events));

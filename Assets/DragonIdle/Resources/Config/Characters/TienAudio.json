@@ -1,0 +1,55 @@
+{
+ "cardId": "tien-test",
+ "cues": [
+  {
+   "id": "tien-entry",
+   "resource": "Audio/V0173/Tien/entry",
+   "gain": 0.48
+  },
+  {
+   "id": "tien-land",
+   "resource": "Audio/V0173/Tien/land",
+   "gain": 0.34
+  },
+  {
+   "id": "tien-volley",
+   "resource": "Audio/V0173/Tien/volley",
+   "gain": 0.73
+  },
+  {
+   "id": "tien-cannon",
+   "resource": "Audio/V0173/Tien/cannon",
+   "gain": 0.82
+  },
+  {
+   "id": "tien-cannon-impact",
+   "resource": "Audio/V0173/Tien/cannon-impact",
+   "gain": 0.58
+  },
+  {
+   "id": "tien-set",
+   "resource": "Audio/V0173/Tien/set",
+   "gain": 0.68
+  },
+  {
+   "id": "tien-finger",
+   "resource": "Audio/V0173/Tien/finger",
+   "gain": 0.63
+  },
+  {
+   "id": "tien-finger-impact",
+   "resource": "Audio/V0173/Tien/finger-impact",
+   "gain": 0.47
+  },
+  {
+   "id": "tien-hit-light",
+   "resource": "Audio/V0173/Tien/hit-light",
+   "gain": 0.53
+  },
+  {
+   "id": "tien-hit-heavy",
+   "resource": "Audio/V0173/Tien/hit-heavy",
+   "gain": 0.59
+  }
+ ]
+}

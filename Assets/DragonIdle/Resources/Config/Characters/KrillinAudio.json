@@ -1,0 +1,75 @@
+{
+  "cardId": "krillin-test",
+  "cues": [
+    {
+      "id": "krillin-entry",
+      "resource": "Audio/V0154/Krillin/krillin-entry",
+      "gain": 0.5
+    },
+    {
+      "id": "krillin-basic-voice",
+      "resource": "Audio/V0154/Krillin/krillin-basic-voice",
+      "gain": 0.7
+    },
+    {
+      "id": "krillin-basic-impact",
+      "resource": "Audio/V0154/Krillin/krillin-basic-impact",
+      "gain": 0.49
+    },
+    {
+      "id": "krillin-disc-voice",
+      "resource": "Audio/V0154/Krillin/krillin-disc-voice",
+      "gain": 0.76
+    },
+    {
+      "id": "krillin-disc-charge",
+      "resource": "Audio/V0154/Krillin/krillin-disc-charge",
+      "gain": 0.52
+    },
+    {
+      "id": "krillin-disc-throw",
+      "resource": "Audio/V0154/Krillin/krillin-disc-throw",
+      "gain": 0.59
+    },
+    {
+      "id": "krillin-disc-cut",
+      "resource": "Audio/V0154/Krillin/krillin-disc-cut",
+      "gain": 0.59
+    },
+    {
+      "id": "krillin-scatter-charge",
+      "resource": "Audio/V0154/Krillin/krillin-scatter-charge",
+      "gain": 0.45
+    },
+    {
+      "id": "krillin-scatter-shot",
+      "resource": "Audio/V0154/Krillin/krillin-scatter-shot",
+      "gain": 0.31
+    },
+    {
+      "id": "krillin-opening",
+      "resource": "Audio/V0154/Krillin/krillin-opening",
+      "gain": 0.59
+    },
+    {
+      "id": "krillin-hit-light",
+      "resource": "Audio/V0154/Krillin/krillin-hit-light",
+      "gain": 0.66
+    },
+    {
+      "id": "krillin-hit-heavy",
+      "resource": "Audio/V0154/Krillin/krillin-hit-heavy",
+      "gain": 0.73
+    },
+    {
+      "id": "krillin-impact",
+      "resource": "Audio/V0140/Vegeta/vegeta-impact",
+      "gain": 0.28
+    },
+    {
+      "id": "krillin-land",
+      "resource": "Audio/V0138/Goku/land",
+      "gain": 0.39
+    }
+  ]
+}

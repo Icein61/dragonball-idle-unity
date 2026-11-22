@@ -21,16 +21,17 @@ namespace DragonIdle {
    UText(homeRoot,"HomeVersion","v"+Data.Version,1210,24,328,42,20,InkOnDark,TextAnchor.MiddleRight);
    var summary=InkPanel(homeRoot,"HomeRoundSummary",58,160,1484,337,InkPaper);
    UText(summary,"HomeRoundHeading","整备出战",45,40,720,66,44,InkText);
-   UText(summary,"HomeRoundHelp","在图鉴查看角色技能，在编队布置九宫格。可随时试阵，试阵无奖励与消耗。",48,136,1300,54,22,InkMuted);
-   UText(summary,"HomeRoundCount","已收藏 "+profile.Owned.Count(o=>o)+"/"+Data.Cards.Length+"     上阵 "+profile.RoundFormation().Count(i=>i>=0)+"/"+RoundBoard.PlayerLimit,48,228,1100,50,23,InkText);
-   UButton(homeRoot,"HomeNav角色","图鉴",58,541,716,115,()=>NavigateGallery("角色"));
-   UButton(homeRoot,"HomeNav编队","编队",826,541,716,115,()=>NavigateGallery("编队"),primary:true);
+   UText(summary,"HomeRoundHelp","在编队安排己方阵位，进入战斗 Demo 挑战随机五人。",48,136,1300,54,22,InkMuted);
+   UText(summary,"HomeRoundCount","已拥有 "+RoundOwnedCount+"/"+Data.RoundRoster.Count,48,228,1100,50,23,InkText);
+   UButton(homeRoot,"HomeNav角色","角色",58,541,474,115,()=>OpenFeature("角色"));
+   UButton(homeRoot,"HomeNav"+FormationRoute,FormationRoute,563,541,474,115,()=>OpenFeature(FormationRoute));
+   UButton(homeRoot,"HomeNav"+DemoBattleRoute,DemoBattleRoute,1068,541,474,115,BeginRoundDemo,primary:true);
    UButton(homeRoot,"HomeSettings","声音与显示",58,718,240,44,ShowAudioSettings);
    homeNotice=UText(homeRoot,"HomeNotice","",58,797,1484,47,18,InkText);
    RefreshHomeNotice();
    if(EventSystem.current!=null){var b=homeRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(x=>x.name==focus&&x.interactable);EventSystem.current.SetSelectedGameObject(b!=null?b.gameObject:ActiveBackButton(homeRoot,"HomeNav角色"));}
   }
-  void RefreshHomeNotice(){if(homeNotice!=null)homeNotice.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"先布阵，再试阵。";}
+  void RefreshHomeNotice(){if(homeNotice!=null)homeNotice.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"";}
   void DrawShellLoading(){
    if(loadingRoot==null)loadingRoot=InkPanel(galleryRoot,"Loading",0,0,1600,900,InkMist,true);
    else ClearUI(loadingRoot);
@@ -56,9 +57,10 @@ namespace DragonIdle {
    loadingCount.text="已处理 "+shellLoad.Completed+" / "+shellLoad.Total+" 项资源";
    loadingPercent.text=(shellLoad.Completed==shellLoad.Total?100:(int)(shellLoad.Fraction*100))+"%";
   }
+  int RoundOwnedCount => Data.RoundRoster.Count(id=>profile.Owned[Data.Index(id)]);
   string[] StartupResourcePaths(){
-   return Data.Rarities.Select(rank=>RarityResourcePrefix+rank)
-    .Concat(Enumerable.Range(0,Data.Cards.Length).Select(index=>"Art/"+PortraitKey(index)))
+   return Data.Rarities.Select(RarityResource)
+    .Concat(Data.RoundRoster.Select(id=>"Art/"+PortraitKey(Data.Index(id))))
     .Distinct().ToArray();
   }
   void BeginShellLoad(string target){
@@ -78,7 +80,7 @@ namespace DragonIdle {
     ResourceRequest request=badge?Resources.LoadAsync<Sprite>(path):Resources.LoadAsync<Texture2D>(path);
     yield return request;
     if(!shellLoad.IsCurrent(generation))yield break;
-    if(badge)rarityBadges[path.Substring(RarityResourcePrefix.Length)]=request.asset as Sprite;
+    if(badge)rarityBadges[path.Substring(path.LastIndexOf('/')+1)]=request.asset as Sprite;
     else portraits[path.Substring("Art/".Length)]=request.asset as Texture2D;
     shellLoad.Advance(generation,request.asset==null);
     RefreshLoadingDisplay(stage);

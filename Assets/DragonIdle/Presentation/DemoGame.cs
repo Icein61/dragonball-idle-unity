@@ -30,7 +30,10 @@ namespace DragonIdle {
     profile=JsonUtility.FromJson<Profile>(File.ReadAllText(savePath));if(profile==null)throw new Exception("空存档");
     bool rosterMigration=profile.NeedsRosterMigration,formationMigration=profile.NeedsFormationMigration;
     if(rosterMigration||formationMigration)File.Copy(savePath,savePath+(profile.schemaVersion<3?".pre-v041-":rosterMigration?".pre-v080-":".pre-v0120-")+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak",false);
+    bool roundMigration=profile.NeedsRoundRosterMigration;
+    if(roundMigration)File.Copy(savePath,savePath+".pre-v0144-"+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak",false);
     profile.Normalize();profile.CreateTeam();
+    if(roundMigration){profile.MigrateRoundRoster();Save();}
     if(formationMigration)notice="已升级为前三后三。原成员仍在收藏中。";
     if(rosterMigration)notice+=" 退役卡成长已归档，装备已退回背包。";
    }else{profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;Save();}}
@@ -96,7 +99,7 @@ namespace DragonIdle {
    for(int i=0;i<FeatureRoutes.Length;i++){
     string target=FeatureRoutes[i];
     if(InkGuiButton(18,126+i*62,154,45,target,enabled:!running||target=="挑战",selected:target=="挑战")&&target!="挑战"){
-     NavigateGallery(target);
+     OpenFeature(target);
      return;
     }
    }

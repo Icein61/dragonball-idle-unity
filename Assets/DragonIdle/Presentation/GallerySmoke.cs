@@ -11,10 +11,10 @@ namespace DragonIdle {
    EnsureGallery();galleryCanvas.SetActive(true);catalog.OwnedOnly=true;ResetGalleryFilters();
    var brand=galleryRoot.GetComponentsInChildren<UI.Text>().Single(t=>t.name=="Brand");
    AssertSmoke(brand.text==Data.GameTitle&&brand.preferredWidth<=brand.rectTransform.rect.width&&brand.preferredHeight<=brand.rectTransform.rect.height,"New game title clipped or missing");
-   AssertSmoke(cardButtons.Count==8&&selectedCard==0,"Owned gallery failed");
-   allTab.onClick.Invoke();AssertSmoke(cardButtons.Count==9&&!catalog.OwnedOnly,"All gallery tab failed");
-   AssertSmoke(galleryListRoot.Find("Title").GetComponent<UI.Text>().text=="图鉴"&&allTab.GetComponentInChildren<UI.Text>().text=="全部角色"&&
-    galleryListRoot.Find("AppliedFilters")==null&&filterButtons.Count==3,"Gallery rename, help removal or filter count failed");
+   AssertSmoke(cardButtons.Count==3&&selectedCard==0,"Online gallery failed");
+   AssertSmoke(galleryChrome.Find("Section").GetComponent<UI.Text>().text=="角色"&&
+    !galleryListRoot.GetComponentsInChildren<UI.Button>().Any(b=>b.name=="OwnedTab"||b.name=="AllTab"),
+    "Collection title or removed ownership tabs regressed");
    AssertSmoke(galleryResources.text=="拥有8/9"&&galleryListRoot.Find("CollectionCount")==null,"Gallery header does not show owned/total exclusively");
    foreach(var pair in cardButtons){
     var card=Data.Cards[pair.Key];var root=pair.Value.transform;
@@ -42,13 +42,13 @@ namespace DragonIdle {
     detailBody.GetComponentsInChildren<UI.Button>().Length==0,"Attribute grid or read-only info failed");
    AssertSmoke(detailRoot.Find("DetailTags").GetComponentsInChildren<UI.Text>().Select(t=>t.text).SequenceEqual(Data.Cards[0].Tags),"Identity chips do not match card");
    int adjacent=renderedCards[1];
-   AssertSmoke(!GalleryTestButton("PreviousCard").interactable&&GalleryTestButton("NextCard").interactable,"Detail neighbors do not respect result bounds");
-   var nextAvatar=GalleryTestButton("NextAvatar");
-   var avatarRect=(RectTransform)nextAvatar.transform;
-   AssertSmoke(avatarRect.rect.width==avatarRect.rect.height&&nextAvatar.transform.Find("Rarity_"+Data.Cards[adjacent].Rarity)!=null&&
-    nextAvatar.GetComponentInChildren<UI.RawImage>().texture==PortraitTexture(adjacent),"Detail avatar or badge incorrect");
+   AssertSmoke(!detailRoot.GetComponentsInChildren<UI.Button>().Any(button=>button.name=="PreviousCard")&&GalleryTestButton("NextCard").interactable,"Detail neighbors do not respect result bounds");
+   var currentAvatar=detailRoot.Find("CharacterSwitch/CurrentAvatar");
+   var avatarRect=(RectTransform)currentAvatar;
+   AssertSmoke(avatarRect.rect.width==avatarRect.rect.height&&currentAvatar.Find("Rarity_"+Data.Cards[0].Rarity)!=null&&
+    currentAvatar.Find("Face").GetComponent<UI.RawImage>().texture==PortraitTexture(0),"Current detail avatar or badge incorrect");
    GalleryTestButton("NextCard").onClick.Invoke();AssertSmoke(selectedCard==adjacent&&galleryDetailOpen,"Next arrow did not switch detail card");
-   GalleryTestButton("PreviousAvatar").onClick.Invoke();AssertSmoke(selectedCard==0&&galleryDetailOpen,"Previous avatar did not switch detail card");
+   GalleryTestButton("PreviousCard").onClick.Invoke();AssertSmoke(selectedCard==0&&galleryDetailOpen,"Previous arrow did not switch detail card");
    GalleryTestButton("BackToCards").onClick.Invoke();
    AssertSmoke(!galleryDetailOpen&&galleryListRoot.gameObject.activeSelf&&cardButtons[0]==cachedCard&&gridRoot.GetChild(0)==cachedGrid&&Math.Abs(priorScroll-galleryScroll.verticalNormalizedPosition)<.001,"Returning rebuilt card grid or lost scroll");
    AssertSmoke(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject==cachedCard.gameObject,"Return did not restore keyboard focus");
@@ -65,10 +65,16 @@ namespace DragonIdle {
    AssertSmoke(cachedCard.targetGraphic is UI.Image&&((UI.Image)cachedCard.targetGraphic).type==UI.Image.Type.Sliced,"Rounded card surface missing");
    AssertSmoke(ThemeContrast(uiPaper,uiPanel)>=4.5&&ThemeContrast(uiDim,InkMist)>=4.5&&
     ThemeContrast(InkIvory,InkDark)>=4.5&&ThemeContrast(InkWarmText,InkGold)>=4.5,"Ink text contrast below target");
-   AssertSmoke(mineTab.targetGraphic.color==InkLight&&allTab.targetGraphic.color==InkDark&&
-    ((UI.Image)allTab.targetGraphic).pixelsPerUnitMultiplier==2,"Ink tab states or button radius missing");
+   AssertSmoke(filterButtons.All(button=>button.GetComponentInChildren<UI.Text>().alignment==TextAnchor.MiddleCenter),
+    "Gallery filter labels are not centered");
    RefreshGallery(false);AssertSmoke(cardButtons[0]==cachedCard,"Unchanged refresh rebuilt card nodes");
-   foreach(var pair in cardButtons){var art=pair.Value.GetComponentInChildren<UI.RawImage>();AssertSmoke(art!=null&&Math.Abs(art.rectTransform.rect.width/art.rectTransform.rect.height-PortraitAspect(pair.Key))<.001&&art.uvRect==new Rect(0,0,1,1),"Card portrait stretched or cropped");}
+   foreach(var pair in cardButtons){
+    var art=pair.Value.transform.Find("Portrait")?.GetComponent<UI.RawImage>();
+    var region=CharacterCardPortraitRegion(pair.Key)??new Rect(0,0,1,1);
+    float aspect=PortraitAspect(pair.Key)*region.width/region.height;
+    AssertSmoke(art!=null&&Math.Abs(art.rectTransform.rect.width/art.rectTransform.rect.height-aspect)<.001&&
+     art.uvRect==region,"Card portrait stretched or its framing is incorrect");
+   }
    foreach(var viewport in new[]{new Vector2(1280,720),new Vector2(1600,900),new Vector2(1920,1080),new Vector2(2560,1080)}){
     float scale=Mathf.Min(viewport.x/1600,viewport.y/900);Vector2 offset=(viewport-new Vector2(1600,900)*scale)/2;
     AssertSmoke(offset.x>=-.001f&&offset.y>=-.001f&&offset.x+1558*scale<=viewport.x+.001f&&offset.y+887*scale<=viewport.y+.001f,"Reference canvas exceeds viewport mathematical bounds");
@@ -78,10 +84,10 @@ namespace DragonIdle {
    int kaioken=Data.Index("goku-saiyan-kaioken-v020");
    AssertSmoke(selectedCard==kaioken&&cardButtons.Count==1&&!galleryEquipButton.interactable,"Search selection or unowned actions failed");
    cardButtons[kaioken].onClick.Invoke();
-   AssertSmoke(!GalleryTestButton("PreviousCard").interactable&&!GalleryTestButton("NextCard").interactable,"Filtered detail escaped single-card results");
+   AssertSmoke(!detailRoot.GetComponentsInChildren<UI.Button>().Any(button=>button.name=="PreviousCard"||button.name=="NextCard"),"Filtered detail escaped single-card results");
    GalleryTestButton("BackToCards").onClick.Invoke();
    gallerySearch.text="不存在的角色";
-   AssertSmoke(selectedCard==-1&&cardButtons.Count==0&&galleryEquipButton==null&&gallerySwapButton==null,"Empty query leaked stale character actions");
+   AssertSmoke(selectedCard==-1&&cardButtons.Count==0&&galleryEquipButton==null,"Empty query leaked stale character actions");
    ResetGalleryFilters();GalleryTestButton("Filter0").onClick.Invoke();
    var menu=(RectTransform)filterDropdown.Find("FilterOptions");
    var trigger=(RectTransform)filterButtons[0].transform;
@@ -124,7 +130,8 @@ namespace DragonIdle {
    AssertSmoke(filterDropdown==null&&catalog.Tag=="赛亚人","Clicking outside changed selection or failed to close");
    ResetGalleryFilters();cardButtons[0].onClick.Invoke();detailTab=0;DrawGalleryDetail();
    AssertSmoke(detailRoot.GetComponentsInChildren<UI.Button>().All(b=>b.name!="TrainOnce"&&b.name!="Resonance"),"Information page leaked training entry");
-   RefreshGallery(false);ShowFormationPicker(0);GalleryTestButton("Slot1").onClick.Invoke();
+   RefreshGallery(false);NavigateGallery("编队");
+   GalleryTestButton("RoundSlot1").onClick.Invoke();GalleryTestButton("RoundReserve0").onClick.Invoke();
    AssertSmoke(profile.Team[1]==0&&profile.Team[0]==1&&profile.Leader==0&&selectedCard==0,"Formation picker swap failed");
    var snapshot=profile.InspectCharacter(0,true);var actual=profile.CreateTeam()[1];
    AssertSmoke(Math.Abs(snapshot.AttackValue-actual.AttackValue)<.000001,"Gallery stat mismatch");
@@ -135,13 +142,11 @@ namespace DragonIdle {
    AssertSmoke(page=="召唤"&&saiyanPool,"Pool acquisition route failed");
    page="角色";UpdateGallery();ShowAudioSettings();
    var sliders=dialogRoot.GetComponentsInChildren<UI.Slider>();AssertSmoke(sliders.Length==3,"Audio controls missing");
-   sliders[0].value=.4f;sliders[1].value=.1f;sliders[2].value=.2f;GalleryTestButton("Motion").onClick.Invoke();CloseGalleryDialog();
+   sliders[0].value=.4f;sliders[1].value=.3f;sliders[2].value=.2f;GalleryTestButton("Motion").onClick.Invoke();CloseGalleryDialog();
    var restored=JsonUtility.FromJson<AudioPreferences>(File.ReadAllText(audioPath));
-   AssertSmoke(Math.Abs(restored.Master-.4f)<.001&&Math.Abs(restored.Music-.1f)<.001&&restored.ReducedMotion,"Audio preferences persistence failed");
-   AssertSmoke(silentAudio&&!menuMusic.isPlaying&&menuMusic.volume==0&&uiSounds.volume==0,"Headless test must never produce sound");
-   AssertSmoke(menuMusic.clip.samples==22050*32&&uiClips.Length==3&&uiSoundEvents>0,"Audio synthesis or feedback wiring missing");
-   float[] samples=new float[menuMusic.clip.samples];menuMusic.clip.GetData(samples,0);
-   AssertSmoke(samples.All(v=>!float.IsNaN(v)&&!float.IsInfinity(v)&&Math.Abs(v)<=1)&&samples.Any(v=>Math.Abs(v)>.01f),"Invalid or silent music samples");
+   AssertSmoke(Math.Abs(restored.Master-.4f)<.001&&Math.Abs(restored.Music-.3f)<.001&&Math.Abs(restored.Effects-.2f)<.001&&restored.ReducedMotion,"Audio preferences persistence failed");
+   AssertSmoke(silentAudio&&!uiSounds.isPlaying&&uiSounds.volume==0,"Headless test must never produce sound");
+   AssertSmoke(uiClips.Length==3&&uiSoundEvents>0,"UI feedback wiring missing");
    ResetGalleryFilters();selectedCard=0;detailTab=1;DrawGalleryDetail();Canvas.ForceUpdateCanvases();
    AssertSmoke(measuredText.Count>=6&&measuredText.All(t=>t.preferredHeight<=t.rectTransform.rect.height+1),"Long Chinese skill text clipped in layout");
    foreach(int i in Enumerable.Range(0,Data.Cards.Length)){

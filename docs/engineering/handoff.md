@@ -49,6 +49,7 @@ v0.1.0已建立Unity 2022.3.62f3技术Demo，使用内置渲染与临时IMGUI表
 - 规则、设计、验证与交接文档。
 - 后续Unity Assets及.meta、Packages锁文件、ProjectSettings。
 - 可复现的构建/验证脚本、素材元数据和必要项目资源。
+- `Assets/DragonIdle/Resources/Videos` 的参考 MP4 通过 Git LFS 归档；随版本保留路径和 SHA-256 清单。
 
 不提交：
 - Library/Temp/Obj/Logs/UserSettings、生成IDE文件。
@@ -57,15 +58,46 @@ v0.1.0已建立Unity 2022.3.62f3技术Demo，使用内置渲染与临时IMGUI表
 
 每个可玩版本：
 1. 通过版本文件、更新说明明确版本号与内容。
-2. 运行适用模拟测试、配置校验和Unity导入/编译检查。
+2. 通过 Windows 打包脚本同步角色工作簿和运行配置，再执行适用的模拟测试、配置校验和 Unity 导入／编译检查。
 3. Windows x64完整构建到干净输出目录。
-4. 实际启动PC包，检查战斗、存档和版本；可见窗口获授权时再检查菜单与画面。2026-11-16用户工作期间授权已撤回，默认使用-batchmode -nographics，预览包明确标记可见画面未验收。
+4. 用无窗口 Player 检查 PC 包的战斗、存档和版本。自 2026-11-22 起，开发时可按需打开 Unity 编辑器并进入 Play 模式核对画面。编辑器观感与 PC 包启动结果分别记录。
 5. 确保源码提交是构建来源且工作区无未记录游戏内容修改。
 6. ZIP必须包含EXE、Data目录及运行所需文件，不能只上传EXE。
 7. 生成SHA256及manifest：版本、源码提交、Unity版本、平台、构建时间、验证结果。
-8. 推送源码，为该提交创建版本标签和GitHub Release，上传同版本ZIP、校验和与说明。
-9. 回读远端标签/附件并检查对应关系，发布完成才报告可下载。
+8. 推送源码和新增或修改的 Git LFS 对象，以同一提交创建版本标签和 GitHub Release，上传同版本 ZIP、校验和与说明。
+9. 回读远端标签和附件，核对 Windows 包的 SHA-256。在独立位置使用空 LFS 缓存拉取视频，按清单验证新增或修改的文件可以恢复；首版归档验证整个目录。发布完成才报告可下载。
 10. 保留旧版本供回退，不重用标签覆盖不同内容。
+
+### 参考视频的归档与本地清理
+
+每个小版本从远端发布基线准备提交。视频路径内只暂存新增和修改，保留用户为释放空间而在本地清理的已归档视频。需要正式移除参考时单独记录并显式暂存。首次归档 v0.17.3 的清单位于 [Releases](../../Releases/v0.17.3-reference-videos.sha256)。
+
+在暂存其他项目文件时排除视频目录及目录的 Unity 元数据，再用以下命令暂存工作区中现有的视频与元数据。新版本的清单以暂存区的 LFS 指针及其 SHA-256 为准，包含从之前版本保留的对象。
+
+```powershell
+git add -A -- . ':(exclude)Assets/DragonIdle/Resources/Videos' ':(exclude)Assets/DragonIdle/Resources/Videos.meta'
+git add --ignore-removal -- Assets/DragonIdle/Resources/Videos
+if (Test-Path -LiteralPath 'Assets/DragonIdle/Resources/Videos.meta') {
+    git add --ignore-removal -- Assets/DragonIdle/Resources/Videos.meta
+}
+```
+
+取回视频时可在空闲盘创建只取视频的克隆，避免覆盖游戏开发目录中的修改。先安装 Git LFS，替换命令里的版本和保存目录。
+
+```powershell
+$env:GIT_LFS_SKIP_SMUDGE = '1'
+try {
+    git clone --branch v0.17.3 --depth 1 --no-checkout https://github.com/Icein61/dragonball-idle-unity.git video-restore
+    git -C video-restore sparse-checkout init --cone
+    git -C video-restore sparse-checkout set Assets/DragonIdle/Resources/Videos
+    git -C video-restore checkout v0.17.3
+} finally {
+    Remove-Item Env:GIT_LFS_SKIP_SMUDGE -ErrorAction SilentlyContinue
+}
+git -C video-restore lfs pull --include='Assets/DragonIdle/Resources/Videos/**' --exclude=''
+```
+
+需要减少 D 盘占用时，发布暂存目录及 LFS 缓存使用其他盘。收到远端核验结果后，用户可以清理 D 盘工作目录中的视频原片；Windows 玩家包不使用这些原片。GitHub 默认生成的源码 ZIP 可能只有 LFS 指针，恢复素材使用 Git LFS。
 
 文档基线不要求伪造PC包；进入可玩阶段后不得仅推源码就称完成可玩版本交付。
 
@@ -87,3 +119,43 @@ GalleryTheme提供缓存圆角九宫格和焦点组件；CardLibrary/Detail切�
 
 ## v0.6.1 第二阶段接手
 见engineering/workshop-v061.md。共用Canvas现在覆盖四页，后台烟测必须含workshop-smoke.json。用户新增未提交素材不能混入发布：存在用户编辑时用干净源码副本构建，不移动/删除用户文件。
+
+## v0.16.1 角色表累计与战斗接手
+
+- `Tools/sync-character-sheet.py` 维护 Q 至 U 列，并重新校验玩家原文、位图锚点和新运行配置。表中的「截至本编号」包含本角色。
+- `RoundCombat.BeginRound` 在回合起点恢复触发次数并更新阶段被动。状态追打与来源命中绑定。成功的普通闪避和技能闪避均不会生成新的追打状态。
+- `GalleryStatsInfo.cs` 复用角色表潜力绘制列表卡片和详情三角图，用同一遮罩管理气泡与计算说明。
+- 拉蒂兹和悟空动作文件位于 `Assets/DragonIdle/Resources/Art/V0161`。音频取自用户指定的本地音频库，映射和源文件记录在 `Art/Production/V0161/Raditz-audio-sources.json`。
+
+## v0.16.2 图鉴与版本命名
+
+- `GalleryAvatarSwipe` 保存连续拖动位置、当前索引和可见头像。刷新详情正文时保留拖动条本身。
+- 稀有度底图统一从 `Resources/Interface/Gallery/Rarity` 读取。武术动作类图标继续由 `Tools/round-character-assets.json` 绑定。ImageGen 参考图、提示词和文件摘要见 `Art/Production/V0162/sources.json`。
+- 版本号依次称大版本号、小版本号和中间版本号。v0.16 阶段总结与后续入口见 [v0.16 复盘](v0.16-retrospective.md)。
+
+## v0.17.0 图鉴与编队重构前的入口
+
+- 主页及侧栏只提供角色与独立战斗 Demo。旧阵容数据仍可迁移，九宫格预览继续有专用回归夹具。
+- 新 C 角标由 `RarityResource` 同时供启动和图鉴读取。四档新底图由同一映射提供。来源和提示词见 [素材记录](../../Art/Production/V0170/sources.json)。
+- 双重太阳日的光束按演出目标装配，实际命中仍由回合规则提供。克林图集裁切见 `Art/V0154/Krillin/Motion.json`。
+
+## v0.17.1 编队与本地试玩包
+
+- 编队和鼠标拖放位于 RoundFormationUI.cs。有效变更走 Profile 的现有九宫格写入接口，RoundScene.cs 读取已存阵位并抽取对手。
+- 图鉴纹样见[来源清单](../../Art/Production/V0171/sources.json)。能力图和 info 由 GalleryStatsInfo.cs 与 GalleryDialogs.cs 绘制，使用 GalleryDetail.cs 的头像选择状态。
+- DuelReaction 读取受击轨的 reactionHoldAt。气弹命中爆光按受击坐标，扬尘按战场阵位投影。
+- [交付记录](../../Releases/v0.17.1.md)链接试玩包、后台截图、隔离 Player 结果和源码指纹。
+
+## v0.17.2 雅木茶和编队草稿
+
+- 雅木茶沿用 yamcha-saiyan-v020，正式配置由角色表生成。图集时间、锚点及保持帧见 Art/V0172/Yamcha/Motion，素材和本机音频见[制作清单](../../Art/Production/V0172/Yamcha/sources.json)。
+- RoundFormationUI.cs 按格捕获指针，Profile 的草稿校验复用现有九宫格规则。显式存档成功后重新绘制，离开页面清理草稿。
+- 复活排入触发技能队列。在上一个动作结束后结算，并带有具体技能来源的独立攻击贡献。演出在起身站稳时显示恢复值与增益。
+- [交付记录](../../Releases/v0.17.2.md)收录本地包、画面和后台证据。
+
+## v0.17.3 天津饭与素材
+
+- 天津饭沿用 tien-test。角色表生成配置，Art/V0173/Tien/Motion 保存演出时间与定点。[图像和本机音效来源](../../Art/Production/V0173/Tien/sources.json)。
+- RoundCombat 执行回合起手队列。气功炮将生命成本带入战斗事件，在演出到达时公布。
+- GalleryRoleArt 绑定三个定位区域，GalleryDragonBallWatermarks 绘制小龙珠的折射和反光。
+- Windows 通过 C 盘临时 Unity 工程构建，角色表、源文件、验收记录和交付 ZIP 在 D 盘项目。[交付记录](../../Releases/v0.17.3.md)。

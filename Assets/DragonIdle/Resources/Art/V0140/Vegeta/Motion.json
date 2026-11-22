@@ -1,0 +1,863 @@
+{
+  "atlas": [
+    {
+      "image": "Art/V050/vegeta-test-atlas",
+      "crop": [
+        9,
+        32,
+        465,
+        975
+      ],
+      "pivot": [
+        241,
+        1005
+      ],
+      "hit": [
+        311,
+        412
+      ],
+      "beam": [
+        311,
+        412
+      ],
+      "zoom": 1.63
+    },
+    {
+      "image": "Art/V050/vegeta-test-atlas",
+      "crop": [
+        505,
+        7,
+        211,
+        295
+      ],
+      "pivot": [
+        610,
+        300
+      ],
+      "hit": [
+        642,
+        122
+      ],
+      "beam": [
+        642,
+        122
+      ],
+      "zoom": 1.63
+    },
+    {
+      "image": "Art/V050/vegeta-test-atlas",
+      "crop": [
+        743,
+        31,
+        204,
+        270
+      ],
+      "pivot": [
+        845,
+        299
+      ],
+      "hit": [
+        875,
+        136
+      ],
+      "beam": [
+        875,
+        136
+      ],
+      "zoom": 1.63
+    },
+    {
+      "image": "Art/V050/vegeta-test-atlas",
+      "crop": [
+        997,
+        8,
+        246,
+        292
+      ],
+      "pivot": [
+        1120,
+        298
+      ],
+      "hit": [
+        1231,
+        101
+      ],
+      "beam": [
+        1231,
+        101
+      ],
+      "zoom": 1.63
+    },
+    {
+      "image": "Art/V050/vegeta-test-atlas",
+      "crop": [
+        1273,
+        10,
+        244,
+        292
+      ],
+      "pivot": [
+        1395,
+        300
+      ],
+      "hit": [
+        1506,
+        82
+      ],
+      "beam": [
+        1506,
+        82
+      ],
+      "zoom": 1.63
+    },
+    {
+      "image": "Art/V050/vegeta-test-atlas",
+      "crop": [
+        479,
+        338,
+        240,
+        302
+      ],
+      "pivot": [
+        599,
+        638
+      ],
+      "hit": [
+        635,
+        455
+      ],
+      "beam": [
+        635,
+        455
+      ],
+      "zoom": 1.63
+    },
+    {
+      "image": "Art/V050/vegeta-test-atlas",
+      "crop": [
+        737,
+        335,
+        232,
+        309
+      ],
+      "pivot": [
+        853,
+        642
+      ],
+      "hit": [
+        946,
+        439
+      ],
+      "beam": [
+        946,
+        439
+      ],
+      "zoom": 1.63
+    },
+    {
+      "image": "Art/V050/vegeta-test-atlas",
+      "crop": [
+        996,
+        337,
+        231,
+        305
+      ],
+      "pivot": [
+        1111,
+        640
+      ],
+      "hit": [
+        1146,
+        455
+      ],
+      "beam": [
+        1146,
+        455
+      ],
+      "zoom": 1.63
+    },
+    {
+      "image": "Art/V050/vegeta-test-atlas",
+      "crop": [
+        1269,
+        349,
+        258,
+        294
+      ],
+      "pivot": [
+        1398,
+        641
+      ],
+      "hit": [
+        1436,
+        463
+      ],
+      "beam": [
+        1436,
+        463
+      ],
+      "zoom": 1.63
+    },
+    {
+      "image": "Art/V050/vegeta-test-atlas",
+      "crop": [
+        474,
+        685,
+        247,
+        310
+      ],
+      "pivot": [
+        597,
+        993
+      ],
+      "hit": [
+        634,
+        805
+      ],
+      "beam": [
+        634,
+        805
+      ],
+      "zoom": 1.63
+    },
+    {
+      "image": "Art/V050/vegeta-test-atlas",
+      "crop": [
+        748,
+        727,
+        195,
+        267
+      ],
+      "pivot": [
+        845,
+        992
+      ],
+      "hit": [
+        874,
+        831
+      ],
+      "beam": [
+        874,
+        831
+      ],
+      "zoom": 1.63
+    },
+    {
+      "image": "Art/V050/vegeta-test-atlas",
+      "crop": [
+        968,
+        847,
+        302,
+        128
+      ],
+      "pivot": [
+        1119,
+        973
+      ],
+      "hit": [
+        1164,
+        896
+      ],
+      "beam": [
+        1164,
+        896
+      ],
+      "zoom": 1.63
+    },
+    {
+      "image": "Art/V050/vegeta-test-atlas",
+      "crop": [
+        1293,
+        670,
+        184,
+        340
+      ],
+      "pivot": [
+        1385,
+        1008
+      ],
+      "hit": [
+        1412,
+        802
+      ],
+      "beam": [
+        1412,
+        802
+      ],
+      "zoom": 1.4142647
+    },
+    {
+      "image": "opening-hammer",
+      "crop": [
+        192,
+        6,
+        373,
+        715
+      ],
+      "pivot": [
+        378,
+        716
+      ],
+      "hit": [
+        412,
+        385
+      ],
+      "beam": [
+        412,
+        385
+      ],
+      "zoom": 0.6725175
+    },
+    {
+      "image": "opening-hammer",
+      "crop": [
+        845,
+        20,
+        446,
+        701
+      ],
+      "pivot": [
+        1068,
+        716
+      ],
+      "hit": [
+        1110,
+        78
+      ],
+      "beam": [
+        1110,
+        78
+      ],
+      "zoom": 0.66
+    },
+    {
+      "image": "opening-hammer",
+      "crop": [
+        1543,
+        118,
+        446,
+        604
+      ],
+      "pivot": [
+        1766,
+        717
+      ],
+      "hit": [
+        1885,
+        527
+      ],
+      "beam": [
+        1885,
+        527
+      ],
+      "zoom": 0.66
+    },
+    {
+      "image": "Art/V0144/Vegeta/movement",
+      "crop": [
+        226,
+        21,
+        336,
+        463
+      ],
+      "pivot": [
+        394,
+        482
+      ],
+      "zoom": 0.9586,
+      "hit": [
+        454,
+        175
+      ],
+      "beam": [
+        454,
+        175
+      ]
+    },
+    {
+      "image": "Art/V0144/Vegeta/movement",
+      "crop": [
+        972,
+        20,
+        346,
+        464
+      ],
+      "pivot": [
+        1145,
+        482
+      ],
+      "zoom": 0.9586,
+      "hit": [
+        1205,
+        174
+      ],
+      "beam": [
+        1205,
+        174
+      ]
+    },
+    {
+      "image": "Art/V0144/Vegeta/movement",
+      "crop": [
+        282,
+        532,
+        260,
+        428
+      ],
+      "pivot": [
+        412,
+        988
+      ],
+      "zoom": 0.9586,
+      "hit": [
+        472,
+        674
+      ],
+      "beam": [
+        472,
+        674
+      ]
+    }
+  ],
+  "clips": [
+    {
+      "id": "idle",
+      "title": "站立待机",
+      "duration": 1400,
+      "impactAt": 0,
+      "returnAt": 0,
+      "launchAt": 0,
+      "haloFrom": 0,
+      "haloTo": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 1
+        }
+      ],
+      "root": [],
+      "impacts": []
+    },
+    {
+      "id": "accent",
+      "title": "待机小动作",
+      "duration": 650,
+      "impactAt": 0,
+      "returnAt": 0,
+      "launchAt": 0,
+      "haloFrom": 0,
+      "haloTo": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 1
+        },
+        {
+          "at": 80,
+          "drawing": 12
+        },
+        {
+          "at": 380,
+          "drawing": 1
+        }
+      ],
+      "root": [],
+      "impacts": []
+    },
+    {
+      "id": "opening",
+      "title": "赛亚精英",
+      "duration": 850,
+      "impactAt": 0,
+      "returnAt": 0,
+      "launchAt": 0,
+      "haloFrom": 210,
+      "haloTo": 540,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 13
+        },
+        {
+          "at": 365,
+          "drawing": 13
+        },
+        {
+          "at": 438,
+          "drawing": 12
+        },
+        {
+          "at": 622,
+          "drawing": 1
+        }
+      ],
+      "root": [],
+      "impacts": []
+    },
+    {
+      "id": "basic",
+      "title": "格斗攻击",
+      "duration": 755,
+      "impactAt": 342,
+      "returnAt": 430,
+      "launchAt": 0,
+      "haloFrom": 0,
+      "haloTo": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 1
+        },
+        {
+          "at": 70,
+          "drawing": 2
+        },
+        {
+          "at": 172,
+          "drawing": 3
+        },
+        {
+          "at": 233,
+          "drawing": 7
+        },
+        {
+          "at": 342,
+          "drawing": 3
+        },
+        {
+          "at": 430,
+          "drawing": 18
+        },
+        {
+          "at": 585,
+          "drawing": 1
+        }
+      ],
+      "root": [
+        {
+          "at": 0,
+          "x": 0
+        },
+        {
+          "at": 70,
+          "x": 19
+        },
+        {
+          "at": 172,
+          "x": 125
+        },
+        {
+          "at": 260,
+          "x": 122
+        },
+        {
+          "at": 342,
+          "x": 125
+        },
+        {
+          "at": 430,
+          "x": 125
+        },
+        {
+          "at": 585,
+          "x": 0
+        }
+      ],
+      "impacts": [
+        {
+          "at": 172,
+          "drawing": 3,
+          "kind": "body"
+        },
+        {
+          "at": 342,
+          "drawing": 3,
+          "kind": "body"
+        }
+      ],
+      "runFrames": [
+        16,
+        17
+      ],
+      "hopDrawing": 18,
+      "runUntil": 170,
+      "returnHop": 17
+    },
+    {
+      "id": "kick",
+      "title": "格斗攻击",
+      "duration": 850,
+      "impactAt": 502,
+      "returnAt": 585,
+      "launchAt": 0,
+      "haloFrom": 0,
+      "haloTo": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 1
+        },
+        {
+          "at": 70,
+          "drawing": 2
+        },
+        {
+          "at": 172,
+          "drawing": 3
+        },
+        {
+          "at": 235,
+          "drawing": 7
+        },
+        {
+          "at": 342,
+          "drawing": 3
+        },
+        {
+          "at": 407,
+          "drawing": 2
+        },
+        {
+          "at": 502,
+          "drawing": 4
+        },
+        {
+          "at": 575,
+          "drawing": 7
+        },
+        {
+          "at": 585,
+          "drawing": 18
+        },
+        {
+          "at": 740,
+          "drawing": 1
+        }
+      ],
+      "root": [
+        {
+          "at": 0,
+          "x": 0
+        },
+        {
+          "at": 70,
+          "x": 20
+        },
+        {
+          "at": 172,
+          "x": 108
+        },
+        {
+          "at": 235,
+          "x": 108
+        },
+        {
+          "at": 342,
+          "x": 108
+        },
+        {
+          "at": 432,
+          "x": 98
+        },
+        {
+          "at": 502,
+          "x": 128
+        },
+        {
+          "at": 585,
+          "x": 128
+        },
+        {
+          "at": 740,
+          "x": 0
+        }
+      ],
+      "impacts": [
+        {
+          "at": 172,
+          "drawing": 3,
+          "kind": "body"
+        },
+        {
+          "at": 342,
+          "drawing": 3,
+          "kind": "body"
+        },
+        {
+          "at": 502,
+          "drawing": 4,
+          "kind": "kick"
+        }
+      ],
+      "runFrames": [
+        16,
+        17
+      ],
+      "hopDrawing": 18,
+      "runUntil": 172,
+      "returnHop": 17
+    },
+    {
+      "id": "pursuit",
+      "title": "大锤",
+      "duration": 650,
+      "impactAt": 235,
+      "returnAt": 339,
+      "launchAt": 0,
+      "haloFrom": 0,
+      "haloTo": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 1
+        },
+        {
+          "at": 68,
+          "drawing": 2
+        },
+        {
+          "at": 105,
+          "drawing": 14
+        },
+        {
+          "at": 235,
+          "drawing": 15
+        },
+        {
+          "at": 330,
+          "drawing": 15
+        },
+        {
+          "at": 339,
+          "drawing": 18
+        },
+        {
+          "at": 494,
+          "drawing": 1
+        }
+      ],
+      "root": [
+        {
+          "at": 0,
+          "x": 0
+        },
+        {
+          "at": 68,
+          "x": 16
+        },
+        {
+          "at": 105,
+          "x": 56
+        },
+        {
+          "at": 235,
+          "x": 122
+        },
+        {
+          "at": 339,
+          "x": 122
+        },
+        {
+          "at": 494,
+          "x": 0
+        }
+      ],
+      "impacts": [
+        {
+          "at": 235,
+          "drawing": 15,
+          "kind": "hammer"
+        }
+      ],
+      "runFrames": [
+        16,
+        17
+      ],
+      "hopDrawing": 18,
+      "runUntil": 105,
+      "returnHop": 17
+    },
+    {
+      "id": "volley",
+      "title": "连续能源弹",
+      "duration": 1620,
+      "impactAt": 0,
+      "returnAt": 0,
+      "launchAt": 350,
+      "haloFrom": 0,
+      "haloTo": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 1
+        },
+        {
+          "at": 92,
+          "drawing": 5
+        },
+        {
+          "at": 350,
+          "drawing": 6
+        },
+        {
+          "at": 420,
+          "drawing": 5
+        },
+        {
+          "at": 495,
+          "drawing": 6
+        },
+        {
+          "at": 565,
+          "drawing": 5
+        },
+        {
+          "at": 640,
+          "drawing": 6
+        },
+        {
+          "at": 710,
+          "drawing": 5
+        },
+        {
+          "at": 785,
+          "drawing": 6
+        },
+        {
+          "at": 855,
+          "drawing": 5
+        },
+        {
+          "at": 930,
+          "drawing": 6
+        },
+        {
+          "at": 1000,
+          "drawing": 5
+        },
+        {
+          "at": 1075,
+          "drawing": 6
+        },
+        {
+          "at": 1145,
+          "drawing": 5
+        },
+        {
+          "at": 1210,
+          "drawing": 7
+        },
+        {
+          "at": 1340,
+          "drawing": 12
+        },
+        {
+          "at": 1510,
+          "drawing": 1
+        }
+      ],
+      "root": [],
+      "impacts": []
+    }
+  ]
+}

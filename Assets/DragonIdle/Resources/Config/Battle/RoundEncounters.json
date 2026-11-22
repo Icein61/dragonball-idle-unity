@@ -1,7 +1,7 @@
 {
  "boards": [
-  {"id":"five","title":"五人镜像","scale":0.77,"positions":["goku-test","vegeta-test","piccolo-test","krillin-test","gohan-test","","","",""]},
-  {"id":"seven","title":"七人包围","scale":0.68,"positions":["goku-test","vegeta-test","","krillin-test","gohan-test","tien-test","yamcha-saiyan-v020","","goku-saiyan-kaioken-v020"]},
-  {"id":"nine","title":"九人全阵","scale":0.64,"positions":["goku-test","vegeta-test","piccolo-test","krillin-test","gohan-test","tien-test","yamcha-saiyan-v020","chiaotzu-saiyan-v020","goku-saiyan-kaioken-v020"]}
+  {"id":"five","title":"五人镜像","scale":0.77,"positions":["goku-test","vegeta-test","piccolo-test","gohan-test","krillin-test","","","",""]},
+  {"id":"seven","title":"七人包围","scale":0.68,"positions":["goku-test","vegeta-test","","goku-test","vegeta-test","piccolo-test","gohan-test","","piccolo-test"]},
+  {"id":"nine","title":"九人全阵","scale":0.64,"positions":["goku-test","vegeta-test","piccolo-test","goku-test","vegeta-test","piccolo-test","gohan-test","vegeta-test","piccolo-test"]}
  ]
 }

@@ -1,0 +1,857 @@
+{
+ "atlas": [
+  {
+   "image": "battle-poses",
+   "crop": [
+    44,
+    7,
+    230,
+    349
+   ],
+   "pivot": [
+    172,
+    354
+   ],
+   "hit": [
+    228,
+    173
+   ],
+   "beam": [
+    228,
+    173
+   ],
+   "zoom": 1.24
+  },
+  {
+   "image": "battle-poses",
+   "crop": [
+    418,
+    3,
+    221,
+    353
+   ],
+   "pivot": [
+    537,
+    354
+   ],
+   "hit": [
+    588,
+    179
+   ],
+   "beam": [
+    588,
+    179
+   ],
+   "zoom": 1.24
+  },
+  {
+   "image": "battle-poses",
+   "crop": [
+    754,
+    25,
+    272,
+    316
+   ],
+   "pivot": [
+    874,
+    339
+   ],
+   "hit": [
+    1003,
+    136
+   ],
+   "beam": [
+    1003,
+    136
+   ],
+   "zoom": 1.24
+  },
+  {
+   "image": "battle-poses",
+   "crop": [
+    1121,
+    23,
+    281,
+    315
+   ],
+   "pivot": [
+    1240,
+    336
+   ],
+   "hit": [
+    1377,
+    150
+   ],
+   "beam": [
+    1377,
+    150
+   ],
+   "zoom": 1.24
+  },
+  {
+   "image": "battle-poses",
+   "crop": [
+    49,
+    368,
+    222,
+    304
+   ],
+   "pivot": [
+    163,
+    696
+   ],
+   "hit": [
+    241,
+    552
+   ],
+   "beam": [
+    241,
+    552
+   ],
+   "zoom": 1.24
+  },
+  {
+   "image": "battle-poses",
+   "crop": [
+    390,
+    377,
+    303,
+    332
+   ],
+   "pivot": [
+    532,
+    707
+   ],
+   "hit": [
+    674,
+    481
+   ],
+   "beam": [
+    674,
+    481
+   ],
+   "zoom": 1.24
+  },
+  {
+   "image": "battle-poses",
+   "crop": [
+    746,
+    381,
+    298,
+    323
+   ],
+   "pivot": [
+    900,
+    702
+   ],
+   "hit": [
+    1032,
+    482
+   ],
+   "beam": [
+    1032,
+    482
+   ],
+   "zoom": 1.24
+  },
+  {
+   "image": "battle-poses",
+   "crop": [
+    1118,
+    378,
+    297,
+    330
+   ],
+   "pivot": [
+    1259,
+    706
+   ],
+   "hit": [
+    1386,
+    476
+   ],
+   "beam": [
+    1386,
+    476
+   ],
+   "zoom": 1.24
+  },
+  {
+   "image": "battle-poses",
+   "crop": [
+    41,
+    728,
+    228,
+    350
+   ],
+   "pivot": [
+    155,
+    1076
+   ],
+   "hit": [
+    228,
+    872
+   ],
+   "beam": [
+    228,
+    872
+   ],
+   "zoom": 1.24
+  },
+  {
+   "image": "battle-poses",
+   "crop": [
+    381,
+    734,
+    327,
+    346
+   ],
+   "pivot": [
+    519,
+    1078
+   ],
+   "hit": [
+    684,
+    878
+   ],
+   "beam": [
+    684,
+    878
+   ],
+   "zoom": 1.24
+  },
+  {
+   "image": "battle-poses",
+   "crop": [
+    745,
+    742,
+    269,
+    332
+   ],
+   "pivot": [
+    888,
+    1072
+   ],
+   "hit": [
+    977,
+    831
+   ],
+   "beam": [
+    977,
+    831
+   ],
+   "zoom": 1.24
+  },
+  {
+   "image": "battle-poses",
+   "crop": [
+    1094,
+    748,
+    331,
+    296
+   ],
+   "pivot": [
+    1246,
+    1075
+   ],
+   "hit": [
+    1341,
+    818
+   ],
+   "beam": [
+    1341,
+    818
+   ],
+   "zoom": 1.24
+  },
+  {
+   "image": "reaction-poses",
+   "crop": [
+    96,
+    27,
+    287,
+    471
+   ],
+   "pivot": [
+    239,
+    498
+   ],
+   "hit": [
+    239,
+    184
+   ],
+   "beam": [
+    239,
+    184
+   ],
+   "zoom": 0.9056475583864119
+  },
+  {
+   "image": "reaction-poses",
+   "crop": [
+    574,
+    107,
+    329,
+    391
+   ],
+   "pivot": [
+    738,
+    498
+   ],
+   "hit": [
+    738,
+    237
+   ],
+   "beam": [
+    738,
+    237
+   ],
+   "zoom": 1.0909462915601023
+  },
+  {
+   "image": "reaction-poses",
+   "crop": [
+    1074,
+    36,
+    395,
+    458
+   ],
+   "pivot": [
+    1271,
+    494
+   ],
+   "hit": [
+    1271,
+    188
+   ],
+   "beam": [
+    1271,
+    188
+   ],
+   "zoom": 0.9313537117903931
+  },
+  {
+   "image": "reaction-poses",
+   "crop": [
+    68,
+    536,
+    444,
+    456
+   ],
+   "pivot": [
+    290,
+    992
+   ],
+   "hit": [
+    290,
+    688
+   ],
+   "beam": [
+    290,
+    688
+   ],
+   "zoom": 0.9354385964912281
+  },
+  {
+   "image": "reaction-poses",
+   "crop": [
+    512,
+    574,
+    470,
+    383
+   ],
+   "pivot": [
+    747,
+    957
+   ],
+   "hit": [
+    747,
+    701
+   ],
+   "beam": [
+    747,
+    701
+   ],
+   "zoom": 1.02
+  },
+  {
+   "image": "reaction-poses",
+   "crop": [
+    1041,
+    722,
+    447,
+    272
+   ],
+   "pivot": [
+    1264,
+    994
+   ],
+   "hit": [
+    1264,
+    812
+   ],
+   "beam": [
+    1264,
+    812
+   ],
+   "zoom": 0.96
+  }
+ ],
+ "clips": [
+  {
+   "id": "raditzShot",
+   "title": "闪耀金星日",
+   "duration": 640,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0,
+     "kind": ""
+    },
+    {
+     "at": 105,
+     "drawing": 4,
+     "kind": ""
+    },
+    {
+     "at": 242,
+     "drawing": 5,
+     "kind": ""
+    },
+    {
+     "at": 462,
+     "drawing": 1,
+     "kind": ""
+    },
+    {
+     "at": 560,
+     "drawing": 0,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "launchAt": 242,
+   "impactAt": 422,
+   "fx": "raditzKi"
+  },
+  {
+   "id": "raditzSurge",
+   "title": "闪耀金星日",
+   "duration": 970,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0,
+     "kind": ""
+    },
+    {
+     "at": 105,
+     "drawing": 4,
+     "kind": ""
+    },
+    {
+     "at": 335,
+     "drawing": 5,
+     "kind": ""
+    },
+    {
+     "at": 702,
+     "drawing": 1,
+     "kind": ""
+    },
+    {
+     "at": 860,
+     "drawing": 0,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "launchAt": 335,
+   "impactAt": 580,
+   "fx": "raditzKi"
+  },
+  {
+   "id": "raditzTwin",
+   "title": "双重太阳日",
+   "duration": 1060,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0,
+     "kind": ""
+    },
+    {
+     "at": 145,
+     "drawing": 6,
+     "kind": ""
+    },
+    {
+     "at": 378,
+     "drawing": 7,
+     "kind": ""
+    },
+    {
+     "at": 718,
+     "drawing": 6,
+     "kind": ""
+    },
+    {
+     "at": 872,
+     "drawing": 1,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "launchAt": 378,
+   "impactAt": 606,
+   "fx": "raditzKi"
+  },
+  {
+   "id": "raditzKick",
+   "title": "踢击",
+   "duration": 740,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0,
+     "kind": ""
+    },
+    {
+     "at": 115,
+     "drawing": 8,
+     "kind": ""
+    },
+    {
+     "at": 250,
+     "drawing": 9,
+     "kind": ""
+    },
+    {
+     "at": 378,
+     "drawing": 8,
+     "kind": ""
+    },
+    {
+     "at": 506,
+     "drawing": 3,
+     "kind": ""
+    },
+    {
+     "at": 655,
+     "drawing": 0,
+     "kind": ""
+    }
+   ],
+   "impacts": [
+    {
+     "at": 250,
+     "drawing": 9,
+     "kind": "punch"
+    }
+   ],
+   "root": [
+    {
+     "at": 0,
+     "x": 0
+    },
+    {
+     "at": 118,
+     "x": 0.88
+    },
+    {
+     "at": 250,
+     "x": 1
+    },
+    {
+     "at": 385,
+     "x": 1
+    },
+    {
+     "at": 685,
+     "x": 0
+    }
+   ],
+   "runUntil": 115,
+   "runFrames": [
+    2,
+    3
+   ],
+   "approachDrawing": 2,
+   "returnAt": 445,
+   "hopDrawing": 3,
+   "returnHop": 9,
+   "impactAt": 250
+  },
+  {
+   "id": "opening",
+   "title": "无情的侵略",
+   "duration": 930,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0,
+     "kind": ""
+    },
+    {
+     "at": 175,
+     "drawing": 14,
+     "kind": ""
+    },
+    {
+     "at": 580,
+     "drawing": 14,
+     "kind": ""
+    },
+    {
+     "at": 770,
+     "drawing": 1,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "fx": "raditzAura",
+   "haloFrom": 175,
+   "haloTo": 710
+  },
+  {
+   "id": "idle",
+   "title": "待机",
+   "duration": 850,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0,
+     "kind": ""
+    },
+    {
+     "at": 430,
+     "drawing": 1,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "entry",
+   "title": "进场",
+   "duration": 730,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 12,
+     "kind": ""
+    },
+    {
+     "at": 326,
+     "drawing": 13,
+     "kind": ""
+    },
+    {
+     "at": 495,
+     "drawing": 1,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "light",
+   "title": "受击",
+   "duration": 340,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 15,
+     "kind": ""
+    },
+    {
+     "at": 180,
+     "drawing": 10,
+     "kind": ""
+    },
+    {
+     "at": 270,
+     "drawing": 1,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockback",
+   "reactionHoldAt": 130,
+   "title": "击退",
+   "duration": 430,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 10,
+     "kind": ""
+    },
+    {
+     "at": 130,
+     "drawing": 16,
+     "kind": ""
+    },
+    {
+     "at": 274,
+     "drawing": 15,
+     "kind": ""
+    },
+    {
+     "at": 337,
+     "drawing": 1,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "smallFloat",
+   "reactionHoldAt": 97,
+   "title": "小浮空",
+   "duration": 400,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 15,
+     "kind": ""
+    },
+    {
+     "at": 97,
+     "drawing": 11,
+     "kind": ""
+    },
+    {
+     "at": 260,
+     "drawing": 13,
+     "kind": ""
+    },
+    {
+     "at": 323,
+     "drawing": 0,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "largeFloat",
+   "reactionHoldAt": 155,
+   "title": "大浮空",
+   "duration": 515,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 16,
+     "kind": ""
+    },
+    {
+     "at": 155,
+     "drawing": 11,
+     "kind": ""
+    },
+    {
+     "at": 333,
+     "drawing": 13,
+     "kind": ""
+    },
+    {
+     "at": 427,
+     "drawing": 1,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockdown",
+   "reactionHoldAt": 175,
+   "title": "倒地",
+   "duration": 555,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 16,
+     "kind": ""
+    },
+    {
+     "at": 175,
+     "drawing": 17,
+     "kind": ""
+    },
+    {
+     "at": 359,
+     "drawing": 13,
+     "kind": ""
+    },
+    {
+     "at": 486,
+     "drawing": 0,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "defeat",
+   "title": "退场",
+   "duration": 590,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 10,
+     "kind": ""
+    },
+    {
+     "at": 100,
+     "drawing": 16,
+     "kind": ""
+    },
+    {
+     "at": 277,
+     "drawing": 17,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "standing",
+   "reactionHoldAt": 180,
+   "title": "受击",
+   "duration": 340,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 15,
+     "kind": ""
+    },
+    {
+     "at": 180,
+     "drawing": 10,
+     "kind": ""
+    },
+    {
+     "at": 270,
+     "drawing": 1,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": []
+  }
+ ]
+}

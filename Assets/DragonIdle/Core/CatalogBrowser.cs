@@ -10,18 +10,32 @@ namespace DragonIdle {
    string term=(Search??"").Trim();
    var q=Enumerable.Range(0,Data.Cards.Length).Where(i=>{
     var c=Data.Cards[i];
-    return (!OwnedOnly||p.Owned[i])&&(Rarity==""||c.Rarity==Rarity)&&(Role==""||c.Keywords.Contains(Role))&&(Tag==""||c.HasTag(Tag))&&
-     (c.Name+" "+c.Title+" "+c.Stage+" "+c.Form+" "+string.Join(" ",c.Tags)+" "+string.Join(" ",c.Keywords)).IndexOf(term,StringComparison.OrdinalIgnoreCase)>=0;
+    string identity=c.Name+" "+c.Title+" "+c.Stage+" "+c.Form+" "+string.Join(" ",c.Tags);
+    if(!RoundFormat)identity+=" "+string.Join(" ",c.Keywords);
+    return (!RoundFormat||Data.IsRoundCard(c.Id))&&(!OwnedOnly||p.Owned[i])&&(Rarity==""||c.Rarity==Rarity)&&(RoundFormat||Role==""||c.Keywords.Contains(Role))&&
+     (Tag==""||c.HasTag(Tag))&&identity.IndexOf(term,StringComparison.OrdinalIgnoreCase)>=0;
    });
-   if(Sort==1)return q.OrderByDescending(i=>Array.IndexOf(Data.Rarities,Data.Cards[i].Rarity)).ThenBy(i=>i).ToArray();
-   if(Sort==2)return q.OrderBy(i=>Data.Cards[i].Name,StringComparer.Ordinal).ThenBy(i=>Data.Cards[i].Title,StringComparer.Ordinal).ThenBy(i=>i).ToArray();
-   if(Sort==3)return RoundFormat?q.OrderBy(i=>Data.Cards[i].Type).ThenBy(i=>i).ToArray():q.OrderByDescending(i=>p.Training[i]).ThenByDescending(i=>p.Resonance[i]).ThenBy(i=>i).ToArray();
+   var pinned=q.OrderByDescending(p.IsFavoriteCard);
+   if(Sort==1)return pinned.ThenByDescending(i=>Array.IndexOf(Data.Rarities,Data.Cards[i].Rarity)).ThenBy(i=>i).ToArray();
+   if(Sort==2)return pinned.ThenBy(i=>Data.Cards[i].Name,StringComparer.Ordinal).ThenBy(i=>Data.Cards[i].Title,StringComparer.Ordinal).ThenBy(i=>i).ToArray();
+   if(RoundFormat&&Sort==4)return pinned.ThenBy(i=>Data.Cards[i].CatalogNumber).ThenBy(i=>i).ToArray();
+   if(Sort==3)return RoundFormat?pinned.ThenBy(i=>Data.Cards[i].Type).ThenBy(i=>i).ToArray():pinned.ThenByDescending(i=>p.Training[i]).ThenByDescending(i=>p.Resonance[i]).ThenBy(i=>i).ToArray();
    var team=RoundFormat?p.RoundFormation():p.Team;
-   return q.OrderBy(i=>Array.IndexOf(team,i)<0?99:Array.IndexOf(team,i)).ThenByDescending(i=>p.Owned[i]).ThenBy(i=>i).ToArray();
+   return pinned.ThenBy(i=>Array.IndexOf(team,i)<0?99:Array.IndexOf(team,i)).ThenByDescending(i=>p.Owned[i]).ThenBy(i=>i).ToArray();
   }
   public static int Reconcile(int selected,int[] results){return results.Contains(selected)?selected:results.Length>0?results[0]:-1;}
  }
  public partial class Profile {
+  public string[] FavoriteCardIds=Array.Empty<string>();
+  public bool IsFavoriteCard(int index){
+   return index>=0&&index<Data.Cards.Length&&FavoriteCardIds!=null&&FavoriteCardIds.Contains(Data.Cards[index].Id);
+  }
+  public void ToggleFavoriteCard(int index){
+   if(index<0||index>=Data.Cards.Length)throw new ArgumentOutOfRangeException("index");
+   var id=Data.Cards[index].Id;
+   var favorites=FavoriteCardIds??Array.Empty<string>();
+   FavoriteCardIds=IsFavoriteCard(index)?favorites.Where(card=>card!=id).ToArray():favorites.Concat(new[]{id}).ToArray();
+  }
   // Shared with CreateTeam: UI and battle use the same equipment, skill and passive math.
   public Unit InspectCharacter(int i,bool includeCaptain=false){
    Validate();if(i<0||i>=Data.Cards.Length)throw new ArgumentOutOfRangeException("i");

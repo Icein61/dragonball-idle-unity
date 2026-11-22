@@ -1,0 +1,168 @@
+{
+  "version": "0.17.3",
+  "generator": "ImageGen built-in",
+  "selected": {
+    "portrait": "B",
+    "icons": "BABB",
+    "roles": "A"
+  },
+  "images": [
+    {
+      "candidate": "portrait-a",
+      "path": "Art/Production/V0173/Tien/candidates/portrait-a.png",
+      "sha256": "4d4bc88a9f8c29211acacf4aa0cc5b3521ccd279e771596d7a2a08e1ffcb37a6",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/tien-test-portrait.png"
+      ],
+      "prompt": "Reference image 1 is our project-owned full-body design of this same adult warrior: bald, a single centered forehead eye in addition to two normal eyes, athletic build, bare upper body, deep olive green martial-arts pants, red waist sash and wrist wraps, white ankle wraps and dark brown martial-arts shoes. Draw fresh original sprites in the clean hand-inked C-series cel comic style of this project. Transparent full-body cutout, original Tien volleyball palm form. At a three-quarter angle, torso and pelvis share the same perspective, one open hand raised overhead and poised to spike down, opposite open hand held low to guide the direction, each hand exactly five natural fingers clearly readable. Both knees bend over their toes, planted unconfused support, focused battle yell, forehead eye visible, negative margins above fingers and beneath soles, no energy or props."
+    },
+    {
+      "candidate": "portrait-b",
+      "path": "Assets/DragonIdle/Resources/Art/V0173/Tien/portrait.png",
+      "sha256": "998e96d23061223d7eebac6e410cfec9cf2c6ba40df439e02c6250f25d1b55c1",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/tien-test-portrait.png"
+      ],
+      "prompt": "Reference image 1 is our project-owned full-body design of this same adult warrior: bald, a single centered forehead eye in addition to two normal eyes, athletic build, bare upper body, deep olive green martial-arts pants, red waist sash and wrist wraps, white ankle wraps and dark brown martial-arts shoes. Draw fresh original sprites in the clean hand-inked C-series cel comic style of this project. Transparent full-body cutout in original forward fighting stance, tense determination. Three-quarter face, one open upturned volleyball receiving palm forward at shoulder height, other hand draws back, dark green gloves absent (hands bare), correct five digits per hand, feet sturdy and anatomically aligned. Very clear cropped card silhouette, no energy effects, no props or labels."
+    },
+    {
+      "candidate": "moves",
+      "path": "Assets/DragonIdle/Resources/Art/V0173/Tien/moves.png",
+      "sha256": "515209890a5fb57226120c503cf4ec565da7945f2b5431cce496c490e684eefc",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/tien-test-portrait.png",
+        "Assets/DragonIdle/Resources/Art/V050/tien-test-atlas.png"
+      ],
+      "prompt": "Reference image 1 is our project-owned full-body design of this same adult warrior: bald, a single centered forehead eye in addition to two normal eyes, athletic build, bare upper body, deep olive green martial-arts pants, red waist sash and wrist wraps, white ankle wraps and dark brown martial-arts shoes. Draw fresh original sprites in the clean hand-inked C-series cel comic style of this project. Create a transparent 3 columns x 2 rows atlas, landscape 3:2, six separated silhouette cutouts, one per grid cell, equal visual scale, no floor or shadow, spare clear gutters to avoid crops, orient all figures toward screen right. Top row: 1 planted direct volleyball hand bump with both forearms together and legs flexed, 2 pronounced upward volleyball set open hands above forehead and fingers up, 3 overhead palm strike swung DOWN hard toward the ground on the screen right, chest bows forward. Bottom row: 4 clearly distinct compact low guard with hands near chest, 5 extended straight right arm and EXACTLY ONE pointing index finger, other four fingers curl, 6 two hands pressed into TRIANGULAR window formed by joined index fingers and thumbs, elbows out aiming forward. Upper bodies do not change size between motions."
+    },
+    {
+      "candidate": "states",
+      "path": "Assets/DragonIdle/Resources/Art/V0173/Tien/states.png",
+      "sha256": "7cbccf51ffda88ce0588f2cd5e936daf58637eee430b7fd901ada6b67b697486",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/tien-test-portrait.png",
+        "Assets/DragonIdle/Resources/Art/V050/tien-test-atlas.png"
+      ],
+      "prompt": "Reference image 1 is our project-owned full-body design of this same adult warrior: bald, a single centered forehead eye in addition to two normal eyes, athletic build, bare upper body, deep olive green martial-arts pants, red waist sash and wrist wraps, white ankle wraps and dark brown martial-arts shoes. Draw fresh original sprites in the clean hand-inked C-series cel comic style of this project. Create a transparent 3 columns x 2 rows atlas, landscape 3:2, six separated silhouette cutouts, one per grid cell, equal visual scale, no floor or shadow, spare clear gutters to avoid crops, orient all figures toward screen right. Top row: 1 low planted open-hand idle guard, 2 rightward run with near leg ahead, 3 run with far leg ahead and near leg back, genuinely alternate feet and arms. Bottom row: 4 body sharply recoils backward from an impact, 5 curled suspended small float, 6 defeated lying curled on side, eyes shut, head left feet right. Full figure in each cell, no text."
+    },
+    {
+      "candidate": "recovery",
+      "path": "Assets/DragonIdle/Resources/Art/V0173/Tien/recovery.png",
+      "sha256": "be34d71eda4b6558549f10f2820e537b19ebf1a30c9fd1928c7e71fcecdaf732",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/tien-test-portrait.png",
+        "Assets/DragonIdle/Resources/Art/V050/tien-test-atlas.png"
+      ],
+      "prompt": "Reference image 1 is our project-owned full-body design of this same adult warrior: bald, a single centered forehead eye in addition to two normal eyes, athletic build, bare upper body, deep olive green martial-arts pants, red waist sash and wrist wraps, white ankle wraps and dark brown martial-arts shoes. Draw fresh original sprites in the clean hand-inked C-series cel comic style of this project. Exactly 2 columns × 2 rows, transparent square game pose sheet, no visible separator or shadow or words. Top left: low landing squat, one leg bent forward and feet firmly on the ground, both arms for balance. Top right: upright condensed fighting stance with both fists calmly raised, both feet showing. Bottom left: large air recoil open arms, bent knees and face grimaces, detached from ground. Bottom right: takeoff fully visible, airborne knees flexed, two hands making the clean triangular window with index fingers and thumbs. All four face screen right. Equal visual model scale, big transparent gutters."
+    },
+    {
+      "candidate": "skills-a",
+      "path": "Assets/DragonIdle/Resources/Art/V0173/Tien/skills-a.png",
+      "sha256": "e3359005ee0bd54d59274ebc142968103d90ff615c6c464ad9da42d086bde66e",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/tien-test-portrait.png",
+        "Assets/DragonIdle/Resources/Art/V0172/Yamcha/icons-a.png"
+      ],
+      "prompt": "Reference image 1 is our project-owned full-body design of this same adult warrior: bald, a single centered forehead eye in addition to two normal eyes, athletic build, bare upper body, deep olive green martial-arts pants, red waist sash and wrist wraps, white ankle wraps and dark brown martial-arts shoes. Draw fresh original sprites in the clean hand-inked C-series cel comic style of this project. Make transparent 2 by 2 square atlas of tight square skill emblems matching the simple dark ink teal interior and thin gold rounded frame of reference 2. Four precisely distinct portraits: top left open hand driving a white warm VOLLEYBALL SPIKE DOWN, diagonal highlights; top right hands joined in triangular opening and white-gold rectangular flash emerging from triangular finger frame, his third eye visible; bottom left both hands raising an imaginary volleyball as gentle silver-blue arcs lift up; bottom right one strong pointing index finger extending to screen right, a short bolt of amber-white energy at tip. Correct five digits, no figures besides him, no letters or labels."
+    },
+    {
+      "candidate": "skills-b",
+      "path": "Assets/DragonIdle/Resources/Art/V0173/Tien/skills-b.png",
+      "sha256": "b1d052a6ed55a73e015890edf399369dcfd06d9361ff492ca5cb7ce56fda4c72",
+      "refs": [
+        "Assets/DragonIdle/Resources/Art/V051/tien-test-portrait.png",
+        "Assets/DragonIdle/Resources/Art/V0172/Yamcha/icons-a.png"
+      ],
+      "prompt": "Reference image 1 is our project-owned full-body design of this same adult warrior: bald, a single centered forehead eye in addition to two normal eyes, athletic build, bare upper body, deep olive green martial-arts pants, red waist sash and wrist wraps, white ankle wraps and dark brown martial-arts shoes. Draw fresh original sprites in the clean hand-inked C-series cel comic style of this project. 2 by 2 square icon sheet, individually thin gold rounded frames, dark ink blue inside. Tight comedic action anatomy with strong silhouettes. Top left powerful overhead palm descending crimson-gold speed lines; top right frontal upper torso and his two hands forming clearly triangular window, gold burst below his hands; bottom left both upturned hands in close volleyball setting gesture with blue-cyan movement arcs emphasizing upward direction; bottom right cropped face and one right-facing pointed index finger emitting a warm light streak. Exactly four tiles, no text."
+    },
+    {
+      "candidate": "roles-a",
+      "path": "Assets/DragonIdle/Resources/Interface/Role/V0173/roles.png",
+      "sha256": "1648e01d7ea6635f7df62c3915a952a5c543a5171627e3a3f0814f8660de91df",
+      "refs": [],
+      "prompt": "A horizontal 3-column atlas exactly 3 contiguous equal square subimages with generous transparent side margins inside each tile. Transparent background. Original polished tiny video game UI emblems for 22-32 px use, very clear silhouettes, few shapes, no text, symbols or equipment except the bean. First emblem: RED simplified small gender-neutral full-body martial artist crouching slightly to gather energy at waist, tight flame aura. Second emblem: BLUE simplified small gender-neutral martial artist holding both clenched fists in front of chest in a symmetric guard, gloved silhouette if useful. Third emblem: GREEN simplified small gender-neutral martial artist with one arm extended, passing a clearly visible pale green bean to a second small outlined hand coming in from edge, bean visibly distinct. Visually unify them as hand-painted matte enamel miniatures, substantial dark outline and subtle gold-adjacent rim lighting in each motif’s own hue, simple red blue green color separation, no outer buttons, no ring frames. Reduce the number of sparks. Strong readability from shape alone."
+    },
+    {
+      "candidate": "roles-b",
+      "path": "Art/Production/V0173/Tien/candidates/roles-b.png",
+      "sha256": "5f3de7996f80b5b0a1dfc54f05d795d43ef7c6d853be4e5f7d37816ea6d00f12",
+      "refs": [],
+      "prompt": "A horizontal 3-column atlas exactly 3 contiguous equal square subimages with generous transparent side margins inside each tile. Transparent background. Original polished tiny video game UI emblems for 22-32 px use, very clear silhouettes, few shapes, no text, symbols or equipment except the bean. First emblem: RED simplified small gender-neutral full-body martial artist crouching slightly to gather energy at waist, tight flame aura. Second emblem: BLUE simplified small gender-neutral martial artist holding both clenched fists in front of chest in a symmetric guard, gloved silhouette if useful. Third emblem: GREEN simplified small gender-neutral martial artist with one arm extended, passing a clearly visible pale green bean to a second small outlined hand coming in from edge, bean visibly distinct. Use thick clean bold pictographic silhouettes, ink edge, very few internal marks, expressive solid red blue and green pot-glaze highlights, no frame outside each emblem. Match a polished light paper/ink-teal game UI, extremely legible without a plaque."
+    }
+  ],
+  "audio": {
+    "sourceRoot": "D:/Projects/dragonball-idle-unity/artifacts/xenoverse2-audio/赛亚人篇-角色音频素材库/01-角色音频/天津饭",
+    "cues": [
+      {
+        "id": "entry",
+        "source": "01-战斗语音/天津饭-攻击-内嵌0005.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0173/Tien/entry.wav",
+        "sha256": "b22501fa382c6bc3779b737c776a890acce37f58364d39a60ec1b003bc55103d",
+        "seconds": 0.35
+      },
+      {
+        "id": "land",
+        "source": "02-专属音效/天津饭-音效-内嵌0001.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0173/Tien/land.wav",
+        "sha256": "37dfc09a07aacfb7470e02dd91f30bc1cb608ee8aada3e3806d1ecf8ba7c0337",
+        "seconds": 0.589
+      },
+      {
+        "id": "volley",
+        "source": "03-技能语音/02-原库其他/排球拳-S122_HKK/天津饭-排球拳-内嵌0001.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0173/Tien/volley.wav",
+        "sha256": "9e4ed9cce2b239e362686d0a464d8fb6f99c6446425de950eb165042976f05a1",
+        "seconds": 1.077
+      },
+      {
+        "id": "cannon",
+        "source": "03-技能语音/01-本篇优先/气功炮-S121_KKH/天津饭-气功炮-内嵌0001.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0173/Tien/cannon.wav",
+        "sha256": "46dd2cfbd5849e68d28764b781f201106a2f1041be356831e405740b946ce4d0",
+        "seconds": 0.967
+      },
+      {
+        "id": "cannon-impact",
+        "source": "02-专属音效/天津饭-命中-内嵌0003.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0173/Tien/cannon-impact.wav",
+        "sha256": "de9ef47c642966c21369884a6bd595da85243899cf4f3ab51e9ddd5bd40e8506",
+        "seconds": 1.254
+      },
+      {
+        "id": "set",
+        "source": "01-战斗语音/天津饭-攻击-内嵌0016.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0173/Tien/set.wav",
+        "sha256": "0bcbd8793035ec0fe175055b45f8dfb5a2dff94658eb317345570051b58eebec",
+        "seconds": 0.441
+      },
+      {
+        "id": "finger",
+        "source": "01-战斗语音/天津饭-攻击-内嵌0006.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0173/Tien/finger.wav",
+        "sha256": "629bab19ca780e1cc94a6d70aecbf1847216fd751c3f9c4576101de672dbcdb5",
+        "seconds": 0.351
+      },
+      {
+        "id": "finger-impact",
+        "source": "02-专属音效/天津饭-音效-内嵌0002.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0173/Tien/finger-impact.wav",
+        "sha256": "959faa48a0b5ab5a9b2b4b921b02365e4f766c4777ef93ee7ca1d93baf92ad96",
+        "seconds": 0.621
+      },
+      {
+        "id": "hit-light",
+        "source": "01-战斗语音/天津饭-轻受击-内嵌0028.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0173/Tien/hit-light.wav",
+        "sha256": "57ffac03d1da3c4e4a37451d338e5784a5127552d58ae8863bc9a5005d449660",
+        "seconds": 0.421
+      },
+      {
+        "id": "hit-heavy",
+        "source": "01-战斗语音/天津饭-重受击-内嵌0033.wav",
+        "runtime": "Assets/DragonIdle/Resources/Audio/V0173/Tien/hit-heavy.wav",
+        "sha256": "1e2ed86c74cc01d68b63ccbca646c4004a11bda87f76d6696b6bc5f59232e5a7",
+        "seconds": 0.566
+      }
+    ]
+  }
+}

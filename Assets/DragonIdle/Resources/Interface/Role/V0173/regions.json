@@ -1,0 +1,24 @@
+{
+ "tiles": [
+  {
+   "x": 96,
+   "y": 30,
+   "width": 545,
+   "height": 674
+  },
+  {
+   "x": 845,
+   "y": 61,
+   "width": 438,
+   "height": 645
+  },
+  {
+   "x": 1448,
+   "y": 120,
+   "width": 705,
+   "height": 584
+  }
+ ],
+ "sourceWidth": 2172,
+ "sourceHeight": 724
+}

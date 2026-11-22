@@ -12,21 +12,34 @@ namespace DragonIdle {
   UI.Button filterDropdownTrigger;
   const int FilterVisibleRows=6,FilterRowHeight=38;
   readonly Dictionary<UI.Selectable,bool> modalSelectables=new Dictionary<UI.Selectable,bool>();
-  RectTransform NewGalleryDialog(string title,string subtitle){
+  RectTransform NewGalleryDialog(string title,string subtitle,bool focusClose=true,bool headerRule=true,float width=740,float height=540){
+   CreateGalleryBackdrop(.78f);
+   var card=UPanel(dialogRoot,"Modal",(1600-width)*.5f,(900-height)*.5f,width,height,uiPanel,true);
+   var swallow=card.gameObject.AddComponent<UI.Button>();swallow.transition=UI.Selectable.Transition.None;swallow.navigation=new UI.Navigation{mode=UI.Navigation.Mode.None};
+   if(headerRule)UPanel(card,"Rule",0,0,width,4,uiAccent);
+   UText(card,"Title",title,26,22,width-120,40,27,uiPaper);
+   UText(card,"Subtitle",subtitle,26,73,width-56,65,17,uiDim);
+   var close=UButton(card,"Close","",width-68,16,42,38,CloseGalleryDialog);
+   close.GetComponentInChildren<UI.Text>().gameObject.SetActive(false);
+   var glyph=UNode(close.transform,"CloseGlyph",11,9,20,20);
+   glyph.anchorMin=glyph.anchorMax=glyph.pivot=Vector2.one*.5f;
+   glyph.anchoredPosition=Vector2.zero;
+   for(int i=0;i<2;i++){
+    var stroke=UPanel(glyph,"Stroke"+i,0,0,17,2,InkText);
+    stroke.anchorMin=stroke.anchorMax=stroke.pivot=Vector2.one*.5f;
+    stroke.anchoredPosition=Vector2.zero;
+    stroke.localRotation=Quaternion.Euler(0,0,i==0?45:-45);
+   }
+   if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(focusClose?close.gameObject:null);
+   return card;
+  }
+  void CreateGalleryBackdrop(float darkness){
    CloseFilterDropdown();
    var restore=dialogRoot!=null?dialogReturnFocus:EventSystem.current==null?null:EventSystem.current.currentSelectedGameObject;
    CloseGalleryDialog();dialogReturnFocus=restore;
    foreach(var control in galleryRoot.GetComponentsInChildren<UI.Selectable>()){modalSelectables[control]=control.interactable;control.interactable=false;}
-   dialogRoot=UPanel(galleryRoot,"ModalBackdrop",0,0,1600,900,new Color(0,0,0,.78f),true);
+   dialogRoot=UPanel(galleryRoot,"ModalBackdrop",0,0,1600,900,new Color(0,0,0,darkness),true);
    var dismiss=dialogRoot.gameObject.AddComponent<UI.Button>();dismiss.transition=UI.Selectable.Transition.None;dismiss.navigation=new UI.Navigation{mode=UI.Navigation.Mode.None};dismiss.onClick.AddListener(CloseGalleryDialog);
-   var card=UPanel(dialogRoot,"Modal",430,180,740,540,uiPanel,true);
-   var swallow=card.gameObject.AddComponent<UI.Button>();swallow.transition=UI.Selectable.Transition.None;swallow.navigation=new UI.Navigation{mode=UI.Navigation.Mode.None};
-   UPanel(card,"Rule",0,0,740,4,uiAccent);
-   UText(card,"Title",title,26,22,620,40,27,uiPaper);
-   UText(card,"Subtitle",subtitle,26,73,684,65,17,uiDim);
-   var close=UButton(card,"Close","×",672,16,45,40,CloseGalleryDialog);
-   if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(close.gameObject);
-   return card;
   }
   void CloseGalleryDialog(){
    foreach(var pair in modalSelectables)if(pair.Key!=null)pair.Key.interactable=pair.Value;modalSelectables.Clear();
@@ -39,8 +52,8 @@ namespace DragonIdle {
    var trigger=filterButtons[kind];bool toggle=filterDropdownTrigger==trigger;
    CloseFilterDropdown();if(toggle)return;
    filterDropdownTrigger=trigger;
-   string[] values=kind==0?new[]{""}.Concat(Data.Rarities.Where(rank=>Data.Cards.Any(card=>card.Rarity==rank))).ToArray():
-    kind==1?new[]{""}.Concat(Data.Cards.SelectMany(c=>c.Tags).Distinct()).ToArray():SortLabels;
+   string[] values=kind==0?new[]{""}.Concat(Data.Rarities.Where(rank=>Data.RoundRoster.Any(id=>Data.Card(id).Rarity==rank))).ToArray():
+    kind==1?new[]{""}.Concat(Data.RoundIdentityTags()).ToArray():SortLabels;
    int selected=kind==0?Array.IndexOf(values,catalog.Rarity):kind==1?Array.IndexOf(values,catalog.Tag):catalog.Sort;
    var anchor=(RectTransform)trigger.transform;
    filterDropdown=UPanel(galleryListRoot,"FilterDropdown",0,0,1600,900,Color.clear,true);
@@ -87,21 +100,6 @@ namespace DragonIdle {
    filterDropdown.gameObject.SetActive(false);Destroy(filterDropdown.gameObject);filterDropdown=null;
    var trigger=filterDropdownTrigger;filterDropdownTrigger=null;
    if(EventSystem.current!=null&&trigger!=null&&trigger.isActiveAndEnabled)EventSystem.current.SetSelectedGameObject(trigger.gameObject);
-  }
-  void ShowFormationPicker(int i){
-   if(i<0||!profile.Owned[i])return;
-   var c=Data.Cards[i];var occupied=profile.RoundFormation();int existing=Array.IndexOf(occupied,i);
-   var panel=NewGalleryDialog("选择 "+c.Name+" 的阵位","九宫格依次从上到下、从右到左编号；最多五人。");
-   int count=occupied.Count(n=>n>=0);
-   for(int n=0;n<RoundBoard.Cells;n++){
-    int cell=n+1,index=occupied[n];
-    string label=cell+" 号位\n"+(index<0?"空位":Data.Cards[index].Name);
-    UButton(panel,"RoundPick"+cell,label,26+RoundBoard.Column(cell,0)*232,153+RoundBoard.Row(cell)*97,218,75,()=>{
-     if(Change(()=>{if(!profile.SetRoundMember(cell,i))throw new InvalidOperationException("阵位不合法或已满");})){
-      roundPosition=cell;CloseGalleryDialog();GalleryNotice(c.Name+" 已进入 "+cell+" 号位");RefreshGallery(false);
-     }else GalleryNotice(notice,false);
-    },enabled:saveError==""&&(existing>=0||count<RoundBoard.PlayerLimit||index>=0),selected:n==existing);
-   }
   }
   void ShowAcquisition(int i){
    var c=Data.Cards[i];var panel=NewGalleryDialog("获取 · "+c.Name,c.Title+" / "+c.Stage+" / "+c.Rarity+"。重复获得将转为本张卡的专属成长资源。");

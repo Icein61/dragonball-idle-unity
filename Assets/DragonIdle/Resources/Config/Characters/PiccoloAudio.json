@@ -1,0 +1,60 @@
+{
+ "cardId": "piccolo-test",
+ "cues": [
+  {
+   "id": "piccolo-entry",
+   "resource": "Audio/V0143/Piccolo/piccolo-short",
+   "gain": 0.55
+  },
+  {
+   "id": "piccolo-basic",
+   "resource": "Audio/V0143/Piccolo/piccolo-basic",
+   "gain": 0.78
+  },
+  {
+   "id": "piccolo-pursuit",
+   "resource": "Audio/V0143/Piccolo/piccolo-short",
+   "gain": 0.79
+  },
+  {
+   "id": "piccolo-gather",
+   "resource": "Audio/V0143/Piccolo/piccolo-gather",
+   "gain": 0.87
+  },
+  {
+   "id": "piccolo-fire",
+   "resource": "Audio/V0143/Piccolo/piccolo-fire",
+   "gain": 0.94
+  },
+  {
+   "id": "piccolo-counter",
+   "resource": "Audio/V0143/Piccolo/piccolo-counter",
+   "gain": 0.76
+  },
+  {
+   "id": "piccolo-hit-light",
+   "resource": "Audio/V0143/Piccolo/piccolo-hit-light",
+   "gain": 0.72
+  },
+  {
+   "id": "piccolo-hit-heavy",
+   "resource": "Audio/V0143/Piccolo/piccolo-hit-heavy",
+   "gain": 0.76
+  },
+  {
+   "id": "piccolo-dash",
+   "resource": "Audio/V0143/Piccolo/piccolo-dash",
+   "gain": 0.44
+  },
+  {
+   "id": "piccolo-blast",
+   "resource": "Audio/V0143/Piccolo/piccolo-blast",
+   "gain": 0.59
+  },
+  {
+   "id": "piccolo-land",
+   "resource": "Audio/V0138/Goku/land",
+   "gain": 0.4
+  }
+ ]
+}

@@ -56,7 +56,7 @@ static class ChapterChecks {
   int oldUnlocked=p.Unlocked,oldPulls=p.Pulls;
   string reward=p.RewardStory(0,1);
   int crystals=p.Crystals;
-  check(p.Owned.Count(x=>x)==8&&p.StoryUnlocked==1&&p.StoryCleared[0]&&p.Unlocked==oldUnlocked&&reward.Contains("首通"),"S14 first clear unlocks story without awarding removed cards");
+  check(p.Owned.Count(x=>x)==Data.StarterCardIds.Length&&p.StoryUnlocked==1&&p.StoryCleared[0]&&p.Unlocked==oldUnlocked&&reward.Contains("首通"),"S14 first clear unlocks story without awarding removed cards");
   p.RewardStory(0,2);
   check(p.Crystals-crystals==6,"S15 replay cannot repeat first-clear crystals");
   p.RewardStory(1,3);p.RewardStory(2,4);p.RewardStory(3,5);
@@ -66,10 +66,10 @@ static class ChapterChecks {
   p=new Profile();p.SaiyanPulls=19;p.Crystals=50;check(p.SummonSaiyan(3).StartsWith("[A]")&&p.Pulls==0&&p.SaiyanPulls==20&&p.Crystals==0,"S19 separate saga pity transaction");
   p.SummonSaiyan(4);check(p.SaiyanPulls==20,"S20 insufficient currency preserves saga pity");
   p=new Profile();p.Crystals=50000;for(int i=0;i<1000;i++)p.SummonSaiyan(i);
-  check(Data.Cards.Where(Data.InSaiyanPool).Count()==9&&Enumerable.Range(0,Data.Cards.Length).Where(i=>!Data.InSaiyanPool(Data.Cards[i])).All(i=>p.Shards[i]==0),"S21 saga pool excludes later eras");
+  check(Data.Cards.Where(Data.InSaiyanPool).Count()==10&&Enumerable.Range(0,Data.Cards.Length).Where(i=>!Data.InSaiyanPool(Data.Cards[i])).All(i=>p.Shards[i]==0),"S21 saga pool excludes later eras");
   p=new Profile();p.Crystals=5000;for(int i=0;i<100;i++)p.Summon(i);check(Data.Cards.Where(Data.InClassicPool).Count()==9,"S22 classic pool contains only nine configured saga IDs");
   p=ScopeChecks.Previous(20);p.Training[0]=99;p.Shards[13]=7;p.Owned[13]=true;p.Team[6]=13;p.Items[0].owner=13;p.StoryCleared=new bool[0];p.Normalize();
-  check(p.CardIds.Length==9&&p.Retired.Single(r=>r.cardId=="goku-namek-ssj-v020").shards==7&&p.Training[0]==99&&p.Team.Length==Data.TeamSlots&&p.Items[0].owner==-1&&p.StoryUnlocked==0,"S23 v020 migration archives removed cards without erasing growth");
+  check(p.CardIds.Length==10&&p.Retired.Single(r=>r.cardId=="goku-namek-ssj-v020").shards==7&&p.Training[0]==99&&p.Team.Length==Data.TeamSlots&&p.Items[0].owner==-1&&p.StoryUnlocked==0,"S23 v020 migration archives removed cards without erasing growth");
   p.Normalize();check(p.Training[0]==99&&p.Retired.Single(r=>r.cardId=="goku-namek-ssj-v020").shards==7&&p.StoryCleared.Length==4,"S24 migration idempotent");
     var invalid=new Profile();invalid.StoryCleared=new bool[0];rejected=false;try{invalid.Normalize();}catch(InvalidOperationException){rejected=true;}check(rejected,"S24b current schema corrupted chapter array rejected");
   foreach(var c in Data.Cards.Where(Data.InSaiyanPool)){

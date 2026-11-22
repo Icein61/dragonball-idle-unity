@@ -1,0 +1,1536 @@
+{
+  "atlas": [
+    {
+      "image": "idle-keyframes",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        250,
+        483
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "idle-keyframes",
+      "crop": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        733,
+        483
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "idle-keyframes",
+      "crop": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        1234,
+        482
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "idle-keyframes",
+      "crop": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        250,
+        1001
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "idle-keyframes",
+      "crop": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        733,
+        1001
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "idle-keyframes",
+      "crop": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        1234,
+        1000
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "combat-keyframes",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        244,
+        488
+      ],
+      "zoom": 1,
+      "hit": [
+        475,
+        168
+      ],
+      "beam": []
+    },
+    {
+      "image": "combat-keyframes",
+      "crop": [
+        0,
+        512,
+        454,
+        512
+      ],
+      "pivot": [
+        111,
+        992
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "combat-keyframes",
+      "crop": [
+        454,
+        512,
+        576,
+        512
+      ],
+      "pivot": [
+        588,
+        971
+      ],
+      "zoom": 1,
+      "hit": [
+        986,
+        637
+      ],
+      "beam": []
+    },
+    {
+      "image": "combat-keyframes",
+      "crop": [
+        1030,
+        512,
+        506,
+        512
+      ],
+      "pivot": [
+        1262,
+        994
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "ultimate-keyframes",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        258,
+        495
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "ultimate-keyframes",
+      "crop": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        747,
+        495
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": [
+        648,
+        239
+      ]
+    },
+    {
+      "image": "ultimate-keyframes",
+      "crop": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        1228,
+        495
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": [
+        1394,
+        190
+      ]
+    },
+    {
+      "image": "ultimate-keyframes",
+      "crop": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        246,
+        1011
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": [
+        445,
+        703
+      ]
+    },
+    {
+      "image": "ultimate-keyframes",
+      "crop": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        738,
+        1012
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": [
+        914,
+        724
+      ]
+    },
+    {
+      "image": "ultimate-keyframes",
+      "crop": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        1250,
+        1012
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "idle-transitions",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        250,
+        484
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "idle-transitions",
+      "crop": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        733,
+        484
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "idle-transitions",
+      "crop": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        1234,
+        484
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "idle-transitions",
+      "crop": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        250,
+        1001
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "idle-transitions",
+      "crop": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        733,
+        1001
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "idle-transitions",
+      "crop": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        1234,
+        1001
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "punch-transitions",
+      "crop": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        745,
+        486
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "punch-transitions",
+      "crop": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        1251,
+        485
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "punch-transitions",
+      "crop": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        247,
+        1001
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "punch-transitions",
+      "crop": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        740,
+        1001
+      ],
+      "zoom": 1,
+      "hit": [
+        925,
+        737
+      ],
+      "beam": []
+    },
+    {
+      "image": "punch-transitions",
+      "crop": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        1251,
+        1001
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "sweep-transitions",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        204,
+        478
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "sweep-transitions",
+      "crop": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        718,
+        471
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "sweep-transitions",
+      "crop": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        1228,
+        471
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "sweep-contact",
+      "crop": [
+        220,
+        10,
+        1178,
+        1003
+      ],
+      "pivot": [
+        612,
+        1007
+      ],
+      "zoom": 0.424,
+      "hit": [
+        1384,
+        779
+      ],
+      "beam": []
+    },
+    {
+      "image": "sweep-transitions",
+      "crop": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        742,
+        986
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "sweep-transitions",
+      "crop": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        1278,
+        984
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "chase-transitions",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        214,
+        492
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "chase-transitions",
+      "crop": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        649,
+        490
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "chase-transitions",
+      "crop": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        1175,
+        479
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "chase-transitions",
+      "crop": [
+        0,
+        512,
+        480,
+        512
+      ],
+      "pivot": [
+        131,
+        985
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "chase-transitions",
+      "crop": [
+        480,
+        512,
+        545,
+        512
+      ],
+      "pivot": [
+        618,
+        985
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "chase-transitions",
+      "crop": [
+        1025,
+        512,
+        511,
+        512
+      ],
+      "pivot": [
+        1189,
+        994
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "beam-transitions",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        258,
+        496
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "beam-transitions",
+      "crop": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        747,
+        496
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": [
+        643,
+        240
+      ]
+    },
+    {
+      "image": "beam-transitions",
+      "crop": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "pivot": [
+        1233,
+        496
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": [
+        1210,
+        239
+      ]
+    },
+    {
+      "image": "beam-transitions",
+      "crop": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        242,
+        1012
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": [
+        421,
+        708
+      ]
+    },
+    {
+      "image": "beam-transitions",
+      "crop": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        738,
+        1012
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": [
+        902,
+        724
+      ]
+    },
+    {
+      "image": "beam-transitions",
+      "crop": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "pivot": [
+        1247,
+        1012
+      ],
+      "zoom": 1,
+      "hit": [],
+      "beam": [
+        1261,
+        748
+      ]
+    },
+    {
+      "image": "rapid-transitions",
+      "crop": [
+        0,
+        0,
+        631,
+        623
+      ],
+      "pivot": [
+        310,
+        600
+      ],
+      "zoom": 0.8,
+      "hit": [],
+      "beam": []
+    },
+    {
+      "image": "rapid-transitions",
+      "crop": [
+        631,
+        0,
+        632,
+        623
+      ],
+      "pivot": [
+        920,
+        600
+      ],
+      "zoom": 0.8,
+      "hit": [],
+      "beam": [
+        1064,
+        283
+      ]
+    },
+    {
+      "image": "rapid-transitions",
+      "crop": [
+        0,
+        623,
+        631,
+        623
+      ],
+      "pivot": [
+        311,
+        1231
+      ],
+      "zoom": 0.79,
+      "hit": [],
+      "beam": [
+        486,
+        927
+      ]
+    },
+    {
+      "image": "rapid-transitions",
+      "crop": [
+        631,
+        623,
+        632,
+        623
+      ],
+      "pivot": [
+        922,
+        1231
+      ],
+      "zoom": 0.79,
+      "hit": [],
+      "beam": []
+    }
+  ],
+  "clips": [
+    {
+      "id": "idle",
+      "title": "站立待机",
+      "duration": 3000,
+      "impactAt": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 0
+        },
+        {
+          "at": 330,
+          "drawing": 16
+        },
+        {
+          "at": 615,
+          "drawing": 1
+        },
+        {
+          "at": 920,
+          "drawing": 16
+        },
+        {
+          "at": 1260,
+          "drawing": 0
+        },
+        {
+          "at": 1500,
+          "drawing": 17
+        },
+        {
+          "at": 1800,
+          "drawing": 2
+        },
+        {
+          "at": 2150,
+          "drawing": 17
+        },
+        {
+          "at": 2540,
+          "drawing": 0
+        }
+      ],
+      "root": [],
+      "impacts": []
+    },
+    {
+      "id": "accent",
+      "title": "待机小动画",
+      "duration": 1800,
+      "impactAt": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 0
+        },
+        {
+          "at": 140,
+          "drawing": 5
+        },
+        {
+          "at": 255,
+          "drawing": 18
+        },
+        {
+          "at": 410,
+          "drawing": 4
+        },
+        {
+          "at": 825,
+          "drawing": 18
+        },
+        {
+          "at": 1000,
+          "drawing": 21
+        },
+        {
+          "at": 1180,
+          "drawing": 5
+        },
+        {
+          "at": 1460,
+          "drawing": 0
+        }
+      ],
+      "root": [],
+      "impacts": []
+    },
+    {
+      "id": "basic",
+      "title": "格斗攻击",
+      "duration": 1990,
+      "impactAt": 825,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 0
+        },
+        {
+          "at": 110,
+          "drawing": 17
+        },
+        {
+          "at": 235,
+          "drawing": 23
+        },
+        {
+          "at": 315,
+          "drawing": 22
+        },
+        {
+          "at": 400,
+          "drawing": 6
+        },
+        {
+          "at": 493,
+          "drawing": 22
+        },
+        {
+          "at": 587,
+          "drawing": 23
+        },
+        {
+          "at": 715,
+          "drawing": 24
+        },
+        {
+          "at": 784,
+          "drawing": 45
+        },
+        {
+          "at": 825,
+          "drawing": 25
+        },
+        {
+          "at": 967,
+          "drawing": 26
+        },
+        {
+          "at": 1110,
+          "drawing": 23
+        },
+        {
+          "at": 1260,
+          "drawing": 2
+        },
+        {
+          "at": 1480,
+          "drawing": 17
+        },
+        {
+          "at": 1730,
+          "drawing": 0
+        }
+      ],
+      "root": [
+        {
+          "at": 0,
+          "x": 0
+        },
+        {
+          "at": 235,
+          "x": 15
+        },
+        {
+          "at": 315,
+          "x": 44
+        },
+        {
+          "at": 400,
+          "x": 124
+        },
+        {
+          "at": 487,
+          "x": 124
+        },
+        {
+          "at": 625,
+          "x": 96
+        },
+        {
+          "at": 740,
+          "x": 106
+        },
+        {
+          "at": 825,
+          "x": 153
+        },
+        {
+          "at": 945,
+          "x": 153
+        },
+        {
+          "at": 1100,
+          "x": 116
+        },
+        {
+          "at": 1260,
+          "x": 107
+        },
+        {
+          "at": 1725,
+          "x": 0
+        }
+      ],
+      "impacts": [
+        {
+          "at": 400,
+          "kind": "head",
+          "drawing": 6
+        },
+        {
+          "at": 825,
+          "kind": "body",
+          "drawing": 25
+        }
+      ]
+    },
+    {
+      "id": "ultimate",
+      "title": "龟派气功",
+      "duration": 4660,
+      "impactAt": 2080,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 0
+        },
+        {
+          "at": 130,
+          "drawing": 15
+        },
+        {
+          "at": 255,
+          "drawing": 39
+        },
+        {
+          "at": 425,
+          "drawing": 10
+        },
+        {
+          "at": 575,
+          "drawing": 11
+        },
+        {
+          "at": 890,
+          "drawing": 40
+        },
+        {
+          "at": 1285,
+          "drawing": 11
+        },
+        {
+          "at": 1535,
+          "drawing": 40
+        },
+        {
+          "at": 1790,
+          "drawing": 11
+        },
+        {
+          "at": 1895,
+          "drawing": 41
+        },
+        {
+          "at": 1942,
+          "drawing": 46
+        },
+        {
+          "at": 2017,
+          "drawing": 42
+        },
+        {
+          "at": 2080,
+          "drawing": 12
+        },
+        {
+          "at": 2190,
+          "drawing": 13
+        },
+        {
+          "at": 2460,
+          "drawing": 12
+        },
+        {
+          "at": 2670,
+          "drawing": 13
+        },
+        {
+          "at": 2895,
+          "drawing": 43
+        },
+        {
+          "at": 3170,
+          "drawing": 14
+        },
+        {
+          "at": 3350,
+          "drawing": 47
+        },
+        {
+          "at": 3510,
+          "drawing": 44
+        },
+        {
+          "at": 3650,
+          "drawing": 15
+        },
+        {
+          "at": 3870,
+          "drawing": 48
+        },
+        {
+          "at": 4080,
+          "drawing": 17
+        },
+        {
+          "at": 4270,
+          "drawing": 0
+        }
+      ],
+      "root": [
+        {
+          "at": 0,
+          "x": 0
+        },
+        {
+          "at": 575,
+          "x": -8
+        },
+        {
+          "at": 1500,
+          "x": -8
+        },
+        {
+          "at": 1895,
+          "x": -11
+        },
+        {
+          "at": 2080,
+          "x": 21
+        },
+        {
+          "at": 2190,
+          "x": 13
+        },
+        {
+          "at": 2895,
+          "x": 11
+        },
+        {
+          "at": 3300,
+          "x": 0
+        }
+      ],
+      "impacts": [],
+      "beam": {
+        "gather": 575,
+        "compress": 1520,
+        "push": 1895,
+        "fire": 2080,
+        "cut": 3125,
+        "extinguish": 3510
+      }
+    },
+    {
+      "id": "pursuit",
+      "title": "踢击",
+      "duration": 2410,
+      "impactAt": 930,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 0
+        },
+        {
+          "at": 120,
+          "drawing": 2
+        },
+        {
+          "at": 245,
+          "drawing": 33
+        },
+        {
+          "at": 365,
+          "drawing": 34
+        },
+        {
+          "at": 530,
+          "drawing": 7
+        },
+        {
+          "at": 665,
+          "drawing": 35
+        },
+        {
+          "at": 810,
+          "drawing": 36
+        },
+        {
+          "at": 930,
+          "drawing": 8
+        },
+        {
+          "at": 1060,
+          "drawing": 37
+        },
+        {
+          "at": 1190,
+          "drawing": 36
+        },
+        {
+          "at": 1355,
+          "drawing": 38
+        },
+        {
+          "at": 1540,
+          "drawing": 9
+        },
+        {
+          "at": 1740,
+          "drawing": 32
+        },
+        {
+          "at": 1950,
+          "drawing": 2
+        },
+        {
+          "at": 2180,
+          "drawing": 0
+        }
+      ],
+      "root": [
+        {
+          "at": 0,
+          "x": 0
+        },
+        {
+          "at": 245,
+          "x": 35
+        },
+        {
+          "at": 530,
+          "x": 105
+        },
+        {
+          "at": 930,
+          "x": 105
+        },
+        {
+          "at": 1480,
+          "x": 105
+        },
+        {
+          "at": 1790,
+          "x": 69
+        },
+        {
+          "at": 2180,
+          "x": 0
+        }
+      ],
+      "impacts": [
+        {
+          "at": 930,
+          "kind": "lift",
+          "drawing": 8
+        }
+      ]
+    },
+    {
+      "id": "opening",
+      "title": "修炼的成果",
+      "duration": 2350,
+      "impactAt": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 0
+        },
+        {
+          "at": 135,
+          "drawing": 18
+        },
+        {
+          "at": 265,
+          "drawing": 19
+        },
+        {
+          "at": 440,
+          "drawing": 3
+        },
+        {
+          "at": 1170,
+          "drawing": 20
+        },
+        {
+          "at": 1320,
+          "drawing": 4
+        },
+        {
+          "at": 1480,
+          "drawing": 21
+        },
+        {
+          "at": 1690,
+          "drawing": 5
+        },
+        {
+          "at": 1930,
+          "drawing": 0
+        }
+      ],
+      "root": [],
+      "impacts": [],
+      "haloFrom": 440,
+      "haloTo": 1450
+    },
+    {
+      "id": "sweep",
+      "title": "格斗攻击",
+      "duration": 2560,
+      "impactAt": 1480,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 0
+        },
+        {
+          "at": 110,
+          "drawing": 17
+        },
+        {
+          "at": 235,
+          "drawing": 23
+        },
+        {
+          "at": 315,
+          "drawing": 22
+        },
+        {
+          "at": 400,
+          "drawing": 6
+        },
+        {
+          "at": 493,
+          "drawing": 22
+        },
+        {
+          "at": 587,
+          "drawing": 23
+        },
+        {
+          "at": 715,
+          "drawing": 24
+        },
+        {
+          "at": 784,
+          "drawing": 45
+        },
+        {
+          "at": 825,
+          "drawing": 25
+        },
+        {
+          "at": 967,
+          "drawing": 26
+        },
+        {
+          "at": 1110,
+          "drawing": 27
+        },
+        {
+          "at": 1265,
+          "drawing": 28
+        },
+        {
+          "at": 1395,
+          "drawing": 29
+        },
+        {
+          "at": 1480,
+          "drawing": 30
+        },
+        {
+          "at": 1620,
+          "drawing": 31
+        },
+        {
+          "at": 1760,
+          "drawing": 32
+        },
+        {
+          "at": 1915,
+          "drawing": 9
+        },
+        {
+          "at": 2070,
+          "drawing": 2
+        },
+        {
+          "at": 2235,
+          "drawing": 17
+        },
+        {
+          "at": 2390,
+          "drawing": 0
+        }
+      ],
+      "root": [
+        {
+          "at": 0,
+          "x": 0
+        },
+        {
+          "at": 235,
+          "x": 15
+        },
+        {
+          "at": 315,
+          "x": 44
+        },
+        {
+          "at": 400,
+          "x": 124
+        },
+        {
+          "at": 487,
+          "x": 124
+        },
+        {
+          "at": 625,
+          "x": 96
+        },
+        {
+          "at": 740,
+          "x": 106
+        },
+        {
+          "at": 825,
+          "x": 153
+        },
+        {
+          "at": 945,
+          "x": 153
+        },
+        {
+          "at": 1100,
+          "x": 116
+        },
+        {
+          "at": 1265,
+          "x": 128
+        },
+        {
+          "at": 1395,
+          "x": 148
+        },
+        {
+          "at": 1480,
+          "x": 167
+        },
+        {
+          "at": 1615,
+          "x": 167
+        },
+        {
+          "at": 1780,
+          "x": 131
+        },
+        {
+          "at": 1970,
+          "x": 76
+        },
+        {
+          "at": 2235,
+          "x": 13
+        },
+        {
+          "at": 2390,
+          "x": 0
+        }
+      ],
+      "impacts": [
+        {
+          "at": 400,
+          "kind": "head",
+          "drawing": 6
+        },
+        {
+          "at": 825,
+          "kind": "body",
+          "drawing": 25
+        },
+        {
+          "at": 1480,
+          "kind": "sweep",
+          "drawing": 30
+        }
+      ]
+    }
+  ]
+}

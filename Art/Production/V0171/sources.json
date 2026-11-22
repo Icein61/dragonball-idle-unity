@@ -1,0 +1,34 @@
+{
+  "version": "0.17.1",
+  "generator": "ImageGen",
+  "assets": [
+    {
+      "rank": "C",
+      "path": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0171/C.png",
+      "sha256": "e9122e005fefbbacff3f2eecb6da788a651ec1483b2c785b82a68b64790f5c92",
+      "reference": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/C.png",
+      "prompt": "Edit this exact square rarity background. Match the existing sage green rice paper texture, saturation, border ornament and quiet light portrait center. Add one clearly recognizable original Dragon Ball-inspired four-star orb motif, a round translucent spherical shape with EXACTLY FOUR small clean five-point stars arranged two above two below inside the circle. Treat the whole motif as an etched monochrome watermark using the same palette, readable and subdued, approximately 24% of canvas width, placed at x77% y33%, behind the future portrait. Keep all four stars visible, no text, character, logos, frame, additional symbols, or grid. Do not erase or recompose the existing texture. Opaque edge-to-edge, clean standalone 1:1 game asset."
+    },
+    {
+      "rank": "B",
+      "path": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0171/B.png",
+      "sha256": "21aae6f4d7b80ec002ce76bc896fcb9378c5812fad44784b730a2dbfde8f3f08",
+      "reference": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/B.png",
+      "prompt": "Edit this exact square rarity background. Match the existing cyan foamy brushstroke texture, saturation, border ornament and quiet light portrait center. Add one clearly recognizable original Dragon Ball-inspired four-star orb motif, a round translucent spherical shape with EXACTLY FOUR small clean five-point stars arranged two above two below inside the circle. Treat the whole motif as an etched monochrome watermark using the same palette, readable and subdued, approximately 24% of canvas width, placed at x77% y33%, behind the future portrait. Keep all four stars visible, no text, character, logos, frame, additional symbols, or grid. Do not erase or recompose the existing texture. Opaque edge-to-edge, clean standalone 1:1 game asset."
+    },
+    {
+      "rank": "A",
+      "path": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0171/A.png",
+      "sha256": "58e4b8487bc955e52106f2217591d68d96eb95339f7821ac9ce2eb0cbf916e57",
+      "reference": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/A.png",
+      "prompt": "Edit this exact square rarity background. Match the existing lilac filigree texture, saturation, border ornament and quiet light portrait center. Add one clearly recognizable original Dragon Ball-inspired four-star orb motif, a round translucent spherical shape with EXACTLY FOUR small clean five-point stars arranged two above two below inside the circle. Treat the whole motif as an etched monochrome watermark using the same palette, readable and subdued, approximately 24% of canvas width, placed at x77% y33%, behind the future portrait. Keep all four stars visible, no text, character, logos, frame, additional symbols, or grid. Do not erase or recompose the existing texture. Opaque edge-to-edge, clean standalone 1:1 game asset."
+    },
+    {
+      "rank": "S",
+      "path": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0171/S.png",
+      "sha256": "7a2cf1c15258f0fab86a05c34c4522692fbef99a3b0d5a2c5df9b9c2d0525e5d",
+      "reference": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/S.png",
+      "prompt": "Edit this exact square rarity background. Match the existing gold foil engraving texture, saturation, border ornament and quiet light portrait center. Add one clearly recognizable original Dragon Ball-inspired four-star orb motif, a round translucent spherical shape with EXACTLY FOUR small clean five-point stars arranged two above two below inside the circle. Treat the whole motif as an etched monochrome watermark using the same palette, readable and subdued, approximately 24% of canvas width, placed at x77% y33%, behind the future portrait. Keep all four stars visible, no text, character, logos, frame, additional symbols, or grid. Do not erase or recompose the existing texture. Opaque edge-to-edge, clean standalone 1:1 game asset."
+    }
+  ]
+}

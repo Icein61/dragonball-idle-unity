@@ -1,0 +1,759 @@
+{
+  "atlas": [
+    {
+      "image": "combat-poses",
+      "crop": [
+        94,
+        10,
+        262,
+        393
+      ],
+      "pivot": [
+        223,
+        402
+      ],
+      "hit": [
+        305,
+        190
+      ],
+      "beam": [
+        305,
+        190
+      ],
+      "zoom": 0.964
+    },
+    {
+      "image": "combat-poses",
+      "crop": [
+        461,
+        30,
+        299,
+        372
+      ],
+      "pivot": [
+        598,
+        401
+      ],
+      "hit": [
+        709,
+        225
+      ],
+      "beam": [
+        709,
+        225
+      ],
+      "zoom": 0.9918
+    },
+    {
+      "image": "combat-poses",
+      "crop": [
+        878,
+        11,
+        283,
+        390
+      ],
+      "pivot": [
+        1020,
+        400
+      ],
+      "hit": [
+        1142,
+        177
+      ],
+      "beam": [
+        1142,
+        177
+      ],
+      "zoom": 0.9767
+    },
+    {
+      "image": "combat-poses",
+      "crop": [
+        84,
+        453,
+        276,
+        351
+      ],
+      "pivot": [
+        220,
+        804
+      ],
+      "hit": [
+        204,
+        655
+      ],
+      "beam": [
+        204,
+        655
+      ],
+      "zoom": 0.9856
+    },
+    {
+      "image": "combat-poses",
+      "crop": [
+        489,
+        418,
+        274,
+        387
+      ],
+      "pivot": [
+        622,
+        803
+      ],
+      "hit": [
+        725,
+        613
+      ],
+      "beam": [
+        725,
+        613
+      ],
+      "zoom": 0.9791
+    },
+    {
+      "image": "combat-poses",
+      "crop": [
+        874,
+        419,
+        343,
+        387
+      ],
+      "pivot": [
+        1015,
+        804
+      ],
+      "hit": [
+        1190,
+        557
+      ],
+      "beam": [
+        1190,
+        557
+      ],
+      "zoom": 0.9713
+    },
+    {
+      "image": "combat-poses",
+      "crop": [
+        52,
+        921,
+        277,
+        309
+      ],
+      "pivot": [
+        211,
+        1221
+      ],
+      "hit": [
+        244,
+        1214
+      ],
+      "beam": [
+        244,
+        1214
+      ],
+      "zoom": 0.9902
+    },
+    {
+      "image": "combat-poses",
+      "crop": [
+        450,
+        829,
+        367,
+        386
+      ],
+      "pivot": [
+        642,
+        1208
+      ],
+      "hit": [
+        789,
+        957
+      ],
+      "beam": [
+        789,
+        957
+      ],
+      "zoom": 0.9346
+    },
+    {
+      "image": "combat-poses",
+      "crop": [
+        914,
+        817,
+        247,
+        378
+      ],
+      "pivot": [
+        1051,
+        1207
+      ],
+      "hit": [
+        1096,
+        990
+      ],
+      "beam": [
+        1096,
+        990
+      ],
+      "zoom": 0.9492
+    },
+    {
+      "image": "reaction-poses",
+      "crop": [
+        73,
+        22,
+        366,
+        474
+      ],
+      "pivot": [
+        260,
+        493
+      ],
+      "hit": [
+        321,
+        233
+      ],
+      "beam": [
+        321,
+        233
+      ],
+      "zoom": 0.766
+    },
+    {
+      "image": "reaction-poses",
+      "crop": [
+        626,
+        17,
+        306,
+        486
+      ],
+      "pivot": [
+        773,
+        500
+      ],
+      "hit": [
+        868,
+        231
+      ],
+      "beam": [
+        868,
+        231
+      ],
+      "zoom": 0.7905
+    },
+    {
+      "image": "reaction-poses",
+      "crop": [
+        1111,
+        17,
+        315,
+        458
+      ],
+      "pivot": [
+        1274,
+        480
+      ],
+      "hit": [
+        1351,
+        304
+      ],
+      "beam": [
+        1351,
+        304
+      ],
+      "zoom": 0.8018
+    },
+    {
+      "image": "reaction-poses",
+      "crop": [
+        96,
+        520,
+        351,
+        486
+      ],
+      "pivot": [
+        277,
+        1006
+      ],
+      "hit": [
+        375,
+        719
+      ],
+      "beam": [
+        375,
+        719
+      ],
+      "zoom": 0.7593
+    },
+    {
+      "image": "reaction-poses",
+      "crop": [
+        584,
+        601,
+        332,
+        401
+      ],
+      "pivot": [
+        761,
+        1000
+      ],
+      "hit": [
+        856,
+        929
+      ],
+      "beam": [
+        856,
+        929
+      ],
+      "zoom": 0.8111
+    },
+    {
+      "image": "reaction-poses",
+      "crop": [
+        1014,
+        737,
+        492,
+        201
+      ],
+      "pivot": [
+        1264,
+        940
+      ],
+      "hit": [
+        1200,
+        879
+      ],
+      "beam": [
+        1200,
+        879
+      ],
+      "zoom": 0.8376
+    }
+  ],
+  "clips": [
+    {
+      "id": "idle",
+      "title": "待机",
+      "duration": 1450,
+      "impactAt": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 0
+        }
+      ],
+      "impacts": [],
+      "root": []
+    },
+    {
+      "id": "accent",
+      "title": "待机调整",
+      "duration": 630,
+      "impactAt": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 0
+        },
+        {
+          "at": 130,
+          "drawing": 3
+        },
+        {
+          "at": 340,
+          "drawing": 0
+        }
+      ],
+      "impacts": [],
+      "root": []
+    },
+    {
+      "id": "entry",
+      "title": "进场",
+      "duration": 760,
+      "impactAt": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 8
+        },
+        {
+          "at": 455,
+          "drawing": 6
+        },
+        {
+          "at": 630,
+          "drawing": 0
+        }
+      ],
+      "impacts": [],
+      "root": []
+    },
+    {
+      "id": "gohanRally",
+      "title": "振奋",
+      "duration": 835,
+      "impactAt": 432,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 0
+        },
+        {
+          "at": 118,
+          "drawing": 3
+        },
+        {
+          "at": 350,
+          "drawing": 4
+        },
+        {
+          "at": 590,
+          "drawing": 3
+        },
+        {
+          "at": 715,
+          "drawing": 0
+        }
+      ],
+      "impacts": [],
+      "root": [],
+      "launchAt": 350
+    },
+    {
+      "id": "gohanHeavy",
+      "title": "重击",
+      "duration": 930,
+      "impactAt": 420,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 0
+        },
+        {
+          "at": 85,
+          "drawing": 3
+        },
+        {
+          "at": 180,
+          "drawing": 1
+        },
+        {
+          "at": 290,
+          "drawing": 2
+        },
+        {
+          "at": 375,
+          "drawing": 5
+        },
+        {
+          "at": 514,
+          "drawing": 0
+        },
+        {
+          "at": 580,
+          "drawing": 8
+        },
+        {
+          "at": 828,
+          "drawing": 6
+        },
+        {
+          "at": 865,
+          "drawing": 0
+        }
+      ],
+      "impacts": [
+        {
+          "at": 420,
+          "drawing": 5,
+          "kind": "hammer"
+        }
+      ],
+      "root": [
+        {
+          "at": 0,
+          "x": 0
+        },
+        {
+          "at": 78,
+          "x": 0
+        },
+        {
+          "at": 360,
+          "x": 0.79
+        },
+        {
+          "at": 420,
+          "x": 1
+        },
+        {
+          "at": 555,
+          "x": 1
+        },
+        {
+          "at": 865,
+          "x": 0
+        }
+      ],
+      "launchAt": 320,
+      "returnAt": 555,
+      "runUntil": 360,
+      "runFrames": [
+        1,
+        2
+      ],
+      "returnHop": 14,
+      "hopDrawing": 8
+    },
+    {
+      "id": "gohanFlash",
+      "title": "魔闪击",
+      "duration": 890,
+      "impactAt": 400,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 0
+        },
+        {
+          "at": 70,
+          "drawing": 6
+        },
+        {
+          "at": 145,
+          "drawing": 1
+        },
+        {
+          "at": 251,
+          "drawing": 2
+        },
+        {
+          "at": 318,
+          "drawing": 7
+        },
+        {
+          "at": 467,
+          "drawing": 8
+        },
+        {
+          "at": 782,
+          "drawing": 6
+        },
+        {
+          "at": 826,
+          "drawing": 0
+        }
+      ],
+      "impacts": [
+        {
+          "at": 400,
+          "drawing": 7,
+          "kind": "lift"
+        }
+      ],
+      "root": [
+        {
+          "at": 0,
+          "x": 0
+        },
+        {
+          "at": 78,
+          "x": 0
+        },
+        {
+          "at": 307,
+          "x": 0.79
+        },
+        {
+          "at": 400,
+          "x": 1
+        },
+        {
+          "at": 513,
+          "x": 1
+        },
+        {
+          "at": 825,
+          "x": 0
+        }
+      ],
+      "launchAt": 300,
+      "returnAt": 513,
+      "runUntil": 307,
+      "runFrames": [
+        1,
+        2
+      ],
+      "returnHop": 14,
+      "hopDrawing": 8
+    },
+    {
+      "id": "gohanGuard",
+      "title": "超级防御",
+      "duration": 555,
+      "impactAt": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 9
+        },
+        {
+          "at": 368,
+          "drawing": 3
+        },
+        {
+          "at": 462,
+          "drawing": 0
+        }
+      ],
+      "impacts": [],
+      "root": []
+    },
+    {
+      "id": "standing",
+      "title": "受击",
+      "duration": 375,
+      "impactAt": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 10
+        },
+        {
+          "at": 272,
+          "drawing": 0
+        }
+      ],
+      "impacts": [],
+      "root": []
+    },
+    {
+      "id": "knockback",
+      "title": "击退",
+      "duration": 475,
+      "impactAt": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 10
+        },
+        {
+          "at": 112,
+          "drawing": 11
+        },
+        {
+          "at": 312,
+          "drawing": 6
+        },
+        {
+          "at": 405,
+          "drawing": 0
+        }
+      ],
+      "impacts": [],
+      "root": []
+    },
+    {
+      "id": "smallFloat",
+      "title": "小浮空",
+      "duration": 470,
+      "impactAt": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 11
+        },
+        {
+          "at": 318,
+          "drawing": 6
+        },
+        {
+          "at": 408,
+          "drawing": 0
+        }
+      ],
+      "impacts": [],
+      "root": []
+    },
+    {
+      "id": "largeFloat",
+      "title": "大浮空",
+      "duration": 585,
+      "impactAt": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 12
+        },
+        {
+          "at": 384,
+          "drawing": 11
+        },
+        {
+          "at": 472,
+          "drawing": 6
+        },
+        {
+          "at": 545,
+          "drawing": 0
+        }
+      ],
+      "impacts": [],
+      "root": []
+    },
+    {
+      "id": "knockdown",
+      "title": "倒地",
+      "duration": 705,
+      "impactAt": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 10
+        },
+        {
+          "at": 83,
+          "drawing": 12
+        },
+        {
+          "at": 205,
+          "drawing": 14
+        },
+        {
+          "at": 400,
+          "drawing": 13
+        },
+        {
+          "at": 605,
+          "drawing": 0
+        }
+      ],
+      "impacts": [],
+      "root": []
+    },
+    {
+      "id": "defeat",
+      "title": "退场",
+      "duration": 815,
+      "impactAt": 0,
+      "poses": [
+        {
+          "at": 0,
+          "drawing": 10
+        },
+        {
+          "at": 85,
+          "drawing": 12
+        },
+        {
+          "at": 205,
+          "drawing": 14
+        }
+      ],
+      "impacts": [],
+      "root": []
+    }
+  ]
+}

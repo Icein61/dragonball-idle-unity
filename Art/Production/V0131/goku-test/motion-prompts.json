@@ -1,0 +1,71 @@
+{
+  "cardId": "goku-test",
+  "mode": "image_gen 内置工具",
+  "workbookReference": "角色设计简表-v0.13.1-九宫格回合制.xlsx · 角色设计!A7",
+  "assets": [
+    {
+      "file": "punch-transitions.png",
+      "references": [
+        "combat-keyframes.png",
+        "idle-keyframes.png"
+      ],
+      "prompt": "Six individual whole-body clean cutout drawings in exactly 3 columns and 2 rows, left-to-right, evenly spaced; each frame entirely inside its equal rectangular cell with a good gutter. Identical camera in all frames, same right-facing eye level side three-quarter, same character scale, black hair, orange sleeveless closed wrap gi, white chest disc with 龜, dark indigo wraps and belt, bare feet. Crisp hand ink and two-step cel shadows closely matching supplied art. True transparent alpha outside each figure, no text, ground, bars, motion trails, effects or other characters. Original animation in-betweens for the two punches in this game's Goku sequence. Image1 top-left is the retained left punch high impact. Replace the awkward perspective of the old top-middle pose and draw the remaining breaks, with normal back and chest anatomy. For RIGHT cross use the NEAR shoulder so the arm fully reads in side-on, NOT reaching toward the camera. Top row from left: (1) slightly loaded guard, left fist leaving chest; (2) halfway extended left straight at head height, bent elbow; (3) left fist recoiling as right fist chambers by lower ribs, hips still lead right. Bottom row: (4) right fist leaving lower ribs, partly bent and aligned with hips; (5) corrected strong straight RIGHT body punch to screen right at waist height, short realistic foreshortening, punched arm nearest camera and distinct from left fist guarding cheek. The right shoulder stays anatomically connected and visible, chest seam remains three-quarter, hip and shoulders turn a few degrees together, next to planted front foot. (6) elbow folding to recover, punch hand half way back. Both legs always readable and planted in moderate stable lunge. Keep first punch matching existing image and stage."
+    },
+    {
+      "file": "sweep-transitions.png",
+      "references": [
+        "combat-keyframes.png",
+        "idle-keyframes.png"
+      ],
+      "prompt": "Six individual whole-body clean cutout drawings in exactly 3 columns and 2 rows, left-to-right, evenly spaced; each frame entirely inside its equal rectangular cell with a good gutter. Identical camera in all frames, same right-facing eye level side three-quarter, same character scale, black hair, orange sleeveless closed wrap gi, white chest disc with 龜, dark indigo wraps and belt, bare feet. Crisp hand ink and two-step cel shadows closely matching supplied art. True transparent alpha outside each figure, no text, ground, bars, motion trails, effects or other characters. Original corrected 2D low sweeping kick for game's same character, specific side view leg mechanics. Only the pose silhouettes. Torso, belt buckle, pelvis all face right in the same shallow three-quarter alignment throughout, never a torso turned against a rear-facing pelvis. Supporting left hand touches the floor under left shoulder, other hand bent guarding ribs, each arm clearly attached. His left knee bends over the left planted foot, and the right thigh grows correctly out of his own right side hip, visible knee and ankle, lead leg travels parallel to ground, right foot seen FROM THE SIDE in peak kick, sole points downward, do not show enlarged sole facing camera. Top row steps: lowered guard with legs folded slightly; crouch and plant arm directly under shoulder; right knee uncurls halfway, pelvis still low. Bottom row: all-important low sweep fully extends and stays just above ground, kicking heel reaches to screen-right and toes seen side profile; heel then starts to arc back, knee partly bends, support still grounded; both feet back under hips, hand lifts before rising. Feet and hands separated. Keep body proportions and color close to reference, ample transparent gutters."
+    },
+    {
+      "file": "idle-transitions.png",
+      "references": [
+        "idle-keyframes.png",
+        "角色设计!A7"
+      ],
+      "prompt": "Six individual whole-body clean cutout drawings in exactly 3 columns and 2 rows, left-to-right, evenly spaced; each frame entirely inside its equal rectangular cell with a good gutter. Identical camera in all frames, same right-facing eye level side three-quarter, same character scale, black hair, orange sleeveless closed wrap gi, white chest disc with 龜, dark indigo wraps and belt, bare feet. Crisp hand ink and two-step cel shadows closely matching supplied art. True transparent alpha outside each figure, no text, ground, bars, motion trails, effects or other characters. Draw subtle animation breakdowns using image1 as strict sprite geometry. Same planted feet locations and direction, same head size. Top row: (1) medium relaxed breath between the old neutral and raised chest, fists loosely shut; (2) exhale, shoulder and belt only slightly lower, no extreme knee change; (3) hands loosen from guard, forward fingers partly curled and coming apart, hands near chest. Bottom row: (4) opposite hand reaching toward forward wrist before warmup (Goku in image2 ONLY), fingers visibly softly open; (5) the opposite hand releases from wrist, palm forward diagonally, hands only a few centimeters apart; (6) both arms gradually fold back into guard, lightly curled open fingers. Fine position continuity matters, no changes to relative foot positions. No rim light or particles. Use approved character in image1 with same full body proportions."
+    },
+    {
+      "file": "chase-transitions.png",
+      "references": [
+        "combat-keyframes.png",
+        "idle-keyframes.png"
+      ],
+      "prompt": "Six individual whole-body clean cutout drawings in exactly 3 columns and 2 rows, left-to-right, evenly spaced; each frame entirely inside its equal rectangular cell with a good gutter. Identical camera in all frames, same right-facing eye level side three-quarter, same character scale, black hair, orange sleeveless closed wrap gi, white chest disc with 龜, dark indigo wraps and belt, bare feet. Crisp hand ink and two-step cel shadows closely matching supplied art. True transparent alpha outside each figure, no text, ground, bars, motion trails, effects or other characters. Inbetweens of the bottom-row double rising kick from image 1. Always exactly two legs/two feet and two arms/two hands, show near and far hand clearly grounded before kicking, resting behind the hips, maintain planted same hand placement through impact. Top row: (1) knees bend and arms start reaching behind hips; (2) deep crouch almost seated, BOTH palms about to settle behind torso; (3) both palms land, hips hover, two knees strongly tuck, feet close and off ground, ABSOLUTELY no third foot. Bottom row: (4) both legs swing up halfway on matching upward diagonal, bent knees uncurl, palms planted and body balanced; (5) follow-through past apex, both legs at a slightly higher angle with knees soft, palms planted; (6) both legs retract and both feet land in a stable crouch, hands still supporting right before rise. Preserve old exact double kick apex drawing for playback separately. Keep strongly early manga style and crisp neutral lighting."
+    },
+    {
+      "file": "beam-transitions.png",
+      "references": [
+        "ultimate-keyframes.png",
+        "idle-keyframes.png"
+      ],
+      "prompt": "Six individual whole-body clean cutout drawings in exactly 3 columns and 2 rows, left-to-right, evenly spaced; each frame entirely inside its equal rectangular cell with a good gutter. Identical camera in all frames, same right-facing eye level side three-quarter, same character scale, black hair, orange sleeveless closed wrap gi, white chest disc with 龜, dark indigo wraps and belt, bare feet. Crisp hand ink and two-step cel shadows closely matching supplied art. True transparent alpha outside each figure, no text, ground, bars, motion trails, effects or other characters. Exact near side 3/4 same-foot-placement and indigo/orange design as first reference, draw new inbetween poses for game's energy beam. Sequence sheet text-free. Top row: (1) mid coil from guard, pulling open palms toward rear hip, elbows folding with slight hips turn; (2) bracing with cupped hands at hip, lower shoulders and knees a touch, hands close to original charge pose, body compressed; (3) transition at release: both cupped hands travel from rear hip across front of navel to chest, elbows bent, face still right. Bottom row: (4) powerful step into stance, BOTH open palms moving forward together with elbows just partly bent, ahead of belly and aimed over horizontally right, eyes sharp, connected anatomy; (5) post release recoil, BOTH extended arms slightly lower than the original pose, hands still facing screen-right, feet firmly planted; (6) wind-down, elbows soften and both hands return in an arc back toward ribs with fingers curling into guard. Show the same planted bare feet, same face. No energy, white balls or rays on this character layer."
+    },
+    {
+      "file": "passive-training.png",
+      "references": [
+        "skill-icons.png",
+        "角色设计!A7",
+        "idle-keyframes.png"
+      ],
+      "prompt": "Use case stylized-concept. Produce ONE square transparent original icon for the passive skill 'Results of training' of the user's own Unity game. Reference 1 is the icon family to match, study lower right for warm brass border, teal matte base, graphic hand ink, close-fitting square corners. References 2 and 3 bottom-left are the actual hands motion: early Saiyan-arc Goku grasps his opposite wrist with one hand, stretching the open forward five-fingered hand at lower chest height. Reframe the lower right icon as a waist-up three-quarter medium portrait: Goku's recognisable black spiky hair, face, shoulders, orange gi upper body and indigo wristbands definitely all partly visible behind the hands. Hands and wrist interaction are the central focal point in the middle and lower half, face and actual chest readable at upper left, no cropped-only isolated hands, no foreground characters, no magic beam. Single thin warm halo behind, small rounded square rim, restrained ink texture, legible at 64 px. Preserve pose and colors, no typography, no external background, fully transparent outside square silhouette."
+    },
+    {
+      "file": "sweep-contact.png",
+      "references": [
+        "sweep-transitions.png"
+      ],
+      "prompt": "Asset: ONE original isolated full-body transparent animation keyframe, not a sheet. Redraw ONLY bottom-left pose of the supplied sprite sheet, same camera and exact character design, matching C hand-ink style. Goku crouches on bent left leg under his hips with left bare foot flat on ground, right leg extends rightward in a powerful low sweeping kick just over floor, far palm planted directly below its shoulder, other fist chambers. Head chest orange belt and pelvis face the same three-quarter direction. Preserve belt, torso and hand geometry of bottom-left. Correct the kicking ankle: rotate and draw the foot in clear SIDE VIEW, heel and toes draw a believable nearly horizontal silhouette a few inches above ground. No downward dangled ankle, no unnatural foot hanging at 90 degrees, toes directed right and slightly up, no foot sole directly facing camera. The kneecap and shoeless ankle track the same consistent direction. Exactly two feet and no cropped head, fists or toes. Slightly lower pelvis and body weight by a very small amount to emphasize momentum. No aura, floor, cast shadows, marks, lettering, background haze or effects. True transparency outside contour; all his sprite within a tight but padded frame."
+    },
+    {
+      "file": "rapid-transitions.png",
+      "references": [
+        "punch-transitions.png",
+        "beam-transitions.png"
+      ],
+      "prompt": "Use case stylized-concept. Transparent grid of exactly four full-body animation inbetween poses in a 2 columns x 2 rows layout, early Saiyan-era base Goku, matching the two supplied user's original character sprite sheets exactly: right-facing three-quarter side view, normal foreshortening, same scale, orange sleeveless close wrap gi, indigo waist and wraps, bare feet, hair, C hand-ink and two tone shadows. Keep feet planted in broad stance as in references, heads, toes and hands inside each of the four separated cells. TOP LEFT mid right straight punch at waist height: right near-side elbow already in front of ribs, bent about 65 degrees, right fist pointing toward screen right at belt height, halfway extended; left glove-free fist remains raised by cheek. TOP RIGHT both hands halfway between navel and fully extended: cupped palms pushing right, elbow bent about 90 degrees; hands no more than about one hand-length in front of the chest, no magical ball. BOTTOM LEFT energy beam release recovery: both hands lower from peak, elbows bending halfway inward, open palms approximately one hand-length farther than waist, fingers relaxed, feet planted. BOTTOM RIGHT full-body settle into original guard, slightly open hands approaching his ribs and chest, elbows folded and gaze to the right. Be exact with controlled intermediate hand positions, with single center of gravity and no additional limbs. No aura, glow, floor, text or special effects. Preserve true alpha zero around the figures."
+    }
+  ]
+}

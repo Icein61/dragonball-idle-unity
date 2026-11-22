@@ -1,4 +1,4 @@
-param([string]$UnityPath,[switch]$VisibleSmoke)
+param([string]$UnityPath,[switch]$VisibleSmoke,[string]$CharacterSheetPython)
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 Push-Location $root
@@ -8,7 +8,7 @@ try {
  if(& $gitExe status --porcelain){throw 'Commit source changes before packaging.'}
  $commit=(& $gitExe rev-parse HEAD).Trim()
  $version=(Get-Content -LiteralPath (Join-Path $root 'VERSION') -Raw).Trim()
- & (Join-Path $PSScriptRoot 'build-windows.ps1') -UnityPath $UnityPath
+ & (Join-Path $PSScriptRoot 'build-windows.ps1') -UnityPath $UnityPath -CharacterSheetPython $CharacterSheetPython
  $dir=Join-Path $root ('.validation/release-smoke-'+(Get-Date -Format 'yyyyMMddHHmmss'))
  New-Item -ItemType Directory -Force $dir | Out-Null
  & (Join-Path $PSScriptRoot 'smoke-windows.ps1') -OutputDirectory $dir

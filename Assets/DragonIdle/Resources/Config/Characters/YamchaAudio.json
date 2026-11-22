@@ -1,0 +1,45 @@
+{
+ "cardId": "yamcha-saiyan-v020",
+ "cues": [
+  {
+   "id": "yamcha-entry",
+   "resource": "Audio/V0172/Yamcha/entry",
+   "gain": 0.53
+  },
+  {
+   "id": "yamcha-land",
+   "resource": "Audio/V0172/Yamcha/land",
+   "gain": 0.32
+  },
+  {
+   "id": "yamcha-basic",
+   "resource": "Audio/V0172/Yamcha/basic",
+   "gain": 0.7
+  },
+  {
+   "id": "yamcha-wolf",
+   "resource": "Audio/V0172/Yamcha/wolf",
+   "gain": 0.84
+  },
+  {
+   "id": "yamcha-sweep",
+   "resource": "Audio/V0172/Yamcha/sweep",
+   "gain": 0.72
+  },
+  {
+   "id": "yamcha-rise",
+   "resource": "Audio/V0172/Yamcha/rise",
+   "gain": 0.56
+  },
+  {
+   "id": "yamcha-hit-light",
+   "resource": "Audio/V0172/Yamcha/hit-light",
+   "gain": 0.55
+  },
+  {
+   "id": "yamcha-hit-heavy",
+   "resource": "Audio/V0172/Yamcha/hit-heavy",
+   "gain": 0.58
+  }
+ ]
+}

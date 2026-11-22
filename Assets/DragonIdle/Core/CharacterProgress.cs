@@ -18,7 +18,7 @@ namespace DragonIdle {
    if(values==null||values.Length!=oldIds.Length)throw new InvalidOperationException("角色存档数组不完整");
    return Data.Cards.Select(c=>{int old=Array.IndexOf(oldIds,c.Id);return old<0?fallback:values[old];}).ToArray();
   }
-  public bool NeedsRosterMigration { get { return schemaVersion < 3 || (CardIds != null && CardIds.Any(Data.RetiredCardIds.Contains)); } }
+  public bool NeedsRosterMigration { get { return schemaVersion < 3 || (CardIds != null && !CardIds.SequenceEqual(Data.Cards.Select(card=>card.Id))) || (Retired != null && Retired.Any(entry=>entry!=null&&Data.Index(entry.cardId)>=0)); } }
   public bool NeedsFormationMigration {get{return schemaVersion>=1&&schemaVersion<4;}}
   public int TeamCount {get{return Team.Count(card=>card>=0);}}
   public void Normalize(){
@@ -42,6 +42,21 @@ namespace DragonIdle {
    }
    Training=Remap(Training,ids,0);Shards=Remap(Shards,ids,0);Resonance=Remap(Resonance,ids,0);Policy=Remap(Policy,ids,0);
    Owned=Remap(Owned,ids,false);Skill=Remap(Skill,ids,"");Skill2=Remap(Skill2,ids,"");
+   if(Retired!=null){
+    foreach(var entry in Retired.Where(entry=>entry!=null&&Data.Index(entry.cardId)>=0).ToArray()){
+     int index=Data.Index(entry.cardId);
+     if(ids.Contains(entry.cardId)||Retired.Count(other=>other!=null&&other.cardId==entry.cardId)!=1)
+      throw new InvalidOperationException("重复归档数据");
+     if(entry.training<0||entry.shards<0||entry.resonance<0||entry.policy<0||entry.policy>2||
+        !CanUseSkill(entry.skill)||!CanUseSkill(entry.skill2)||(entry.skill!=""&&entry.skill==entry.skill2))
+      throw new InvalidOperationException("恢复的角色归档损坏");
+     Owned[index]=entry.owned;Training[index]=entry.training;Shards[index]=entry.shards;
+     Resonance[index]=entry.resonance;Policy[index]=entry.policy;Skill[index]=entry.skill;Skill2[index]=entry.skill2;
+     Retired.Remove(entry);
+    }
+   }
+   // Trial builds grant the newly online card without changing the saved formation.
+   if(!ids.Contains(Data.RaditzId)&&Data.IsRoundCard(Data.RaditzId))Owned[Data.Index(Data.RaditzId)]=true;
    Team=Team.Select(i=>i<0?-1:Data.Index(ids[i])).ToArray();
    foreach(var item in Items)if(item.owner>=0)item.owner=Data.Index(ids[item.owner]);
    if(legacy||!RosterGift){foreach(string id in new[]{"yamcha-saiyan-v020","chiaotzu-saiyan-v020"}){int index=Data.Index(id);if(index>=0)Owned[index]=true;}RosterGift=true;}
@@ -92,6 +107,9 @@ namespace DragonIdle {
    if(CardIds==null||!CardIds.SequenceEqual(Data.Cards.Select(c=>c.Id))||Training==null||Training.Length!=n||Shards==null||Shards.Length!=n||Resonance==null||Resonance.Length!=n||Policy==null||Policy.Length!=n||Owned==null||Owned.Length!=n||Skill==null||Skill.Length!=n||Skill2==null||Skill2.Length!=n)throw new InvalidOperationException("角色存档需要迁移");
    if(!ValidTeam(Team,Leader))throw new InvalidOperationException("队伍必须有 1 至 6 张已拥有的不同卡，且队长在阵");
    RoundFormation(); // Validate the optional v0.13.0 formation without rewriting legacy lineups.
+   if(FavoriteCardIds==null)FavoriteCardIds=Array.Empty<string>();
+   else if(FavoriteCardIds.Any(id=>Data.Index(id)<0)||FavoriteCardIds.Distinct().Count()!=FavoriteCardIds.Length)
+    FavoriteCardIds=FavoriteCardIds.Where(id=>Data.Index(id)>=0).Distinct().ToArray();
    if(Materials<0||Crystals<0||Gems<0||Unlocked<0||Unlocked>=Data.Stages.Length||SelectedStage<0||SelectedStage>Unlocked||Training.Any(x=>x<0)||Shards.Any(x=>x<0)||Resonance.Any(x=>x<0)||Policy.Any(x=>x<0||x>2))throw new InvalidOperationException("无效成长或进度数据");
    if(SkillUnlocked==null||SkillUnlocked.Length!=4||SkillPages==null||SkillPages.Length!=4||SkillPages.Any(x=>x<0))throw new InvalidOperationException("技能收藏数据损坏");
    if(Retired.Any(r=>!CanUseSkill(r.skill)||!CanUseSkill(r.skill2)||(r.skill!=""&&r.skill==r.skill2)))throw new InvalidOperationException("归档技能配置损坏");

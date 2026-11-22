@@ -6,11 +6,16 @@ using UnityEngine.EventSystems;
 using UI=UnityEngine.UI;
 namespace DragonIdle {
  public partial class DemoGame {
-  readonly CatalogFilter catalog=new CatalogFilter{RoundFormat=true};
+  const int DefaultCharacterSort=4;
+  readonly CatalogFilter catalog=new CatalogFilter{RoundFormat=true,OwnedOnly=false,Sort=DefaultCharacterSort};
   RectTransform galleryRoot,gridRoot,detailRoot,dialogRoot;
   GameObject galleryCanvas;UI.ScrollRect galleryScroll;UI.InputField gallerySearch;
   UI.Text galleryResources,galleryToast;
-  UI.Button mineTab,allTab;readonly List<UI.Button> filterButtons=new List<UI.Button>();
+  readonly List<UI.Button> filterButtons=new List<UI.Button>();
+  int renderedOwnedCount=-1,renderedFavoriteCount=-1;
+  bool[] renderedOwnership;
+  Material portraitGray;
+  static readonly Color GalleryLockedCard=new Color32(219,222,217,255),GalleryLockedMat=new Color32(198,204,195,255);
   readonly Dictionary<int,UI.Button> cardButtons=new Dictionary<int,UI.Button>();
   readonly List<UI.Text> measuredText=new List<UI.Text>();
   int detailTab;bool galleryDirty=true;string previousPage="";
@@ -18,8 +23,8 @@ namespace DragonIdle {
   static Color uiPaper=>InkText;
   static Color uiPanel=>InkPaper;
   static readonly Color uiDim=new Color32(55,67,62,255),uiAccent=new Color32(105,70,39,255);
-  static readonly string[] FeatureRoutes={"角色","编队"};
-  static string[] SortLabels={"上阵优先","稀有度优先","角色名称","角色类型"};
+  static readonly string[] FeatureRoutes={"角色",FormationRoute,DemoBattleRoute};
+  static string[] SortLabels={"上阵优先","稀有度优先","角色名称","角色类型","按序号"};
 
   RectTransform UNode(Transform parent,string name,float x,float y,float w,float h){
    var r=new GameObject(name,typeof(RectTransform)).GetComponent<RectTransform>();r.SetParent(parent,false);
@@ -50,36 +55,66 @@ namespace DragonIdle {
    var outline=r.gameObject.AddComponent<UI.Outline>();outline.effectColor=InkCharge;outline.effectDistance=new Vector2(3,-3);outline.enabled=false;r.gameObject.AddComponent<GalleryFocus>().Outline=outline;
    b.onClick.AddListener(()=>{if(!b.interactable)return;PlayUISound(0);action();});return b;
   }
-  void ClearUI(Transform parent){foreach(Transform child in parent){child.gameObject.SetActive(false);Destroy(child.gameObject);}}
+  void ClearUI(Transform parent,Transform keep=null){
+   for(int index=parent.childCount-1;index>=0;index--){
+    var child=parent.GetChild(index);
+    if(child==keep)continue;
+    child.gameObject.SetActive(false);
+    child.SetParent(null,false);
+    Destroy(child.gameObject);
+   }
+  }
   void SetButtonActive(UI.Button b,bool active){
    b.targetGraphic.color=!b.interactable?InkDisabled:active?InkDark:InkLight;
    b.GetComponentInChildren<UI.Text>().color=active&&b.interactable?InkIvory:InkText;
   }
   UI.ScrollRect UScroll(Transform parent,string name,float x,float y,float w,float h,out RectTransform content,bool showBar=true){
+   UPanel(parent,name+"Surface",x-3,y-3,w+6,h+6,InkPaper);
    var viewport=UPanel(parent,name,x,y,w,h,Color.clear,true);viewport.gameObject.AddComponent<UI.RectMask2D>();
-   var scroll=viewport.gameObject.AddComponent<UI.ScrollRect>();content=UNode(viewport,"Content",0,0,w-(showBar?14:0),h);
-   scroll.viewport=viewport;scroll.content=content;scroll.horizontal=false;scroll.vertical=true;scroll.movementType=UI.ScrollRect.MovementType.Clamped;scroll.scrollSensitivity=35;
+   UI.ScrollRect scroll=viewport.gameObject.AddComponent<BoundedScrollRect>();content=UNode(viewport,"Content",0,0,w-(showBar?14:0),h);
+   scroll.viewport=viewport;scroll.content=content;scroll.horizontal=false;scroll.vertical=true;scroll.movementType=!(audioSettings?.ReducedMotion??false)?
+    UI.ScrollRect.MovementType.Elastic:UI.ScrollRect.MovementType.Clamped;
+   scroll.elasticity=.145f;
+   scroll.scrollSensitivity=35;
    if(!showBar)return scroll;
    var track=UPanel(parent,name+"Track",x+w-12,y,10,h,InkPaper,true);
    var slide=UNode(track,"SlidingArea",0,0,10,h);
    slide.anchorMin=Vector2.zero;slide.anchorMax=Vector2.one;slide.pivot=new Vector2(.5f,.5f);slide.offsetMin=slide.offsetMax=Vector2.zero;
    var handle=UPanel(slide,"Handle",0,0,10,0,InkDark,true);
+   RoundMeterCorners(track,10);
+   RoundMeterCorners(handle,10);
    // Scrollbar controls its handle anchors; explicit size or position offsets make it spill past the track.
    handle.pivot=new Vector2(.5f,.5f);handle.anchorMin=Vector2.zero;handle.anchorMax=Vector2.one;handle.offsetMin=handle.offsetMax=Vector2.zero;
    var bar=track.gameObject.AddComponent<UI.Scrollbar>();bar.handleRect=handle;bar.targetGraphic=handle.GetComponent<UI.Image>();bar.direction=UI.Scrollbar.Direction.BottomToTop;scroll.verticalScrollbar=bar;
    return scroll;
   }
-  void UArt(Transform parent,int i,float x,float y,float w,float h){
+  static Rect? CharacterCardPortraitRegion(int index){
+   if(Data.Cards[index].Id!=RoundMotionArt.PiccoloCardId)return null;
+   // Frame the new figure around its painted bounds, with space for the hands and boots.
+   return new Rect(0,126f/1536,907f/1024,1145f/1536);
+  }
+  void UArt(Transform parent,int i,float x,float y,float w,float h,Rect? region=null,bool muted=false){
    var art=PortraitTexture(i);
    if(art!=null){
-    float width=Math.Min(w,h*PortraitAspect(i)),height=width/PortraitAspect(i);
-    var r=UNode(parent,"Portrait",x+(w-width)/2,y+(h-height)/2,width,height);var image=r.gameObject.AddComponent<UI.RawImage>();image.texture=art;image.uvRect=new Rect(0,0,1,1);image.raycastTarget=false;
+    var uv=region??new Rect(0,0,1,1);
+    float aspect=PortraitAspect(i)*uv.width/uv.height;
+    float width=Math.Min(w,h*aspect),height=width/aspect;
+    var r=UNode(parent,"Portrait",x+(w-width)/2,y+(h-height)/2,width,height);var image=r.gameObject.AddComponent<UI.RawImage>();image.texture=art;image.uvRect=uv;image.raycastTarget=false;
+    if(muted)MutePortrait(image);
    }else{
     UPanel(parent,"ArtInset",x+8,y+6,w-16,h-12,new Color(.14f,.18f,.21f));
     UPanel(parent,"Accent",x+8,y+6,3,h-12,CardColor(i));
     UText(parent,"Monogram",Data.Cards[i].Name.Substring(0,1),x,y+h*.16f,w,h*.45f,58,CardColor(i),TextAnchor.MiddleCenter);
     UText(parent,"ArtPending","形象待制作",x,y+h-38,w,28,13,uiDim,TextAnchor.MiddleCenter);
    }
+  }
+  void MutePortrait(UI.RawImage image){
+   if(portraitGray==null){
+    var shader=Resources.Load<Shader>("Art/Effects/PortraitGray");
+    if(shader==null)throw new InvalidOperationException("缺少未拥有角色的灰阶材质");
+    portraitGray=new Material(shader);
+   }
+   image.material=portraitGray;
   }
   void EnsureGallery(){
    if(galleryCanvas!=null)return;
@@ -94,28 +129,33 @@ namespace DragonIdle {
    UPanel(galleryChrome,"Sidebar",0,90,190,810,InkPaper);
    UPanel(galleryChrome,"HeaderLine",0,88,1600,2,InkBorder);
    UText(galleryChrome,"Brand",Data.GameTitle,25,20,180,40,26,InkIvory);
-   UText(galleryChrome,"Section","角色收藏",232,28,500,40,22,InkIvory);
+   UText(galleryChrome,"Section","角色",232,28,500,40,22,InkIvory);
    galleryResources=UText(galleryChrome,"Resources","",900,27,650,40,19,InkOnDark,TextAnchor.MiddleRight);
    for(int i=0;i<FeatureRoutes.Length;i++){
     string target=FeatureRoutes[i];
-    UButton(galleryChrome,"Nav"+target,target=="角色"?"图鉴":target,18,126+i*62,154,45,()=>NavigateGallery(target),selected:target=="角色");
+    UButton(galleryChrome,"Nav"+target,target,18,126+i*62,154,45,()=>OpenFeature(target),selected:target=="角色");
    }
    UButton(galleryChrome,"AudioSettings","声音与显示",18,735,154,44,ShowAudioSettings);
    UText(galleryChrome,"Version","v"+Data.Version+"  /  预览版",20,840,160,30,13,uiDim);
    UButton(galleryChrome,"Nav主页","返回主页",18,819,154,47,()=>NavigateGallery("主页"));
    galleryListRoot=UNode(galleryRoot,"CardLibrary",0,0,1600,900);
-   UText(galleryListRoot,"Title","图鉴",222,108,300,46,32,uiPaper);
-   mineTab=UButton(galleryListRoot,"OwnedTab","我的角色",222,166,152,42,()=>{catalog.OwnedOnly=true;RefreshGallery(true);},true);
-   allTab=UButton(galleryListRoot,"AllTab","全部角色",386,166,152,42,()=>{catalog.OwnedOnly=false;RefreshGallery(true);});
-   var input=UPanel(galleryListRoot,"Search",558,166,354,42,InkLight,true);
-   gallerySearch=input.gameObject.AddComponent<UI.InputField>();gallerySearch.textComponent=UText(input,"InputText","",12,7,328,28,17,uiPaper);gallerySearch.placeholder=UText(input,"Placeholder","搜索名字、形态、称号",12,7,328,28,17,uiDim);gallerySearch.characterLimit=60;
+   var input=UPanel(galleryListRoot,"Search",222,105,450,44,InkLight,true);
+   gallerySearch=input.gameObject.AddComponent<UI.InputField>();
+   gallerySearch.textComponent=UText(input,"InputText","",12,0,426,44,17,uiPaper,TextAnchor.MiddleCenter);
+   gallerySearch.placeholder=UText(input,"Placeholder","搜索名字、形态、称号",12,0,426,44,17,uiDim,TextAnchor.MiddleCenter);
+   gallerySearch.characterLimit=60;
    gallerySearch.onValueChanged.AddListener(v=>{catalog.Search=v;RefreshGallery(true);});
-   string[] filters={"稀有度","标签",SortLabels[0]};
-   for(int i=0;i<filters.Length;i++){int n=i;filterButtons.Add(UButton(galleryListRoot,"Filter"+i,filters[i],932+i*208,166,198,42,()=>ShowFilterDropdown(n)));}
-   UButton(galleryListRoot,"ResetFilters","清空条件",1422,218,126,32,ResetGalleryFilters);
-   filterChipRoot=UNode(galleryListRoot,"FilterChips",222,218,1180,32);
-   galleryScroll=UScroll(galleryListRoot,"CardScroll",222,258,1336,570,out gridRoot);
-   detailRoot=UPanel(galleryRoot,"Detail",222,112,1336,716,uiPanel);
+   string[] filters={"稀有度","标签",SortLabels[DefaultCharacterSort]};
+   for(int i=0;i<filters.Length;i++){
+    int n=i;
+    var filter=UButton(galleryListRoot,"Filter"+i,filters[i],688+i*218,105,202,44,()=>ShowFilterDropdown(n));
+    UText(filter.transform,"Caret","▾",168,0,26,44,17,InkMuted,TextAnchor.MiddleCenter);
+    filterButtons.Add(filter);
+   }
+   UButton(galleryListRoot,"ResetFilters","清空条件",1376,105,174,44,ResetGalleryFilters);
+   filterChipRoot=UNode(galleryListRoot,"FilterChips",222,158,1180,32);
+   galleryScroll=UScroll(galleryListRoot,"CardScroll",222,198,1336,630,out gridRoot);
+   detailRoot=UPanel(galleryRoot,"Detail",222,96,1336,732,uiPanel);
    detailGroup=detailRoot.gameObject.AddComponent<CanvasGroup>();
    galleryToast=UText(galleryRoot,"Toast","",232,845,1320,42,17,uiAccent);
    detailRoot.gameObject.SetActive(false);
@@ -123,21 +163,30 @@ namespace DragonIdle {
   void NavigateGallery(string target){
    if(!IsModernPage(target)||target==RoundPreviewPage&&roundBattle==null)return;
    if(shellLoad.Active&&target!="加载")shellLoad.Cancel();
-   if(page=="角色"&&target=="编队")browseCard=selectedCard;
-   if(page=="编队"&&target=="角色"&&browseCard>=0)selectedCard=browseCard;
-   if(page==RoundPreviewPage&&target!=RoundPreviewPage){roundBattle=null;roundLast=null;roundLog.Clear();}
+   bool openingCharacterList=target=="角色"&&page!="角色";
+   if(openingCharacterList){
+    galleryDetailOpen=false;
+    selectedCard=-1;
+    detailTab=0;
+   }
+   if(page==FormationRoute&&target!=FormationRoute)LeaveFormation();
+   if(page==RoundPreviewPage&&target!=RoundPreviewPage){roundBattle=null;roundLast=null;roundLog.Clear();ResetRoundMotion();roundDemo=false;}
    CloseFilterDropdown();CloseGalleryDialog();page=target;autoRepeat=false;notice="";galleryDirty=true;
    galleryCanvas.SetActive(IsModernPage(target));previousPage="";UpdateGallery();
+   if(openingCharacterList){
+    galleryScroll.StopMovement();
+    galleryScroll.verticalNormalizedPosition=1;
+   }
    if(target=="角色"&&EventSystem.current!=null){
-    if(galleryDetailOpen&&selectedCard>=0)EventSystem.current.SetSelectedGameObject(ActiveBackButton(detailRoot,"BackToCards"));
+    if(galleryDetailOpen&&selectedCard>=0)EventSystem.current.SetSelectedGameObject(null);
     else if(cardButtons.ContainsKey(selectedCard))EventSystem.current.SetSelectedGameObject(cardButtons[selectedCard].gameObject);
    }
    if(target=="主页"&&EventSystem.current!=null&&homeRoot!=null)EventSystem.current.SetSelectedGameObject(ActiveBackButton(homeRoot,"HomeNav角色"));
   }
   void UpdateGallery(){
    if(IsModernPage(page)){EnsureGallery();if(!galleryCanvas.activeSelf)galleryCanvas.SetActive(true);
-    if((previousPage!=page||galleryDirty)&&dialogRoot==null){if(page=="角色")RefreshGallery(false);else if(page=="编队")DrawRoundFormation();else if(page=="主页")DrawHome();else if(page==RoundPreviewPage)DrawRoundPreview();galleryDirty=false;RefreshModernFrame();}
-    if(Input.GetKeyDown(KeyCode.Escape)){if(filterDropdown!=null)CloseFilterDropdown();else if(dialogRoot!=null)CloseGalleryDialog();else if(page==RoundPreviewPage)NavigateGallery("编队");else if(page=="编队")NavigateGallery("角色");else if(page=="角色"&&galleryDetailOpen)ReturnToCards();else if(page=="角色")NavigateGallery("主页");else if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(null);}
+    if((previousPage!=page||galleryDirty)&&dialogRoot==null){if(page=="角色")RefreshGallery(false);else if(page==FormationRoute)DrawFormation();else if(page=="主页")DrawHome();else if(page==RoundPreviewPage)DrawRoundPreview();galleryDirty=false;RefreshModernFrame();}
+    if(Input.GetKeyDown(KeyCode.Escape)){if(filterDropdown!=null)CloseFilterDropdown();else if(dialogRoot!=null)CloseGalleryDialog();else if(page==RoundPreviewPage)NavigateGallery(RoundBackPage());else if(page=="角色"&&galleryDetailOpen)ReturnToCards();else if(page=="角色"||page==FormationRoute)NavigateGallery("主页");else if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(null);}
     if(detailGroup!=null){detailFade=Math.Min(1,detailFade+Time.unscaledDeltaTime*8);detailGroup.alpha=audioSettings!=null&&audioSettings.ReducedMotion?1:detailFade;}
     galleryToast.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"";
     if(page=="主页")RefreshHomeNotice();
@@ -145,76 +194,135 @@ namespace DragonIdle {
    previousPage=page;
   }
   void GalleryNotice(string message,bool success=true){notice=message;toastUntil=Time.unscaledTime+5;PlayUISound(success?1:2);galleryDirty=true;}
-  void ResetGalleryFilters(){CloseFilterDropdown();catalog.Rarity=catalog.Role=catalog.Tag=catalog.Search="";catalog.Sort=0;gallerySearch.SetTextWithoutNotify("");RefreshGallery(true);}
+  void ResetGalleryFilters(){CloseFilterDropdown();catalog.Rarity=catalog.Role=catalog.Tag=catalog.Search="";gallerySearch.SetTextWithoutNotify("");RefreshGallery(true);}
   void RefreshGallery(bool reset){
    galleryDirty=false;if(galleryCanvas==null)return;
-   int[] results=catalog.Results(profile);selectedCard=CatalogFilter.Reconcile(selectedCard,results);
+   int[] results=catalog.Results(profile);
+   int[] favorites=results.Where(profile.IsFavoriteCard).ToArray();
+   int[] owned=results.Where(index=>profile.Owned[index]&&!profile.IsFavoriteCard(index)).ToArray();
+   int[] unowned=results.Where(index=>!profile.Owned[index]&&!profile.IsFavoriteCard(index)).ToArray();
+   var ordered=favorites.Concat(owned).Concat(unowned).ToArray();
+   var ownership=ordered.Select(index=>profile.Owned[index]).ToArray();
+   selectedCard=CatalogFilter.Reconcile(selectedCard,ordered);
    RefreshFeatureHeaderCount();
-   SetButtonActive(mineTab,catalog.OwnedOnly);SetButtonActive(allTab,!catalog.OwnedOnly);
    string[] labels={catalog.Rarity==""?"稀有度":catalog.Rarity,catalog.Tag==""?"标签":catalog.Tag,SortLabels[catalog.Sort]};
-   for(int i=0;i<labels.Length;i++)filterButtons[i].GetComponentInChildren<UI.Text>().text=labels[i]+"  ▾";
+   for(int i=0;i<filterButtons.Count;i++){
+    var button=filterButtons[i];
+    button.GetComponentInChildren<UI.Text>().text=labels[i];
+   }
    ClearUI(filterChipRoot);int chips=0;
-   for(int n=0;n<2;n++){int kind=n;string value=n==0?catalog.Rarity:catalog.Tag;if(value=="")continue;UButton(filterChipRoot,"ClearFilter"+n,value+" ×",chips++*188,0,178,32,()=>{if(kind==0)catalog.Rarity="";else catalog.Tag="";RefreshGallery(true);});}
-   float old=galleryScroll.verticalNormalizedPosition;bool rebuild=renderedCards==null||!renderedCards.SequenceEqual(results);
-   if(rebuild){ClearUI(gridRoot);cardButtons.Clear();renderedCards=(int[])results.Clone();}
-   gridRoot.sizeDelta=new Vector2(1322,Math.Max(570,((results.Length+3)/4)*448));
-   for(int n=0;rebuild&&n<results.Length;n++){
-    int index=results[n];var c=Data.Cards[index];float x=6+n%4*330,y=6+n/4*448;
-    var b=UButton(gridRoot,"Card_"+c.Id,"",x,y,316,430,()=>OpenGalleryCard(index));
-    cardButtons[index]=b;b.GetComponentInChildren<UI.Text>().gameObject.SetActive(false);
-    var r=b.GetComponent<RectTransform>();b.targetGraphic.color=InkPaper;
-    UPanel(r,"PortraitMat",10,46,296,278,InkMist);
-    DrawRarityBadge(r,c.Rarity,10,2,55,42,leftAligned:true);
-    UText(r,"CharacterPower","",140,11,160,26,17,uiDim,TextAnchor.MiddleRight);
-    UArt(r,index,16,44,284,278);
-    UText(r,"Name",c.Name,16,330,284,30,24,uiPaper);
-    UText(r,"Theme",c.Title,16,363,284,28,17,uiDim);
-    UText(r,"CharacterType",c.TypeText,16,398,160,26,16,uiAccent);
-    UText(r,"Unowned","未拥有",190,398,110,26,16,uiDim,TextAnchor.UpperRight);
-    var focus=b.GetComponent<GalleryFocus>();
-    focus.CardSurface=(UI.Image)b.targetGraphic;focus.CardFocusSprite=RoundedSurface(false,cardFocus:true);focus.CardNormalTint=InkPaper;
+   for(int n=0;n<2;n++){int kind=n;string value=kind==0?catalog.Rarity:catalog.Tag;if(value=="")continue;UButton(filterChipRoot,"ClearFilter"+n,value+" ×",chips++*188,0,178,32,()=>{if(kind==0)catalog.Rarity="";else catalog.Tag="";RefreshGallery(true);});}
+   float old=galleryScroll.verticalNormalizedPosition;
+   if(renderedCards==null||!renderedCards.SequenceEqual(ordered)||renderedOwnedCount!=owned.Length||
+      renderedFavoriteCount!=favorites.Length||!renderedOwnership.SequenceEqual(ownership)){
+    ClearUI(gridRoot);cardButtons.Clear();
+    renderedCards=ordered;renderedOwnedCount=owned.Length;renderedFavoriteCount=favorites.Length;renderedOwnership=ownership;
+    float ownedTop=favorites.Length>0?DrawGalleryGroup("FavoriteGroup","收藏",favorites,0,true):0;
+    float unownedTop=DrawGalleryGroup("OwnedGroup","已拥有",owned,ownedTop,true);
+    float bottom=DrawGalleryGroup("UnownedGroup","未拥有",unowned,unownedTop,false);
+    gridRoot.sizeDelta=new Vector2(1322,Mathf.Max(galleryScroll.viewport.rect.height,bottom));
    }
    foreach(var pair in cardButtons){
-    var r=pair.Value.transform;
-    bool owned=profile.Owned[pair.Key];
-    var power=r.Find("CharacterPower").GetComponent<UI.Text>();
-    power.text=owned?"战斗力："+RoundPower(pair.Key):"";
-    power.gameObject.SetActive(owned);
-    r.Find("Unowned").gameObject.SetActive(!owned);
-   }
-   if(rebuild&&results.Length==0){
-    UText(gridRoot,"EmptyTitle","没有符合条件的角色",350,100,620,45,25,uiPaper,TextAnchor.MiddleCenter);
-    UText(gridRoot,"EmptyHelp","尝试清空筛选，或切换到全部角色。",350,151,620,40,18,uiDim,TextAnchor.MiddleCenter);
-    UButton(gridRoot,"EmptyReset","清空筛选",550,220,220,44,ResetGalleryFilters,true);
+    var power=pair.Value.transform.Find("CharacterPower").GetComponent<UI.Text>();
+    power.text=profile.Owned[pair.Key]?GalleryPowerText(pair.Key):"";
    }
    Canvas.ForceUpdateCanvases();galleryScroll.StopMovement();galleryScroll.verticalNormalizedPosition=reset?1:old;
    DrawGalleryDetail();
   }
+
+  float DrawGalleryGroup(string id,string title,int[] cards,float y,bool owned){
+   const float width=1322, rowHeight=492, head=50;
+   float rows=cards.Length==0?63:Mathf.Ceil(cards.Length/4f)*rowHeight;
+   var group=UNode(gridRoot,id,0,y,width,head+rows+12);
+   UText(group,"Heading",title+"  "+cards.Length,8,0,205,32,23,owned?InkText:InkMuted,TextAnchor.MiddleLeft);
+   UPanel(group,"Separator",195,16,1118,1,InkBorder);
+   if(cards.Length==0)
+    UText(group,"Empty",owned?"没有符合条件的已拥有角色":"没有符合条件的未拥有角色",10,38,1250,36,17,InkMuted,TextAnchor.MiddleLeft);
+   for(int n=0;n<cards.Length;n++)DrawGalleryCard(group,cards[n],6+n%4*330,head+n/4*rowHeight,profile.Owned[cards[n]]);
+   return y+head+rows+12;
+  }
+
+  void DrawGalleryCard(Transform group,int index,float x,float y,bool owned){
+   var card=Data.Cards[index];
+   var button=UButton(group,"Card_"+card.Id,"",x,y,316,474,()=>OpenGalleryCard(index));
+   cardButtons[index]=button;
+   button.GetComponentInChildren<UI.Text>().gameObject.SetActive(false);
+   var r=button.transform;
+   Color surface=owned?InkPaper:GalleryLockedCard;
+   Color ink=owned?uiPaper:InkMuted;
+   button.targetGraphic.color=surface;
+   DrawRarityBackdrop(r,"PortraitMat",card.Rarity,10,46,296,278);
+   DrawRarityBadge(r,card.Rarity,10,2,55,42,leftAligned:true);
+   UText(r,"CatalogNumber","No. "+card.CatalogNumber.ToString("D3"),146,10,107,28,15,InkMuted,TextAnchor.MiddleRight);
+   DrawFavoriteButton(r,index,264,2);
+   UArt(r,index,16,44,284,278,CharacterCardPortraitRegion(index),muted:!owned);
+   UText(r,"Name",card.Name,16,329,284,33,24,ink);
+   var theme=UText(r,"Theme",card.Title,16,364,244,25,17,ink,TextAnchor.MiddleLeft);
+   DrawCharacterRole(r,card,16+Mathf.Min(244,Mathf.Ceil(theme.preferredWidth))+5,364,25);
+   DrawCardPotentialChart(r,card);
+   var power=UText(r,"CharacterPower","",126,441,172,26,16,uiDim,TextAnchor.MiddleRight);
+   power.supportRichText=true;power.gameObject.SetActive(owned);
+   var focus=button.GetComponent<GalleryFocus>();
+   focus.CardSurface=(UI.Image)button.targetGraphic;
+   focus.CardFocusSprite=RoundedSurface(false,cardFocus:true);
+   focus.CardNormalTint=surface;
+  }
+  string GalleryPowerText(int index)=>FormatGallerySkillText("战斗力 ["+RoundPower(index)+"]");
+
+  void DrawFavoriteButton(Transform parent,int index,float x,float y,float lift=0){
+   bool marked=profile.IsFavoriteCard(index);
+   var button=UButton(parent,"Favorite_"+Data.Cards[index].Id,marked?"★":"☆",x,y,42,42,
+    ()=>{if(Change(()=>profile.ToggleFavoriteCard(index)))RefreshGallery(false);});
+   button.targetGraphic.color=Color.clear;
+   var label=button.GetComponentInChildren<UI.Text>();
+   label.rectTransform.anchoredPosition=new Vector2(0,lift);
+   label.rectTransform.sizeDelta=new Vector2(42,42);
+   label.fontSize=34;label.color=marked?new Color32(196,139,26,255):InkMuted;
+  }
+
   readonly Dictionary<string,Sprite> rarityBadges=new Dictionary<string,Sprite>();
   readonly Dictionary<string,Sprite> alignedRarityBadges=new Dictionary<string,Sprite>();
+  readonly Dictionary<string,Sprite> detailRarityBadges=new Dictionary<string,Sprite>();
   const string RarityResourcePrefix="Interface/Rarity/";
+  static string RarityResource(string rank)=>RarityResourcePrefix+(rank=="C"?"V0170/C":rank);
   Sprite RarityBadge(string rank){
    Sprite sprite;
    if(!rarityBadges.TryGetValue(rank,out sprite)){
-    sprite=Resources.Load<Sprite>(RarityResourcePrefix+rank);
+    sprite=Resources.Load<Sprite>(RarityResource(rank));
     rarityBadges[rank]=sprite;
    }
    return sprite;
   }
-  void DrawRarityBadge(Transform parent,string rank,float x,float y,float width,float height,bool leftAligned=false){
+  // Sprite rects are measured bottom-origin bounds of the painted marks.
+  static Rect DetailBadgeBounds(string rank){
+   switch(rank){
+    case "C":return new Rect(389,142,670,803);
+    case "B":return new Rect(62,17,133,156);
+    case "A":return new Rect(37,14,183,156);
+    default:return new Rect(24,12,209,178);
+   }
+  }
+  void DrawRarityBadge(Transform parent,string rank,float x,float y,float width,float height,bool leftAligned=false,bool matchVisibleHeight=false){
    var sprite=RarityBadge(rank);
    if(sprite==null){
     UText(parent,"Rarity",rank,x,y,width,height,18,uiAccent,TextAnchor.MiddleCenter);
     return;
    }
-   if(leftAligned){
+   if(matchVisibleHeight){
+    if(!detailRarityBadges.TryGetValue(rank,out var crop)){
+     var bounds=DetailBadgeBounds(rank);
+     crop=Sprite.Create(sprite.texture,bounds,new Vector2(.5f,.5f),sprite.pixelsPerUnit);
+     detailRarityBadges[rank]=crop;
+    }
+    sprite=crop;
+    width=height*sprite.rect.width/sprite.rect.height;
+   }else if(leftAligned){
     float scale=Math.Min(width/sprite.rect.width,height/sprite.rect.height);
     float actualHeight=sprite.rect.height*scale;
     // The four original badges have different transparent margins inside the same 256 px canvas.
     if(!alignedRarityBadges.TryGetValue(rank,out var cut)){
      var rect=sprite.rect;
-     int blank=rank=="C"?71:rank=="B"?62:rank=="A"?37:24;
-     float trim=rect.width*blank/256;
+     float trim=DetailBadgeBounds(rank).x-rect.x;
      cut=Sprite.Create(sprite.texture,new Rect(rect.x+trim,rect.y,rect.width-trim,rect.height),new Vector2(.5f,.5f),sprite.pixelsPerUnit);
      alignedRarityBadges[rank]=cut;
     }

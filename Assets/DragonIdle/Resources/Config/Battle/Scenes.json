@@ -1,0 +1,37 @@
+{
+ "scenes": [
+  {
+   "id": "rocky-training",
+   "title": "高原对练场",
+   "background": "Art/V0132/Goku/arena"
+  },
+  {
+   "id": "landing-meadow",
+   "title": "着陆草坡",
+   "background": "Art/V0141/Battle/landing-meadow",
+   "bgm": "Audio/V0141/BGM/landing-meadow",
+   "groundFraming": 0.76
+  },
+  {
+   "id": "wind-carved-plateau",
+   "title": "干风岩台",
+   "background": "Art/V0141/Battle/wind-carved-plateau",
+   "bgm": "Audio/V0141/BGM/wind-carved-plateau",
+   "groundFraming": 0.77
+  },
+  {
+   "id": "red-rock-canyon",
+   "title": "赤岩峡谷",
+   "background": "Art/V0141/Battle/red-rock-canyon",
+   "bgm": "Audio/V0141/BGM/red-rock-canyon",
+   "groundFraming": 0.7
+  }
+ ],
+ "demo": {
+  "scene": "landing-meadow",
+  "scenePool": ["landing-meadow", "wind-carved-plateau", "red-rock-canyon"],
+  "useSavedFormation": true,
+  "damageScale": 1.0,
+  "actionGap": 0.54
+ }
+}

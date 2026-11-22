@@ -1,0 +1,50 @@
+{
+  "cardId": "vegeta-test",
+  "cues": [
+    {
+      "id": "vegeta-opening",
+      "resource": "Audio/V0140/Vegeta/vegeta-opening",
+      "gain": 0.64
+    },
+    {
+      "id": "vegeta-basic-voice",
+      "resource": "Audio/V0140/Vegeta/vegeta-basic-voice",
+      "gain": 0.8
+    },
+    {
+      "id": "vegeta-hammer-voice",
+      "resource": "Audio/V0140/Vegeta/vegeta-hammer-voice",
+      "gain": 0.78
+    },
+    {
+      "id": "vegeta-volley-voice",
+      "resource": "Audio/V0140/Vegeta/vegeta-volley-voice",
+      "gain": 0.8
+    },
+    {
+      "id": "vegeta-hit-light",
+      "resource": "Audio/V0140/Vegeta/vegeta-hit-light",
+      "gain": 0.72
+    },
+    {
+      "id": "vegeta-hit-heavy",
+      "resource": "Audio/V0140/Vegeta/vegeta-hit-heavy",
+      "gain": 0.74
+    },
+    {
+      "id": "vegeta-launch",
+      "resource": "Audio/V0140/Vegeta/vegeta-launch",
+      "gain": 0.39
+    },
+    {
+      "id": "vegeta-impact",
+      "resource": "Audio/V0140/Vegeta/vegeta-impact",
+      "gain": 0.37
+    },
+    {
+      "id": "vegeta-hammer",
+      "resource": "Audio/V0140/Vegeta/vegeta-hammer",
+      "gain": 0.85
+    }
+  ]
+}

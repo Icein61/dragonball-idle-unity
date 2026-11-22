@@ -1,0 +1,53 @@
+# v0.15.3 美术与状态图标
+
+贝吉塔候选与悟饭头发都使用内置 imagegen，以项目当前版本的绘图为底稿。悟饭髮型参考本地 0004 技能视频。头像和全套 17 个战斗姿态保有既有面部、服饰及脚底和打击锚点。
+
+- [01 背侧双臂发射](Vegeta/continuous-energy-volley-01.png)
+- [02 侧面爆发](Vegeta/continuous-energy-volley-02.png)
+- [03 错列弹道特写](Vegeta/continuous-energy-volley-03.png)，用户已选定。[游戏图标](../../../Assets/DragonIdle/Resources/Art/V0153/Vegeta/continuous-energy-volley.png)与候选文件哈希一致。
+
+[悟饭立绘](../../../Assets/DragonIdle/Resources/Art/V0153/Gohan/portrait.png) · [战斗姿态](../../../Assets/DragonIdle/Resources/Art/V0153/Gohan/combat-poses.png) · [受击姿态](../../../Assets/DragonIdle/Resources/Art/V0153/Gohan/reaction-poses.png) · [重击蓄力](../../../Assets/DragonIdle/Resources/Art/V0153/Gohan/heavy-windup.png)
+
+状态图标在 Unity 按几何笔画绘制，设计尺寸以小范围可辨识为准。暖金上升符代表修炼成果，皇冠代表赛亚精英，碧色盾加号和橘红盾减号区分防御方向，紫色四芒光代表蓄力。[图标笔画](../../../Assets/DragonIdle/Presentation/RoundStatusArt.cs)
+
+## 绘图提示词
+
+### 贝吉塔 01
+
+Square game icon, original C-style cel-ink comic artwork for the user's Unity project. Keep the existing icon family's warm gold narrow rounded frame and deep ink-teal field with transparent external corners. Character identity from project portrait reference, adult anatomy in navy suit and white/gold armor. Pale yellow energy orbs, no purple, no text, no panel divisions, no logo. Candidate 01, three-quarter rear view. Draw the fighter at the LOWER RIGHT from behind, armor silhouette and spiky black hair, pitching forward into the attack. Both upper arms anchor naturally to the shoulder guards. Projectiles fire into the depth of the upper-left diagonal, streaming toward a single vanishing direction in six staggered pale-yellow balls. The firing wrists and fingers are fully obscured behind the first bright small projectile cores and short taper flares. No palms, giant fingers or foreground gripping hands. Torso, speed, shot rhythm and readable ball silhouettes are the emphasis. At icon size retain three or four strong energy circles plus smaller deeper circles.
+
+### 贝吉塔 02
+
+Square game icon, original C-style cel-ink comic artwork for the user's Unity project. Keep the existing icon family's warm gold narrow rounded frame and deep ink-teal field with transparent external corners. Character identity from project portrait reference, adult anatomy in navy suit and white/gold armor. Pale yellow energy orbs, no purple, no text, no panel divisions, no logo. Candidate 02, almost side-on profile from waist up, fighter occupying left lower half aiming toward the upper right. Face with confident glare and shoulder armor mark, one arm thrust across body in a clean side silhouette, the other arm elbows back at waist. Bright pale yellow muzzle flash and first orb fully cover the hand of the extended arm, far wrist disappears behind the torso. From the tight near orb, a spaced rising fan of smaller yellow energy shots swings toward top right with sharp trailing ink reeds. Personality, acceleration, and salvo, not fingers. Use less face detail than in portrait.
+
+### 贝吉塔 03
+
+Square game icon, original C-style cel-ink comic artwork for the user's Unity project. Keep the existing icon family's warm gold narrow rounded frame and deep ink-teal field with transparent external corners. Character identity from project portrait reference, adult anatomy in navy suit and white/gold armor. Pale yellow energy orbs, no purple, no text, no panel divisions, no logo. Candidate 03, projectile closeup. Main graphic shows the volley of six distinct pale-gold energy spheres sweeping from lower right to upper left in two visibly offset streams, strong near-far sizes and precise thin directional trails. At the lower right edge show only the white-gold armor shoulder, navy sleeve and a sliver of the recognizable profile under spiked dark hair, silhouetted in the flash. Keep hands completely out of frame. Graphic, readable at 56 px, crisp hand-painted cel edges and disciplined dynamics.
+
+### 悟饭立绘
+
+Modify ONLY the hair in this user-owned Unity illustration. Match the rough irregular young black hairstyle visible in the second reference's skill-video samples. Broad asymmetric tufts that stick in different directions: offset jagged central forelock, short unequal wedges over the eyebrows, open little wedges of forehead between them, two or three wider kicked-out clumps at the temples with one lower, and broken crowning spikes at different angles. Keep the existing hairstyle's overall envelope and head size. Use very dark charcoal with irregular small muted gray accent shapes, avoid a smooth dome, horizontal fringe, tidy repeated waves, shiny helmet stripe, long mullet or tall upright adult spikes. Keep the original face, eyes, ears, head angles, body, costume, action and hands absolutely unchanged. Crisp C-style hand-drawn cel line work. Only edit the hair; true transparent canvas outside the existing cutouts. Full-body standing character portrait, preserve its centered 2:3 frame, contact at soles, two held fists, existing subtle mint ring and energy flecks. Cheerfully unruly young silhouette but the exact same calm serious face.
+
+### 悟饭战斗姿态
+
+Modify ONLY the hair in this user-owned Unity illustration. Match the rough irregular young black hairstyle visible in the second reference's skill-video samples. Broad asymmetric tufts that stick in different directions: offset jagged central forelock, short unequal wedges over the eyebrows, open little wedges of forehead between them, two or three wider kicked-out clumps at the temples with one lower, and broken crowning spikes at different angles. Keep the existing hairstyle's overall envelope and head size. Use very dark charcoal with irregular small muted gray accent shapes, avoid a smooth dome, horizontal fringe, tidy repeated waves, shiny helmet stripe, long mullet or tall upright adult spikes. Keep the original face, eyes, ears, head angles, body, costume, action and hands absolutely unchanged. Crisp C-style hand-drawn cel line work. Only edit the hair; true transparent canvas outside the existing cutouts. The first image is the sprite sheet edit target, unchanged square dimensions and grid: exactly nine images in exactly three rows with three columns in their original centers. Preserve exact feet and attack contact positions and face expressions. Keep fully separate and transparent between each pose. Especially preserve full straight punch at center right and airborne thrust at bottom center. Same scruffy silhouette from all angles.
+
+### 悟饭受击姿态
+
+Modify ONLY the hair in this user-owned Unity illustration. Match the rough irregular young black hairstyle visible in the second reference's skill-video samples. Broad asymmetric tufts that stick in different directions: offset jagged central forelock, short unequal wedges over the eyebrows, open little wedges of forehead between them, two or three wider kicked-out clumps at the temples with one lower, and broken crowning spikes at different angles. Keep the existing hairstyle's overall envelope and head size. Use very dark charcoal with irregular small muted gray accent shapes, avoid a smooth dome, horizontal fringe, tidy repeated waves, shiny helmet stripe, long mullet or tall upright adult spikes. Keep the original face, eyes, ears, head angles, body, costume, action and hands absolutely unchanged. Crisp C-style hand-drawn cel line work. Only edit the hair; true transparent canvas outside the existing cutouts. The first image is the sprite sheet edit target. Keep exact size 3:2 landscape and the same six separated poses in two rows of three. Keep feet, faces, guard arm overlap and the bottom-right fallen horizontal orientation. Apply consistent irregular hair to all frames.
+
+### 悟饭重击蓄力
+
+Modify ONLY the hair in this user-owned Unity illustration. Match the rough irregular young black hairstyle visible in the second reference's skill-video samples. Broad asymmetric tufts that stick in different directions: offset jagged central forelock, short unequal wedges over the eyebrows, open little wedges of forehead between them, two or three wider kicked-out clumps at the temples with one lower, and broken crowning spikes at different angles. Keep the existing hairstyle's overall envelope and head size. Use very dark charcoal with irregular small muted gray accent shapes, avoid a smooth dome, horizontal fringe, tidy repeated waves, shiny helmet stripe, long mullet or tall upright adult spikes. Keep the original face, eyes, ears, head angles, body, costume, action and hands absolutely unchanged. Crisp C-style hand-drawn cel line work. Only edit the hair; true transparent canvas outside the existing cutouts. The first image is a two-pose 3:2 horizontal anticipation sprite strip. Keep both poses in their respective cells with their current boots, hips, fists and art anchors in the same pixel position. Both see the same character from a similar side angle. Change the two heads' hair consistently and preserve the face direction exactly.
+
+### 立绘透明修订
+
+Use case: precise-object-edit. Clean the alpha channel of the attached revised game portrait. Keep the exact same irregular newly revised hair, serious face, identity, fists, purple costume, cream scarf, foot position, 2:3 portrait and mint ring. Remove black-grey diffuse matte and glow haze around the hair and between the body and the canvas edges. The ONLY pixels outside the silhouette are the small crisp mint flecks and thin ring at the feet. Everywhere else fully transparent alpha=0 including all four corners; no gradient background. Do not alter the figure or the crop.
+
+### 受击透明修订
+
+Use case: precise-object-edit. Clean the alpha channel of the attached revised six-pose game sprite atlas. Preserve all six existing figures and their new jagged scruffy hairstyle, orientation, exact pixel layout, poses, expressions, limbs, costumes and feet. Same 1536x1024 landscape 3 by 2 structure, every sprite in its original cell. Remove near-black corner matte and all colored glows or cloudy pixels outside each figure. Isolated figures only, definitely no black opaque background or canvas-wide haze. True RGBA transparency, zero alpha on all edges and every pixel between figures. Keep exact rightward-facing body registration.
+
+### 重击蓄力透明修订
+
+Use case: precise-object-edit. Clean the alpha of this revised original game sprite strip. Keep the two exact figures, the newly jagged asymmetrical hair, poses, costume, expression, feet positions and 1536x1024 landscape canvas with two separated cells. Erase any scattered canvas or matte noise, highlights outside the figure and any glow. Outside each two clean black outlines and between cells alpha must really be zero, including corners, top edge and gap. Preserve full hair and all details inside the silhouette. No additions.

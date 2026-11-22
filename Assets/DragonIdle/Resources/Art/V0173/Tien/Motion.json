@@ -1,0 +1,796 @@
+{
+ "atlas": [
+  {
+   "image": "moves",
+   "crop": [
+    49,
+    52,
+    396,
+    459
+   ],
+   "pivot": [
+    241,
+    498
+   ],
+   "hit": [
+    351,
+    299
+   ],
+   "beam": [
+    351,
+    299
+   ],
+   "zoom": 0.93
+  },
+  {
+   "image": "moves",
+   "crop": [
+    561,
+    5,
+    380,
+    506
+   ],
+   "pivot": [
+    739,
+    496
+   ],
+   "hit": [
+    823,
+    42
+   ],
+   "beam": [
+    823,
+    42
+   ],
+   "zoom": 0.93
+  },
+  {
+   "image": "moves",
+   "crop": [
+    1053,
+    39,
+    450,
+    472
+   ],
+   "pivot": [
+    1251,
+    495
+   ],
+   "hit": [
+    1490,
+    370
+   ],
+   "beam": [
+    1490,
+    370
+   ],
+   "zoom": 0.93
+  },
+  {
+   "image": "moves",
+   "crop": [
+    44,
+    533,
+    408,
+    477
+   ],
+   "pivot": [
+    243,
+    997
+   ],
+   "hit": [
+    242,
+    690
+   ],
+   "beam": [
+    242,
+    690
+   ],
+   "zoom": 0.93
+  },
+  {
+   "image": "moves",
+   "crop": [
+    541,
+    534,
+    440,
+    475
+   ],
+   "pivot": [
+    738,
+    995
+   ],
+   "hit": [
+    968,
+    624
+   ],
+   "beam": [
+    970,
+    623
+   ],
+   "zoom": 0.93
+  },
+  {
+   "image": "moves",
+   "crop": [
+    1050,
+    531,
+    420,
+    479
+   ],
+   "pivot": [
+    1239,
+    997
+   ],
+   "hit": [
+    1342,
+    643
+   ],
+   "beam": [
+    1345,
+    644
+   ],
+   "zoom": 0.93
+  },
+  {
+   "image": "states",
+   "crop": [
+    38,
+    39,
+    412,
+    444
+   ],
+   "pivot": [
+    241,
+    471
+   ],
+   "hit": [
+    241,
+    471
+   ],
+   "beam": [
+    241,
+    471
+   ],
+   "zoom": 0.99
+  },
+  {
+   "image": "states",
+   "crop": [
+    524,
+    52,
+    432,
+    425
+   ],
+   "pivot": [
+    758,
+    466
+   ],
+   "hit": [
+    758,
+    466
+   ],
+   "beam": [
+    758,
+    466
+   ],
+   "zoom": 0.99
+  },
+  {
+   "image": "states",
+   "crop": [
+    1031,
+    54,
+    453,
+    423
+   ],
+   "pivot": [
+    1266,
+    466
+   ],
+   "hit": [
+    1266,
+    466
+   ],
+   "beam": [
+    1266,
+    466
+   ],
+   "zoom": 0.99
+  },
+  {
+   "image": "states",
+   "crop": [
+    53,
+    528,
+    392,
+    472
+   ],
+   "pivot": [
+    242,
+    990
+   ],
+   "hit": [
+    242,
+    990
+   ],
+   "beam": [
+    242,
+    990
+   ],
+   "zoom": 0.99
+  },
+  {
+   "image": "states",
+   "crop": [
+    559,
+    542,
+    296,
+    354
+   ],
+   "pivot": [
+    755,
+    890
+   ],
+   "hit": [
+    755,
+    890
+   ],
+   "beam": [
+    755,
+    890
+   ],
+   "zoom": 0.99
+  },
+  {
+   "image": "states",
+   "crop": [
+    960,
+    769,
+    545,
+    187
+   ],
+   "pivot": [
+    1225,
+    944
+   ],
+   "hit": [
+    1225,
+    944
+   ],
+   "beam": [
+    1225,
+    944
+   ],
+   "zoom": 0.99
+  },
+  {
+   "image": "recovery",
+   "crop": [
+    78,
+    147,
+    492,
+    458
+   ],
+   "pivot": [
+    318,
+    597
+   ],
+   "hit": [
+    318,
+    597
+   ],
+   "beam": [
+    318,
+    597
+   ],
+   "zoom": 0.77
+  },
+  {
+   "image": "recovery",
+   "crop": [
+    715,
+    36,
+    438,
+    573
+   ],
+   "pivot": [
+    941,
+    597
+   ],
+   "hit": [
+    941,
+    597
+   ],
+   "beam": [
+    941,
+    597
+   ],
+   "zoom": 0.74
+  },
+  {
+   "image": "recovery",
+   "crop": [
+    45,
+    639,
+    540,
+    580
+   ],
+   "pivot": [
+    302,
+    1209
+   ],
+   "hit": [
+    302,
+    1209
+   ],
+   "beam": [
+    302,
+    1209
+   ],
+   "zoom": 0.77
+  },
+  {
+   "image": "recovery",
+   "crop": [
+    757,
+    648,
+    358,
+    573
+   ],
+   "pivot": [
+    950,
+    1349
+   ],
+   "hit": [
+    1002,
+    800
+   ],
+   "beam": [
+    1006,
+    801
+   ],
+   "zoom": 0.77
+  }
+ ],
+ "clips": [
+  {
+   "id": "idle",
+   "title": "站立待机",
+   "duration": 8200,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 6
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "accent",
+   "title": "守势换手",
+   "duration": 700,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 6
+    },
+    {
+     "at": 165,
+     "drawing": 13
+    },
+    {
+     "at": 460,
+     "drawing": 3
+    },
+    {
+     "at": 625,
+     "drawing": 6
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "entry",
+   "title": "入场",
+   "duration": 800,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 7
+    },
+    {
+     "at": 360,
+     "drawing": 12
+    },
+    {
+     "at": 590,
+     "drawing": 6
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "tienVolley",
+   "title": "排球拳",
+   "duration": 1250,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 6
+    },
+    {
+     "at": 215,
+     "drawing": 3
+    },
+    {
+     "at": 312,
+     "drawing": 0
+    },
+    {
+     "at": 403,
+     "drawing": 3
+    },
+    {
+     "at": 468,
+     "drawing": 1
+    },
+    {
+     "at": 580,
+     "drawing": 3
+    },
+    {
+     "at": 698,
+     "drawing": 2
+    },
+    {
+     "at": 850,
+     "drawing": 12
+    },
+    {
+     "at": 1090,
+     "drawing": 6
+    }
+   ],
+   "impacts": [
+    {
+     "at": 328,
+     "drawing": 0,
+     "kind": "body"
+    },
+    {
+     "at": 484,
+     "drawing": 1,
+     "kind": "lift"
+    },
+    {
+     "at": 724,
+     "drawing": 2,
+     "kind": "hammer"
+    }
+   ],
+   "root": [
+    {
+     "at": 0,
+     "x": 0
+    },
+    {
+     "at": 292,
+     "x": 1
+    },
+    {
+     "at": 813,
+     "x": 1
+    },
+    {
+     "at": 900,
+     "x": 1
+    },
+    {
+     "at": 1140,
+     "x": 0
+    },
+    {
+     "at": 1250,
+     "x": 0
+    }
+   ],
+   "impactAt": 724,
+   "runUntil": 266,
+   "runFrames": [
+    7,
+    8
+   ],
+   "approachDrawing": 7,
+   "returnAt": 875,
+   "hopDrawing": 12,
+   "returnHop": 16
+  },
+  {
+   "id": "tienCannon",
+   "title": "气功炮",
+   "duration": 1510,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 6
+    },
+    {
+     "at": 138,
+     "drawing": 3
+    },
+    {
+     "at": 262,
+     "drawing": 5
+    },
+    {
+     "at": 478,
+     "drawing": 15
+    },
+    {
+     "at": 920,
+     "drawing": 15
+    },
+    {
+     "at": 1120,
+     "drawing": 12
+    },
+    {
+     "at": 1410,
+     "drawing": 6
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "impactAt": 820,
+   "launchAt": 690
+  },
+  {
+   "id": "tienSet",
+   "title": "托拳",
+   "duration": 690,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 3
+    },
+    {
+     "at": 255,
+     "drawing": 0
+    },
+    {
+     "at": 359,
+     "drawing": 1
+    },
+    {
+     "at": 498,
+     "drawing": 3
+    },
+    {
+     "at": 641,
+     "drawing": 6
+    }
+   ],
+   "impacts": [
+    {
+     "at": 393,
+     "drawing": 1,
+     "kind": "lift"
+    }
+   ],
+   "root": [
+    {
+     "at": 0,
+     "x": 0
+    },
+    {
+     "at": 340,
+     "x": 1
+    },
+    {
+     "at": 480,
+     "x": 1
+    },
+    {
+     "at": 658,
+     "x": 0
+    },
+    {
+     "at": 690,
+     "x": 0
+    }
+   ],
+   "impactAt": 393,
+   "runUntil": 228,
+   "runFrames": [
+    7,
+    8
+   ],
+   "approachDrawing": 7,
+   "returnAt": 478,
+   "hopDrawing": 12,
+   "returnHop": 17
+  },
+  {
+   "id": "tienFinger",
+   "title": "一指功",
+   "duration": 790,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 6
+    },
+    {
+     "at": 115,
+     "drawing": 3
+    },
+    {
+     "at": 286,
+     "drawing": 4
+    },
+    {
+     "at": 576,
+     "drawing": 4
+    },
+    {
+     "at": 688,
+     "drawing": 6
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "impactAt": 513,
+   "launchAt": 322
+  },
+  {
+   "id": "standing",
+   "title": "站立受击",
+   "duration": 398,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 9
+    },
+    {
+     "at": 176,
+     "drawing": 12
+    },
+    {
+     "at": 328,
+     "drawing": 6
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 125
+  },
+  {
+   "id": "knockback",
+   "title": "击退",
+   "duration": 475,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 9
+    },
+    {
+     "at": 256,
+     "drawing": 12
+    },
+    {
+     "at": 410,
+     "drawing": 6
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 145
+  },
+  {
+   "id": "smallFloat",
+   "title": "小浮空",
+   "duration": 530,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 10
+    },
+    {
+     "at": 335,
+     "drawing": 12
+    },
+    {
+     "at": 451,
+     "drawing": 6
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 165
+  },
+  {
+   "id": "largeFloat",
+   "title": "大浮空",
+   "duration": 615,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 14
+    },
+    {
+     "at": 327,
+     "drawing": 10
+    },
+    {
+     "at": 461,
+     "drawing": 12
+    },
+    {
+     "at": 561,
+     "drawing": 6
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 140
+  },
+  {
+   "id": "knockdown",
+   "title": "倒地",
+   "duration": 740,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 9
+    },
+    {
+     "at": 142,
+     "drawing": 14
+    },
+    {
+     "at": 290,
+     "drawing": 11
+    },
+    {
+     "at": 490,
+     "drawing": 12
+    },
+    {
+     "at": 668,
+     "drawing": 6
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 325
+  },
+  {
+   "id": "defeat",
+   "title": "战败",
+   "duration": 950,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 9
+    },
+    {
+     "at": 165,
+     "drawing": 14
+    },
+    {
+     "at": 388,
+     "drawing": 11
+    },
+    {
+     "at": 900,
+     "drawing": 11
+    }
+   ],
+   "impacts": [],
+   "root": []
+  }
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "cardId": "raditz-arrival-v030",
+ "cues": [
+  {
+   "id": "raditz-entry",
+   "resource": "Audio/V0161/Raditz/raditz-entry",
+   "gain": 0.48
+  },
+  {
+   "id": "raditz-friday",
+   "resource": "Audio/V0161/Raditz/raditz-friday",
+   "gain": 0.68
+  },
+  {
+   "id": "raditz-friday-release",
+   "resource": "Audio/V0161/Raditz/raditz-friday-release",
+   "gain": 0.54
+  },
+  {
+   "id": "raditz-friday-hold",
+   "resource": "Audio/V0161/Raditz/raditz-friday-hold",
+   "gain": 0.42
+  },
+  {
+   "id": "raditz-sunday",
+   "resource": "Audio/V0161/Raditz/raditz-sunday",
+   "gain": 0.72
+  },
+  {
+   "id": "raditz-sunday-charge",
+   "resource": "Audio/V0161/Raditz/raditz-sunday-charge",
+   "gain": 0.43
+  },
+  {
+   "id": "raditz-sunday-release",
+   "resource": "Audio/V0161/Raditz/raditz-sunday-release",
+   "gain": 0.56
+  },
+  {
+   "id": "raditz-kick",
+   "resource": "Audio/V0161/Raditz/raditz-kick",
+   "gain": 0.62
+  },
+  {
+   "id": "raditz-opening",
+   "resource": "Audio/V0161/Raditz/raditz-opening",
+   "gain": 0.57
+  },
+  {
+   "id": "raditz-hit-light",
+   "resource": "Audio/V0161/Raditz/raditz-hit-light",
+   "gain": 0.63
+  },
+  {
+   "id": "raditz-hit-heavy",
+   "resource": "Audio/V0161/Raditz/raditz-hit-heavy",
+   "gain": 0.7
+  },
+  {
+   "id": "raditz-land",
+   "resource": "Audio/V0138/Goku/land",
+   "gain": 0.39
+  },
+  {
+   "id": "raditz-impact",
+   "resource": "Audio/V0140/Vegeta/vegeta-impact",
+   "gain": 0.34
+  }
+ ]
+}

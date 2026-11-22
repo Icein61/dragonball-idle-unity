@@ -1,9 +1,69 @@
 # 当前状态
-更新：2026-11-20（Asia/Shanghai）。项目：https://github.com/Icein61/dragonball-idle-unity
+更新：2026-11-22（Asia/Shanghai）。项目：https://github.com/Icein61/dragonball-idle-unity
 
 ## 当前阶段
 
-v0.13.1 已建立[开发单](release-plans/v0.13.1.md)，交付九宫格回合制简表供填写。正式普攻、必杀、追打和技能留空，原身份字段与图片按卡对应。当前可玩版本仍为 v0.13.0。
+v0.17.3 按[开发单](release-plans/v0.17.3.md)上线天津饭，更新定位图标、卡片版式和小龙珠反光。角色表回读、1005 项核心检查、9 张隐藏 Unity 画面、Windows x64 构建、隔离存档 Player 回归和 ZIP 校验均通过。 [本地试玩包](../Builds/Releases/v0.17.3/龙珠爆裂激斗-v0.17.3-Windows-x64.zip)。
+
+v0.17.3 增加 Git LFS 归档，范围为 [59 个参考视频](../Releases/v0.17.3-reference-videos.sha256)。小版本的归档及恢复步骤见[工程交接](engineering/handoff.md#参考视频的归档与本地清理)。
+
+v0.17.2 按[开发单](release-plans/v0.17.2.md)上线雅木茶，接入编队看卡、显式保存和阵位选中，扩充四档龙珠底图。角色表回读、997 项核心检查、10 张隐藏 Unity 画面、Windows x64 构建、隔离存档 Player 回归和 ZIP 校验均通过。 [本地试玩包](../Builds/Releases/v0.17.2/龙珠爆裂激斗-v0.17.2-Windows-x64.zip)。
+
+v0.17.1 按[开发单](release-plans/v0.17.1.md)接入九宫格编队及存档阵容，更新四档龙珠底图和图鉴交互，修正追打衔接和气弹命中表现。角色运行配置基线比对、986 项核心检查、9 张隐藏 Unity 验收画面、Windows x64 构建及隔离存档 Player 回归通过。 [本地试玩包](../Builds/Releases/v0.17.1/龙珠爆裂激斗-v0.17.1-Windows-x64.zip)。
+
+v0.17.0 按[开发单](release-plans/v0.17.0.md)补齐雅木茶、天津饭配置模板，撤下旧编队入口，重绘稀有度资产，调整三轴图和 info，修复拉蒂兹双重太阳日和克林受击裁切。母表回读、986 项核心检查、9 张隐藏 Unity 画面、Windows x64 和隔离 Player 回归通过。[本地试玩包](../Builds/Releases/v0.17.0/龙珠爆裂激斗-v0.17.0-Windows-x64.zip)。
+
+v0.16.2 按[开发单](release-plans/v0.16.2.md)加入四档底图、专属 info 图标和统一属性说明，完成鼠标按住时连续切卡，并重绘拉蒂兹「闪耀金星日」图标。986 项核心检查、7 张 Unity 后台画面、Windows x64 构建和隔离 Player 回归通过。[本地试玩包](../Builds/Releases/v0.16.2/龙珠爆裂激斗-v0.16.2-Windows-x64.zip)。
+
+v0.16.1 按[开发单](release-plans/v0.16.1.md)上线 C 级输出拉蒂兹，加入角色表追打状态累计、三维潜力图、属性气泡和伤害计算说明。修复比克每回合反击次数和闪避断链，统一悟空移动服装。986 项核心检查、9 张隐藏 Unity 画面、Windows x64 构建和隔离 Player 回归通过。[本地试玩包](../Builds/Releases/v0.16.1/龙珠爆裂激斗-v0.16.1-Windows-x64.zip)。
+
+v0.16.0 已按[开发单](release-plans/v0.16.0.md)接入攻减防、进阶属性和潜力成长，改用满级独立随机 Demo，修复比克蓄力反击。拉蒂兹只预留离线配置。921 核心检查、128 局数值模拟、6 张 Unity 后台画面、Windows x64 构建和隔离 Player 回归通过。[本地试玩包](../Builds/Releases/v0.16.0)。
+
+v0.15.5 已接入打包前角色表同步和立绘回填，调整 Demo 为克林及两名随机同伴的三对三，并加快战斗节奏和比克移动。913 项核心检查、6 张 Unity 后台画面、Windows x64 构建和隔离 Player 通过。[本地试玩包](../Builds/Releases/v0.15.5)。[阶段复盘](engineering/v0.15-retrospective.md)。
+
+v0.15.4 已按[开发单](release-plans/v0.15.4.md)上线 0005 克林，接入用户选定的 A 版立绘和图标、技能动画及音效，新增悟空与贝吉塔跑动。完成角色收藏、头像拖动回弹和 Buff 展示修正。909 项核心检查、11 张 Unity 后台画面、Windows x64 构建和隔离 Player 通过。[本地试玩包](../Builds/Releases/v0.15.4)。
+
+v0.15.3 已按[开发单](release-plans/v0.15.3.md)接入菜单共享 BGM、头像拖动、五类状态图标、贝吉塔 03 号连续能源弹与悟饭新发型，比克蓄力使用指尖光效。900 项核心检查、10 张 Unity 后台画面和 Windows x64 隔离 Player 通过。[本地试玩包](../Builds/Releases/v0.15.3)。
+
+v0.15.2 已按[开发单](release-plans/v0.15.2.md)完成角色页 BGM、列表入口、会话排序、正方形图标与四行说明框，更新悟饭重击蓄力、比克立绘、贝吉塔双手发弹图标，并修复比克后续回合反击。900 项核心检查、10 张 Unity 后台画面和 Windows x64 隔离 Player 通过。[本地试玩包](../Builds/Releases/v0.15.2)。
+
+v0.15.1 已按[开发单](release-plans/v0.15.1.md)完成 0004 悟饭正式上线、悟空追打的小浮空、贝吉塔图标重绘、图鉴滚动更新和比克两段反击镜头。893 项核心检查、10 张隐藏 Unity 画面、上下回弹和 Windows x64 隔离 Player 均已通过。试玩包见 [Builds/Releases/v0.15.1](../Builds/Releases/v0.15.1)，听感和操作手感待实际试玩。
+
+v0.15.0 已按[开发单](release-plans/v0.15.0.md)完成图鉴分区、序号和详情交互，更新贝吉塔图标并修复比克追打及反击。孙悟饭【幼年】、克林的表内模板可填写。885 项核心检查、9 张 Unity 后台画面和 Windows x64 隔离 Player 通过。试玩包见 Builds/Windows-v0.15.0。
+
+v0.14.5 已按[版本开发单](release-plans/v0.14.5.md)完成贝吉塔图标、比克持续蓄力和跑动修复，核对了新的本机角色音频库。881 项核心检查、9 张 Unity 后台画面及 Windows x64 隔离 Player 验证通过。本地试玩包位于 Builds/Windows-v0.14.5。
+
+已完成 [v0.14 开发复盘](engineering/v0.14-retrospective.md)。
+
+v0.14.4 已按[版本开发单](release-plans/v0.14.4.md)完成比克的分段触发反击和水平魔贯光杀炮、贝吉塔图标及三名角色的跑动接近和跳跃回位。当前仅显示表内三张卡。881 项核心检查、12 张 Unity 后台画面、Windows x64 构建和隔离 Player 检查通过。本地试玩包见 Builds/Windows-v0.14.4。
+
+v0.14.3 按[开发单](release-plans/v0.14.3.md)接入比克的正式技能、移动和音频，改用中心对称的 3 对 3，更新贝吉塔立绘及图鉴技能显示。877 项核心检查、Unity Play 十帧、Windows x64 构建和隔离 Player headless-smoke-v0143-final 通过。本地试玩包位于 Builds/Windows-v0.14.3。
+
+v0.14.2 按[开发单](release-plans/v0.14.2.md)整理三卡角色表、嵌入立绘，更新图鉴招式配色、悟空图标、两侧稀有度角标及贝吉塔手部。角色表、865 项核心检查、Unity Play 三处画面、Windows x64 构建和隔离 Player `headless-smoke-v0142-release` 通过。本地试玩包位于 `Builds/Windows-v0.14.2`。
+
+v0.14.1 按[开发单](release-plans/v0.14.1.md)接入三张随机战场和对应配乐、主页配乐、新版贝吉塔立绘，收紧阵位，调整普攻与必杀演出节奏，修正贝吉塔开场和待机的缩放。Unity Play 核对 8 帧和四首曲目切换。865 项核心检查、Windows x64 构建和隔离 Player `headless-smoke-v0141-final` 通过。本地试玩包位于 `Builds/Windows-v0.14.1`。
+
+v0.14.0 按[开发单](release-plans/v0.14.0.md)完成 0002 贝吉塔试阵配置、立绘、图标、动作、特效与音频，战斗 Demo 为 3v3。更新 0001 悟空追打、概率档和角色表入口，移除主页背景音乐。Unity Play 核对 8 帧，865 项核心检查、Windows x64 构建和隔离 Player `headless-smoke-v0140-verified` 通过。本地包位于 `Builds/Windows-v0.14.0`。
+
+v0.13.10 按[开发单](release-plans/v0.13.10.md)接入悟空已有技能图标，缩小并固定技能名牌，调整龟派气功尾部和镜头自然恢复。Unity Play 画面 8 帧、854 项核心检查、Windows x64 构建和隔离 Player `headless-smoke-v01310` 通过。本地包位于 `Builds/Windows-v0.13.10`。
+
+v0.13.9 按[开发单](release-plans/v0.13.9.md)接入必杀特写与入场被动亮带和音效。场地隐藏九宫格线，入场被动和必杀显示招式名牌，状态条采用淡色圆角底。龟派气功按配置覆盖正面横排。Unity Play 核对 8 帧，854 项核心检查、Windows x64 构建及隔离 Player `headless-smoke-v0139-verified` 通过。本地包位于 `Builds/Windows-v0.13.9`。
+
+v0.13.8 按[开发单](release-plans/v0.13.8.md)扩大战斗 Demo 的中央战场，移除战斗阵位数字与外围信息栏，调整悟空必杀粗细和追打白光。Unity Play 模式核对七帧。按用户确认将 20 条本机 WAV 接入 0001Goku。854 项核心检查、Windows x64 有声构建和隔离 Player `headless-smoke-v0138-audio-final` 通过，有声包位于 `Builds/Windows-v0.13.8.audio`。
+
+v0.13.7 按[开发单](release-plans/v0.13.7.md)接入追打白光和短节拍，调整圆角状态条，修复悟空必杀图集原尺寸与光波尾部。音频按来源状态留白。Unity Play 模式核对 7 个画面，854 项核心检查、Windows x64 构建和隔离 Player headless-smoke-20261122011603344 通过。
+
+v0.13.6 按[开发单](release-plans/v0.13.6.md)重做悟空圆柱光波和淡出，加入阵位生命、护盾、怒气条，缩短被动及受击位移、延长自动出手间隔。音效待项目自有素材。852 项核心检查、Windows x64 构建和隔离 Player headless-smoke-20261122005053791 通过，实机观感待试玩。
+
+v0.13.5 按[开发单](release-plans/v0.13.5.md)加入场景概念图配置表，接入缩小模型、斜切九宫格和悟空贴地动作。图鉴显示相邻卡头像并隐藏首尾越界按钮。参考音效尝试后按规则留白。852 项核心检查、本地 Windows x64 构建和隔离 Player `headless-smoke-20261121184957302` 通过，实机观感待试玩。
+
+v0.13.4 按[开发单](release-plans/v0.13.4.md)将战斗 Demo 改为双方镜像九宫格，当前双方仅 2 号位上阵悟空。新增场景配置和概念图目录，图鉴详情使用小、大、小方形切换。悟空 17 个音频点按新版要求留白。852 项核心检查、本地 Windows x64 构建和隔离 Player `headless-smoke-20261121155037219` 通过，实机画面待试玩。
+
+v0.13.3 按[开发单](release-plans/v0.13.3.md)接入 0001Goku 简表规则和[参考视频版动作、特效及音频](../Art/Production/V0133/goku-test/README.md)。普攻扫腿与倒地绑定，追打改为上勾拳接小浮空，龟派气功攻击正面横排。848 项核心检查、本地 Windows x64 构建和隔离 Player 均通过。实机画面与试听待试玩。
+
+v0.13.2 按[开发单](release-plans/v0.13.2.md)新增「劲敌」身份标签、[悟空受击、进场、战败与音频](../Art/Production/V0132/goku-test/README.md)，并在主页接入读取编队阵位的 1v1 镜像战斗 Demo。841 项核心、Windows x64 后台构建和隔离 Player `headless-smoke-20261121031758323` 通过，包含 25 种受击衔接和暂停。实际画面及试听待试玩。
+
+v0.13.1 按[开发单](release-plans/v0.13.1.md)在九宫格简表加入九个稳定角色编号和两类待机描述，保留已填招式与嵌图。已整理[项目开发规范](standards/README.md)，用户确认后，已将[悟空待机及四项招式](../Art/Production/V0131/goku-test/README.md)的动作、特效和新版被动图标接入九宫格与图鉴。835 项核心检查、Unity Windows 后台构建和隔离 Player 检查 `headless-smoke-20261121021030363` 通过，可见画面待试玩。公开预览包为 v0.13.0。
 
 v0.13.0 按[版本开发单](release-plans/v0.13.0.md)切换为九宫格固定手位回合制。保留图鉴和编队；挑战、养成、装备、召唤与相关奖励暂退，旧数据保留。三套试阵为角色重构预留配置验证入口。[版本索引和模板](release-plans/README.md)。
 

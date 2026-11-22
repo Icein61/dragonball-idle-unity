@@ -1,0 +1,60 @@
+{
+  "cardId": "gohan-test",
+  "cues": [
+    {
+      "id": "gohan-entry",
+      "resource": "Audio/V0151/Gohan/gohan-entry",
+      "gain": 0.51
+    },
+    {
+      "id": "gohan-rally-voice",
+      "resource": "Audio/V0151/Gohan/gohan-rally-voice",
+      "gain": 0.7
+    },
+    {
+      "id": "gohan-rally",
+      "resource": "Audio/V0151/Gohan/gohan-rally",
+      "gain": 0.45
+    },
+    {
+      "id": "gohan-heavy-voice",
+      "resource": "Audio/V0151/Gohan/gohan-heavy-voice",
+      "gain": 0.77
+    },
+    {
+      "id": "gohan-heavy",
+      "resource": "Audio/V0151/Gohan/gohan-heavy",
+      "gain": 0.61
+    },
+    {
+      "id": "gohan-flash-voice",
+      "resource": "Audio/V0151/Gohan/gohan-flash-voice",
+      "gain": 0.83
+    },
+    {
+      "id": "gohan-flash",
+      "resource": "Audio/V0151/Gohan/gohan-flash",
+      "gain": 0.62
+    },
+    {
+      "id": "gohan-guard",
+      "resource": "Audio/V0151/Gohan/gohan-guard",
+      "gain": 0.6
+    },
+    {
+      "id": "gohan-hit-light",
+      "resource": "Audio/V0151/Gohan/gohan-hit-light",
+      "gain": 0.67
+    },
+    {
+      "id": "gohan-hit-heavy",
+      "resource": "Audio/V0151/Gohan/gohan-hit-heavy",
+      "gain": 0.73
+    },
+    {
+      "id": "gohan-land",
+      "resource": "Audio/V0138/Goku/land",
+      "gain": 0.36
+    }
+  ]
+}
