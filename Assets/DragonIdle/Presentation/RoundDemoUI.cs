@@ -86,13 +86,14 @@ namespace DragonIdle {
    if(roundCueAudio!=null)roundCueAudio.Stop();
   }
 
-  static Vector2 DemoGround(int side,int position) {
-   int row=RoundBoard.Row(position),lane=(position-1)/3;
-   // Rotate the formations about the center of the ground; slot numbering still runs top to bottom.
-   int offsetRow=side==0?row:2-row;
-   float x=386+18*offsetRow-88*lane;
-   return new Vector2(side==0?x:RoundMotionFx.Width-x,207+80*row);
-  }
+  const float DemoLaneWidth=88,DemoLaneShear=27,DemoRowDepth=80,DemoGridLeft=143.5f,DemoGridTop=167;
+  static readonly RoundSlotGrid[] DemoGrids={
+   new RoundSlotGrid(new Vector2(DemoGridLeft,DemoGridTop),DemoLaneWidth,DemoLaneShear,DemoRowDepth),
+   new RoundSlotGrid(new Vector2(RoundMotionFx.Width-DemoGridLeft-3*(DemoLaneWidth+DemoLaneShear),DemoGridTop),
+    DemoLaneWidth,DemoLaneShear,DemoRowDepth,1)
+  };
+
+  static Vector2 DemoGround(int side,int position)=>DemoGrids[side].Center(position);
 
   static Vector2 DemoGround(RoundFighter fighter) => DemoGround(fighter.Side,fighter.Position);
   static float BattleModelSize(string id)=>id==RoundMotionArt.RaditzCardId?1.09f:1;
@@ -145,6 +146,8 @@ namespace DragonIdle {
    var fighters=roundBattle.Order;
    for(int side=0;side<2;side++){
     int team=side;
+    var floor=UNode(demoStage,"DemoGroundGrid"+side,0,0,width,height).gameObject.AddComponent<FormationGridGraphic>();
+    floor.UseBattleLayout(DemoGrids[side]);
     for(int position=1;position<=RoundBoard.Cells;position++){
      var feet=DemoGround(team,position);
      var fighter=fighters.FirstOrDefault(f=>f.Side==team&&f.Position==position);

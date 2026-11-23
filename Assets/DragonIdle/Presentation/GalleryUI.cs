@@ -258,7 +258,7 @@ namespace DragonIdle {
    UArt(r,index,16,44,284,278,CharacterCardPortraitRegion(index),muted:!owned);
    UText(r,"Name",card.Name,16,329,284,33,24,ink);
    var theme=UText(r,"Theme",card.Title,16,364,244,25,17,ink,TextAnchor.MiddleLeft);
-   DrawCharacterRole(r,card,16+Mathf.Min(244,Mathf.Ceil(theme.preferredWidth))+5,364,25);
+   DrawCharacterRoleNextTo(theme,card);
    DrawCardPotentialChart(r,card);
    var power=UText(r,"CharacterPower","",126,441,172,26,16,uiDim,TextAnchor.MiddleRight);
    power.supportRichText=true;power.gameObject.SetActive(owned);
@@ -302,11 +302,11 @@ namespace DragonIdle {
     default:return new Rect(24,12,209,178);
    }
   }
-  void DrawRarityBadge(Transform parent,string rank,float x,float y,float width,float height,bool leftAligned=false,bool matchVisibleHeight=false){
+  float DrawRarityBadge(Transform parent,string rank,float x,float y,float width,float height,bool leftAligned=false,bool matchVisibleHeight=false){
    var sprite=RarityBadge(rank);
    if(sprite==null){
     UText(parent,"Rarity",rank,x,y,width,height,18,uiAccent,TextAnchor.MiddleCenter);
-    return;
+    return width;
    }
    if(matchVisibleHeight){
     if(!detailRarityBadges.TryGetValue(rank,out var crop)){
@@ -333,6 +333,7 @@ namespace DragonIdle {
    badge.sprite=sprite;
    badge.preserveAspect=true;
    badge.raycastTarget=false;
+   return width;
   }
  }
 }

@@ -1,0 +1,12 @@
+{
+  "tool": "built-in imagegen",
+  "prompt": "Create one original transparent production sprite atlas for a Chinese martial-arts RPG with THREE role icons spaced in equal square columns left to right, on true transparent alpha. These are role marks for a 20-pixel-high UI, not game inventory illustrations. LEFT warm vermilion #d54e40: a graphic martial artist crouched feet planted, fists on both sides of hips, two blunt red curved upward aura strokes indicating charging. CENTER ink-blue #4684b0: graphic martial artist with BOTH fists gathered at chest in a compact centered frontal guard stance, arm shapes separated by transparent negative space. RIGHT jade green #41966b: graphic hand seen from the side passing a small kidney bean above a second receiving palm, with generous negative space. Geometric editorial pictogram style derived from clean brush calligraphy cuts, filled color silhouettes and at most one darker flat tonal shape on each. Consistent visual weight and equal visible heights, roughly 70% cell size. No gloss, gold, grunge, sketched texture, render, gradients, outlines, white edges, cast shadows, labels, backing discs, boxes, spritesheet grid or glow. Only 3 marks centered separately, separated by empty transparent gutters. Wide 3:1 atlas.",
+  "sourceSha256": "a1bc47ccb5f82be89f13acc14bf303e501cbc62787893b4a4ebf9b6fc0e9ef2f",
+  "asset": "Assets/DragonIdle/Resources/Interface/Role/V0174/roles.png",
+  "order": [
+    "输出",
+    "防御",
+    "援助"
+  ],
+  "preparation": "Crop sprite bounds and pack on transparent 288 px cells"
+}

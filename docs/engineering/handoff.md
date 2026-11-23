@@ -159,3 +159,9 @@ GalleryTheme提供缓存圆角九宫格和焦点组件；CardLibrary/Detail切�
 - RoundCombat 执行回合起手队列。气功炮将生命成本带入战斗事件，在演出到达时公布。
 - GalleryRoleArt 绑定三个定位区域，GalleryDragonBallWatermarks 绘制小龙珠的折射和反光。
 - Windows 通过 C 盘临时 Unity 工程构建，角色表、源文件、验收记录和交付 ZIP 在 D 盘项目。[交付记录](../../Releases/v0.17.3.md)。
+
+## v0.17.4 定位图标和阵位几何
+
+- GalleryRoleArt 使用 V0174 图集；角色描述按 Unity 生成的字形边界对齐。编队复用稀有度图标的透明边裁切。
+- RoundSlotGrid 为编队九格提供绘制与命中坐标，也为战场格面、角色落脚点和状态条提供同一组锚点。
+- [交付记录](../../Releases/v0.17.4.md)汇总版本包、画面和后台验证。

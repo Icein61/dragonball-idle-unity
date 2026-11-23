@@ -35,7 +35,7 @@ namespace DragonIdle {
    DrawCharacterInfoButton();
    UText(detailRoot,"CharacterName",c.Name,621,10,310,40,29,uiPaper,TextAnchor.MiddleLeft);
    var title=UText(detailRoot,"CharacterTitle",c.Title,623,53,220,25,17,uiDim,TextAnchor.MiddleLeft);
-   DrawCharacterRole(detailRoot,c,628+Mathf.Min(220,Mathf.Ceil(title.preferredWidth)),53,25);
+   DrawCharacterRoleNextTo(title,c);
    UText(detailRoot,"DetailNumber","No. "+c.CatalogNumber.ToString("D3"),523,87,525,24,16,uiAccent);
    if(owned){
     var power=UText(detailRoot,"DetailPower",GalleryPowerText(i),24,674,456,30,19,uiDim,TextAnchor.MiddleCenter);

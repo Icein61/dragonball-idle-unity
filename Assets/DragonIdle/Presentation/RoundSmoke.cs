@@ -229,10 +229,14 @@ namespace DragonIdle {
     "Masked effects need a renderer before their first canvas draw");
    var rowStep=DemoGround(0,2)-DemoGround(0,1);
    var laneStep=DemoGround(0,4)-DemoGround(0,1);
-   AssertSmoke(rowStep.x==18&&rowStep.y==80&&laneStep.x==-88&&laneStep.y==0&&
-    Enumerable.Range(1,9).All(position=>DemoGround(0,position)==DemoGround(0,1)+
-     rowStep*RoundBoard.Row(position)+laneStep*((position-1)/3))&&
-    demoStage.Find("FloorLine")==null,"Hidden grid should preserve the mirrored anchors");
+   AssertSmoke(rowStep.x==27&&rowStep.y==80&&laneStep.x==-88&&laneStep.y==0,
+    "Battle ground did not use the new lane angle and spacing");
+   for(int side=0;side<2;side++){
+    var grid=demoStage.Find("DemoGroundGrid"+side).GetComponent<FormationGridGraphic>();
+    AssertSmoke(!grid.raycastTarget&&grid.Layout.Across==new Vector2(88,0)&&grid.Layout.Depth==new Vector2(27,80)&&
+     Enumerable.Range(1,RoundBoard.Cells).All(slot=>grid.Layout.Center(slot)==DemoGround(side,slot)&&
+      grid.Layout.SlotAt(DemoGround(side,slot))==slot),"Battle tiles must be congruent and centered on roster anchors");
+   }
    AssertSmoke(demoReactionArt.Atlas.Length==16&&roundCueClips.Count==97&&
     roundCueClips["opening-passive"].Clip!=roundCueClips["pursuit-start"].Clip&&
     roundCueClips.Values.All(cue=>cue.Clip!=null&&cue.Clip.samples>0&&cue.Gain>0)&&
@@ -955,6 +959,8 @@ namespace DragonIdle {
     var center=FormationGridGraphic.Center(slot)+offset;
     return ScreenPoint(formationGrid.rectTransform,new Vector2(center.x,-center.y));
    }
+   AssertSmoke(formationGrid.Layout.Depth==new Vector2(40,64)&&formationGrid.Layout.Across==new Vector2(183,0),
+    "Formation tiles must be congruent and use the new shear");
    foreach(int slot in Enumerable.Range(1,RoundBoard.Cells))
     AssertSmoke(FormationSlotAt(Cell(slot),null)==slot&&FormationSlotAt(Cell(slot,new Vector2(-72,20)),null)==slot,
      "Parallelogram did not map its center and lower-left corner to slot "+slot);
@@ -996,7 +1002,7 @@ namespace DragonIdle {
    int other=formationDraft[occupied-1];
    var gridInput=formationGrid.GetComponent<FormationGridInput>();
    pointer.position=Cell(source,new Vector2(-72,20));pointer.pressPosition=pointer.position;
-   var outside=ScreenPoint(formationGrid.rectTransform,new Vector2(12,-28));
+   var outside=ScreenPoint(formationGrid.rectTransform,new Vector2(9,-28));
    AssertSmoke(formationGrid.Raycast(pointer.position,null)&&!formationGrid.Raycast(outside,null),
     "Grid raycast must follow the polygon even at a cell corner");
    gridInput.OnPointerDown(pointer);
@@ -1079,20 +1085,25 @@ namespace DragonIdle {
    GalleryTestButton("LeaveRoundPreview").onClick.Invoke();
   }
 
-  void VerifyV173Roles(){
+  void VerifyV174Roles(){
    NavigateGallery("角色");
    var roleCards=new[]{Data.Index(RoundMotionArt.TienCardId),Data.Index(RoundMotionArt.GohanCardId),Data.Index(RoundMotionArt.YamchaCardId)};
    var icons=roleCards.Select(i=>cardButtons[i].transform.Find("CharacterRoleIcon").GetComponent<UI.RawImage>()).ToArray();
-   for(int i=0;i<icons.Length;i++){
-    var card=cardButtons[roleCards[i]].transform;
-    var description=(RectTransform)card.Find("Theme");
-    AssertSmoke(icons[i].texture!=null&&icons[i].rectTransform.anchoredPosition.x>description.anchoredPosition.x&&
-     Mathf.Abs((icons[i].rectTransform.anchoredPosition.y-icons[i].rectTransform.rect.height*.5f)-
-      (description.anchoredPosition.y-description.rect.height*.5f))<.01f,"Gallery role icon is not aligned with the description");
+   void CheckTitleAlignment(UI.RawImage icon,UI.Text description){
+    var label=description.rectTransform;
+    Rect ink=RoleTextInkBounds(description);
+    var mark=icon.rectTransform;
+    AssertSmoke(icon.texture==Resources.Load<Texture2D>("Interface/Role/V0174/roles")&&
+     mark.anchoredPosition.x-label.anchoredPosition.x>=Mathf.Min(label.rect.width,ink.xMax)+9.9f&&
+     Mathf.Abs(mark.anchoredPosition.y-label.anchoredPosition.y-ink.yMax)<.01f&&
+     Mathf.Abs(mark.rect.height-ink.height)<.01f,"Gallery role icon must match printed title bounds");
    }
+   for(int i=0;i<icons.Length;i++)
+    CheckTitleAlignment(icons[i],cardButtons[roleCards[i]].transform.Find("Theme").GetComponent<UI.Text>());
    AssertSmoke(icons.Select(icon=>icon.uvRect).Distinct().Count()==3,"Role motifs do not use three separate atlas regions");
    OpenGalleryCard(roleCards[0]);
-   AssertSmoke(detailRoot.Find("CharacterRoleIcon")!=null,"Detail role icon is missing");
+   CheckTitleAlignment(detailRoot.Find("CharacterRoleIcon").GetComponent<UI.RawImage>(),
+    detailRoot.Find("CharacterTitle").GetComponent<UI.Text>());
    NavigateGallery(FormationRoute);
    var tile=GalleryTestButton("FormationCard"+RoundMotionArt.TienCardId).transform;
    var badges=(RectTransform)tile.Find("FormationCardBadges");
@@ -1100,6 +1111,12 @@ namespace DragonIdle {
     badges.Find("CharacterRoleIcon")!=null&&badges.Find("Rarity_C")!=null&&
     badges.anchoredPosition.y<((RectTransform)tile.Find("FormationCardName")).anchoredPosition.y,
     "Formation card does not use two rows for identity and badges");
+   var rarity=(RectTransform)badges.Find("Rarity_C");
+   var role=(RectTransform)badges.Find("CharacterRoleIcon");
+   AssertSmoke(Mathf.Abs(role.rect.height-rarity.rect.height)<.01f&&
+    Mathf.Abs(role.anchoredPosition.y-rarity.anchoredPosition.y)<.01f&&
+    Mathf.Abs(role.anchoredPosition.x-rarity.anchoredPosition.x-rarity.rect.width-3)<.01f,
+    "Formation badges must share visible height and have a three-pixel gap");
    NavigateGallery("主页");
   }
 
@@ -1772,7 +1789,7 @@ namespace DragonIdle {
     VerifyRaditzSingleTargetRays();
     VerifyYamchaPresentation();
     VerifyTienPresentation();
-    VerifyV173Roles();
+    VerifyV174Roles();
     VerifyPiccoloApproach();
     VerifyDemoMultiTarget();
     VerifyFullDemoGrid();
@@ -1780,7 +1797,7 @@ namespace DragonIdle {
     VerifyRoundTempoAndMeters();
     VerifyQuickPursuitHandoff();
     VerifyBrokenPursuitRecovery();
-    File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"roundCombat\":true,\"gokuMotion\":true,\"openingIcon\":true,\"gridDemo\":true,\"gridMultiTarget\":true,\"fullGridReadability\":true,\"groundedMotion\":true,\"contrastTiming\":true,\"waveFeather\":true,\"thickerWave\":true,\"expandedBattlefield\":true,\"hiddenBattleSlotNumbers\":true,\"upwardPursuitSheen\":true,\"ultimateAtlasSize\":true,\"pursuitFlash\":true,\"quickPursuitHandoff\":true,\"roundedVitals\":true,\"slotVitals\":true,\"actionGap\":true,\"shortOpening\":true,\"reactionTransitions\":25,\"gokuAudioCues\":21,\"vegetaAudioCues\":9,\"savedFiveEnemyDemo\":true,\"characterSheetConfiguration\":true,\"vegetaVolley\":true,\"vegetaArt\":true,\"piccoloPresentation\":true,\"piccoloHeldCharge\":true,\"piccoloApproachPacing\":true,\"piccoloPursuitHop\":true,\"galleryOwnershipGroups\":true,\"galleryNumberSort\":true,\"galleryElasticSkills\":true,\"characterPageLoop\":true,\"characterPageSessionSort\":true,\"characterSkillFourLines\":true,\"sharedMenuLoop\":true,\"avatarSwipe\":true,\"roundStatusHud\":true,\"piccoloFingerGlow\":true,\"gohanHairArt\":true,\"gohanHeavyWindup\":true,\"gohanPresentation\":true,\"guardCounterPriority\":true,\"brokenPursuitRecovery\":true,\"raditzPresentation\":true,\"twinRaysAndSingleHit\":true,\"krillinReactionCrop\":true,\"formationDragAndSave\":true,\"formationExplicitSave\":true,\"yamchaPresentation\":true,\"tienPresentation\":true,\"roleArtwork\":true,\"greenBadgeAndRadar\":true,\"combinedStatGuide\":true,\"galleryRarityBackdrops\":true,\"multiCardHeldSwipe\":true,\"barefootGokuMovement\":true,\"activeRoster\":"+Data.RoundRoster.Count+",\"krillinPresentation\":true,\"galleryFavorites\":true,\"avatarElasticDrag\":true,\"authoredBuffIcons\":true,\"savedLevel100Demo\":true,\"ultimateCutIn\":true,\"smoothCameraRestore\":true,\"stableSkillBadge\":true,\"authoredSkillIcons\":true,\"beamTailWidened\":true,\"sharedOpeningFx\":true,\"battleSkillBadges\":true,\"hiddenFloorLines\":true,\"horizontalRowBeam\":true,\"referenceTiming\":true,\"referenceVideoExcluded\":true,\"formationSave\":true,\"twoRoutes\":true,\"galleryDetails\":true,\"galleryCurrentAvatar\":true,\"gallerySkillColors\":true,\"gokuGalleryIcons\":true,\"neighborRarityBadges\":true,\"startupArt\":true,\"noRewards\":true,\"soundSilent\":true,\"homeAndBattleBgm\":true,\"compactBattleGrid\":true,\"actionRates\":true,\"vegetaScaleStable\":true,\"renderVerified\":false,\"actions\":"+events+"}");
+    File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"roundCombat\":true,\"gokuMotion\":true,\"openingIcon\":true,\"gridDemo\":true,\"gridMultiTarget\":true,\"fullGridReadability\":true,\"groundedMotion\":true,\"contrastTiming\":true,\"waveFeather\":true,\"thickerWave\":true,\"expandedBattlefield\":true,\"hiddenBattleSlotNumbers\":true,\"upwardPursuitSheen\":true,\"ultimateAtlasSize\":true,\"pursuitFlash\":true,\"quickPursuitHandoff\":true,\"roundedVitals\":true,\"slotVitals\":true,\"actionGap\":true,\"shortOpening\":true,\"reactionTransitions\":25,\"gokuAudioCues\":21,\"vegetaAudioCues\":9,\"savedFiveEnemyDemo\":true,\"characterSheetConfiguration\":true,\"vegetaVolley\":true,\"vegetaArt\":true,\"piccoloPresentation\":true,\"piccoloHeldCharge\":true,\"piccoloApproachPacing\":true,\"piccoloPursuitHop\":true,\"galleryOwnershipGroups\":true,\"galleryNumberSort\":true,\"galleryElasticSkills\":true,\"characterPageLoop\":true,\"characterPageSessionSort\":true,\"characterSkillFourLines\":true,\"sharedMenuLoop\":true,\"avatarSwipe\":true,\"roundStatusHud\":true,\"piccoloFingerGlow\":true,\"gohanHairArt\":true,\"gohanHeavyWindup\":true,\"gohanPresentation\":true,\"guardCounterPriority\":true,\"brokenPursuitRecovery\":true,\"raditzPresentation\":true,\"twinRaysAndSingleHit\":true,\"krillinReactionCrop\":true,\"formationDragAndSave\":true,\"formationExplicitSave\":true,\"yamchaPresentation\":true,\"tienPresentation\":true,\"roleArtwork\":true,\"greenBadgeAndRadar\":true,\"combinedStatGuide\":true,\"galleryRarityBackdrops\":true,\"multiCardHeldSwipe\":true,\"barefootGokuMovement\":true,\"activeRoster\":"+Data.RoundRoster.Count+",\"krillinPresentation\":true,\"galleryFavorites\":true,\"avatarElasticDrag\":true,\"authoredBuffIcons\":true,\"savedLevel100Demo\":true,\"ultimateCutIn\":true,\"smoothCameraRestore\":true,\"stableSkillBadge\":true,\"authoredSkillIcons\":true,\"beamTailWidened\":true,\"sharedOpeningFx\":true,\"battleSkillBadges\":true,\"congruentGridTiles\":true,\"horizontalRowBeam\":true,\"referenceTiming\":true,\"referenceVideoExcluded\":true,\"formationSave\":true,\"twoRoutes\":true,\"galleryDetails\":true,\"galleryCurrentAvatar\":true,\"gallerySkillColors\":true,\"gokuGalleryIcons\":true,\"neighborRarityBadges\":true,\"startupArt\":true,\"noRewards\":true,\"soundSilent\":true,\"homeAndBattleBgm\":true,\"compactBattleGrid\":true,\"actionRates\":true,\"vegetaScaleStable\":true,\"renderVerified\":false,\"actions\":"+events+"}");
     Application.Quit(0);
    }catch(Exception ex){File.WriteAllText(Path.Combine(dir,"smoke-failure.txt"),ex.ToString());Debug.LogError(ex);Application.Quit(1);}
   }

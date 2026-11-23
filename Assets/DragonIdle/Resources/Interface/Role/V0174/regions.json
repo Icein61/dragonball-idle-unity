@@ -1,0 +1,24 @@
+{
+ "sourceWidth": 864,
+ "sourceHeight": 288,
+ "tiles": [
+  {
+   "x": 16,
+   "y": 12,
+   "width": 256,
+   "height": 264
+  },
+  {
+   "x": 336,
+   "y": 12,
+   "width": 192,
+   "height": 264
+  },
+  {
+   "x": 588,
+   "y": 27,
+   "width": 264,
+   "height": 233
+  }
+ ]
+}

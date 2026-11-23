@@ -1,7 +1,11 @@
 # 当前状态
-更新：2026-11-22（Asia/Shanghai）。项目：https://github.com/Icein61/dragonball-idle-unity
+更新：2026-11-23（Asia/Shanghai）。项目：https://github.com/Icein61/dragonball-idle-unity
 
 ## 当前阶段
+
+已草拟 [v0.18.0 开发单](release-plans/v0.18.0.md)，等待 v0.17.4 试玩反馈。
+
+v0.17.4 按[开发单](release-plans/v0.17.4.md)重绘定位图标，校准卡片徽标和编队、战场阵位。角色表同步检查、1005 项核心检查、4 张 Unity 后台画面、Windows Player 回归和 ZIP 校验均通过。 [Windows 试玩包](../Builds/Releases/v0.17.4/龙珠爆裂激斗-v0.17.4-Windows-x64.zip)。
 
 v0.17.3 按[开发单](release-plans/v0.17.3.md)上线天津饭，更新定位图标、卡片版式和小龙珠反光。角色表回读、1005 项核心检查、9 张隐藏 Unity 画面、Windows x64 构建、隔离存档 Player 回归和 ZIP 校验均通过。 [本地试玩包](../Builds/Releases/v0.17.3/龙珠爆裂激斗-v0.17.3-Windows-x64.zip)。
 

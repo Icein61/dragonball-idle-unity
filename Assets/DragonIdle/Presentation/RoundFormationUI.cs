@@ -61,8 +61,10 @@ namespace DragonIdle {
     float descriptor=15+Mathf.Min(119,Mathf.Ceil(name.preferredWidth));
     UText(tile,"FormationCardDescription",card.Title,descriptor,5,211-descriptor,23,13,InkMuted,TextAnchor.MiddleLeft);
     var badges=UPanel(tile,"FormationCardBadges",9,37,66,28,new Color(InkIvory.r,InkIvory.g,InkIvory.b,.88f));
-    DrawRarityBadge(badges,card.Rarity,2,1,33,26,leftAligned:true);
-    DrawCharacterRole(badges,card,36,1,26);
+    const float badgeHeight=20,padding=4,gap=3;
+    float rarityWidth=DrawRarityBadge(badges,card.Rarity,padding,4,22,badgeHeight,matchVisibleHeight:true);
+    float roleWidth=DrawCharacterRole(badges,card,padding+rarityWidth+gap,4,badgeHeight);
+    badges.sizeDelta=new Vector2(padding*2+rarityWidth+gap+roleWidth,28);
     tile.gameObject.AddComponent<FormationDragHandle>().Bind(this,id,scroll);
    }
    content.sizeDelta=new Vector2(462,Mathf.Max(507,((owned.Length+1)/2)*160));
@@ -215,11 +217,39 @@ namespace DragonIdle {
   void OnDisable(){if(dragging)game.CancelFormationDrag();scrolling=dragging=false;}
  }
 
+ internal readonly struct RoundSlotGrid {
+  internal readonly Vector2 Origin,Across,Depth;
+  readonly int side;
+
+  internal RoundSlotGrid(Vector2 origin,float laneWidth,float laneShear,float rowDepth,int side=0){
+   Origin=origin;Across=new Vector2(laneWidth,0);Depth=new Vector2(laneShear,rowDepth);this.side=side;
+  }
+
+  internal Vector2 Corner(int slot)=>Origin+Across*RoundBoard.Column(slot,side)+Depth*RoundBoard.Row(slot);
+  internal Vector2 Center(int slot)=>Corner(slot)+(Across+Depth)*.5f;
+
+  internal int SlotAt(Vector2 point){
+   Vector2 relative=point-Origin;
+   float row=relative.y/Depth.y;
+   float column=(relative.x-row*Depth.x)/Across.x;
+   if(row<0||row>=3||column<0||column>=3)return 0;
+   int lane=side==0?2-(int)column:(int)column;
+   return lane*3+(int)row+1;
+  }
+ }
+
  [RequireComponent(typeof(CanvasRenderer))]
  internal sealed class FormationGridGraphic : UI.MaskableGraphic {
-  static readonly Vector2 Origin=new Vector2(14,11),Across=new Vector2(183,0),Depth=new Vector2(31,64);
+  static readonly RoundSlotGrid FormationLayout=new RoundSlotGrid(new Vector2(1,11),183,40,64);
+  RoundSlotGrid layout=FormationLayout;
   int highlighted;
-  bool dragging;
+  bool dragging,battle;
+
+  internal RoundSlotGrid Layout=>layout;
+
+  internal void UseBattleLayout(RoundSlotGrid battleLayout){
+   layout=battleLayout;battle=true;raycastTarget=false;SetVerticesDirty();
+  }
 
   protected override void Awake(){base.Awake();useLegacyMeshGeneration=false;raycastTarget=true;}
 
@@ -228,17 +258,10 @@ namespace DragonIdle {
   internal int SlotAt(Vector2 point,Camera camera){
    if(!RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform,point,camera,out var local))return 0;
    var rect=rectTransform.rect;
-   return SlotAt(new Vector2(local.x-rect.xMin,rect.yMax-local.y));
+   return layout.SlotAt(new Vector2(local.x-rect.xMin,rect.yMax-local.y));
   }
 
-  internal static Vector2 Center(int slot)=>Origin+Across*(RoundBoard.Column(slot,0)+.5f)+Depth*(RoundBoard.Row(slot)+.5f);
-  internal static int SlotAt(Vector2 point){
-   Vector2 relative=point-Origin;
-   float row=relative.y/Depth.y;
-   float column=(relative.x-row*Depth.x)/Across.x;
-   if(row<0||row>=3||column<0||column>=3)return 0;
-   return (2-(int)column)*3+(int)row+1;
-  }
+  internal static Vector2 Center(int slot)=>FormationLayout.Center(slot);
 
   internal void SetHighlight(int slot,bool fromDrag){
    if(highlighted==slot&&dragging==fromDrag)return;
@@ -247,21 +270,45 @@ namespace DragonIdle {
 
   protected override void OnPopulateMesh(UI.VertexHelper mesh){
    mesh.Clear();
-   Quad(mesh,Origin,Origin+Across*3,Origin+(Across+Depth)*3,Origin+Depth*3,new Color(.13f,.24f,.20f,.46f));
+   var origin=layout.Origin;
+   var across=layout.Across;
+   var depth=layout.Depth;
+   if(battle){
+    var inset=across*.05f+depth*.12f;
+    var laneEdge=across*.90f;
+    var rowEdge=depth*.76f;
+    var line=new Color(.95f,.87f,.71f,.43f);
+    for(int slot=1;slot<=RoundBoard.Cells;slot++){
+     var at=layout.Corner(slot)+inset;
+     var b=at+laneEdge;
+     var c=b+rowEdge;
+     var d=at+rowEdge;
+     Quad(mesh,at,b,c,d,new Color(.16f,.25f,.21f,.19f));
+     Stroke(mesh,at,b,.8f,line);
+     Stroke(mesh,b,c,.8f,line);
+     Stroke(mesh,c,d,.8f,line);
+     Stroke(mesh,d,at,.8f,line);
+    }
+    return;
+   }
+   Quad(mesh,origin,origin+across*3,origin+(across+depth)*3,origin+depth*3,new Color(.13f,.24f,.20f,.46f));
    if(highlighted!=0){
-    var at=Origin+Across*RoundBoard.Column(highlighted,0)+Depth*RoundBoard.Row(highlighted);
-    Quad(mesh,at,at+Across,at+Across+Depth,at+Depth,dragging?new Color(.96f,.77f,.42f,.52f):new Color(.93f,.78f,.55f,.24f));
+    var at=layout.Corner(highlighted);
+    Quad(mesh,at,at+across,at+across+depth,at+depth,dragging?new Color(.96f,.77f,.42f,.52f):new Color(.93f,.78f,.55f,.24f));
    }
    for(int i=0;i<4;i++){
-    Stroke(mesh,Origin+Across*i,Origin+Across*i+Depth*3);
-    Stroke(mesh,Origin+Depth*i,Origin+Depth*i+Across*3);
+    FormationStroke(mesh,origin+across*i,origin+across*i+depth*3);
+    FormationStroke(mesh,origin+depth*i,origin+depth*i+across*3);
    }
   }
-  static void Stroke(UI.VertexHelper mesh,Vector2 start,Vector2 end){
+  static void FormationStroke(UI.VertexHelper mesh,Vector2 start,Vector2 end){
+   Stroke(mesh,start,end,2,new Color(.10f,.17f,.15f,.78f));
+   Stroke(mesh,start,end,1,new Color(.96f,.87f,.68f,.93f));
+  }
+  static void Stroke(UI.VertexHelper mesh,Vector2 start,Vector2 end,float halfWidth,Color tint){
    Vector2 delta=(end-start).normalized;
-   var normal=new Vector2(-delta.y,delta.x);
-   Quad(mesh,start-normal*2,end-normal*2,end+normal*2,start+normal*2,new Color(.10f,.17f,.15f,.78f));
-   Quad(mesh,start-normal,end-normal,end+normal,start+normal,new Color(.96f,.87f,.68f,.93f));
+   var normal=new Vector2(-delta.y,delta.x)*halfWidth;
+   Quad(mesh,start-normal,end-normal,end+normal,start+normal,tint);
   }
   static void Quad(UI.VertexHelper mesh,Vector2 a,Vector2 b,Vector2 c,Vector2 d,Color tint){
    int start=mesh.currentVertCount;
