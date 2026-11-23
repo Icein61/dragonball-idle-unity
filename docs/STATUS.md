@@ -9,7 +9,7 @@ v0.17.4 按[开发单](release-plans/v0.17.4.md)重绘定位图标，校准卡�
 
 v0.17.3 按[开发单](release-plans/v0.17.3.md)上线天津饭，更新定位图标、卡片版式和小龙珠反光。角色表回读、1005 项核心检查、9 张隐藏 Unity 画面、Windows x64 构建、隔离存档 Player 回归和 ZIP 校验均通过。 [本地试玩包](../Builds/Releases/v0.17.3/龙珠爆裂激斗-v0.17.3-Windows-x64.zip)。
 
-v0.17.3 增加 Git LFS 归档，范围为 [59 个参考视频](../Releases/v0.17.3-reference-videos.sha256)。小版本的归档及恢复步骤见[工程交接](engineering/handoff.md#参考视频的归档与本地清理)。
+后续小版本同步 Unity 项目和同版本 Windows 包，素材视频仅供本地参考。可按[工程交接](engineering/handoff.md#参考视频的归档与本地清理)恢复 v0.17.3 已归档的 [59 个参考视频](../Releases/v0.17.3-reference-videos.sha256)。
 
 v0.17.2 按[开发单](release-plans/v0.17.2.md)上线雅木茶，接入编队看卡、显式保存和阵位选中，扩充四档龙珠底图。角色表回读、997 项核心检查、10 张隐藏 Unity 画面、Windows x64 构建、隔离存档 Player 回归和 ZIP 校验均通过。 [本地试玩包](../Builds/Releases/v0.17.2/龙珠爆裂激斗-v0.17.2-Windows-x64.zip)。
 

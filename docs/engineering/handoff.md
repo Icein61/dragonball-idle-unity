@@ -49,11 +49,11 @@ v0.1.0已建立Unity 2022.3.62f3技术Demo，使用内置渲染与临时IMGUI表
 - 规则、设计、验证与交接文档。
 - 后续Unity Assets及.meta、Packages锁文件、ProjectSettings。
 - 可复现的构建/验证脚本、素材元数据和必要项目资源。
-- `Assets/DragonIdle/Resources/Videos` 的参考 MP4 通过 Git LFS 归档；随版本保留路径和 SHA-256 清单。
 
 不提交：
 - Library/Temp/Obj/Logs/UserSettings、生成IDE文件。
 - Builds、发布ZIP、临时截图/验证缓存、个人存档、凭据。
+- `Assets/DragonIdle/Resources/Videos/` 及同路径的 `Videos.meta`，供本地参考。
 - 大型源素材采用适当的大文件策略；不能把PC整包持续塞入Git历史。
 
 每个可玩版本：
@@ -64,25 +64,15 @@ v0.1.0已建立Unity 2022.3.62f3技术Demo，使用内置渲染与临时IMGUI表
 5. 确保源码提交是构建来源且工作区无未记录游戏内容修改。
 6. ZIP必须包含EXE、Data目录及运行所需文件，不能只上传EXE。
 7. 生成SHA256及manifest：版本、源码提交、Unity版本、平台、构建时间、验证结果。
-8. 推送源码和新增或修改的 Git LFS 对象，以同一提交创建版本标签和 GitHub Release，上传同版本 ZIP、校验和与说明。
-9. 回读远端标签和附件，核对 Windows 包的 SHA-256。在独立位置使用空 LFS 缓存拉取视频，按清单验证新增或修改的文件可以恢复；首版归档验证整个目录。发布完成才报告可下载。
+8. 推送 Unity 项目，以同一提交创建版本标签和 GitHub Release，上传同版本 Windows ZIP、校验和与说明。
+9. 回读远端标签和附件，核对 Windows 包的 SHA-256。发布完成才报告可下载。
 10. 保留旧版本供回退，不重用标签覆盖不同内容。
 
 ### 参考视频的归档与本地清理
 
-每个小版本从远端发布基线准备提交。视频路径内只暂存新增和修改，保留用户为释放空间而在本地清理的已归档视频。需要正式移除参考时单独记录并显式暂存。首次归档 v0.17.3 的清单位于 [Releases](../../Releases/v0.17.3-reference-videos.sha256)。
+参考视频用 `.gitignore` 排除。提交前用 `git ls-files -- Assets/DragonIdle/Resources/Videos Assets/DragonIdle/Resources/Videos.meta` 确认发布快照未跟踪该路径。
 
-在暂存其他项目文件时排除视频目录及目录的 Unity 元数据，再用以下命令暂存工作区中现有的视频与元数据。新版本的清单以暂存区的 LFS 指针及其 SHA-256 为准，包含从之前版本保留的对象。
-
-```powershell
-git add -A -- . ':(exclude)Assets/DragonIdle/Resources/Videos' ':(exclude)Assets/DragonIdle/Resources/Videos.meta'
-git add --ignore-removal -- Assets/DragonIdle/Resources/Videos
-if (Test-Path -LiteralPath 'Assets/DragonIdle/Resources/Videos.meta') {
-    git add --ignore-removal -- Assets/DragonIdle/Resources/Videos.meta
-}
-```
-
-取回视频时可在空闲盘创建只取视频的克隆，避免覆盖游戏开发目录中的修改。先安装 Git LFS，替换命令里的版本和保存目录。
+历史原片保存在 [v0.17.3 标签](https://github.com/Icein61/dragonball-idle-unity/tree/v0.17.3/Assets/DragonIdle/Resources/Videos)，可对照 [SHA-256 清单](../../Releases/v0.17.3-reference-videos.sha256)。需要恢复时先安装 Git LFS，在有空间的盘上单独克隆。
 
 ```powershell
 $env:GIT_LFS_SKIP_SMUDGE = '1'
@@ -97,7 +87,7 @@ try {
 git -C video-restore lfs pull --include='Assets/DragonIdle/Resources/Videos/**' --exclude=''
 ```
 
-需要减少 D 盘占用时，发布暂存目录及 LFS 缓存使用其他盘。收到远端核验结果后，用户可以清理 D 盘工作目录中的视频原片；Windows 玩家包不使用这些原片。GitHub 默认生成的源码 ZIP 可能只有 LFS 指针，恢复素材使用 Git LFS。
+Windows 玩家包只使用已接入的运行资源。历史素材按上述命令通过 Git LFS 恢复，GitHub 的历史源码 ZIP 可能只包含指针。
 
 文档基线不要求伪造PC包；进入可玩阶段后不得仅推源码就称完成可玩版本交付。
 

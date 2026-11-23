@@ -45,4 +45,6 @@ outputs/character-rework-20261116/角色设计简表-含类型.xlsx
 outputs/character-rework-20261116/角色设计简表-含类型和标签.xlsx
 outputs/character-rework-20261116/角色设计简表-v0.13.1-九宫格回合制.xlsx
 
-# Reference videos under Assets/DragonIdle/Resources/Videos are archived using Git LFS.
+# Local authoring videos. Earlier archives are available from the v0.17.3 tag.
+/Assets/DragonIdle/Resources/Videos/
+/Assets/DragonIdle/Resources/Videos.meta

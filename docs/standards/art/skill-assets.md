@@ -29,7 +29,7 @@
 ## 视频参考
 
 - v0.13.3 起，制作单先核对角色简表填写的技能属性及动作描述。简表明确的条目按表执行，空缺以同卡视频为准。记录文件名、标记帧、动作阶段、命中窗口和声音节拍。
-- 将 `Assets/DragonIdle/Resources/Videos` 的参考源随小版本用 Git LFS 归档。远端回读通过后可按需清理本地副本。Windows 构建使用 `Tools/build-windows.ps1`，它从临时工程打包已导入的运行资源，并排除原始参考视频。Player 回归检查该目录的资源为空。
+- `Assets/DragonIdle/Resources/Videos` 中的原片供本地制作参考，从版本提交和 Windows 包中排除。Windows 构建使用 `Tools/build-windows.ps1` 从临时工程打包已导入的运行资源。Player 回归检查参考视频资源为空。
 
 ## 招式音频
 
