@@ -238,7 +238,7 @@ namespace DragonIdle {
      Enumerable.Range(1,RoundBoard.Cells).All(slot=>grid.Layout.Center(slot)==DemoGround(side,slot)&&
       grid.Layout.SlotAt(DemoGround(side,slot))==slot),"Battle tiles must be congruent and centered on roster anchors");
    }
-   AssertSmoke(demoReactionArt["entry"].poses.Length>1&&roundCueClips.Count==97&&
+   AssertSmoke(demoReactionArt["entry"].poses.Length>1&&roundCueClips.Count==(Data.IsRoundCard(RoundMotionArt.SaibamanCardId)?106:97)&&
     roundCueClips["opening-passive"].Clip!=roundCueClips["pursuit-start"].Clip&&
     roundCueClips.Values.All(cue=>cue.Clip!=null&&cue.Clip.samples>0&&cue.Gain>0)&&
     roundCueAudio!=null&&roundCueAudio.volume==0&&!roundCueAudio.isPlaying&&Resources.LoadAll<AudioClip>("Audio/V0132/Goku").Length==0&&Resources.LoadAll<AudioClip>("Audio/V0133/Goku").Length==0,
@@ -354,7 +354,7 @@ namespace DragonIdle {
    var sheen=model.transform.Find("PursuitSheen").GetComponent<UI.RawImage>();
    var material=sheen.material;
    float lowerBand=material.GetFloat(SheenBandY);
-   AssertSmoke(roundMotion.Duration==505&&roundMotion.ImpactAt>104&&roundMotion.ShiftAt(roundMotion.Time)==Vector2.zero&&
+   AssertSmoke(roundMotion.Duration==465&&roundMotion.ImpactAt>96&&roundMotion.ShiftAt(roundMotion.Time)==Vector2.zero&&
     sheen.texture==model.texture&&sheen.uvRect==model.uvRect&&sheen.isActiveAndEnabled&&sheen.color.a>0&&sheen.color.a<.44f&&
     material.shader.name=="DragonIdle/UI/PursuitSheen"&&WaitingForRoundImpact,
     "The pursuit sheen must use the acting sprite silhouette before moving");
@@ -873,7 +873,7 @@ namespace DragonIdle {
    var sweep=GokuArt["sweep"];
    var uppercut=GokuArt["pursuit"];
    var ultimate=GokuArt["ultimate"];
-   AssertSmoke(basic.Travel(113)==basic.Travel(150)&&basic.Travel(300)==basic.Travel(350)&&basic.Travel(110)>110&&
+   AssertSmoke(basic.Travel(113)==basic.Travel(300)&&basic.Travel(113)==basic.Travel(350)&&sweep.Travel(113)==sweep.Travel(672)&&basic.Travel(110)>110&&
     sweep.impacts.Last().at-sweep.impacts[1].at>330&&
     uppercut.Travel(232)==uppercut.Travel(285)&&
     ultimate.beam.fire-ultimate.beam.gather>2*ultimate.beam.flight&&
@@ -950,11 +950,23 @@ namespace DragonIdle {
     demoViewport.parent.Find("DemoStats1/StatsSlot"+defender.Position+"/Value").GetComponent<UI.Text>().text=="0",
     "Live damage panel did not count the impact exactly once");
    GalleryTestButton("Metric1").onClick.Invoke();
-   AssertSmoke(demoMetric==RoundBattleMetric.Taken&&
-    demoViewport.parent.Find("DemoStats1/StatsSlot"+defender.Position+"/Value").GetComponent<UI.Text>().text==loss,
-    "Taken tab did not count actual HP and shield loss");
+   var playerPanel=demoViewport.parent.Find("DemoStats0");
+   var enemyPanel=demoViewport.parent.Find("DemoStats1");
+   var taken=enemyPanel.Find("StatsSlot"+defender.Position);
+   var filled=(RectTransform)taken.Find("Track/Fill");
+   AssertSmoke(demoMetric==RoundBattleMetric.Taken&&taken.Find("Value").GetComponent<UI.Text>().text==loss&&
+    taken.Find("Avatar/Face")!=null&&playerPanel.Find("Team")==null&&enemyPanel.Find("Team")==null&&
+    filled.sizeDelta.x==DemoStatsTrackWidth&&filled.GetComponent<UI.Image>().color==DemoMetricColors[1],
+    "Taken metric needs a centered value, portrait, shared-scale blue fill and no side heading");
    GalleryTestButton("Metric2").onClick.Invoke();
    AssertSmoke(demoMetric==RoundBattleMetric.Healing,"Both panels did not switch to healing");
+   demoStats.RecordHit(new RoundAction{Actor=attacker,Target=attacker,Healing=true,Amount=100});
+   demoStats.RecordHit(new RoundAction{Actor=defender,Target=defender,Healing=true,Amount=50});
+   DrawRoundPreview();
+   var healed=(RectTransform)demoViewport.parent.Find("DemoStats1/StatsSlot"+defender.Position+"/Track/Fill");
+   AssertSmoke(Mathf.Abs(healed.sizeDelta.x-DemoStatsTrackWidth*.5f)<.001f&&
+    healed.GetComponent<UI.Image>().color==DemoMetricColors[2]&&SkillAttributeLines("甲；乙;丙")=="甲\n乙\n丙",
+    "Healing needs a proportional shared-scale green bar and skill attributes need separate lines");
    defenderSlot=demoStage.Find("DemoSlot1_"+defender.Position);
    AssertDemoMeter(defenderSlot,"Health",(float)(defender.HP/defender.MaxHP),RoundHealthFill);
    AssertDemoMeter(defenderSlot,"Shield",(float)(defender.Shield/defender.MaxHP),RoundShieldFill);
@@ -1069,12 +1081,15 @@ namespace DragonIdle {
    tien.Rage=100;
    AdvanceRoundPreview(true);
    var finger=roundMotion;
+   int audioBefore=roundCueEvents;
    AdvanceToMotionTime((finger.ReleaseAt+finger.ImpactAt)*.5f);
    Canvas.ForceUpdateCanvases();
    AssertSmoke(finger.Clip.id=="tienFinger"&&finger.Action.Move==RoundMove.Skill&&roundSkillText.text=="一指功"&&
-    finger.Travel==Vector2.zero&&demoFrontFx.GeometryCount>0&&!finger.Revealed,"Round opener did not launch as a projectile before damage");
+    finger.Travel==Vector2.zero&&demoFrontFx.GeometryCount>0&&!finger.Revealed&&roundCueEvents==audioBefore+1&&
+    roundCueClips["tien-finger"].Clip.name=="finger-release","Round opener did not play the authored shot before damage");
    AdvanceToMotionTime(finger.ImpactAt+8);
-   AssertSmoke(finger.Revealed&&tien.Rage==100,"The round opener consumed rage or did not reveal");
+   AssertSmoke(finger.Revealed&&tien.Rage==100&&roundCueEvents>=audioBefore+2,
+    "The round opener did not reveal and dispatch its separate impact cue");
    AdvanceRoundPreview(true);AdvanceRoundPreview(true);
    var blast=roundMotion;
    var oldHP=VisibleRoundVitals(tien).HP;
@@ -1085,6 +1100,9 @@ namespace DragonIdle {
    AdvanceToMotionTime(blast.ImpactAt+9);
    AssertSmoke(blast.Revealed&&Math.Abs(VisibleRoundVitals(tien).HP-oldHP+tien.MaxHP*.05)<.001&&demoSelfCost!=null&&
     blast.Action.Hits.All(hit=>RoundBoard.Row(hit.Target.Position)==1),"HP cost, floating display or row at impact failed");
+   AdvanceToMotionTime(blast.ImpactAt+370);
+   Canvas.ForceUpdateCanvases();
+   AssertSmoke(blast.Duration==1710&&demoFrontFx.GeometryCount>0,"Tri-beam tail ended before the revised hold");
    AdvanceRoundPreview(true);AdvanceRoundPreview(true);
    var basic=roundMotion;
    var hiddenHP=VisibleRoundVitals(basic.Action.Target).HP;
@@ -1203,6 +1221,59 @@ namespace DragonIdle {
    GalleryTestButton("LeaveRoundPreview").onClick.Invoke();
   }
 
+  void VerifySaibamanPresentation(){
+   const string id=RoundMotionArt.SaibamanCardId;
+   if(!Data.IsRoundCard(id))return;
+   BeginRoundDemo(new RoundDemoSetup{allies=new[]{id,"","","","","","","",""},
+    enemies=new[]{RoundMotionArt.CardId,RoundMotionArt.VegetaCardId,RoundMotionArt.YamchaCardId,"","","","","",""}});
+   roundPaused=true;
+   AssertSmoke(Data.Cards[Data.Index(id)].CatalogNumber==10&&SaibamanArt.Atlas.Length==28&&
+    roundCueClips.Count(c=>c.Key.StartsWith("saiba-")&&c.Value.Clip!=null)==9&&
+    PortraitTexture(Data.Index(id))==Resources.Load<Texture2D>("Art/V0181/Saibaman/portrait"),
+    "Saibaman's portrait, authored sprites or local sound bank is missing");
+   while(roundMotion!=null||roundOpenings.Count>0)AdvanceRoundPreview(true);
+   foreach(var unit in roundBattle.Order)unit.Dodge=0;
+   var caster=roundBattle.Order[0];
+   caster.Rage=100;
+   AdvanceRoundPreview(true);
+   var acid=roundMotion;
+   AssertSmoke(acid.IsAcid&&acid.VolleyHits.Length==3&&acid.VolleyHits.Select(hit=>hit.Target).Distinct().Count()==3,
+    "Acid needs three separate routed hits");
+   AdvanceToMotionTime(acid.ReleaseAt+60);
+   Canvas.ForceUpdateCanvases();
+   AssertSmoke(demoFrontFx.VisibleVolleyOrbs>0&&demoFrontFx.GeometryCount>0&&!acid.Revealed,
+    "Acid projectile is missing before impact");
+   AdvanceToMotionTime(acid.VolleyImpact(2)+12);
+   AssertSmoke(acid.Revealed&&acid.RevealedCount==3,"Acid did not reveal its three targets separately");
+   AdvanceRoundPreview(true);
+
+   var goku=new RoundFighter(RoundMotionArt.CardId,0,1,1200,500,40,0){Dodge=0};
+   var victim=new RoundFighter(id,1,1,1200,100,40,0){Dodge=0,HP=1};
+   roundBattle=RoundCombat.Demo(new[]{goku,victim},RoundRules(),3);
+   StartRoundPresentation();roundPaused=true;
+   while(roundMotion!=null||roundOpenings.Count>0)AdvanceRoundPreview(true);
+   AdvanceRoundPreview(true);
+   AssertSmoke(roundBattle.HasPendingDetonation(victim)&&roundBattle.Result==0,"The last fighter must detonate before the battle ends");
+   AdvanceRoundPreview(true);
+   AdvanceRoundPreview(true);
+   var burst=roundMotion;
+   var close=burst.ShiftAt(415);
+   float blastX=DemoGround(victim).x-close.x;
+   AssertSmoke(burst.IsDetonation&&burst.Action.Target==goku&&roundSkillText.text=="自爆"&&
+    close.x!=0&&Mathf.Abs(blastX-DemoGround(goku).x)<=25,
+    "Detonation did not target the killer before leaving the battlefield");
+   AdvanceToMotionTime(burst.ImpactAt+20);
+   Canvas.ForceUpdateCanvases();
+   AssertSmoke(burst.Revealed&&demoFrontFx.GeometryCount>0&&demoActors[victim].texture==SaibamanArt.At(burst.Clip,burst.PoseTime).Texture,
+    "A defeated Saibaman failed to display the detonation burst");
+   AssertSmoke(roundBattle.Result==1&&VisibleRoundResult==0,"Battle result was shown during the final detonation");
+   AdvanceRoundPreview(true);
+   AssertSmoke(VisibleRoundResult==1,"Battle result failed to appear after the final detonation");
+   AssertSmoke(demoReactions[victim].Defeated&&!demoActors[victim].enabled,
+    "Detonation finish did not remove the attacker after the burst");
+   NavigateGallery("主页");
+  }
+
   void VerifyChaseReactionHolds(){
    foreach(var id in Data.RoundRoster){
     var library=BattleReactionLibrary(id);
@@ -1210,7 +1281,7 @@ namespace DragonIdle {
     foreach(string track in new[]{"smallFloat","largeFloat","knockback","knockdown"}){
      var clip=library[track];
      bool floats=track=="smallFloat"||track=="largeFloat";
-     string atlas=floats?"FloatPoses":"ReactionPoses";
+     string atlas=id==RoundMotionArt.SaibamanCardId?"reactions":floats?"FloatPoses":"ReactionPoses";
      AssertSmoke(clip.poses.Length>=2&&clip.poses.All(cue=>library.Atlas[cue.drawing].Texture.name==atlas),
       "Missing the approved first and held reaction drawings for "+id+" "+track);
      var reaction=new DuelReaction(library);
@@ -1262,12 +1333,12 @@ namespace DragonIdle {
    AssertSmoke(roundMotion.Clip.id=="sweep"&&roundBattle.PursuitNext,"Expected the forced knockdown pursuit");
    var first=roundLast;
    AdvanceToMotionTime(roundMotion.Duration+1);
-   AssertSmoke(roundMotion==null&&roundLast==first&&Mathf.Abs(roundClock-.20f)<.001f,
+   AssertSmoke(roundMotion==null&&roundLast==first&&Mathf.Abs(roundClock-.14f)<.001f,
     "Follow-up did not use its more readable handoff");
-   UpdateRoundPreview(.19f);
+   UpdateRoundPreview(.13f);
    AssertSmoke(roundMotion==null&&roundLast==first,"Follow-up skipped its handoff");
    UpdateRoundPreview(.02f);
-   AssertSmoke(roundLast.Move==RoundMove.Pursuit&&roundMotion!=null&&roundMotion.Duration==505,
+   AssertSmoke(roundLast.Move==RoundMove.Pursuit&&roundMotion!=null&&roundMotion.Duration==465,
     "Follow-up did not launch within its short window");
    GalleryTestButton("LeaveRoundPreview").onClick.Invoke();
   }
@@ -1536,11 +1607,17 @@ namespace DragonIdle {
    AssertSmoke(twin.RevealedCount==2,"Raditz's paired hits failed to resolve");
    AdvanceRoundPreview(true);
    foreach(bool enhanced in new[]{false,true}){
-    StartRoundActionMotion(new RoundAction{Actor=raditz,Target=twin.VolleyHits[0].Target,Name="闪耀金星日",
+    var guardedTarget=roundBattle.Order.First(fighter=>fighter.CardId==RoundMotionArt.CardId);
+    StartRoundActionMotion(new RoundAction{Actor=raditz,Target=guardedTarget,Name="闪耀金星日",
      Move=RoundMove.Basic,EnhancedBasic=enhanced},true);
     CreateRoundSkillBadge(demoViewport,roundMotion);
     AssertSmoke(roundSkillArt.texture==Resources.Load<Texture2D>("Art/V0162/Raditz/shining-friday")&&roundMotion.Clip.id==(enhanced?"raditzSurge":"raditzShot")&&
      roundMotion.Clip.duration==(enhanced?970:640),"Enhanced basic did not play the longer authored variant");
+    roundBefore=roundBattle.Order.ToDictionary(f=>f,f=>new RoundVitals(f,freezeDefense:true));
+    AdvanceToMotionTime(roundMotion.ReleaseAt+55);
+    Canvas.ForceUpdateCanvases();
+    AssertSmoke(demoFrontFx.VisibleVolleyOrbs==1&&demoFrontFx.GeometryCount>40&&!roundMotion.Revealed,
+     "Shining Friday did not continue from the palm through its projectile flight");
    }
    GalleryTestButton("LeaveRoundPreview").onClick.Invoke();
   }
@@ -1839,8 +1916,9 @@ namespace DragonIdle {
     VerifyBeatTiming();
     VerifyRoundTempoAndMeters();
     VerifyQuickPursuitHandoff();
+    VerifySaibamanPresentation();
     VerifyBrokenPursuitRecovery();
-    File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"roundCombat\":true,\"gokuMotion\":true,\"openingIcon\":true,\"gridDemo\":true,\"gridMultiTarget\":true,\"fullGridReadability\":true,\"groundedMotion\":true,\"contrastTiming\":true,\"waveFeather\":true,\"thickerWave\":true,\"expandedBattlefield\":true,\"hiddenBattleSlotNumbers\":true,\"upwardPursuitSheen\":true,\"ultimateAtlasSize\":true,\"pursuitFlash\":true,\"quickPursuitHandoff\":true,\"roundedVitals\":true,\"slotVitals\":true,\"actionGap\":true,\"actualHitFeedback\":true,\"battleStats\":true,\"shortOpening\":true,\"reactionTransitions\":25,\"gokuAudioCues\":21,\"vegetaAudioCues\":9,\"savedFiveEnemyDemo\":true,\"characterSheetConfiguration\":true,\"vegetaVolley\":true,\"vegetaArt\":true,\"piccoloPresentation\":true,\"piccoloHeldCharge\":true,\"piccoloApproachPacing\":true,\"piccoloPursuitHop\":true,\"galleryOwnershipGroups\":true,\"galleryNumberSort\":true,\"galleryElasticSkills\":true,\"characterPageLoop\":true,\"characterPageSessionSort\":true,\"characterSkillFourLines\":true,\"sharedMenuLoop\":true,\"avatarSwipe\":true,\"roundStatusHud\":true,\"piccoloFingerGlow\":true,\"gohanHairArt\":true,\"gohanHeavyWindup\":true,\"gohanPresentation\":true,\"guardCounterPriority\":true,\"brokenPursuitRecovery\":true,\"raditzPresentation\":true,\"twinRaysAndSingleHit\":true,\"krillinReactionCrop\":true,\"formationDragAndSave\":true,\"formationExplicitSave\":true,\"yamchaPresentation\":true,\"tienPresentation\":true,\"roleArtwork\":true,\"greenBadgeAndRadar\":true,\"combinedStatGuide\":true,\"galleryRarityBackdrops\":true,\"multiCardHeldSwipe\":true,\"groundedGokuKit\":true,\"approvedReactionArt\":true,\"floatLaunchArtwork\":true,\"activeRoster\":"+Data.RoundRoster.Count+",\"krillinPresentation\":true,\"galleryFavorites\":true,\"avatarElasticDrag\":true,\"authoredBuffIcons\":true,\"savedLevel100Demo\":true,\"ultimateCutIn\":true,\"smoothCameraRestore\":true,\"stableSkillBadge\":true,\"authoredSkillIcons\":true,\"beamTailWidened\":true,\"sharedOpeningFx\":true,\"battleSkillBadges\":true,\"congruentGridTiles\":true,\"horizontalRowBeam\":true,\"referenceTiming\":true,\"referenceVideoExcluded\":true,\"formationSave\":true,\"twoRoutes\":true,\"galleryDetails\":true,\"galleryCurrentAvatar\":true,\"gallerySkillColors\":true,\"gokuGalleryIcons\":true,\"neighborRarityBadges\":true,\"startupArt\":true,\"noRewards\":true,\"soundSilent\":true,\"homeAndBattleBgm\":true,\"compactBattleGrid\":true,\"actionRates\":true,\"vegetaScaleStable\":true,\"renderVerified\":false,\"actions\":"+events+"}");
+    File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"roundCombat\":true,\"gokuMotion\":true,\"openingIcon\":true,\"gridDemo\":true,\"gridMultiTarget\":true,\"fullGridReadability\":true,\"groundedMotion\":true,\"contrastTiming\":true,\"waveFeather\":true,\"thickerWave\":true,\"expandedBattlefield\":true,\"hiddenBattleSlotNumbers\":true,\"upwardPursuitSheen\":true,\"ultimateAtlasSize\":true,\"pursuitFlash\":true,\"quickPursuitHandoff\":true,\"roundedVitals\":true,\"slotVitals\":true,\"actionGap\":true,\"actualHitFeedback\":true,\"battleStats\":true,\"battleSidebarBars\":true,\"saibamanPresentation\":"+Data.IsRoundCard(RoundMotionArt.SaibamanCardId).ToString().ToLowerInvariant()+",\"shortOpening\":true,\"reactionTransitions\":25,\"gokuAudioCues\":21,\"vegetaAudioCues\":9,\"savedFiveEnemyDemo\":true,\"characterSheetConfiguration\":true,\"vegetaVolley\":true,\"vegetaArt\":true,\"piccoloPresentation\":true,\"piccoloHeldCharge\":true,\"piccoloApproachPacing\":true,\"piccoloPursuitHop\":true,\"galleryOwnershipGroups\":true,\"galleryNumberSort\":true,\"galleryElasticSkills\":true,\"characterPageLoop\":true,\"characterPageSessionSort\":true,\"characterSkillFourLines\":true,\"sharedMenuLoop\":true,\"avatarSwipe\":true,\"roundStatusHud\":true,\"piccoloFingerGlow\":true,\"gohanHairArt\":true,\"gohanHeavyWindup\":true,\"gohanPresentation\":true,\"guardCounterPriority\":true,\"brokenPursuitRecovery\":true,\"raditzPresentation\":true,\"twinRaysAndSingleHit\":true,\"krillinReactionCrop\":true,\"formationDragAndSave\":true,\"formationExplicitSave\":true,\"yamchaPresentation\":true,\"tienPresentation\":true,\"roleArtwork\":true,\"greenBadgeAndRadar\":true,\"combinedStatGuide\":true,\"galleryRarityBackdrops\":true,\"multiCardHeldSwipe\":true,\"groundedGokuKit\":true,\"approvedReactionArt\":true,\"floatLaunchArtwork\":true,\"activeRoster\":"+Data.RoundRoster.Count+",\"krillinPresentation\":true,\"galleryFavorites\":true,\"avatarElasticDrag\":true,\"authoredBuffIcons\":true,\"savedLevel100Demo\":true,\"ultimateCutIn\":true,\"smoothCameraRestore\":true,\"stableSkillBadge\":true,\"authoredSkillIcons\":true,\"beamTailWidened\":true,\"sharedOpeningFx\":true,\"battleSkillBadges\":true,\"congruentGridTiles\":true,\"horizontalRowBeam\":true,\"referenceTiming\":true,\"referenceVideoExcluded\":true,\"formationSave\":true,\"twoRoutes\":true,\"galleryDetails\":true,\"galleryCurrentAvatar\":true,\"gallerySkillColors\":true,\"gokuGalleryIcons\":true,\"neighborRarityBadges\":true,\"startupArt\":true,\"noRewards\":true,\"soundSilent\":true,\"homeAndBattleBgm\":true,\"compactBattleGrid\":true,\"actionRates\":true,\"vegetaScaleStable\":true,\"renderVerified\":false,\"actions\":"+events+"}");
     Application.Quit(0);
    }catch(Exception ex){File.WriteAllText(Path.Combine(dir,"smoke-failure.txt"),ex.ToString());Debug.LogError(ex);Application.Quit(1);}
   }

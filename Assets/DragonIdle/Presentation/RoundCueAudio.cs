@@ -30,6 +30,8 @@ namespace DragonIdle {
    LoadCueBank("RaditzAudio",RoundMotionArt.RaditzCardId,clips);
    LoadCueBank("YamchaAudio",RoundMotionArt.YamchaCardId,clips);
    LoadCueBank("TienAudio",RoundMotionArt.TienCardId,clips);
+   if(Data.IsRoundCard(RoundMotionArt.SaibamanCardId))
+    LoadCueBank("SaibamanAudio",RoundMotionArt.SaibamanCardId,clips);
    roundCueClips=clips;
    if(clips.Values.All(cue=>cue.Clip==null))return;
    roundCueAudio=gameObject.AddComponent<AudioSource>();
@@ -59,6 +61,19 @@ namespace DragonIdle {
 
   void PlayPursuitCue(RoundAction action){
    if(action.Move==RoundMove.Pursuit)PlayRoundCue("pursuit-start");
+  }
+
+  void PlayTienFingerImpact(RoundAction hit){
+   if(!hit.Countered)PlayRoundCue(hit.Dodged?"dodge":"tien-finger-impact");
+  }
+  void PlayUnanimatedRoundCue(RoundAction hit){
+   if(hit.Actor.CardId==RoundMotionArt.TienCardId&&hit.Ability?.trigger=="onRoundStart"){
+    PlayRoundCue("tien-finger");
+    PlayTienFingerImpact(hit);
+   }else if(hit.Detonates){
+    PlayRoundCue("saiba-burst-voice");
+    PlayRoundCue("saiba-burst");
+   }
   }
 
   void UpdateRoundCueAudio(RoundMotionPlayback run,float before) {
@@ -157,7 +172,7 @@ namespace DragonIdle {
     }
     if(run.Clip.id=="tienFinger"){
      if(Cross(run.ReleaseAt))PlayRoundCue("tien-finger");
-     if(Cross(run.Clip.impactAt)&&!run.Action.Countered)PlayRoundCue(run.Action.Dodged?"dodge":"tien-finger-impact");
+     if(Cross(run.Clip.impactAt))PlayTienFingerImpact(run.Action);
     }
     foreach(var cue in run.Clip.impacts){
      if(!Cross(cue.at)||run.Action.Countered)continue;
@@ -177,6 +192,20 @@ namespace DragonIdle {
      if(run.Action.Dodged){
       if(cue.at==run.Clip.impactAt)PlayRoundCue("dodge");
      }else PlayRoundCue(cue.kind=="sweep"?"sweep":cue.at==run.Clip.impactAt?"heavy":"punch");
+    }
+    return;
+   }
+   if(run.Actor.CardId==RoundMotionArt.SaibamanCardId&&run.Action!=null){
+    if(run.Clip.id=="saibaBasic"&&Cross(130))PlayRoundCue("saiba-basic");
+    if(run.Clip.id=="saibaSmash"&&Cross(130))PlayRoundCue("saiba-smash");
+    if(run.IsAcid&&Cross(run.ReleaseAt))PlayRoundCue("saiba-acid");
+    if(run.IsDetonation){
+     if(Cross(175))PlayRoundCue("saiba-burst-voice");
+     if(Cross(run.ReleaseAt))PlayRoundCue("saiba-burst");
+    }
+    foreach(var cue in run.Clip.impacts){
+     if(Cross(cue.at)&&!run.Action.Countered&&!run.Action.Dodged)
+      PlayRoundCue(cue.kind=="hammer"?"heavy":"punch");
     }
     return;
    }
@@ -210,7 +239,7 @@ namespace DragonIdle {
   void PlayRoundHitVoice(RoundAction hit) {
    if(hit.Dodged||hit.Healing)return;
    string card=hit.Target.CardId;
-   if(card!=RoundMotionArt.CardId&&card!=RoundMotionArt.VegetaCardId&&card!=RoundMotionArt.PiccoloCardId&&card!=RoundMotionArt.GohanCardId&&card!=RoundMotionArt.KrillinCardId&&card!=RoundMotionArt.RaditzCardId&&card!=RoundMotionArt.YamchaCardId&&card!=RoundMotionArt.TienCardId)return;
+   if(card!=RoundMotionArt.CardId&&card!=RoundMotionArt.VegetaCardId&&card!=RoundMotionArt.PiccoloCardId&&card!=RoundMotionArt.GohanCardId&&card!=RoundMotionArt.KrillinCardId&&card!=RoundMotionArt.RaditzCardId&&card!=RoundMotionArt.YamchaCardId&&card!=RoundMotionArt.TienCardId&&card!=RoundMotionArt.SaibamanCardId)return;
    if(hit.GuardAbility!=null&&card==RoundMotionArt.GohanCardId){
     PlayRoundCue("gohan-guard");
     if(hit.TargetHPAfter>0)return;
@@ -224,6 +253,7 @@ namespace DragonIdle {
    else if(card==RoundMotionArt.RaditzCardId)PlayRoundCue(heavy?"raditz-hit-heavy":"raditz-hit-light");
    else if(card==RoundMotionArt.YamchaCardId)PlayRoundCue(heavy?"yamcha-hit-heavy":"yamcha-hit-light");
    else if(card==RoundMotionArt.TienCardId)PlayRoundCue(heavy?"tien-hit-heavy":"tien-hit-light");
+   else if(card==RoundMotionArt.SaibamanCardId)PlayRoundCue(heavy?"saiba-hit-heavy":"saiba-hit-light");
    else PlayRoundCue(heavy?"voice-hit-heavy":"voice-hit-light");
   }
 

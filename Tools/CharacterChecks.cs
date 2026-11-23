@@ -1,13 +1,13 @@
-﻿using System;
+using System;
 using System.Linq;
 using DragonIdle;
 static class CharacterChecks {
  static bool Near(double a,double b){return Math.Abs(a-b)<.000001;}
  public static void Run(Action<bool,string> check){
-  check(Data.Cards.Length==10&&Data.Cards.Select(c=>c.Id).Distinct().Count()==10,"C01 unique 10-card catalog");
+  check(Data.Cards.Length==10+(Data.IsRoundCard("saibaman-saiyan-v030")?1:0)&&Data.Cards.Select(c=>c.Id).Distinct().Count()==Data.Cards.Length,"C01 unique card catalog");
   check(Data.Cards.All(c=>!string.IsNullOrEmpty(c.PersonId)&&!string.IsNullOrEmpty(c.Stage)&&!string.IsNullOrEmpty(c.Form)&&!string.IsNullOrEmpty(c.Passive)&&c.Captain.Attack>0),"C02 complete identity and base abilities");
   check(Data.LegacyCardIds.All(id=>Data.Index(id)>=0||Data.RetiredCardIds.Contains(id)),"C03 stable legacy IDs");
-  var p=new Profile();check(p.Owned.Count(x=>x)==9,"C04 immediate reserve choices");
+  var p=new Profile();check(p.Owned.Count(x=>x)==Data.StarterCardIds.Length,"C04 immediate reserve choices");
   int variant=Data.Index("goku-saiyan-kaioken-v020");
   check(!p.SetMember(3,variant)&&!p.SetMember(7,0)&&!p.SetMember(0,-1),"C07 reject locked card and invalid slots");
   p.Acquire(variant);check(p.SetMember(1,variant)&&Data.Cards[p.Team[0]].PersonId==Data.Cards[p.Team[1]].PersonId&&Data.Cards[p.Team[0]].Stage==Data.Cards[p.Team[1]].Stage&&p.CreateTeam().Count==Data.TeamSlots,"C05 same person same stage distinct cards coexist");

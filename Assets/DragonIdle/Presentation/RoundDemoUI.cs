@@ -73,6 +73,7 @@ namespace DragonIdle {
    if(roundBattle.Order.Any(fighter=>fighter.CardId==RoundMotionArt.RaditzCardId))PlayRoundCue("raditz-entry");
    if(roundBattle.Order.Any(fighter=>fighter.CardId==RoundMotionArt.YamchaCardId))PlayRoundCue("yamcha-entry");
    if(roundBattle.Order.Any(fighter=>fighter.CardId==RoundMotionArt.TienCardId))PlayRoundCue("tien-entry");
+   if(roundBattle.Order.Any(fighter=>fighter.CardId==RoundMotionArt.SaibamanCardId))PlayRoundCue("saiba-entry");
   }
 
   void ResetDemoPresentation() {
@@ -111,9 +112,11 @@ namespace DragonIdle {
     case RoundMotionArt.RaditzCardId:actor="Raditz";break;
     case RoundMotionArt.YamchaCardId:actor="Yamcha";break;
     case RoundMotionArt.TienCardId:actor="Tien";break;
+    case RoundMotionArt.SaibamanCardId:actor="Saibaman";break;
     default:return demoReactionArt;
    }
-   return battleReactionLibraries[id]=RoundMotionArt.Load("Art/V0180/Battle/"+actor+"/","Reaction");
+   string folder=id==RoundMotionArt.SaibamanCardId?"Art/V0181/Saibaman/":"Art/V0180/Battle/"+actor+"/";
+   return battleReactionLibraries[id]=RoundMotionArt.Load(folder,"Reaction");
   }
 
   RoundMotionArt BattleMotionLibrary(string id){
@@ -126,6 +129,7 @@ namespace DragonIdle {
     case RoundMotionArt.RaditzCardId:return RaditzArt;
     case RoundMotionArt.YamchaCardId:return YamchaArt;
     case RoundMotionArt.TienCardId:return TienArt;
+    case RoundMotionArt.SaibamanCardId:return SaibamanArt;
     default:return null;
    }
   }
@@ -265,16 +269,29 @@ namespace DragonIdle {
    }
    if(hit.Dodged||hit.Healing)return;
    bool survives=hit.TargetHPAfter>0;
-   string track=survives?ReactionTrack(hit.TargetState):"defeat";
+   string track=survives?ReactionTrack(hit.TargetState):
+    roundBattle.HasPendingDetonation(target)?"standing":"defeat";
    if(survives&&hit.GuardAbility!=null&&target.CardId==RoundMotionArt.GohanCardId&&
       (hit.TargetState==RoundHitState.None||hit.TargetState==RoundHitState.Standing))track="gohanGuard";
    var from=target.CardId==RoundMotionArt.CardId?IdleDemoPose(target):
     target.CardId==RoundMotionArt.VegetaCardId?VegetaIdlePose(target):
     target.CardId==RoundMotionArt.PiccoloCardId?PiccoloIdlePose(target):
     target.CardId==RoundMotionArt.GohanCardId?GohanIdlePose(target):target.CardId==RoundMotionArt.KrillinCardId?KrillinIdlePose(target):
-    target.CardId==RoundMotionArt.RaditzCardId?RaditzIdlePose(target):target.CardId==RoundMotionArt.YamchaCardId?YamchaIdlePose(target):target.CardId==RoundMotionArt.TienCardId?TienIdlePose(target):null;
+    target.CardId==RoundMotionArt.RaditzCardId?RaditzIdlePose(target):target.CardId==RoundMotionArt.YamchaCardId?YamchaIdlePose(target):
+    target.CardId==RoundMotionArt.TienCardId?TienIdlePose(target):target.CardId==RoundMotionArt.SaibamanCardId?SaibamanIdlePose(target):null;
    float direction=DemoGround(target).x-DemoGround(hit.Actor).x;
    demoReactions[target].Hit(track,target.Side,survives&&hit.TriggersPursuit&&roundBattle.NextPursuitTarget==target,from,direction);
+  }
+
+  RoundMotionArt.Pose SaibamanIdlePose(RoundFighter fighter) {
+   float time=ReducedRoundMotion?0:Mathf.Repeat(roundIdleTime+fighter.Side*1800+fighter.Position*140,9600);
+   var clip=SaibamanArt[time>=8740?"accent":"idle"];
+   return SaibamanArt.At(clip,time>=8740?time-8740:Mathf.Repeat(time,clip.duration));
+  }
+
+  void CompleteDemoDetonation(RoundFighter fighter,RoundMotionArt.Pose from=null){
+   demoReactions[fighter].Hit("defeat",fighter.Side,false,from);
+   if(ReducedRoundMotion)demoReactions[fighter].Finish();
   }
 
   RoundMotionArt.Pose IdleDemoPose(RoundFighter fighter) {
@@ -348,7 +365,15 @@ namespace DragonIdle {
    run.SourceOffset=demoReactions[run.Actor].Offset;
    Vector2 origin=FacingSpace(DemoGround(run.Actor)+run.SourceOffset,mirror);
    run.DemoLocomotion=true;
-   if(run.IsCharge||run.Action.Healing||run.IsRaditzEnergy)return;
+   if(run.IsCharge||run.Action.Healing||run.IsRaditzEnergy||run.IsAcid)return;
+   if(run.IsDetonation){
+    var receiver=run.Action.Target;
+    Vector2 reach=FacingSpace(DemoFeet(receiver),mirror)-FacingSpace(DemoGround(run.Actor),mirror);
+    float gap=Mathf.Min(24,Mathf.Abs(reach.x)*.35f)*Mathf.Sign(reach.x);
+    run.Travel=reach-Vector2.right*gap;
+    run.BeamTarget=FacingSpace(DemoChest(receiver),mirror);
+    return;
+   }
    if(run.IsScatter){run.Travel=new Vector2(-47,0);return;}
    if((run.IsUltimate&&run.Clip?.id!="gohanHeavy"&&run.Clip?.id!="yamchaWolf")||run.IsCounter||run.Clip?.id=="tienFinger") {
     var target=run.Action.Target;
@@ -378,7 +403,9 @@ namespace DragonIdle {
    }
    var cue=run.Clip.impacts.First(hit=>hit.at==run.Clip.impactAt);
    var frame=run.Library.Atlas[cue.drawing];
-   var hand=RoundMotionArt.Anchor(frame,frame.hit,origin,DemoScale(run.Actor));
+   var impactOrigin=run.Actor.CardId==RoundMotionArt.CardId&&run.Action.Move==RoundMove.Basic?
+    FacingSpace(DemoGround(run.Actor),mirror):origin;
+   var hand=RoundMotionArt.Anchor(frame,frame.hit,impactOrigin,DemoScale(run.Actor));
    float span=Mathf.Max(1,run.Clip.Travel(cue.at));
    var body=demoActors[targetFighter].rectTransform;
    float left=mirror?RoundMotionFx.Width-body.anchoredPosition.x-body.rect.width:body.anchoredPosition.x;
@@ -399,7 +426,8 @@ namespace DragonIdle {
    if(run!=null){
     var footing=DemoGround(run.Actor);
     if(run.Action!=null){
-     float carry=1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(0,140,run.Time));
+     float carryEnd=run.Actor.CardId==RoundMotionArt.CardId&&run.Action.Move==RoundMove.Basic?run.Clip.runUntil:140;
+     float carry=1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(0,carryEnd,run.Time));
      footing+=run.SourceOffset*carry;
     }else footing=DemoFeet(run.Actor);
     origin=FacingSpace(footing,mirror);
@@ -427,10 +455,12 @@ namespace DragonIdle {
    var clip=entry?null:run?.Clip;
    bool miss=run?.Action!=null&&run.Action.Hits.All(hit=>hit.Dodged);
    float scale=run==null?RoundMotionFx.Scale:DemoScale(run.Actor);
-   Vector2? aim=run?.IsUltimate==true&&run.Clip?.id!="yamchaWolf"||run?.IsCounter==true||run?.Clip?.id=="tienFinger"?(Vector2?)run.BeamTarget:null;
-   demoRearFx.Present(run?.Library,clip,run?.PoseTime??0,mirror,false,true,origin,travel:run?.Travel,scale:scale);
-   demoFrontFx.Present(run?.Library,clip,run?.PoseTime??0,mirror,miss,origin:origin,
-    travel:run?.Travel,scale:scale,target:aim);
+   Vector2? aim=run?.IsUltimate==true&&run.Clip?.id!="yamchaWolf"||run?.IsCounter==true||run?.IsDetonation==true||run?.Clip?.id=="tienFinger"?(Vector2?)run.BeamTarget:null;
+   Vector2 effectOrigin=run?.IsDetonation==true?FacingSpace(activeFeet,mirror):origin;
+   Vector2? effectTravel=run?.IsDetonation==true?Vector2.zero:run?.Travel;
+   demoRearFx.Present(run?.Library,clip,run?.PoseTime??0,mirror,false,true,effectOrigin,travel:effectTravel,scale:scale);
+   demoFrontFx.Present(run?.Library,clip,run?.PoseTime??0,mirror,miss,origin:effectOrigin,
+    travel:effectTravel,scale:scale,target:aim);
    var guards=demoReactions.Where(pair=>pair.Value.Track=="counterPrepare"&&pair.Value.Active&&run?.IsCounter!=true)
     .Select(pair=>new RoundMotionFx.GuardPulse{Center=FacingSpace(DemoChest(pair.Key),mirror),Age=pair.Value.Elapsed});
    if(run!=null)guards=guards.Concat(run.SeenHits.Values.Where(seen=>seen.Hit.GuardAbility!=null&&run.Time-seen.At<475)
@@ -534,6 +564,21 @@ namespace DragonIdle {
     RoundMotionArt.Draw(image,raditzPose,at,DemoScale(fighter),fighter.Side==1);
     return;
    }
+   if(fighter.CardId==RoundMotionArt.SaibamanCardId){
+    var art=SaibamanArt;
+    var poseSaibaman=reaction.Pose??SaibamanIdlePose(fighter);
+    bool detonating=run?.Actor==fighter&&run.Library==art&&run.IsDetonation;
+    image.enabled=!fighter.HasDetonated||visibleAlive||detonating;
+    if(detonating)poseSaibaman=run.StagePose;
+    else if(!visibleAlive&&!roundBattle.HasPendingDetonation(fighter)){
+     var library=BattleReactionLibrary(fighter.CardId);
+     poseSaibaman=reaction.Pose??library.At(library["defeat"],library["defeat"].duration);
+    }
+    else if(entry)poseSaibaman=art.At(art["entry"],run.Time);
+    else if(run?.Actor==fighter&&run.Library==art&&run.Clip!=null)poseSaibaman=run.StagePose;
+    RoundMotionArt.Draw(image,poseSaibaman,at,DemoScale(fighter),fighter.Side==1);
+    return;
+   }
    if(fighter.CardId==RoundMotionArt.TienCardId){
     var art=TienArt;
     var poseTien=reaction.Pose??TienIdlePose(fighter);
@@ -570,9 +615,11 @@ namespace DragonIdle {
     return;
    }
    var pose=reaction.Pose??IdleDemoPose(fighter);
-   if(reaction.Pose==null&&run?.Action?.Target==fighter&&run.Action.Move==RoundMove.Basic&&
-      run.Time>=48&&run.Time<(run.Clip?.impacts[0].at??run.ImpactAt))
-    pose=GokuArt.At(GokuArt["guard"],run.Time+90);
+   if(reaction.Pose==null&&run?.Action?.Target==fighter&&run.Action.Move==RoundMove.Basic&&run.Time>=48){
+    var impacts=run.Clip?.impacts;
+    float guardUntil=impacts!=null&&impacts.Length>0?run.ClockAtPose(impacts[0].at):run.ImpactAt;
+    if(run.Time<guardUntil)pose=GokuArt.At(GokuArt["guard"],run.Time+90);
+   }
    if(!visibleAlive)
     pose=reaction.Pose??demoReactionArt.At(demoReactionArt["defeat"],demoReactionArt["defeat"].duration);
    else if(entry)

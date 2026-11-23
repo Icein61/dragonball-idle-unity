@@ -6,7 +6,7 @@ using UI=UnityEngine.UI;
 namespace DragonIdle {
  public partial class DemoGame {
   const string RoundPreviewPage="试阵";
-  const float RoundActionGap=.78f,RoundOpeningGap=.18f,RoundPursuitGap=.20f,RoundReactionGap=.075f;
+  const float RoundActionGap=.78f,RoundOpeningGap=.18f,RoundPursuitGap=.14f,RoundReactionGap=.075f;
   static readonly Color RoundHealthFill=new Color32(76,216,116,255);
   static readonly Color RoundShieldFill=new Color32(75,164,248,255);
   static readonly Color RoundRageFill=new Color32(249,157,55,255);
@@ -76,6 +76,8 @@ namespace DragonIdle {
     if(StartRoundActionMotion(roundLast,manual))roundBefore=before;
     else {
      PlayPursuitCue(roundLast);
+     PlayUnanimatedRoundCue(roundLast);
+     if(roundLast.Detonates&&roundDemo)CompleteDemoDetonation(roundLast.Actor);
      if(roundLast.Revives){
       if(roundDemo)ApplyDemoHit(roundLast);
       PlayRoundCue("yamcha-rise");

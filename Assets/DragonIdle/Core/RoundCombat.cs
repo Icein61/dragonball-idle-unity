@@ -17,14 +17,14 @@ namespace DragonIdle {
   public string name,trigger,effect,allyTag,text;
   public RoundHitState reaction;
   public string[] resistTags,teamAttackTags;
-  public double value,allyDefense,finalReduction,chance,lateAttackPenalty,lateDefense,reviveAttackBonus;
+  public double value,allyDefense,finalReduction,chance,lateAttackPenalty,lateDefense,reviveAttackBonus,defeatAttackBonus;
   public int phaseRound,usesPerRound;
  }
  [Serializable] public sealed class RoundTechnique {
   public double basicReactionChance,basicEnhancedChance,basicEnhancedPower,ultimateAttackBonus,ultimateHealthCost;
   public int ultimateTargets,ultimateAttackRounds;
   public string pursuitSourceTag;
-  public bool ultimateFrontRow,ultimateFrontColumn,basicRandomTarget,basicHealsSelf,ultimateHighestAttack,ultimateLowestDefense;
+  public bool ultimateFrontRow,ultimateFrontColumn,basicRandomTarget,basicHealsSelf,ultimateHighestAttack,ultimateLowestDefense,ultimateDistinctVolley;
   public int pursuitLimit,ultimateHits,ultimateChargeRounds,pursuitCombo,pursuitHits;
   public double ultimateChargeReduction,ultimateDefenseReduction,pursuitDefenseIncrease,pursuitDodgeIncrease;
   public int ultimateDefenseRounds,pursuitDefenseRounds,pursuitDodgeRounds;
@@ -105,7 +105,8 @@ namespace DragonIdle {
     rules.ultimateHits==0&&rules.ultimateChargeRounds==0&&!rules.ultimateFrontRow&&!rules.ultimateFrontColumn&&!rules.ultimateHighestAttack;
    bool tagged=string.IsNullOrEmpty(rules.pursuitSourceTag)||
     Data.RoundIdentityTags().Contains(rules.pursuitSourceTag)&&rules.pursuitTrigger==RoundHitState.None&&rules.pursuitCombo==0;
-   return enhanced&&multi&&tagged;
+   bool distinctVolley=!rules.ultimateDistinctVolley||rules.ultimateHits>0;
+   return enhanced&&multi&&tagged&&distinctVolley;
   }
   static bool ValidDefenseChange(double factor,int rounds){
    return rounds==0?factor==0:rounds>=-1&&Bounded(factor,1);
@@ -118,10 +119,13 @@ namespace DragonIdle {
    if(s.trigger=="roundStart")
     return s.effect=="phaseStats"&&Bounded(s.value,1)&&s.phaseRound>1&&s.phaseRound<=RoundCombat.MaxRounds&&
      Bounded(s.lateAttackPenalty,1)&&Bounded(s.lateDefense,1);
-   if(s.trigger=="onDefeat")
-    return s.effect=="revive"&&Bounded(s.value,1)&&Bounded(s.reviveAttackBonus,1)&&ValidTeamTags(s)&&
-     s.chance==0&&s.finalReduction==0&&string.IsNullOrEmpty(s.allyTag)&&s.allyDefense==0;
-   if(s.reviveAttackBonus!=0)return false;
+   if(s.trigger=="onDefeat"){
+    bool revive=s.effect=="revive"&&Bounded(s.value,1)&&Bounded(s.reviveAttackBonus,1)&&s.defeatAttackBonus==0;
+    bool detonate=s.effect=="detonate"&&Bounded(s.value,4)&&Bounded(s.defeatAttackBonus,1)&&s.reviveAttackBonus==0;
+    return (revive||detonate)&&ValidTeamTags(s)&&s.chance==0&&s.finalReduction==0&&
+     string.IsNullOrEmpty(s.allyTag)&&s.allyDefense==0;
+   }
+   if(s.reviveAttackBonus!=0||s.defeatAttackBonus!=0)return false;
    if(s.trigger=="whileAlive")
     return s.effect=="teamAttack"&&Bounded(s.value,1)&&ValidTeamTags(s)&&
      string.IsNullOrEmpty(s.allyTag)&&s.allyDefense==0&&s.chance==0&&s.finalReduction==0;
@@ -168,7 +172,7 @@ namespace DragonIdle {
   public int Hand {get;internal set;}
   internal int PursuedRound,PursuitCount,CounterRound,ChargeReadyRound,ComboQueuedRound,CounterUses;
   internal RoundAction HitSource;
-  internal bool HasRevived;
+  internal bool HasRevived,HasDetonated;
   internal double OpeningAttackBonus,PhaseAttackBonus,PhaseDefenseBonus;
   internal struct StatChange {
    internal double Fraction;
@@ -223,6 +227,7 @@ namespace DragonIdle {
   public bool SequentialHits,Charging,Countered,EnhancedBasic;
   public bool Critical,Healing,Dodged,TriggersPursuit;
   public bool Revives {get{return Ability!=null&&Ability.trigger=="onDefeat"&&Ability.effect=="revive";}}
+  public bool Detonates {get{return Ability!=null&&Ability.trigger=="onDefeat"&&Ability.effect=="detonate";}}
  }
  public sealed class RoundCombat {
   public const int RageCap=100,MaxRounds=40;
@@ -316,6 +321,7 @@ namespace DragonIdle {
   }
   bool CanUseQueued(RoundAction action){
    if(action.Revives)return !action.Actor.Alive&&!action.Actor.HasRevived;
+   if(action.Detonates)return !action.Actor.Alive&&!action.Actor.HasDetonated;
    if(action.Ability!=null&&action.Ability.trigger=="onRoundStart")
     return action.Actor.Alive&&!action.Actor.IsCharging&&Enemy(action.Actor)!=null;
    return action.Actor.Alive&&!action.Actor.IsCharging&&(!action.Healing||action.Target.Alive)&&
@@ -372,10 +378,41 @@ namespace DragonIdle {
    return action;
   }
 
-  void QueueRevival(RoundFighter fighter){
-   if(fighter.HasRevived)return;
+  internal bool HasPendingDetonation(RoundFighter fighter){
+   return triggered.Any(action=>action.Detonates&&action.Actor==fighter&&CanUseQueued(action));
+  }
+
+  void QueueDefeat(RoundFighter fighter,RoundFighter killer){
    var skill=defs.For(fighter.CardId).skills.FirstOrDefault(s=>s.trigger=="onDefeat");
-   if(skill!=null)Enqueue(fighter,fighter,skill.name,fighter.MaxHP*skill.value,RoundMove.Skill,true,ability:skill);
+   if(skill==null)return;
+   if(skill.effect=="revive"&&!fighter.HasRevived)
+    Enqueue(fighter,fighter,skill.name,fighter.MaxHP*skill.value,RoundMove.Skill,true,ability:skill);
+   else if(skill.effect=="detonate"&&!fighter.HasDetonated)
+    Enqueue(fighter,killer,skill.name,skill.value,RoundMove.Skill,false,ability:skill);
+  }
+
+  void SettleBattleResult(){
+   bool player=order.Any(f=>f.Side==0&&f.Alive);
+   bool enemy=order.Any(f=>f.Side==1&&f.Alive);
+   if(player&&enemy||triggered.Any(action=>(action.Revives||action.Detonates)&&CanUseQueued(action)))return;
+   Result=player?1:enemy?-1:2;
+  }
+
+  void GrantDefeatAttack(RoundAction action,double bonus){
+   foreach(var ally in order.Where(f=>f.Side==action.Actor.Side&&f.Alive&&action.Ability.teamAttackTags.Any(Data.Card(f.CardId).HasTag)))
+    ally.ChangeAttack(bonus,Round,-1,action.Ability);
+  }
+
+  RoundAction ResolveDetonation(RoundAction action){
+   action.Actor.HasDetonated=true;
+   var hit=action.Target.Alive?Strike(action.Actor,action.Target,action.Name,action.Amount,RoundMove.Skill,allowCounter:false):
+    new RoundAction{Actor=action.Actor,Target=action.Target,Name=action.Name,Move=RoundMove.Skill,Round=Round,
+     TargetHPAfter=action.Target.HP,TargetShieldAfter=action.Target.Shield,TargetRageAfter=action.Target.Rage};
+   hit.Ability=action.Ability;
+   GrantDefeatAttack(action,action.Ability.defeatAttackBonus);
+   ApplyReaction(hit);
+   SettleBattleResult();
+   return hit;
   }
 
   RoundAction ResolveRevival(RoundAction action){
@@ -384,14 +421,14 @@ namespace DragonIdle {
    fighter.ChargeReadyRound=0;
    fighter.HitState=RoundHitState.None;fighter.HitSource=null;
    fighter.HP=action.Amount;
-   foreach(var ally in order.Where(f=>f.Side==fighter.Side&&f.Alive&&action.Ability.teamAttackTags.Any(Data.Card(f.CardId).HasTag)))
-    ally.ChangeAttack(action.Ability.reviveAttackBonus,Round,-1,action.Ability);
+   GrantDefeatAttack(action,action.Ability.reviveAttackBonus);
    action.TargetHPAfter=fighter.HP;action.TargetShieldAfter=fighter.Shield;action.TargetRageAfter=fighter.Rage;
    return action;
   }
 
   RoundAction ResolveQueued(RoundAction action){
    if(action.Revives)return ResolveRevival(action);
+   if(action.Detonates)return ResolveDetonation(action);
    if(action.Healing)return ApplyHealing(action);
    if(action.Move==RoundMove.Pursuit){
     CountPursuit(action.Actor);
@@ -534,11 +571,11 @@ namespace DragonIdle {
 
   RoundAction UseEnergyVolley(RoundFighter actor,RoundKit kit){
    var enemySide=order.Where(target=>target.Side!=actor.Side).ToArray();
-   var available=new List<RoundFighter>();
+   var available=enemySide.Where(target=>target.Alive).ToList();
    var hits=new List<RoundAction>();
    for(int shot=0;shot<kit.techniques.ultimateHits&&Result==0;shot++){
     available.RemoveAll(target=>!target.Alive);
-    if(available.Count==0)available.AddRange(enemySide.Where(target=>target.Alive));
+    if(available.Count==0&&!kit.techniques.ultimateDistinctVolley)available.AddRange(enemySide.Where(target=>target.Alive));
     if(available.Count==0)break;
     int index=random.Next(available.Count);
     var recipient=available[index];
@@ -625,10 +662,10 @@ namespace DragonIdle {
    double healthBefore=target.HP;
    target.HP=Math.Max(0,target.HP-(damage-shield));
    if(move==RoundMove.Basic&&target.Alive)target.Rage=Math.Min(RageCap,target.Rage+15);
-   if(!target.Alive)QueueRevival(target);
-   if(!order.Any(f=>f.Side==target.Side&&f.Alive)&&
-      !triggered.Any(action=>action.Revives&&action.Actor.Side==target.Side&&CanUseQueued(action)))
-    Result=actor.Side==0?1:-1;
+   if(healthBefore>0&&!target.Alive){
+    QueueDefeat(target,actor);
+    SettleBattleResult();
+   }
    var hit=new RoundAction{Actor=actor,Target=target,Name=name,Amount=damage,Critical=crit,Move=move,Round=Round,
     GuardAbility=guard,TargetState=HitState(actor,move),TargetHPAfter=target.HP,TargetShieldAfter=target.Shield,
     TargetRageAfter=target.Rage,HealthDamage=healthBefore-target.HP,ShieldDamage=shield};

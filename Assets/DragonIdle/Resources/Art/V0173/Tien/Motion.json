@@ -512,7 +512,7 @@
   {
    "id": "tienCannon",
    "title": "气功炮",
-   "duration": 1510,
+   "duration": 1710,
    "poses": [
     {
      "at": 0,
@@ -535,11 +535,11 @@
      "drawing": 15
     },
     {
-     "at": 1120,
+     "at": 1280,
      "drawing": 12
     },
     {
-     "at": 1410,
+     "at": 1570,
      "drawing": 6
     }
    ],

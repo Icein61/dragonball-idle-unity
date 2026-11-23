@@ -21,7 +21,7 @@ namespace DragonIdle {
   internal struct VolleyOrb {
    internal Vector2 Start,End,Ground;
    internal float Elapsed,Flight;
-   internal bool Miss,Scatter,Raditz,TwinRay,Enhanced;
+   internal bool Miss,Scatter,Raditz,TwinRay,Enhanced,Acid;
    internal int Index;
   }
   IReadOnlyList<VolleyOrb> volley;
@@ -109,6 +109,7 @@ namespace DragonIdle {
      if(clip.id=="krillinDisc")DrawKrillinDisc(mesh);
      if(clip.id=="tienCannon")DrawTienCannon(mesh);
      if(clip.id=="tienFinger")DrawTienFinger(mesh);
+     if(clip.fx=="saibaDetonate")DrawSaibamanDetonation(mesh);
      if(clip.fx=="raditzKi"&&time>=110&&time<clip.launchAt+110)DrawRaditzCharge(mesh);
      if(beam!=null&&beam.gather>0&&time<beam.extinguish){
       if(clip.id=="specialBeam")DrawPiccoloBeam(mesh,beam);
@@ -152,10 +153,12 @@ namespace DragonIdle {
   }
 
   void DrawVolleyOrb(VertexHelper mesh,VolleyOrb orb){
+   if(orb.Acid){DrawSaibamanAcid(mesh,orb);return;}
    if(orb.Scatter){DrawKrillinScatter(mesh,orb);return;}
    if(orb.TwinRay){DrawRaditzRay(mesh,orb);return;}
-   var warm=orb.Raditz?new Color32(245,45,175,255):new Color32(255,199,70,255);
-   var flare=orb.Raditz?new Color32(255,226,247,255):new Color32(255,249,197,255);
+   if(orb.Raditz){DrawRaditzSingleOrb(mesh,orb);return;}
+   var warm=new Color32(255,199,70,255);
+   var flare=new Color32(255,249,197,255);
    float age=orb.Elapsed-orb.Flight;
    if(age>=0){
     float opacity=1-Mathf.Clamp01(age/185);
@@ -163,18 +166,89 @@ namespace DragonIdle {
     Glow(mesh,orb.End,radius,radius*.78f,Alpha(warm,orb.Miss?.14f*opacity:.68f*opacity),Alpha(warm,0));
     if(!orb.Miss){
      Glow(mesh,orb.End,radius*.54f,radius*.48f,Alpha(flare,opacity),Alpha(warm,0));
-     if(!orb.Raditz)DrawVolleyImpact(mesh,orb,warm,flare,age);
+     DrawVolleyImpact(mesh,orb,warm,flare,age);
     }
     return;
    }
    float phase=Mathf.Clamp01(orb.Elapsed/orb.Flight);
    var direction=(orb.End-orb.Start).normalized;
    var at=Vector2.Lerp(orb.Start,orb.End,phase)+Vector2.up*(-Mathf.Sin(phase*Mathf.PI)*13);
-   float strength=orb.Enhanced?1.65f:orb.Raditz?1.18f:1;
-   float size=orb.Raditz?strength:strength*1.20f;
+   float strength=orb.Enhanced?1.65f:1;
+   float size=strength*1.20f;
    Glow(mesh,at-direction*4,20*size,15*size,Alpha(warm,.78f),Alpha(warm,0));
    Glow(mesh,at,9*size,8*size,flare,Alpha(warm,.46f));
    Line(mesh,at-direction*(8+phase*22)*strength,at-direction*3,3.5f*strength,Alpha(warm,.70f));
+  }
+
+  void DrawSaibamanAcid(VertexHelper mesh,VolleyOrb orb){
+   var acidGreen=new Color32(160,182,66,255);
+   var drop=new Color32(231,240,142,255);
+   float t=Mathf.Clamp01(orb.Elapsed/orb.Flight);
+   float age=orb.Elapsed-orb.Flight;
+   if(age<0){
+    Vector2 point=Vector2.Lerp(orb.Start,orb.End,t);
+    point.y-=Mathf.Sin(t*Mathf.PI)*(31+orb.Index*6);
+    var tail=point-(orb.End-orb.Start).normalized*(14+12*t);
+    Line(mesh,tail,point,7,Alpha(acidGreen,.82f));
+    Line(mesh,tail,point,2.6f,Alpha(drop,.84f));
+    Glow(mesh,point,9,6,drop,Alpha(acidGreen,0));
+    for(int i=1;i<=3;i++){
+     var p=Vector2.Lerp(point,tail,i*.24f)+new Vector2(0,Mathf.Sin(i+t*6)*4);
+     Glow(mesh,p,4-i*.5f,3-i*.4f,Alpha(acidGreen,.85f),Alpha(drop,0));
+    }
+    return;
+   }
+   if(orb.Miss)return;
+   float fade=1-Ease(age/185);
+   Glow(mesh,orb.End,19+age*.09f,14+age*.024f,Alpha(drop,fade),Alpha(acidGreen,0));
+   for(int i=0;i<5;i++){
+    var p=orb.End+new Vector2((i-2)*(4+age*.08f),-10-age*.05f);
+    Glow(mesh,p,3,6,Alpha(acidGreen,fade),Alpha(drop,0));
+   }
+  }
+
+  void DrawSaibamanDetonation(VertexHelper mesh){
+   var lime=new Color32(204,192,73,255);
+   var bright=new Color32(255,254,229,255);
+   var center=Ground(time)+new Vector2(0,-24);
+   ScaleLocalEffect(center);
+   if(time<clip.launchAt){
+    float rise=Ease(Mathf.InverseLerp(130,clip.launchAt,time));
+    Glow(mesh,center,23*rise,31*rise,Alpha(bright,.72f*rise),Alpha(lime,0));
+    Arc(mesh,center,27*rise,31*rise,time*.015f,time*.015f+4.8f,0,Alpha(lime,rise),2.6f);
+    return;
+   }
+   float age=time-clip.launchAt;
+   float fade=1-Ease(age/360);
+   if(fade<=0)return;
+   float radius=28+87*Ease(age/280);
+   Glow(mesh,center,radius,radius*.76f,Alpha(bright,fade),Alpha(lime,0));
+   Arc(mesh,center,radius,radius*.62f,0,Mathf.PI*2,0,Alpha(lime,fade),5.5f);
+   for(int i=0;i<12;i++){
+    var ray=new Vector2(Mathf.Cos(i*.524f),Mathf.Sin(i*.524f));
+    Line(mesh,center+ray*radius*.34f,center+ray*radius,2.8f,Alpha(lime,fade));
+   }
+   if(!dodged&&time>=clip.impactAt&&beamTarget.HasValue)
+    Glow(mesh,beamTarget.Value,34*fade,24*fade,Alpha(bright,fade),Alpha(lime,0));
+  }
+
+  void DrawRaditzSingleOrb(VertexHelper mesh,VolleyOrb orb){
+   var pink=new Color32(245,45,175,255);
+   var white=new Color32(255,231,249,255);
+   float flight=Mathf.Clamp01(orb.Elapsed/orb.Flight);
+   float age=Mathf.Max(0,orb.Elapsed-orb.Flight);
+   float glow=1-Ease(age/185);
+   if(glow<=0)return;
+   float strength=orb.Enhanced?1.5f:1;
+   var point=Vector2.Lerp(orb.Start,orb.End,flight);
+   if(orb.Miss)point.y-=16*flight;
+   var tail=Vector2.Lerp(orb.Start,point,Mathf.Max(0,1-(orb.Enhanced?.68f:.48f)*flight));
+   float radius=14*strength*(1+age*.003f);
+   Line(mesh,tail,point,7*strength,Alpha(pink,glow));
+   Line(mesh,tail,point,2.8f*strength,Alpha(white,glow*.95f));
+   Glow(mesh,point,radius*1.85f,radius*1.45f,Alpha(pink,glow*.85f),Alpha(pink,0));
+   Glow(mesh,point,radius*.56f,radius*.50f,Alpha(white,glow),Alpha(pink,0));
+   if(!orb.Miss&&age>0)Arc(mesh,point,radius*1.32f,radius*.82f,0,Mathf.PI*2,0,Alpha(pink,glow),2.2f);
   }
 
   internal static Vector2 RaditzHand(Vector2 palm,float scale,int hand){
@@ -411,12 +485,12 @@ namespace DragonIdle {
 
   void DrawTienCannon(VertexHelper mesh){
    float age=time-clip.impactAt;
-   if(time<clip.launchAt||age>=330)return;
+   if(time<clip.launchAt||age>=440)return;
    var source=Palm(clip.impactAt,false);
    var end=beamTarget??new Vector2(beamEnd,Floor);
    var point=end-new Vector2(96,3);
    // The triangular release widens into a ground burst along the target row.
-   float fire=1-Ease(Mathf.Max(0,age)/220);
+   float fire=1-Ease(Mathf.Max(0,age)/300);
    float flight=Ease(Mathf.InverseLerp(clip.launchAt,clip.impactAt,time));
    var leading=Vector2.Lerp(source,point,flight);
    if(fire>0){
@@ -427,7 +501,7 @@ namespace DragonIdle {
     }
    }
    if(age<0||dodged)return;
-   float wave=1-Ease(age/330);
+   float wave=1-Ease(age/440);
    Glow(mesh,point,87+age*.26f,15+age*.035f,Alpha(Pale,wave*.74f),Alpha(Warm,0));
    Arc(mesh,point,68+age*.24f,11+age*.035f,0,Mathf.PI*2,0,Alpha(Warm,wave*.84f),3.5f);
    for(int i=-3;i<=3;i++){

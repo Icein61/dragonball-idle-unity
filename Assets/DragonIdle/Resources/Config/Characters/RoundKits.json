@@ -554,6 +554,75 @@
      619
     ]
    }
+  },
+  {
+   "cardId": "saibaman-saiyan-v030",
+   "basic": "格斗攻击",
+   "ultimate": "溶解液",
+   "pursuit": "下砸",
+   "basicPower": 0.4,
+   "ultimatePower": 0.5,
+   "pursuitPower": 0.2,
+   "techniques": {
+    "basicRandomTarget": false,
+    "ultimateHits": 3,
+    "ultimateDistinctVolley": true,
+    "pursuitTrigger": 3,
+    "pursuitReaction": 5,
+    "pursuitLimit": 1,
+    "basicText": "对正面敌方造成[40]伤害",
+    "ultimateText": "对随机至多三名随机敌方造成[50]伤害，造成{3连击}",
+    "pursuitText": "追打{小浮空}，造成[20]伤害和{倒地}"
+   },
+   "skills": [
+    {
+     "name": "自爆",
+     "text": "阵亡前触发；对击杀自身的敌人造成[200]伤害；己方【赛亚人军团】提升[20]攻击",
+     "trigger": "onDefeat",
+     "effect": "detonate",
+     "value": 2.0,
+     "teamAttackTags": [
+      "赛亚人军团"
+     ],
+     "defeatAttackBonus": 0.2,
+     "icon": {
+      "resource": "Art/V0181/Saibaman/icons",
+      "region": [
+       633,
+       623,
+       623,
+       623
+      ]
+     }
+    }
+   ],
+   "basicIcon": {
+    "resource": "Art/V0181/Saibaman/icons",
+    "region": [
+     2,
+     0,
+     623,
+     623
+    ]
+   },
+   "ultimateIcon": {
+    "resource": "Art/V0181/Saibaman/icons",
+    "region": [
+     633,
+     0,
+     623,
+     623
+    ]
+   },
+   "pursuitIcon": {
+    "resource": "Art/V0181/Saibaman/icons",
+    "region": [
+     2,
+     623,
+     623,
+     623
+    ]
+   }
   }
  ]
 }

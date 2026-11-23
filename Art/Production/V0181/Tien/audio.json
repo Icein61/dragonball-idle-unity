@@ -1,0 +1,19 @@
+{
+ "bank": "赛亚人篇-角色音频素材库",
+ "cues": [
+  {
+   "event": "tien-finger",
+   "source": "02-技能音效/01-本篇优先/洞洞波-S120_DDP/洞洞波-射击-内嵌0002.wav",
+   "asset": "Assets/DragonIdle/Resources/Audio/V0181/Tien/finger-release.wav",
+   "gain": 0.81,
+   "sha256": "d561e1608df53ae1c6537addc38fcb53649846dfc102815a5dfcd17648c4c306"
+  },
+  {
+   "event": "tien-finger-impact",
+   "source": "01-角色音频/天津饭/02-专属音效/天津饭-音效-内嵌0002.wav",
+   "asset": "Assets/DragonIdle/Resources/Audio/V0181/Tien/finger-impact.wav",
+   "gain": 0.74,
+   "sha256": "959faa48a0b5ab5a9b2b4b921b02365e4f766c4777ef93ee7ca1d93baf92ad96"
+  }
+ ]
+}

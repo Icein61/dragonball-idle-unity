@@ -55,8 +55,9 @@ namespace DragonIdle {
      Retired.Remove(entry);
     }
    }
-   // Trial builds grant the newly online card without changing the saved formation.
+    // Trial builds grant newly online cards without changing the saved formation.
    if(!ids.Contains(Data.RaditzId)&&Data.IsRoundCard(Data.RaditzId))Owned[Data.Index(Data.RaditzId)]=true;
+   if(!ids.Contains(Data.SaibamanId)&&Data.IsRoundCard(Data.SaibamanId))Owned[Data.Index(Data.SaibamanId)]=true;
    Team=Team.Select(i=>i<0?-1:Data.Index(ids[i])).ToArray();
    foreach(var item in Items)if(item.owner>=0)item.owner=Data.Index(ids[item.owner]);
    if(legacy||!RosterGift){foreach(string id in new[]{"yamcha-saiyan-v020","chiaotzu-saiyan-v020"}){int index=Data.Index(id);if(index>=0)Owned[index]=true;}RosterGift=true;}

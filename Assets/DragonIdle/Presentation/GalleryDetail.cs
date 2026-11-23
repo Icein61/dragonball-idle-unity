@@ -13,6 +13,9 @@ namespace DragonIdle {
    });
   }
 
+  static string SkillAttributeLines(string text)=>string.Join("\n",
+   (text??string.Empty).Split('；',';').Select(part=>part.Trim()).Where(part=>part.Length!=0));
+
   RectTransform detailBody;float detailY;UI.ScrollRect galleryDetailScroll;int renderedDetailCard=-2,renderedDetailTab=-1;UI.Button galleryEquipButton;
   RectTransform detailAvatarStrip;
   void DrawGalleryDetail(bool keepAvatarStrip=false){
@@ -96,13 +99,17 @@ namespace DragonIdle {
    button.GetComponent<GalleryFocus>().Outline=null;
    button.GetComponentInChildren<UI.Text>().gameObject.SetActive(false);
    var frame=(RectTransform)button.transform;
-   string rarity=Data.Cards[index].Rarity;
-   DrawRarityBackdrop(frame,"AvatarMat",rarity,3,3,size-6,size-6);
-   DrawAvatarFace(frame,index,size);
-   DrawRarityBadge(frame,rarity,2,2,25,20,leftAligned:true);
+   DrawDetailAvatarArt(frame,index,size,showOwnership:true);
    return frame;
   }
-  void DrawAvatarFace(Transform frame,int index,float size){
+  void DrawDetailAvatarArt(Transform frame,int index,float size,bool showOwnership){
+   string rarity=Data.Cards[index].Rarity;
+   DrawRarityBackdrop(frame,"AvatarMat",rarity,3,3,size-6,size-6);
+   DrawAvatarFace(frame,index,size,showOwnership);
+   float badgeScale=Mathf.Min(1,size/GalleryAvatarSwipe.CenterSize);
+   DrawRarityBadge(frame,rarity,2,2,25*badgeScale,20*badgeScale,leftAligned:true);
+  }
+  void DrawAvatarFace(Transform frame,int index,float size,bool showOwnership){
    var texture=PortraitTexture(index);
    if(texture!=null){
     var r=UNode(frame,"Face",3,3,size-6,size-6);
@@ -110,7 +117,7 @@ namespace DragonIdle {
     var center=DetailAvatarFace(Data.Cards[index].Id);
     const float h=.29f;float w=h/PortraitAspect(index);
     image.uvRect=new Rect(Mathf.Clamp(center.x-w/2,0,1-w),Mathf.Clamp(1-center.y-h/2,0,1-h),w,h);
-    if(!profile.Owned[index])MutePortrait(image);
+    if(showOwnership&&!profile.Owned[index])MutePortrait(image);
    }else UArt(frame,index,3,3,size-6,size-6);
   }
   static Vector2 DetailAvatarFace(string cardId){
@@ -121,6 +128,7 @@ namespace DragonIdle {
     case "krillin-test":return new Vector2(.616f,.381f);
     case "gohan-test":return new Vector2(.51f,.27f);
     case "tien-test":return new Vector2(.58f,.21f);
+    case Data.SaibamanId:return new Vector2(.50f,.51f);
     case "yamcha-saiyan-v020":return new Vector2(.65f,.22f);
     case "chiaotzu-saiyan-v020":return new Vector2(.60f,.29f);
     case "goku-saiyan-kaioken-v020":return new Vector2(.53f,.26f);
@@ -199,11 +207,11 @@ namespace DragonIdle {
    var k=RoundRules().For(Data.Cards[i].Id);
    bool hasAuthoredTechniques=!string.IsNullOrWhiteSpace(k.techniques?.basicText);
    if(hasAuthoredTechniques){
-    Add("普攻 · "+k.basic,k.techniques.basicText,icon:k.basicIcon);
-    string ultimate=k.techniques.ultimateText;
+    Add("普攻 · "+k.basic,SkillAttributeLines(k.techniques.basicText),icon:k.basicIcon);
+    string ultimate=SkillAttributeLines(k.techniques.ultimateText);
     if(!string.IsNullOrEmpty(k.techniques.ultimateNote))ultimate+="\n"+k.techniques.ultimateNote;
     Add("必杀 · "+k.ultimate,ultimate,icon:k.ultimateIcon);
-    Add("追打 · "+k.pursuit,k.techniques.pursuitText,icon:k.pursuitIcon);
+    Add("追打 · "+k.pursuit,SkillAttributeLines(k.techniques.pursuitText),icon:k.pursuitIcon);
    }else{
     Add("普攻 · "+k.basic,"按固定手位使用。伤害倍率 "+k.basicPower.ToString("0.##")+"。");
     Add("必杀 · "+k.ultimate,"怒气满时插入行动，不消耗本轮普攻手位。伤害倍率 "+k.ultimatePower.ToString("0.##")+"。");
@@ -217,7 +225,7 @@ namespace DragonIdle {
      s.effect=="strike"?"自身普攻命中后，目标生命不高于 50% 时追加攻击，伤害倍率 "+s.value.ToString("0.##")+"。":
      "自身普攻后，为生命比例最低且低于 65% 的队友回复其最大生命的 "+(s.value*100).ToString("0.#")+"%。";
     if(!string.IsNullOrEmpty(s.allyTag))effect+=" 己方编队含【"+s.allyTag+"】角色时，防御增加 "+(s.allyDefense*100).ToString("0.#")+"%。";
-    Add((s.trigger=="opening"||s.trigger=="whileAlive"||s.trigger=="roundStart"?"被动型技能":"触发型技能")+" · "+s.name,s.text??effect,
+    Add((s.trigger=="opening"||s.trigger=="whileAlive"||s.trigger=="roundStart"?"被动型技能":"触发型技能")+" · "+s.name,s.text==null?effect:SkillAttributeLines(s.text),
      icon:s.icon,openingIcon:s.trigger=="opening");
    }
    if(!hasAuthoredTechniques)Add("当前配置","回合制验证用配置，角色正式设计将在后续版本填写。");

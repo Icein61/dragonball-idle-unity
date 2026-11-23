@@ -38,7 +38,7 @@ TAGS = TAG + r"(?:、" + TAG + r")*"
 
 
 def sheet_text(value):
-    return re.sub(r"\s+", "", value).replace(",", "，")
+    return re.sub(r"\s+", "", value).translate(str.maketrans({",": "，", ";": "，", "；": "，"}))
 
 
 def require(pattern, value, address):
@@ -92,12 +92,15 @@ def compile_moves(cells, row):
         up = power(m[1])
         moves.update(ultimateTargets=2, ultimateAttackBonus=power(m[2], 100), ultimateAttackRounds=duration(m[3]))
     elif ub.startswith("对随机至多"):
-        m = require(r"对随机至多(?:六|[1-6])名(?:随机)?敌方造成" + VALUE + r"伤害，造成(?:\{([1-6])连击\}|([1-6])连击)", ultimate, f"E{row+8}")
-        count = re.search(r"至多(六|[1-6])", ub)[1]
-        if (6 if count == "六" else int(count)) != int(m[2] or m[3]):
-            raise ValueError(f"E{row+8} 的目标数与弹数不一致")
-        up = power(m[1])
-        moves["ultimateHits"] = int(m[2] or m[3])
+        m = require(r"对随机至多(三|六|[1-6])名(?:随机)?敌方造成" + VALUE
+                    + r"伤害，造成(?:\{([1-6])连击\}|([1-6])连击)", ultimate, f"E{row+8}")
+        count = {"三": 3, "六": 6}.get(m[1]) if not m[1].isdigit() else int(m[1])
+        if count != int(m[3] or m[4]):
+            raise ValueError(f"E{row+8} 的目标数与命中数不一致")
+        up = power(m[2])
+        moves["ultimateHits"] = count
+        if count == 3:
+            moves["ultimateDistinctVolley"] = True
     elif ub.startswith("损失"):
         m = require(r"损失" + VALUE + r"血量，对正面横排敌方造成" + VALUE + r"伤害", ultimate, f"E{row+8}")
         up = power(m[2])
@@ -172,6 +175,11 @@ def compile_skill(name, value, kind, address):
     elif kind in ("触发", "行动") and text.startswith("回合开始时"):
         m = require(r"回合开始时触发，对随机敌人造成" + VALUE + "伤害", value, address)
         skill = dict(trigger="onRoundStart", effect="strike", value=power(m[1]))
+    elif kind in ("触发", "行动") and text.startswith("阵亡前触发"):
+        m = require(r"阵亡前触发，对击杀自身的敌人造成" + VALUE + r"伤害，己方("
+                    + TAGS + r")提升" + VALUE + "攻击", value, address)
+        skill = dict(trigger="onDefeat", effect="detonate", value=power(m[1]),
+                     teamAttackTags=re.findall(TAG, m[2]), defeatAttackBonus=power(m[5], 100))
     elif kind in ("触发", "行动") and text.startswith("阵亡时"):
         m = require(r"阵亡时以" + VALUE + r"生命复活，复活后己方(" + TAGS + r")提升" + VALUE + "攻击", value, address)
         skill = dict(trigger="onDefeat", effect="revive", value=power(m[1], 100),

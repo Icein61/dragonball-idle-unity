@@ -1,7 +1,9 @@
 # 当前状态
-更新：2026-11-23（Asia/Shanghai）。项目：https://github.com/Icein61/dragonball-idle-unity
+更新：2026-11-24（Asia/Shanghai）。项目：https://github.com/Icein61/dragonball-idle-unity
 
 ## 当前阶段
+
+[v0.18.1](release-plans/v0.18.1.md)上线 C 级援助栽培人，接入按原作重绘的整套素材。更新战斗数据条、技能属性分行和悟空普攻落脚，完成 v0.18.0 的追打、天津饭和拉蒂兹追加反馈。角色表同步、1064 项核心检查、10 张 Unity 后台画面、Windows Player 启动及 ZIP 校验通过。[Windows 试玩包](../Builds/Releases/v0.18.1/龙珠爆裂激斗-v0.18.1-Windows-x64.zip)。
 
 [v0.18.0 开发单](release-plans/v0.18.0.md)已落实战斗统计、数字飘字、攻击接触、追打节奏和状态位移。悟空及八位角色两档浮空、击退、倒地均按确认版本接入。角色表同步、1008 项核心检查、11 张 Unity 后台画面、Windows Player 启动与 ZIP 校验通过。那巴与栽培人保留模板。[Windows 试玩包](../Builds/Releases/v0.18.0/龙珠爆裂激斗-v0.18.0-Windows-x64.zip)。
 

@@ -505,11 +505,12 @@ static class RoundChecks {
   }
 
   var p=new Profile();
-  p.CardIds=p.CardIds.Take(p.CardIds.Length-1).ToArray();
-  p.Owned=p.Owned.Take(p.CardIds.Length).ToArray();
-  p.Training=p.Training.Take(p.CardIds.Length).ToArray();p.Shards=p.Shards.Take(p.CardIds.Length).ToArray();
-  p.Resonance=p.Resonance.Take(p.CardIds.Length).ToArray();p.Policy=p.Policy.Take(p.CardIds.Length).ToArray();
-  p.Skill=p.Skill.Take(p.CardIds.Length).ToArray();p.Skill2=p.Skill2.Take(p.CardIds.Length).ToArray();
+  int unlisted=Array.IndexOf(p.CardIds,id);
+  p.CardIds=p.CardIds.Where((_,index)=>index!=unlisted).ToArray();
+  p.Owned=p.Owned.Where((_,index)=>index!=unlisted).ToArray();
+  p.Training=p.Training.Where((_,index)=>index!=unlisted).ToArray();p.Shards=p.Shards.Where((_,index)=>index!=unlisted).ToArray();
+  p.Resonance=p.Resonance.Where((_,index)=>index!=unlisted).ToArray();p.Policy=p.Policy.Where((_,index)=>index!=unlisted).ToArray();
+  p.Skill=p.Skill.Where((_,index)=>index!=unlisted).ToArray();p.Skill2=p.Skill2.Where((_,index)=>index!=unlisted).ToArray();
   check(new Profile().SetRoundMember(1,Data.Index(id)),"V16117 a new profile can deploy Raditz as a reserve");
   var oldGrid=p.RoundFormation();
   p.Retired.Add(new RetiredProgress{cardId=id,owned=true,training=2,shards=5,skill="",skill2=""});
@@ -629,6 +630,50 @@ static class RoundChecks {
    "V17211 only allied Z Warriors receive the persistent revival attack contribution");
  }
 
+ static void CheckSaibaman(Action<bool,string> check){
+  const string id="saibaman-saiyan-v030";
+  if(!Data.IsRoundCard(id))return;
+  var rules=Rules();
+  var kit=rules.For(id);
+  kit.ultimatePower=.50;
+  kit.techniques=new RoundTechnique{ultimateHits=3,ultimateDistinctVolley=true,
+   pursuitTrigger=RoundHitState.SmallFloat,pursuitReaction=RoundHitState.Knockdown,pursuitLimit=1};
+  kit.skills[0]=new RoundAbility{name="自爆",trigger="onDefeat",effect="detonate",value=2,
+   teamAttackTags=new[]{"赛亚人军团"},defeatAttackBonus=.20};
+  var saibaman=Fighter(Data.Index(id),0,1);saibaman.Rage=100;
+  var targets=Fighters(1,5).Skip(1).ToArray();
+  var battle=RoundCombat.Demo(new[]{saibaman}.Concat(targets),rules,25);
+  var acid=battle.Step();
+  check(acid.SequentialHits&&acid.Hits.Count()==3&&acid.Hits.Select(h=>h.Target).Distinct().Count()==3&&
+   acid.Hits.All(h=>Math.Abs(h.Amount-30)<.001),"V18101 Acid launches three distinct 50 percent hits");
+  saibaman=Fighter(Data.Index(id),0,1);saibaman.Rage=100;
+  battle=RoundCombat.Demo(new[]{saibaman,Fighter(0,1,1),Fighter(1,1,2)},rules,25);
+  check(battle.Step().Hits.Count()==2,"V18102 Acid attacks each target once with fewer than three survivors");
+
+  var killer=Fighter(0,0,1);
+  killer.Rage=100;
+  var goku=rules.For(killer.CardId);
+  goku.techniques=new RoundTechnique{ultimateFrontRow=true};
+  saibaman=Fighter(Data.Index(id),1,1);saibaman.HP=1;
+  var linked=Fighter(1,1,4);var outsider=Fighter(4,1,6);
+  battle=RoundCombat.Demo(new[]{killer,saibaman,linked,outsider},rules,25);
+  var lethal=battle.Step();
+  check(lethal.Hits.Count()==2&&!saibaman.Alive&&linked.HP<linked.MaxHP&&battle.HasPendingDetonation(saibaman)&&
+   Math.Abs(linked.AttackBonus(battle.Round))<.001,"V18103 Every hit in the originating action settles before detonation");
+  var detonation=battle.Step();
+  check(detonation.Detonates&&detonation.Actor==saibaman&&detonation.Target==killer&&
+   Math.Abs(detonation.Amount-120)<.001&&Math.Abs(linked.AttackBonus(battle.Round)-.20)<.001&&
+   linked.AttackChanges.Any(c=>c.Source==detonation.Ability&&c.Expiry==int.MaxValue)&&
+   outsider.AttackBonus(battle.Round)==0&&!battle.HasPendingDetonation(saibaman),
+   "V18104 Detonation strikes the original killer and buffs only living allied army members");
+
+  killer=Fighter(0,0,1);killer.HP=15;
+  saibaman=Fighter(Data.Index(id),1,1);saibaman.HP=1;
+  battle=RoundCombat.Demo(new[]{killer,saibaman},rules,25);
+  battle.Step();
+  check(battle.Result==0&&battle.ReactionSkillNext,"V18105 The last fighter's detonation is resolved before the verdict");
+  check(battle.Step().Detonates&&battle.Result==2&&battle.Step()==null,"V18106 A double knockout is a draw");
+ }
  static void CheckTien(Action<bool,string> check){
   var profile=new Profile();int id=Data.Index(Data.TienId);
   var card=Data.Cards[id];
@@ -689,6 +734,7 @@ static class RoundChecks {
 
  public static void Run(Action<bool,string> check){
   CheckTien(check);
+  CheckSaibaman(check);
   CheckYamcha(check);
   CheckRaditz(check);
   CheckCounterBudget(check);

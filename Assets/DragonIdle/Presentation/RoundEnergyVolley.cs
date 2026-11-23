@@ -20,7 +20,7 @@ namespace DragonIdle {
     if(run.IsRaditzTwin&&i>=run.VolleyHits.Length)end+=new Vector2(0,8);
     visible.Add(new RoundMotionFx.VolleyOrb{Start=start,End=end,Ground=targetGround(hit),Elapsed=age,Flight=impact-launch,
      Miss=hit.Dodged,Scatter=run.IsScatter,Raditz=run.IsRaditzEnergy,TwinRay=run.IsRaditzTwin,
-     Enhanced=run.Action.EnhancedBasic,Index=i});
+     Enhanced=run.Action.EnhancedBasic,Acid=run.IsAcid,Index=i});
    }
    return visible;
   }

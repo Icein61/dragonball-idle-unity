@@ -335,5 +335,49 @@
     ]
    }
   ]
+ },
+ "0010": {
+  "cardId": "saibaman-saiyan-v030",
+  "portrait": "V0181/Saibaman/portrait",
+  "moves": {
+   "basicIcon": {
+    "resource": "Art/V0181/Saibaman/icons",
+    "region": [
+     2,
+     0,
+     623,
+     623
+    ]
+   },
+   "ultimateIcon": {
+    "resource": "Art/V0181/Saibaman/icons",
+    "region": [
+     633,
+     0,
+     623,
+     623
+    ]
+   },
+   "pursuitIcon": {
+    "resource": "Art/V0181/Saibaman/icons",
+    "region": [
+     2,
+     623,
+     623,
+     623
+    ]
+   }
+  },
+  "skills": [
+   {
+    "resource": "Art/V0181/Saibaman/icons",
+    "region": [
+     633,
+     623,
+     623,
+     623
+    ]
+   }
+  ]
  }
 }

@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.Linq;
 using DragonIdle;
 static class CatalogChecks {
  static bool Near(double a,double b){return Math.Abs(a-b)<.000001;}
  public static void Run(Action<bool,string> check){
   var p=new Profile();var f=new CatalogFilter();var results=f.Results(p);
-  check(results.Length==9&&results.All(i=>p.Owned[i]),"U01 owned collection");
-  f.OwnedOnly=false;check(f.Results(p).Length==10,"U02 full collection");
+  check(results.Length==Data.StarterCardIds.Length&&results.All(i=>p.Owned[i]),"U01 owned collection");
+  f.OwnedOnly=false;check(f.Results(p).Length==Data.Cards.Length,"U02 full collection");
   f.Search="  界王拳  ";results=f.Results(p);check(results.Length==1&&Data.Cards[results[0]].Id=="goku-saiyan-kaioken-v020","U03 trim search and match form");
   f.Search="";f.Tag="赛亚人";f.Rarity="A";results=f.Results(p);check(results.Length>0&&results.All(i=>Data.Cards[i].HasTag("赛亚人")&&Data.Cards[i].Rarity=="A"),"U04 combined exact filters");
   check(results.All(i=>Data.Cards[i].Tag!="混血赛亚人"),"U05 identity filters do not replace or broaden race");

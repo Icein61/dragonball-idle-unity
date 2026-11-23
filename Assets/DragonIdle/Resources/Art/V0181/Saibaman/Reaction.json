@@ -1,0 +1,657 @@
+{
+ "atlas": [
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    73,
+    16,
+    206,
+    251
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    174,
+    264
+   ],
+   "hit": [
+    188,
+    139
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    435,
+    16,
+    192,
+    251
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    529,
+    264
+   ],
+   "hit": [
+    543,
+    139
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    763,
+    19,
+    234,
+    244
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    878,
+    260
+   ],
+   "hit": [
+    894,
+    139
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    1115,
+    5,
+    289,
+    235
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    1257,
+    237
+   ],
+   "hit": [
+    1277,
+    120
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    47,
+    293,
+    213,
+    234
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    151,
+    524
+   ],
+   "hit": [
+    166,
+    408
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    393,
+    297,
+    295,
+    233
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    538,
+    527
+   ],
+   "hit": [
+    670,
+    439
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    758,
+    283,
+    291,
+    244
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    901,
+    524
+   ],
+   "hit": [
+    1032,
+    342
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    1160,
+    291,
+    225,
+    238
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    1270,
+    526
+   ],
+   "hit": [
+    1286,
+    408
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    64,
+    568,
+    237,
+    241
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    180,
+    806
+   ],
+   "hit": [
+    197,
+    686
+   ],
+   "beam": [
+    204,
+    597
+   ]
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    410,
+    565,
+    271,
+    242
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    543,
+    804
+   ],
+   "hit": [
+    562,
+    684
+   ],
+   "beam": [
+    570,
+    594
+   ]
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    781,
+    570,
+    252,
+    237
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    904,
+    804
+   ],
+   "hit": [
+    922,
+    686
+   ],
+   "beam": [
+    930,
+    598
+   ]
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    1125,
+    547,
+    277,
+    262
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    1261,
+    806
+   ],
+   "hit": [
+    1280,
+    675
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    26,
+    870,
+    305,
+    208
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    175,
+    1075
+   ],
+   "hit": [
+    310,
+    1059
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    413,
+    844,
+    237,
+    231
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    529,
+    1072
+   ],
+   "hit": [
+    600,
+    1057
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    755,
+    838,
+    256,
+    241
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    880,
+    1076
+   ],
+   "hit": [
+    898,
+    956
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    1117,
+    834,
+    256,
+    245
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    1242,
+    1076
+   ],
+   "hit": [
+    1260,
+    954
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    5,
+    5,
+    268,
+    241
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    136,
+    243
+   ],
+   "hit": [
+    155,
+    123
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    449,
+    5,
+    301,
+    314
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    596,
+    316
+   ],
+   "hit": [
+    618,
+    159
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    893,
+    5,
+    380,
+    163
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    1079,
+    165
+   ],
+   "hit": [
+    1106,
+    85
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    1337,
+    5,
+    294,
+    226
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    1481,
+    228
+   ],
+   "hit": [
+    1502,
+    116
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    5,
+    343,
+    389,
+    197
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    196,
+    537
+   ],
+   "hit": [
+    223,
+    440
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    449,
+    343,
+    402,
+    220
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    646,
+    560
+   ],
+   "hit": [
+    674,
+    451
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    893,
+    343,
+    411,
+    272
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    1094,
+    612
+   ],
+   "hit": [
+    1123,
+    476
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    1337,
+    343,
+    413,
+    258
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    1539,
+    598
+   ],
+   "hit": [
+    1568,
+    469
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    5,
+    681,
+    373,
+    328
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    188,
+    1006
+   ],
+   "hit": [
+    214,
+    842
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    449,
+    681,
+    395,
+    264
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    643,
+    942
+   ],
+   "hit": [
+    670,
+    810
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    893,
+    681,
+    412,
+    207
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    1095,
+    885
+   ],
+   "hit": [
+    1124,
+    782
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    1337,
+    681,
+    434,
+    162
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    1550,
+    840
+   ],
+   "hit": [
+    1580,
+    760
+   ],
+   "beam": []
+  }
+ ],
+ "clips": [
+  {
+   "id": "standing",
+   "title": "站立受击",
+   "duration": 330,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 17
+    },
+    {
+     "at": 190,
+     "drawing": 19
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockback",
+   "title": "击退",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 24
+    },
+    {
+     "at": 140,
+     "drawing": 25
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 178
+  },
+  {
+   "id": "smallFloat",
+   "title": "小浮空",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 20
+    },
+    {
+     "at": 113,
+     "drawing": 21
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 145
+  },
+  {
+   "id": "largeFloat",
+   "title": "大浮空",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 22
+    },
+    {
+     "at": 164,
+     "drawing": 23
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 196
+  },
+  {
+   "id": "knockdown",
+   "title": "倒地",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 26
+    },
+    {
+     "at": 135,
+     "drawing": 27
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 169
+  },
+  {
+   "id": "defeat",
+   "title": "战败",
+   "duration": 730,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 26
+    },
+    {
+     "at": 165,
+     "drawing": 27
+    },
+    {
+     "at": 320,
+     "drawing": 18
+    }
+   ],
+   "impacts": [],
+   "root": []
+  }
+ ]
+}

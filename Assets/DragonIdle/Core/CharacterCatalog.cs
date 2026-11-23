@@ -58,6 +58,7 @@ namespace DragonIdle {
   internal const string RaditzId="raditz-arrival-v030";
   public const string YamchaId="yamcha-saiyan-v020";
   internal const string TienId="tien-test";
+  internal const string SaibamanId="saibaman-saiyan-v030";
   public static readonly System.Collections.ObjectModel.ReadOnlyCollection<string> RoundRoster=
    RoundSheetCatalog.Online;
   public static bool IsRoundCard(string id){return RoundRoster.Contains(id);}
@@ -67,8 +68,8 @@ namespace DragonIdle {
   // Historical IDs only support migration; removed cards have no live definition.
   public static readonly string[] LegacyCardIds={"goku-test","vegeta-test","piccolo-test","krillin-test","gohan-test","tien-test","dende-test","trunks-test"};
   public static readonly string[] PreviousCardIds={"goku-test","vegeta-test","piccolo-test","krillin-test","gohan-test","tien-test","dende-test","trunks-test","yamcha-saiyan-v020","chiaotzu-saiyan-v020","roshi-tournament-v020","goku-saiyan-kaioken-v020","goku-saiyan-guard-v020","goku-namek-ssj-v020","vegeta-namek-v020","piccolo-namek-v020","gohan-cell-ssj2-v020","frieza-namek-final-v020","android18-cell-v020","trunks-future-base-v020","piccolo-raditz-v030","raditz-arrival-v030","nappa-invasion-v030","yajirobe-saiyan-v030","saibaman-saiyan-v030"};
-  public static readonly string[] RetiredCardIds={"dende-test","trunks-test","roshi-tournament-v020","goku-namek-ssj-v020","vegeta-namek-v020","piccolo-namek-v020","gohan-cell-ssj2-v020","frieza-namek-final-v020","android18-cell-v020","trunks-future-base-v020","goku-saiyan-guard-v020","piccolo-raditz-v030","nappa-invasion-v030","yajirobe-saiyan-v030","saibaman-saiyan-v030"};
-  public static readonly string[] StarterCardIds={"goku-test","vegeta-test","piccolo-test","krillin-test","gohan-test","tien-test","yamcha-saiyan-v020","chiaotzu-saiyan-v020",RaditzId};
+  public static readonly string[] RetiredCardIds={"dende-test","trunks-test","roshi-tournament-v020","goku-namek-ssj-v020","vegeta-namek-v020","piccolo-namek-v020","gohan-cell-ssj2-v020","frieza-namek-final-v020","android18-cell-v020","trunks-future-base-v020","goku-saiyan-guard-v020","piccolo-raditz-v030","nappa-invasion-v030","yajirobe-saiyan-v030"};
+  public static readonly string[] StarterCardIds={"goku-test","vegeta-test","piccolo-test","krillin-test","gohan-test","tien-test","yamcha-saiyan-v020","chiaotzu-saiyan-v020",RaditzId,SaibamanId};
   public static readonly Card[] Cards={
    new Card("goku-test","孙悟空","goku","赛亚人篇","常态","全新的故事","B","fighter","赛亚人","Z战士","牵制连击","全力龟派气功","FF9F43",1050,116,42,110,"attack",CharacterType.Output,extraTag:LowerClassTag,catalogNumber:1),
    new Card("vegeta-test","贝吉塔","vegeta","赛亚人篇","常态","激烈的超级精英","B","sniper","赛亚人","赛亚人军团","伽力克炮","全力爆发","599AFF",940,124,36,116,"focus",CharacterType.Output,extraTag:RivalTag,catalogNumber:2),
@@ -80,6 +81,8 @@ namespace DragonIdle {
    new Card("chiaotzu-saiyan-v020","饺子","chiaotzu","赛亚人篇","常态","各式各样的拿手绝活","C","control","地球人","Z战士","超能力束缚","全力念动","C7D7E7",930,88,43,112,"resolve",CharacterType.Support),
    new Card("goku-saiyan-kaioken-v020","孙悟空【界王拳】","goku","赛亚人篇","界王拳","挑战极限","A","fighter","赛亚人","Z战士","界王拳突击","龟派气功","FF6870",980,125,35,119,"resolve",CharacterType.Output),
    new Card(RaditzId,"拉蒂兹","raditz","赛亚人篇","常态","天外来敌","C","fighter","赛亚人","赛亚人军团","闪耀金星日","双重太阳日","BD83C8",960,110,43,100,"attack",CharacterType.Output,extraTag:LowerClassTag,catalogNumber:6),
+   new Card(SaibamanId,"栽培人","saibaman","赛亚人篇","常态","不容小觑的战斗力","C","support",
+    "赛亚人军团","赛亚人篇","溶解液","自爆","9FC864",934,92,42,100,"resolve",CharacterType.Support,catalogNumber:10),
   };
   public static int Index(string id){return Array.FindIndex(Cards,x=>x.Id==id);}
   public static string[] Rarities={"C","B","A","S"};

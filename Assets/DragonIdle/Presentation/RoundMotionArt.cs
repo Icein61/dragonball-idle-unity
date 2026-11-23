@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace DragonIdle {
  internal sealed class RoundMotionArt {
-  internal const string CardId = "goku-test",VegetaCardId="vegeta-test",PiccoloCardId="piccolo-test",GohanCardId="gohan-test",KrillinCardId="krillin-test",RaditzCardId=Data.RaditzId,YamchaCardId=Data.YamchaId,TienCardId=Data.TienId;
+  internal const string CardId = "goku-test",VegetaCardId="vegeta-test",PiccoloCardId="piccolo-test",GohanCardId="gohan-test",KrillinCardId="krillin-test",RaditzCardId=Data.RaditzId,YamchaCardId=Data.YamchaId,TienCardId=Data.TienId,SaibamanCardId=Data.SaibamanId;
   internal const string OpeningSkill = "修炼的成果";
   const string Folder = "Art/V0180/Battle/Goku/";
   const string Icon = "Art/V0131/Goku/passive-training";

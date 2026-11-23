@@ -33,13 +33,13 @@
   },
   {
    "id": "tien-finger",
-   "resource": "Audio/V0173/Tien/finger",
-   "gain": 0.63
+   "resource": "Audio/V0181/Tien/finger-release",
+   "gain": 0.81
   },
   {
    "id": "tien-finger-impact",
-   "resource": "Audio/V0173/Tien/finger-impact",
-   "gain": 0.47
+   "resource": "Audio/V0181/Tien/finger-impact",
+   "gain": 0.74
   },
   {
    "id": "tien-hit-light",

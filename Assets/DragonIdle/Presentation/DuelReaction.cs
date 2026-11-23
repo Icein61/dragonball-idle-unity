@@ -61,7 +61,7 @@ namespace DragonIdle {
     case "gohanGuard": settle=current; break;
     default: settle=new Vector2(current.x+sign*4,current.y); break;
    }
-   travelUntil=Mathf.Min(EndOfHold,track=="largeFloat"?190:140);
+   travelUntil=Mathf.Min(EndOfHold,track=="largeFloat"?220:164);
    this.chained=chained;
    releaseAt=-1;
    Elapsed = 0;

@@ -11,7 +11,7 @@ static class ScopeChecks {
  }
  static bool Near(double a,double b){return Math.Abs(a-b)<.000001;}
  public static void Run(Action<bool,string> check){
-  check(Data.Cards.Length==10&&Data.Cards.All(c=>c.Stage=="赛亚人篇")&&Data.RetiredCardIds.All(id=>Data.Index(id)==-1),"R01 removed cards have no live definition");
+  check(Data.Cards.Length==10+(Data.IsRoundCard("saibaman-saiyan-v030")?1:0)&&Data.Cards.All(c=>c.Stage=="赛亚人篇")&&Data.RetiredCardIds.All(id=>Data.Index(id)==-1),"R01 removed cards have no live definition");
   foreach(var card in Data.Cards){
    check(card.Keywords.Length>=2&&card.Keywords.Length<=3&&card.Keywords.Distinct().Count()==card.Keywords.Length&&card.Keywords.All(k=>Data.KeywordDescription(k).Length>0),"R02 grounded keyword definition "+card.Id);
    check(card.Captain.Tags.Length>=1&&card.Captain.Tags.Distinct().Count()==card.Captain.Tags.Length&&card.Captain.Tags.All(t=>card.Tags.Contains(t)),"R03 captain tags belong to owner "+card.Id);

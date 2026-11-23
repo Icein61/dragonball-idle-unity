@@ -15,9 +15,9 @@ namespace DragonIdle {
   }
  }
  internal static class RoundSheetCatalog {
-  internal const string Featured="tien-test";
+  internal const string Featured="saibaman-saiyan-v030";
   internal static readonly System.Collections.ObjectModel.ReadOnlyCollection<string> Online=
-   Array.AsReadOnly(new[]{"goku-test", "vegeta-test", "piccolo-test", "gohan-test", "krillin-test", "raditz-arrival-v030", "yamcha-saiyan-v020", "tien-test"});
+   Array.AsReadOnly(new[]{"goku-test", "vegeta-test", "piccolo-test", "gohan-test", "krillin-test", "raditz-arrival-v030", "yamcha-saiyan-v020", "tien-test", "saibaman-saiyan-v030"});
   internal static readonly Dictionary<string,RoundSheetCard> Cards=new Dictionary<string,RoundSheetCard>{
    { "goku-test", new RoundSheetCard("孙悟空", "全新的故事", "B", CharacterType.Output, 1, "V051/goku-test-portrait", new[]{"赛亚人", "Z战士", "赛亚人篇", "下级战士"}, "B", "B", "B") },
    { "vegeta-test", new RoundSheetCard("贝吉塔", "激烈的超级精英", "B", CharacterType.Output, 2, "V0143/Vegeta/portrait", new[]{"赛亚人", "赛亚人军团", "赛亚人篇", "劲敌"}, "A", "B", "C") },
@@ -27,6 +27,7 @@ namespace DragonIdle {
    { "raditz-arrival-v030", new RoundSheetCard("拉蒂兹", "天外来敌", "C", CharacterType.Output, 6, "V0161/Raditz/portrait", new[]{"赛亚人", "赛亚人军团", "赛亚人篇", "下级战士"}, "B", "B", "C") },
    { "yamcha-saiyan-v020", new RoundSheetCard("雅木茶", "地球顶尖的尖锐", "C", CharacterType.Support, 7, "V0172/Yamcha/portrait", new[]{"地球人", "Z战士", "赛亚人篇"}, "B", "C", "C") },
    { "tien-test", new RoundSheetCard("天津饭", "取胜的气势", "C", CharacterType.Output, 8, "V0173/Tien/portrait", new[]{"地球人", "Z战士", "赛亚人篇"}, "C", "B", "C") },
+   { "saibaman-saiyan-v030", new RoundSheetCard("栽培人", "不容小觑的战斗力", "C", CharacterType.Support, 10, "V0181/Saibaman/portrait", new[]{"赛亚人军团", "赛亚人篇"}, "C", "C", "C") },
   };
  }
 }

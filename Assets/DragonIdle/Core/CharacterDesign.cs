@@ -32,6 +32,7 @@ namespace DragonIdle {
     case "gohan-test":return new CharacterDesign("怒气汲取/高攻追击/自我强化","混血赛亚人",.05,.06,.03);
     case "raditz-arrival-v030":return new CharacterDesign("双目标/自我强化","赛亚人军团",.03,.05,.03);
     case "tien-test":return new CharacterDesign("生命消耗/自我强化","地球人/Z战士",.03,.06,.05);
+    case SaibamanId:return new CharacterDesign("团队强化/自爆","赛亚人军团",.04,.04,.04);
     case "yamcha-saiyan-v020":return new CharacterDesign("编队联动/自我强化","地球人",.04,.05,.03);
     case "chiaotzu-saiyan-v020":return new CharacterDesign("团队强化/团队防御","地球人/Z战士",.05,.03,.04);
     case "goku-saiyan-kaioken-v020":return new CharacterDesign("生命消耗/生命偷取/自我强化","赛亚人/Z战士",.03,.08,.04);
@@ -64,6 +65,7 @@ namespace DragonIdle {
     case "怒气加速":return "开战怒气或招式额外怒气帮助更快达到必杀条件。";
     case "团队强化":return "为符合本卡技能条件的队友施加攻击强化。";
     case "双目标":return "招式最多攻击两个不同目标，各自判定命中与暴击。";
+    case "自爆":return "致死的招式全部结算后，自爆攻击击杀者，并强化存活的赛亚人军团队友。";
     default:throw new ArgumentException("Unknown keyword: "+word);
    }
   }

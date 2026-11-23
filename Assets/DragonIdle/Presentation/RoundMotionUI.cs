@@ -45,7 +45,7 @@ namespace DragonIdle {
     return ReturnStart+PiccoloReturnDuration+(pose-ReturnPoseEnd)/AfterApproachRate;
    }
 
-   internal const float PursuitLead=104, PursuitLength=505, OpeningFlash=320;
+   internal const float PursuitLead=96, PursuitLength=465, OpeningFlash=320;
    internal const float ReleaseSlowSpan=120, ReleaseRate=.62f, DemoRunRate=.65f;
    const float CounterGuardHold=480;
    const float BasicRate=.68f, UltimateRate=.86f, HeavyUltimateRate=.73f, ChargeRate=.94f;
@@ -53,14 +53,16 @@ namespace DragonIdle {
    internal bool IsUltimate => Action?.Move==RoundMove.Ultimate&&!IsCharge;
    internal bool IsCounter => Action?.Ability?.trigger=="onSingleTarget";
    internal float PlaybackRate => IsCounter ? .70f :
-    Action?.Move==RoundMove.Basic ? BasicRate : IsPursuit&&IsScatter ? .86f : IsCharge ? ChargeRate :
+    Action?.Move==RoundMove.Basic ? BasicRate : IsPursuit&&IsScatter ? .90f : IsCharge ? ChargeRate :
     IsUltimate ? (Clip?.id=="gohanHeavy" ? HeavyUltimateRate : UltimateRate) : 1f;
    internal float ReleaseAt => Clip!=null&&Clip.launchAt>0?Clip.launchAt:(Clip?.beam?.fire>0?Clip.beam.fire:145);
    internal bool IsScatter=>Clip?.id=="krillinScatter";
    internal bool IsRaditzEnergy=>Clip?.fx=="raditzKi";
+   internal bool IsAcid=>Clip?.fx=="saibaAcid";
+   internal bool IsDetonation=>Action?.Detonates==true;
    internal bool IsRaditzTwin=>Clip?.id=="raditzTwin";
-   internal float VolleyLaunch(int index)=>ReleaseAt+(IsScatter?PursuitLead+76*index:IsRaditzEnergy?65*index:145*index);
-   internal float VolleyImpact(int index)=>VolleyLaunch(index)+(IsScatter?160:IsRaditzEnergy?Clip.impactAt-Clip.launchAt:260);
+   internal float VolleyLaunch(int index)=>ReleaseAt+(IsScatter?PursuitLead+76*index:IsRaditzEnergy?65*index:IsAcid?95*index:145*index);
+   internal float VolleyImpact(int index)=>VolleyLaunch(index)+(IsScatter?160:IsRaditzEnergy||IsAcid?Clip.impactAt-Clip.launchAt:260);
    internal RoundAction LastSeenHit=>IsCharge?null:VolleyHits==null||RevealedCount==0?Action:VolleyHits[RevealedCount-1];
    internal float CounterGuardWeight {
     get {
@@ -94,7 +96,7 @@ namespace DragonIdle {
      return appear*(1-clear);
     }
    }
-   internal string SkillName => Opening?.name??Action?.Ability?.name??(IsUltimate||IsCharge||Library!=null&&(Clip?.id=="gohanRally"||Clip?.id=="gohanFlash"||Clip?.id=="krillinBasic"||IsScatter||IsRaditzEnergy||Clip?.id=="raditzKick"||Clip?.id=="yamchaBasic"||Clip?.id=="yamchaSweep"||Clip?.id=="tienVolley"||Clip?.id=="tienSet")?Action.Name:null);
+   internal string SkillName => Opening?.name??Action?.Ability?.name??(IsUltimate||IsCharge||Library!=null&&(Clip?.id=="gohanRally"||Clip?.id=="gohanFlash"||Clip?.id=="krillinBasic"||IsScatter||IsRaditzEnergy||Clip?.id=="raditzKick"||Clip?.id=="yamchaBasic"||Clip?.id=="yamchaSweep"||Clip?.id=="tienVolley"||Clip?.id=="tienSet"||Clip?.id=="saibaSmash")?Action.Name:null);
 
    internal void Advance(float milliseconds){
     if(ApproachDuration>0){Time+=milliseconds;return;}
@@ -161,6 +163,8 @@ namespace DragonIdle {
     return motion*(Clip?.duration??(PursuitLength-PursuitLead));
    }
    internal Vector2 ShiftAt(float at) {
+    if(IsDetonation&&DemoLocomotion)
+     return Travel*Mathf.SmoothStep(0,1,Mathf.InverseLerp(90,415,at));
     if(ApproachDuration>0&&at<ApproachStart+ApproachDuration){
      float progress=Mathf.Clamp01((at-ApproachStart)/ApproachDuration);
      if(IsPursuit)return approachEnd*Mathf.SmoothStep(0,1,progress)-
@@ -224,8 +228,10 @@ namespace DragonIdle {
   RoundMotionArt TienArt => tienArt??(tienArt=RoundMotionArt.Load("Art/V0173/Tien/"));
   RoundMotionArt YamchaArt => yamchaArt??(yamchaArt=RoundMotionArt.Load("Art/V0172/Yamcha/"));
   RoundMotionArt KrillinArt => krillinArt??(krillinArt=RoundMotionArt.Load("Art/V0154/Krillin/"));
+  RoundMotionArt saibamanArt;
+  RoundMotionArt SaibamanArt=>saibamanArt??(saibamanArt=RoundMotionArt.Load("Art/V0181/Saibaman/"));
   bool WaitingForRoundImpact => roundMotion != null && roundMotion.Action != null && !roundMotion.IsCharge && !roundMotion.Revealed;
-  int VisibleRoundResult => WaitingForRoundImpact ? 0 : roundBattle.Result;
+  int VisibleRoundResult => WaitingForRoundImpact || roundMotion?.IsDetonation == true ? 0 : roundBattle.Result;
 
   void PrepareRoundMotion() {
    ResetRoundMotion();
@@ -337,6 +343,15 @@ namespace DragonIdle {
      case RoundMove.Skill:if(action.Ability?.trigger=="onRoundStart")track="tienFinger";break;
     }
    }
+   else if(action.Actor.CardId==RoundMotionArt.SaibamanCardId){
+    library=SaibamanArt;
+    switch(action.Move){
+     case RoundMove.Basic:track="saibaBasic";break;
+     case RoundMove.Ultimate:track="saibaAcid";break;
+     case RoundMove.Pursuit:track="saibaSmash";break;
+     case RoundMove.Skill:if(action.Detonates)track="saibaDetonate";break;
+    }
+   }
    if(track==null&&!roundDemo&&action.Move!=RoundMove.Ultimate&&action.Ability==null)return false;
    roundMotion=new RoundMotionPlayback {
     Actor=action.Actor, Action=action, Library=library, Clip=track==null?null:library[track],
@@ -391,7 +406,7 @@ namespace DragonIdle {
     if(run.VolleyHits!=null)roundBefore[hit.Target]=new RoundVitals(hit,roundBefore[hit.Target]);
     if(roundDemo){ApplyDemoHit(hit);RecordDemoHit(hit);}
     if(playAudio){
-     if(run.VolleyHits!=null)PlayRoundCue(hit.Dodged?"dodge":run.IsScatter?"krillin-impact":run.IsRaditzEnergy?"raditz-impact":"vegeta-impact");
+     if(run.VolleyHits!=null)PlayRoundCue(hit.Dodged?"dodge":run.IsScatter?"krillin-impact":run.IsRaditzEnergy?"raditz-impact":run.IsAcid?"saiba-acid-impact":"vegeta-impact");
      if(hit.Countered)PlayRoundCue("charge");
      PlayRoundHitVoice(hit);
     }
@@ -411,6 +426,7 @@ namespace DragonIdle {
     if(roundDemo)CompleteDemoReaction();
     if(roundCueAudio!=null)roundCueAudio.Stop();
    }
+   if(roundDemo&&roundMotion.IsDetonation)CompleteDemoDetonation(roundMotion.Actor,roundMotion.StagePose);
    if(roundMotion.IsCharge)AddRoundLog(roundMotion.Action);
    roundClock=roundMotion.Action==null?RoundOpeningGap:NextRoundActionGap();
    roundBefore=null;
@@ -431,6 +447,10 @@ namespace DragonIdle {
   }
 
   void SetStandingPose(RoundFighter fighter, RawImage image) {
+   if(fighter.CardId==RoundMotionArt.SaibamanCardId){
+    RoundMotionArt.Draw(image,SaibamanIdlePose(fighter),new Vector2(101,99),.205f,fighter.Side==1);
+    return;
+   }
    if(fighter.CardId==RoundMotionArt.TienCardId){
     RoundMotionArt.Draw(image,TienIdlePose(fighter),new Vector2(101,99),.205f,fighter.Side==1);
     return;
@@ -526,7 +546,7 @@ namespace DragonIdle {
    roundRearFx.Present(run.Library,run.Clip,run.PoseTime,flip,missed,true,travel:travel);
    roundFrontFx.Present(run.Library,run.Clip,run.PoseTime,flip,missed,end:750,travel:travel,
     target:run.Clip?.id=="tienCannon"?(Vector2?)new Vector2(850,RoundMotionFx.Floor):
-     run.IsCounter||run.Clip?.id=="specialBeam"||run.Clip?.id=="krillinDisc"||run.Clip?.id=="tienFinger"?(Vector2?)new Vector2(run.IsCounter?588:750,198):null);
+     run.IsCounter||run.Clip?.id=="specialBeam"||run.Clip?.id=="krillinDisc"||run.Clip?.id=="tienFinger"||run.IsDetonation?(Vector2?)new Vector2(run.IsCounter?588:750,198):null);
    if(run.VolleyHits!=null)roundFrontFx.PresentVolley(BuildVolleyVisuals(run,new Vector2(RoundMotionFx.Origin,RoundMotionFx.Floor),
     RoundMotionFx.Scale,hit=>new Vector2(750,198),hit=>new Vector2(750,RoundMotionFx.Floor)));
    var anchor=new Vector2(flip?RoundMotionFx.Width-RoundMotionFx.Origin:RoundMotionFx.Origin,RoundMotionFx.Floor);

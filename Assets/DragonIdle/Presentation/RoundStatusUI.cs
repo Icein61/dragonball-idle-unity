@@ -28,20 +28,20 @@ namespace DragonIdle {
    foreach(var skill in RoundRules().OpeningSkills(fighter.CardId))
     yield return new DisplayRoundStatus{
      Icon=skill.name==RoundMotionArt.OpeningSkill?RoundStatusIcon.Training:RoundStatusIcon.Elite,
-     SkillIcon=skill.icon,Title=skill.name,Description=FormatGallerySkillText(skill.text)
+     SkillIcon=skill.icon,Title=skill.name,Description=FormatGallerySkillText(SkillAttributeLines(skill.text))
     };
 
    foreach(var aura in roundBattle.ActiveTeamAttackSkills(fighter,source=>VisibleRoundVitals(source).HP>0).GroupBy(skill=>skill.name)){
     var skill=aura.First();
     yield return new DisplayRoundStatus{Icon=RoundStatusIcon.TeamAttack,SkillIcon=skill.icon,
-     Title=skill.name,Description=FormatGallerySkillText(skill.text)};
+     Title=skill.name,Description=FormatGallerySkillText(SkillAttributeLines(skill.text))};
    }
    int round=roundBattle.Round;
    foreach(var phase in RoundRules().For(fighter.CardId).skills.Where(skill=>skill.trigger=="roundStart")){
     string current=round<phase.phaseRound?"当前攻击提升["+StatNumber(phase.value)+"]。":
      "当前攻击降低["+StatNumber(phase.lateAttackPenalty)+"]，防御提升["+StatNumber(phase.lateDefense)+"]。";
     yield return new DisplayRoundStatus{Icon=RoundStatusIcon.TeamAttack,SkillIcon=phase.icon,Title=phase.name,
-     Description=FormatGallerySkillText(current+"\n"+phase.text)};
+     Description=FormatGallerySkillText(current+"\n"+SkillAttributeLines(phase.text))};
    }
    foreach(var group in vitals.AttackChanges.Where(effect=>effect.Source!=null&&round<effect.Expiry).GroupBy(effect=>effect.Source)){
     var status=StatStatus(RoundStatusIcon.TeamAttack,"攻击提升",group,round);

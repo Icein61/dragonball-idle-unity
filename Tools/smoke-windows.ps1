@@ -20,5 +20,6 @@ if(!$result.twinRaysAndSingleHit -or !$result.krillinReactionCrop -or !$result.f
 if(!$result.formationExplicitSave -or !$result.yamchaPresentation){throw 'Incomplete v0.17.2 Player verification'}
 if(!$result.tienPresentation -or !$result.roleArtwork){throw 'Incomplete v0.17.3 Player verification'}
 if(!$result.actualHitFeedback -or !$result.battleStats -or !$result.groundedGokuKit -or !$result.approvedReactionArt -or !$result.floatLaunchArtwork){throw 'Incomplete v0.18.0 battle verification'}
+if(!$result.battleSidebarBars -or ($expectedRoster -eq 9 -and !$result.saibamanPresentation)){throw 'Incomplete v0.18.1 battle sidebar or Saibaman verification'}
 if(Select-String -LiteralPath (Join-Path $OutputDirectory 'player.log') -Pattern 'Exception|NullReferenceException' -Quiet){throw 'Exception found in Player smoke log'}
 Write-Output ('HEADLESS_SMOKE_PASS '+$OutputDirectory)

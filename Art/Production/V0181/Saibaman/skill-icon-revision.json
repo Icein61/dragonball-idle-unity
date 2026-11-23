@@ -1,0 +1,27 @@
+{
+  "review": "用户确认新版图标随整套素材接入 v0.18.1",
+  "tool": "ImageGen built-in",
+  "base": "Art/Production/V0181/Saibaman/sources-v2.json",
+  "updated": {
+    "basicIcon": {
+      "sourceId": "a02d029e-a7ee-4ace-945d-31ede312bec9",
+      "source": "Art/Production/V0181/Saibaman/icon-revision/basicIcon.png",
+      "sha256": "e8ad3870925fc0a6d97870acd254afa6f02d2f8769a30a4538250e7a85b7f15e",
+      "direction": "近景横向挥爪，冷银色弧线"
+    },
+    "pursuitIcon": {
+      "sourceId": "eab7a246-8b5f-4045-b876-ba5a77bad5b4",
+      "source": "Art/Production/V0181/Saibaman/icon-revision/pursuitIcon.png",
+      "sha256": "b1a8c8ff4f9f70679df23b6ce9b1ca183f30f9c4b301955592d6096b4ec235eb",
+      "direction": "低身单拳下砸，暖金落点"
+    },
+    "detonation": {
+      "sourceId": "d4b552f6-fe01-4824-b845-7c347da1f717",
+      "source": "Art/Production/V0181/Saibaman/icon-revision/detonation.png",
+      "sha256": "d8fc21b0270b3fd044e39e9f6abe0073beeb75c607addc1811c39d12b87fe20d",
+      "direction": "张嘴大笑，双臂向两侧张开准备抱住对手"
+    }
+  },
+  "existingIcon": "溶解液",
+  "atlasSha256": "ff6f9961f6cc213322f17dd5dc835e0ce701ff8828d367b90a9c3a3b8f404ab1"
+}
