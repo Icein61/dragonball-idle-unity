@@ -32,6 +32,6 @@
   "scenePool": ["landing-meadow", "wind-carved-plateau", "red-rock-canyon"],
   "useSavedFormation": true,
   "damageScale": 1.0,
-  "actionGap": 0.54
+  "actionGap": 0.68
  }
 }

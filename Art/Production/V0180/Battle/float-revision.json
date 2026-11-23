@@ -1,0 +1,310 @@
+{
+  "technique": "imagegen 透明原图，分镜按实际 Alpha 裁切",
+  "direction": "横身下落时受自下而上的腹部重击。小浮空弧度浅，大浮空腹部突出、头和四肢明显滞后。",
+  "actors": {
+    "Goku": {
+      "file": "Art/Production/V0180/Battle/candidates/GokuVegetaFloatRevision.png",
+      "sha256": "72b231d18db5fcfc0be41c16a38cf61c5246c5a5ba1b1ad966427d00e1217de2",
+      "sourceRegions": [
+        [
+          19,
+          93,
+          432,
+          380
+        ],
+        [
+          463,
+          83,
+          855,
+          385
+        ],
+        [
+          896,
+          57,
+          1287,
+          381
+        ],
+        [
+          1348,
+          90,
+          1743,
+          396
+        ]
+      ],
+      "states": [
+        "小浮空 · 中拳",
+        "小浮空 · 滞空",
+        "大浮空 · 中拳",
+        "大浮空 · 滞空"
+      ],
+      "reference": "GokuReaction.png",
+      "review": "用户整批确认，已接入"
+    },
+    "Vegeta": {
+      "file": "Art/Production/V0180/Battle/candidates/GokuVegetaFloatRevision.png",
+      "sha256": "72b231d18db5fcfc0be41c16a38cf61c5246c5a5ba1b1ad966427d00e1217de2",
+      "sourceRegions": [
+        [
+          17,
+          528,
+          427,
+          801
+        ],
+        [
+          458,
+          536,
+          863,
+          814
+        ],
+        [
+          896,
+          520,
+          1296,
+          815
+        ],
+        [
+          1342,
+          541,
+          1754,
+          817
+        ]
+      ],
+      "states": [
+        "小浮空 · 中拳",
+        "小浮空 · 滞空",
+        "大浮空 · 中拳",
+        "大浮空 · 滞空"
+      ],
+      "reference": "VegetaReaction.png",
+      "review": "用户整批确认，已接入"
+    },
+    "Piccolo": {
+      "file": "Art/Production/V0180/Battle/candidates/PiccoloGohanFloatRevision.png",
+      "sha256": "ff84e0bc8fa0abe090c6774344dfe745e184dfd96cf6d764acfdcd2e8bc347f1",
+      "sourceRegions": [
+        [
+          27,
+          121,
+          430,
+          429
+        ],
+        [
+          486,
+          106,
+          872,
+          432
+        ],
+        [
+          908,
+          87,
+          1277,
+          435
+        ],
+        [
+          1338,
+          117,
+          1747,
+          452
+        ]
+      ],
+      "states": [
+        "小浮空 · 中拳",
+        "小浮空 · 滞空",
+        "大浮空 · 中拳",
+        "大浮空 · 滞空"
+      ],
+      "reference": "PiccoloReaction.png",
+      "review": "用户整批确认，已接入"
+    },
+    "Gohan": {
+      "file": "Art/Production/V0180/Battle/candidates/PiccoloGohanFloatRevision.png",
+      "sha256": "ff84e0bc8fa0abe090c6774344dfe745e184dfd96cf6d764acfdcd2e8bc347f1",
+      "sourceRegions": [
+        [
+          26,
+          535,
+          411,
+          832
+        ],
+        [
+          451,
+          530,
+          853,
+          842
+        ],
+        [
+          890,
+          507,
+          1268,
+          838
+        ],
+        [
+          1326,
+          554,
+          1742,
+          854
+        ]
+      ],
+      "states": [
+        "小浮空 · 中拳",
+        "小浮空 · 滞空",
+        "大浮空 · 中拳",
+        "大浮空 · 滞空"
+      ],
+      "reference": "GohanReaction.png",
+      "review": "用户整批确认，已接入"
+    },
+    "Krillin": {
+      "file": "Art/Production/V0180/Battle/candidates/KrillinRaditzFloatRevision.png",
+      "sha256": "6f1a0377b37ce427ab3a1d9a064dbbdb04d5ee0c44fbea2a7221f91ea862d85b",
+      "sourceRegions": [
+        [
+          30,
+          122,
+          400,
+          373
+        ],
+        [
+          483,
+          110,
+          842,
+          386
+        ],
+        [
+          932,
+          92,
+          1271,
+          390
+        ],
+        [
+          1362,
+          109,
+          1725,
+          398
+        ]
+      ],
+      "states": [
+        "小浮空 · 中拳",
+        "小浮空 · 滞空",
+        "大浮空 · 中拳",
+        "大浮空 · 滞空"
+      ],
+      "reference": "KrillinReaction.png",
+      "review": "用户整批确认，已接入"
+    },
+    "Raditz": {
+      "file": "Art/Production/V0180/Battle/candidates/KrillinRaditzFloatRevision.png",
+      "sha256": "6f1a0377b37ce427ab3a1d9a064dbbdb04d5ee0c44fbea2a7221f91ea862d85b",
+      "sourceRegions": [
+        [
+          15,
+          549,
+          426,
+          805
+        ],
+        [
+          462,
+          527,
+          851,
+          833
+        ],
+        [
+          890,
+          505,
+          1292,
+          837
+        ],
+        [
+          1342,
+          533,
+          1738,
+          845
+        ]
+      ],
+      "states": [
+        "小浮空 · 中拳",
+        "小浮空 · 滞空",
+        "大浮空 · 中拳",
+        "大浮空 · 滞空"
+      ],
+      "reference": "RaditzReaction.png",
+      "review": "用户整批确认，已接入"
+    },
+    "Yamcha": {
+      "file": "Art/Production/V0180/Battle/candidates/YamchaTienFloatRevision.png",
+      "sha256": "e6ecc011e6613acf9d4874451326611999ea6df33696d623ed1b8342b0d524cf",
+      "sourceRegions": [
+        [
+          26,
+          103,
+          431,
+          373
+        ],
+        [
+          472,
+          88,
+          875,
+          404
+        ],
+        [
+          917,
+          70,
+          1300,
+          412
+        ],
+        [
+          1338,
+          113,
+          1751,
+          398
+        ]
+      ],
+      "states": [
+        "小浮空 · 中拳",
+        "小浮空 · 滞空",
+        "大浮空 · 中拳",
+        "大浮空 · 滞空"
+      ],
+      "reference": "YamchaReaction.png",
+      "review": "用户整批确认，已接入"
+    },
+    "Tien": {
+      "file": "Art/Production/V0180/Battle/candidates/YamchaTienFloatRevision.png",
+      "sha256": "e6ecc011e6613acf9d4874451326611999ea6df33696d623ed1b8342b0d524cf",
+      "sourceRegions": [
+        [
+          15,
+          547,
+          427,
+          812
+        ],
+        [
+          454,
+          530,
+          864,
+          841
+        ],
+        [
+          895,
+          515,
+          1308,
+          851
+        ],
+        [
+          1359,
+          548,
+          1756,
+          848
+        ]
+      ],
+      "states": [
+        "小浮空 · 中拳",
+        "小浮空 · 滞空",
+        "大浮空 · 中拳",
+        "大浮空 · 滞空"
+      ],
+      "reference": "TienReaction.png",
+      "review": "用户整批确认，已接入"
+    }
+  }
+}

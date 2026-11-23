@@ -1,0 +1,945 @@
+{
+ "atlas": [
+  {
+   "image": "Art/V0180/Battle/Goku/CombatPoses",
+   "crop": [
+    52,
+    9,
+    254,
+    339
+   ],
+   "zoom": 1.51032,
+   "pivot": [
+    182,
+    345
+   ],
+   "hit": [
+    179,
+    178
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/CombatPoses",
+   "crop": [
+    412,
+    16,
+    223,
+    332
+   ],
+   "zoom": 1.51032,
+   "pivot": [
+    523,
+    345
+   ],
+   "hit": [
+    523,
+    182
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/CombatPoses",
+   "crop": [
+    53,
+    374,
+    231,
+    333
+   ],
+   "zoom": 1.51032,
+   "pivot": [
+    170,
+    704
+   ],
+   "hit": [
+    168,
+    540
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/CombatPoses",
+   "crop": [
+    389,
+    369,
+    294,
+    338
+   ],
+   "zoom": 1.51032,
+   "pivot": [
+    522,
+    704
+   ],
+   "hit": [
+    674,
+    485
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/CombatPoses",
+   "crop": [
+    741,
+    370,
+    348,
+    337
+   ],
+   "zoom": 1.51032,
+   "pivot": [
+    931,
+    704
+   ],
+   "hit": [
+    1083,
+    485
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/CombatPoses",
+   "crop": [
+    1124,
+    365,
+    273,
+    343
+   ],
+   "zoom": 1.51032,
+   "pivot": [
+    1262,
+    705
+   ],
+   "hit": [
+    1260,
+    536
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/CombatPoses",
+   "crop": [
+    745,
+    24,
+    305,
+    320
+   ],
+   "zoom": 1.51032,
+   "pivot": [
+    895,
+    341
+   ],
+   "hit": [
+    897,
+    184
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/CombatPoses",
+   "crop": [
+    1133,
+    14,
+    269,
+    330
+   ],
+   "zoom": 1.51032,
+   "pivot": [
+    1280,
+    341
+   ],
+   "hit": [
+    1267,
+    179
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/CombatPoses",
+   "crop": [
+    52,
+    785,
+    235,
+    279
+   ],
+   "zoom": 1.51032,
+   "pivot": [
+    182,
+    1061
+   ],
+   "hit": [
+    169,
+    924
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/CombatPoses",
+   "crop": [
+    380,
+    786,
+    317,
+    278
+   ],
+   "zoom": 1.51032,
+   "pivot": [
+    513,
+    1061
+   ],
+   "hit": [
+    692,
+    1032
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/CombatPoses",
+   "crop": [
+    1118,
+    805,
+    282,
+    259
+   ],
+   "zoom": 1.51032,
+   "pivot": [
+    1258,
+    1061
+   ],
+   "hit": [
+    1259,
+    934
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/BeamPoses",
+   "crop": [
+    67,
+    16,
+    343,
+    462
+   ],
+   "zoom": 1.10823,
+   "pivot": [
+    238,
+    473
+   ],
+   "hit": [
+    238,
+    247
+   ],
+   "beam": [
+    345,
+    210
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/BeamPoses",
+   "crop": [
+    521,
+    49,
+    441,
+    431
+   ],
+   "zoom": 1.10823,
+   "pivot": [
+    747,
+    472
+   ],
+   "hit": [
+    741,
+    264
+   ],
+   "beam": [
+    840,
+    262
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/BeamPoses",
+   "crop": [
+    1041,
+    79,
+    442,
+    400
+   ],
+   "zoom": 1.10823,
+   "pivot": [
+    1263,
+    474
+   ],
+   "hit": [
+    1262,
+    279
+   ],
+   "beam": [
+    1168,
+    309
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/BeamPoses",
+   "crop": [
+    34,
+    551,
+    410,
+    448
+   ],
+   "zoom": 1.10823,
+   "pivot": [
+    241,
+    995
+   ],
+   "hit": [
+    239,
+    775
+   ],
+   "beam": [
+    376,
+    737
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/BeamPoses",
+   "crop": [
+    532,
+    547,
+    425,
+    455
+   ],
+   "zoom": 1.10823,
+   "pivot": [
+    742,
+    998
+   ],
+   "hit": [
+    744,
+    774
+   ],
+   "beam": [
+    917,
+    698
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/BeamPoses",
+   "crop": [
+    1062,
+    540,
+    393,
+    461
+   ],
+   "zoom": 1.10823,
+   "pivot": [
+    1265,
+    999
+   ],
+   "hit": [
+    1258,
+    770
+   ],
+   "beam": [
+    1360,
+    769
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/CombatPoses",
+   "crop": [
+    748,
+    724,
+    307,
+    338
+   ],
+   "zoom": 1.51032,
+   "pivot": [
+    906,
+    1059
+   ],
+   "hit": [
+    1046,
+    752
+   ],
+   "beam": []
+  }
+ ],
+ "clips": [
+  {
+   "id": "idle",
+   "title": "站立待机",
+   "duration": 3690,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 345,
+     "drawing": 1
+    },
+    {
+     "at": 850,
+     "drawing": 0
+    },
+    {
+     "at": 1380,
+     "drawing": 0
+    },
+    {
+     "at": 1870,
+     "drawing": 0
+    },
+    {
+     "at": 2320,
+     "drawing": 1
+    },
+    {
+     "at": 2845,
+     "drawing": 0
+    },
+    {
+     "at": 3290,
+     "drawing": 0
+    },
+    {
+     "at": 3590,
+     "drawing": 0
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "accent",
+   "title": "待机小动画",
+   "duration": 1800,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 220,
+     "drawing": 0
+    },
+    {
+     "at": 420,
+     "drawing": 0
+    },
+    {
+     "at": 765,
+     "drawing": 1
+    },
+    {
+     "at": 1120,
+     "drawing": 1
+    },
+    {
+     "at": 1450,
+     "drawing": 0
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "guard",
+   "title": "护身",
+   "duration": 720,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 60,
+     "drawing": 1
+    },
+    {
+     "at": 145,
+     "drawing": 1
+    },
+    {
+     "at": 470,
+     "drawing": 0
+    },
+    {
+     "at": 610,
+     "drawing": 0
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "basic",
+   "title": "格斗攻击",
+   "duration": 760,
+   "impactAt": 300,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 46,
+     "drawing": 2
+    },
+    {
+     "at": 84,
+     "drawing": 2
+    },
+    {
+     "at": 113,
+     "drawing": 3
+    },
+    {
+     "at": 167,
+     "drawing": 2
+    },
+    {
+     "at": 228,
+     "drawing": 2
+    },
+    {
+     "at": 300,
+     "drawing": 4
+    },
+    {
+     "at": 370,
+     "drawing": 5
+    },
+    {
+     "at": 428,
+     "drawing": 5
+    },
+    {
+     "at": 583,
+     "drawing": 0
+    }
+   ],
+   "root": [
+    {
+     "at": 0,
+     "x": 0
+    },
+    {
+     "at": 49,
+     "x": 6
+    },
+    {
+     "at": 113,
+     "x": 137
+    },
+    {
+     "at": 166,
+     "x": 137
+    },
+    {
+     "at": 223,
+     "x": 113
+    },
+    {
+     "at": 300,
+     "x": 153
+    },
+    {
+     "at": 370,
+     "x": 153
+    },
+    {
+     "at": 428,
+     "x": 150
+    },
+    {
+     "at": 583,
+     "x": 0
+    }
+   ],
+   "impacts": [
+    {
+     "at": 113,
+     "kind": "head",
+     "drawing": 3
+    },
+    {
+     "at": 300,
+     "kind": "body",
+     "drawing": 4
+    }
+   ],
+   "returnAt": 428,
+   "runFrames": [
+    6,
+    7
+   ],
+   "hopDrawing": 5,
+   "runUntil": 113,
+   "returnHop": 0,
+   "fullStride": true
+  },
+  {
+   "id": "sweep",
+   "title": "格斗攻击",
+   "duration": 1080,
+   "impactAt": 672,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 46,
+     "drawing": 2
+    },
+    {
+     "at": 84,
+     "drawing": 2
+    },
+    {
+     "at": 113,
+     "drawing": 3
+    },
+    {
+     "at": 167,
+     "drawing": 2
+    },
+    {
+     "at": 228,
+     "drawing": 2
+    },
+    {
+     "at": 300,
+     "drawing": 4
+    },
+    {
+     "at": 370,
+     "drawing": 5
+    },
+    {
+     "at": 455,
+     "drawing": 8
+    },
+    {
+     "at": 551,
+     "drawing": 8
+    },
+    {
+     "at": 624,
+     "drawing": 8
+    },
+    {
+     "at": 672,
+     "drawing": 9
+    },
+    {
+     "at": 751,
+     "drawing": 10
+    },
+    {
+     "at": 812,
+     "drawing": 5
+    },
+    {
+     "at": 967,
+     "drawing": 0
+    }
+   ],
+   "root": [
+    {
+     "at": 0,
+     "x": 0
+    },
+    {
+     "at": 49,
+     "x": 6
+    },
+    {
+     "at": 113,
+     "x": 137
+    },
+    {
+     "at": 166,
+     "x": 137
+    },
+    {
+     "at": 223,
+     "x": 113
+    },
+    {
+     "at": 300,
+     "x": 153
+    },
+    {
+     "at": 370,
+     "x": 153
+    },
+    {
+     "at": 428,
+     "x": 150
+    },
+    {
+     "at": 530,
+     "x": 124
+    },
+    {
+     "at": 620,
+     "x": 132
+    },
+    {
+     "at": 672,
+     "x": 167
+    },
+    {
+     "at": 746,
+     "x": 167
+    },
+    {
+     "at": 812,
+     "x": 156
+    },
+    {
+     "at": 967,
+     "x": 0
+    }
+   ],
+   "impacts": [
+    {
+     "at": 113,
+     "kind": "head",
+     "drawing": 3
+    },
+    {
+     "at": 300,
+     "kind": "body",
+     "drawing": 4
+    },
+    {
+     "at": 672,
+     "kind": "sweep",
+     "drawing": 9
+    }
+   ],
+   "returnAt": 812,
+   "runFrames": [
+    6,
+    7
+   ],
+   "hopDrawing": 5,
+   "runUntil": 113,
+   "returnHop": 0,
+   "fullStride": true
+  },
+  {
+   "id": "ultimate",
+   "title": "龟派气功",
+   "duration": 2580,
+   "impactAt": 1330,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 145,
+     "drawing": 11
+    },
+    {
+     "at": 340,
+     "drawing": 12
+    },
+    {
+     "at": 510,
+     "drawing": 13
+    },
+    {
+     "at": 910,
+     "drawing": 14
+    },
+    {
+     "at": 1020,
+     "drawing": 15
+    },
+    {
+     "at": 1090,
+     "drawing": 15
+    },
+    {
+     "at": 1270,
+     "drawing": 15
+    },
+    {
+     "at": 1390,
+     "drawing": 15
+    },
+    {
+     "at": 1510,
+     "drawing": 15
+    },
+    {
+     "at": 1840,
+     "drawing": 16
+    },
+    {
+     "at": 2090,
+     "drawing": 16
+    },
+    {
+     "at": 2380,
+     "drawing": 0
+    }
+   ],
+   "root": [],
+   "impacts": [],
+   "beam": {
+    "gather": 380,
+    "compress": 690,
+    "push": 910,
+    "fire": 1020,
+    "flight": 310,
+    "cut": 1600,
+    "extinguish": 2230
+   },
+   "returnAt": 0
+  },
+  {
+   "id": "pursuit",
+   "title": "上勾拳",
+   "duration": 675,
+   "impactAt": 232,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 43,
+     "drawing": 2
+    },
+    {
+     "at": 94,
+     "drawing": 8
+    },
+    {
+     "at": 232,
+     "drawing": 17
+    },
+    {
+     "at": 296,
+     "drawing": 10
+    },
+    {
+     "at": 357,
+     "drawing": 17
+    },
+    {
+     "at": 362,
+     "drawing": 5
+    },
+    {
+     "at": 517,
+     "drawing": 0
+    }
+   ],
+   "root": [
+    {
+     "at": 0,
+     "x": 0
+    },
+    {
+     "at": 45,
+     "x": 4
+    },
+    {
+     "at": 117,
+     "x": 34
+    },
+    {
+     "at": 180,
+     "x": 62
+    },
+    {
+     "at": 232,
+     "x": 109
+    },
+    {
+     "at": 301,
+     "x": 109
+    },
+    {
+     "at": 362,
+     "x": 102
+    },
+    {
+     "at": 517,
+     "x": 0
+    }
+   ],
+   "impacts": [
+    {
+     "at": 232,
+     "kind": "uppercut",
+     "drawing": 17
+    }
+   ],
+   "returnAt": 362,
+   "runFrames": [
+    6,
+    7
+   ],
+   "hopDrawing": 5,
+   "runUntil": 172,
+   "returnHop": 0,
+   "fullStride": true
+  },
+  {
+   "id": "opening",
+   "title": "修炼的成果",
+   "duration": 1050,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 70,
+     "drawing": 1
+    },
+    {
+     "at": 132,
+     "drawing": 2
+    },
+    {
+     "at": 200,
+     "drawing": 1
+    },
+    {
+     "at": 435,
+     "drawing": 1
+    },
+    {
+     "at": 550,
+     "drawing": 0
+    },
+    {
+     "at": 650,
+     "drawing": 1
+    },
+    {
+     "at": 770,
+     "drawing": 0
+    },
+    {
+     "at": 900,
+     "drawing": 0
+    }
+   ],
+   "root": [],
+   "impacts": [],
+   "haloFrom": 165,
+   "haloTo": 835
+  }
+ ]
+}

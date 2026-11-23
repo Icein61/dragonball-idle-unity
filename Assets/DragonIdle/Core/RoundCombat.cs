@@ -215,6 +215,7 @@ namespace DragonIdle {
   public int Round;
   public string Name;
   public double Amount,TargetHPAfter,TargetShieldAfter;
+  public double HealthDamage,ShieldDamage;
   public int TargetRageAfter;
   public RoundAbility Ability, CounterAbility, GuardAbility;
   public double DefenseDelta,DodgeDelta,ActorHPCost;
@@ -621,6 +622,7 @@ namespace DragonIdle {
    else guard=null;
    damage*=1-Math.Min(1,reduction);
    double shield=Math.Min(target.Shield,damage);target.Shield-=shield;
+   double healthBefore=target.HP;
    target.HP=Math.Max(0,target.HP-(damage-shield));
    if(move==RoundMove.Basic&&target.Alive)target.Rage=Math.Min(RageCap,target.Rage+15);
    if(!target.Alive)QueueRevival(target);
@@ -628,7 +630,8 @@ namespace DragonIdle {
       !triggered.Any(action=>action.Revives&&action.Actor.Side==target.Side&&CanUseQueued(action)))
     Result=actor.Side==0?1:-1;
    var hit=new RoundAction{Actor=actor,Target=target,Name=name,Amount=damage,Critical=crit,Move=move,Round=Round,
-    GuardAbility=guard,TargetState=HitState(actor,move),TargetHPAfter=target.HP,TargetShieldAfter=target.Shield,TargetRageAfter=target.Rage};
+    GuardAbility=guard,TargetState=HitState(actor,move),TargetHPAfter=target.HP,TargetShieldAfter=target.Shield,
+    TargetRageAfter=target.Rage,HealthDamage=healthBefore-target.HP,ShieldDamage=shield};
    CountCombo(hit);
    return hit;
   }

@@ -1,0 +1,537 @@
+{
+ "atlas": [
+  {
+   "image": "Art/V0144/Piccolo/reaction-poses",
+   "crop": [
+    593,
+    54,
+    343,
+    409
+   ],
+   "pivot": [
+    756,
+    461
+   ],
+   "zoom": 1.2,
+   "hit": [
+    816,
+    190
+   ],
+   "beam": [
+    816,
+    190
+   ]
+  },
+  {
+   "image": "Art/V0144/Piccolo/reaction-poses",
+   "crop": [
+    1105,
+    58,
+    351,
+    405
+   ],
+   "pivot": [
+    1284,
+    461
+   ],
+   "zoom": 1.2,
+   "hit": [
+    1344,
+    193
+   ],
+   "beam": [
+    1344,
+    193
+   ]
+  },
+  {
+   "image": "Art/V0144/Piccolo/special-poses",
+   "crop": [
+    1054,
+    557,
+    408,
+    440
+   ],
+   "pivot": [
+    1258,
+    995
+   ],
+   "zoom": 1.08,
+   "hit": [
+    1417,
+    727
+   ],
+   "beam": [
+    1417,
+    727
+   ]
+  },
+  {
+   "image": "Art/V0144/Piccolo/combat-poses",
+   "crop": [
+    141,
+    19,
+    254,
+    303
+   ],
+   "pivot": [
+    265,
+    320
+   ],
+   "zoom": 1.59,
+   "hit": [
+    325,
+    120
+   ],
+   "beam": [
+    325,
+    120
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Piccolo/ReactionPoses",
+   "crop": [
+    4,
+    4,
+    322,
+    356
+   ],
+   "zoom": 1.16289,
+   "pivot": [
+    165,
+    357
+   ],
+   "hit": [
+    165,
+    182
+   ],
+   "beam": [
+    253,
+    63
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Piccolo/ReactionPoses",
+   "crop": [
+    4,
+    368,
+    301,
+    286
+   ],
+   "zoom": 1.16289,
+   "pivot": [
+    154,
+    651
+   ],
+   "hit": [
+    154,
+    511
+   ],
+   "beam": [
+    273,
+    460
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Piccolo/FloatPoses",
+   "crop": [
+    4,
+    4,
+    403,
+    308
+   ],
+   "zoom": 1.176974,
+   "pivot": [
+    205,
+    309
+   ],
+   "hit": [
+    205,
+    127
+   ],
+   "beam": [
+    40,
+    253
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Piccolo/FloatPoses",
+   "crop": [
+    421,
+    4,
+    386,
+    326
+   ],
+   "zoom": 1.176974,
+   "pivot": [
+    614,
+    327
+   ],
+   "hit": [
+    614,
+    134
+   ],
+   "beam": [
+    456,
+    268
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Piccolo/FloatPoses",
+   "crop": [
+    4,
+    360,
+    369,
+    348
+   ],
+   "zoom": 1.176974,
+   "pivot": [
+    188,
+    705
+   ],
+   "hit": [
+    188,
+    499
+   ],
+   "beam": [
+    37,
+    656
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Piccolo/FloatPoses",
+   "crop": [
+    421,
+    360,
+    409,
+    335
+   ],
+   "zoom": 1.176974,
+   "pivot": [
+    625,
+    692
+   ],
+   "hit": [
+    625,
+    494
+   ],
+   "beam": [
+    458,
+    645
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Piccolo/ReactionPoses",
+   "crop": [
+    436,
+    4,
+    350,
+    325
+   ],
+   "zoom": 1.16289,
+   "pivot": [
+    611,
+    326
+   ],
+   "hit": [
+    611,
+    166
+   ],
+   "beam": [
+    643,
+    77
+   ]
+  },
+  {
+   "image": "Art/V0180/Battle/Piccolo/ReactionPoses",
+   "crop": [
+    436,
+    368,
+    424,
+    148
+   ],
+   "zoom": 1.16289,
+   "pivot": [
+    648,
+    513
+   ],
+   "hit": [
+    648,
+    442
+   ],
+   "beam": [
+    630,
+    489
+   ]
+  },
+  {
+   "image": "Art/V0144/Piccolo/reaction-poses",
+   "crop": [
+    537,
+    557,
+    473,
+    403
+   ],
+   "pivot": [
+    761,
+    978
+   ],
+   "zoom": 1.2,
+   "hit": [
+    821,
+    691
+   ],
+   "beam": [
+    821,
+    691
+   ]
+  },
+  {
+   "image": "Art/V0144/Piccolo/reaction-poses",
+   "crop": [
+    1019,
+    803,
+    480,
+    170
+   ],
+   "pivot": [
+    1273,
+    971
+   ],
+   "zoom": 1.2,
+   "hit": [
+    1333,
+    859
+   ],
+   "beam": [
+    1333,
+    859
+   ]
+  },
+  {
+   "image": "Art/V0144/Piccolo/guard-hop",
+   "crop": [
+    218,
+    29,
+    376,
+    454
+   ],
+   "pivot": [
+    406,
+    481
+   ],
+   "zoom": 1.13,
+   "hit": [
+    466,
+    180
+   ],
+   "beam": [
+    466,
+    180
+   ]
+  },
+  {
+   "image": "Art/V0144/Piccolo/guard-hop",
+   "crop": [
+    921,
+    29,
+    376,
+    454
+   ],
+   "pivot": [
+    1109,
+    481
+   ],
+   "zoom": 1.13,
+   "hit": [
+    1169,
+    180
+   ],
+   "beam": [
+    1169,
+    180
+   ]
+  }
+ ],
+ "clips": [
+  {
+   "id": "standing",
+   "reactionHoldAt": 142,
+   "title": "受击",
+   "duration": 465,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 142,
+     "drawing": 1
+    },
+    {
+     "at": 274,
+     "drawing": 2
+    },
+    {
+     "at": 391,
+     "drawing": 3
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockback",
+   "reactionHoldAt": 146,
+   "title": "击退",
+   "duration": 425,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 4
+    },
+    {
+     "at": 114,
+     "drawing": 5
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "smallFloat",
+   "reactionHoldAt": 145,
+   "title": "小浮空",
+   "duration": 425,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 6
+    },
+    {
+     "at": 113,
+     "drawing": 7
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "largeFloat",
+   "reactionHoldAt": 196,
+   "title": "大浮空",
+   "duration": 425,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 8
+    },
+    {
+     "at": 164,
+     "drawing": 9
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockdown",
+   "reactionHoldAt": 146,
+   "title": "倒地",
+   "duration": 425,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 10
+    },
+    {
+     "at": 114,
+     "drawing": 11
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "defeat",
+   "title": "战败",
+   "duration": 910,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 1
+    },
+    {
+     "at": 170,
+     "drawing": 12
+    },
+    {
+     "at": 372,
+     "drawing": 13
+    },
+    {
+     "at": 900,
+     "drawing": 13
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "counterPrepare",
+   "title": "反魔爆裂光 · 预备",
+   "duration": 430,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 14
+    },
+    {
+     "at": 145,
+     "drawing": 15
+    },
+    {
+     "at": 333,
+     "drawing": 14
+    }
+   ],
+   "impacts": [],
+   "root": []
+  }
+ ]
+}

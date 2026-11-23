@@ -6,7 +6,7 @@ using UI=UnityEngine.UI;
 namespace DragonIdle {
  public partial class DemoGame {
   const string RoundPreviewPage="试阵";
-  const float RoundActionGap=.78f,RoundOpeningGap=.18f,RoundPursuitGap=.075f;
+  const float RoundActionGap=.78f,RoundOpeningGap=.18f,RoundPursuitGap=.20f,RoundReactionGap=.075f;
   static readonly Color RoundHealthFill=new Color32(76,216,116,255);
   static readonly Color RoundShieldFill=new Color32(75,164,248,255);
   static readonly Color RoundRageFill=new Color32(249,157,55,255);
@@ -63,7 +63,7 @@ namespace DragonIdle {
    if(roundClock<=0)AdvanceRoundPreview(false);
   }
   float NormalRoundActionGap=>roundDemo&&DemoScenes().demo.actionGap>0?DemoScenes().demo.actionGap:RoundActionGap;
-  float NextRoundActionGap()=>roundBattle.PursuitNext||roundBattle.ReactionSkillNext?RoundPursuitGap:NormalRoundActionGap;
+  float NextRoundActionGap()=>roundBattle.ReactionSkillNext?RoundReactionGap:roundBattle.PursuitNext?RoundPursuitGap:NormalRoundActionGap;
   void AdvanceRoundPreview(bool manual){
    if(roundBattle==null)return;
    if(roundMotion!=null){FinishRoundMotion(true);return;}
@@ -80,7 +80,11 @@ namespace DragonIdle {
       if(roundDemo)ApplyDemoHit(roundLast);
       PlayRoundCue("yamcha-rise");
      }
-     if(!roundLast.Charging)foreach(var hit in roundLast.Hits)PlayRoundHitVoice(hit);
+     if(!roundLast.Charging)foreach(var hit in roundLast.Hits){
+      if(roundDemo)RecordDemoHit(hit);
+      PlayRoundHitVoice(hit);
+     }
+     if(roundDemo)demoStats.RecordCost(roundLast);
      AddRoundLog(roundLast);
     }
    }

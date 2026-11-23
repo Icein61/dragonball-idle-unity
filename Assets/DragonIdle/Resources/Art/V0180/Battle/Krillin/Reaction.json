@@ -1,0 +1,411 @@
+{
+ "atlas": [
+  {
+   "image": "Art/V0154/Krillin/reactions",
+   "crop": [
+    566,
+    18,
+    325,
+    481
+   ],
+   "pivot": [
+    728,
+    487
+   ],
+   "hit": [
+    801,
+    258
+   ],
+   "beam": [
+    801,
+    258
+   ],
+   "zoom": 0.8
+  },
+  {
+   "image": "Art/V0154/Krillin/reactions",
+   "crop": [
+    53,
+    23,
+    394,
+    472
+   ],
+   "pivot": [
+    250,
+    483
+   ],
+   "hit": [
+    339,
+    259
+   ],
+   "beam": [
+    339,
+    259
+   ],
+   "zoom": 0.8
+  },
+  {
+   "image": "Art/V0154/Krillin/combat-poses",
+   "crop": [
+    45,
+    20,
+    260,
+    330
+   ],
+   "pivot": [
+    175,
+    338
+   ],
+   "hit": [
+    232,
+    185
+   ],
+   "beam": [
+    232,
+    185
+   ],
+   "zoom": 1.2
+  },
+  {
+   "image": "Art/V0180/Battle/Krillin/ReactionPoses",
+   "crop": [
+    4,
+    4,
+    310,
+    364
+   ],
+   "zoom": 0.92144,
+   "pivot": [
+    159,
+    365
+   ],
+   "hit": [
+    159,
+    186
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Krillin/ReactionPoses",
+   "crop": [
+    4,
+    376,
+    256,
+    296
+   ],
+   "zoom": 0.92144,
+   "pivot": [
+    132,
+    669
+   ],
+   "hit": [
+    132,
+    524
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Krillin/FloatPoses",
+   "crop": [
+    4,
+    4,
+    370,
+    251
+   ],
+   "zoom": 1.054067,
+   "pivot": [
+    189,
+    252
+   ],
+   "hit": [
+    189,
+    104
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Krillin/FloatPoses",
+   "crop": [
+    382,
+    4,
+    359,
+    276
+   ],
+   "zoom": 1.054067,
+   "pivot": [
+    561,
+    277
+   ],
+   "hit": [
+    561,
+    114
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Krillin/FloatPoses",
+   "crop": [
+    4,
+    310,
+    339,
+    298
+   ],
+   "zoom": 1.054067,
+   "pivot": [
+    173,
+    605
+   ],
+   "hit": [
+    173,
+    429
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Krillin/FloatPoses",
+   "crop": [
+    382,
+    310,
+    363,
+    289
+   ],
+   "zoom": 1.054067,
+   "pivot": [
+    563,
+    596
+   ],
+   "hit": [
+    563,
+    426
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Krillin/ReactionPoses",
+   "crop": [
+    431,
+    4,
+    376,
+    314
+   ],
+   "zoom": 0.92144,
+   "pivot": [
+    619,
+    315
+   ],
+   "hit": [
+    619,
+    161
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Krillin/ReactionPoses",
+   "crop": [
+    431,
+    376,
+    419,
+    154
+   ],
+   "zoom": 0.92144,
+   "pivot": [
+    640,
+    527
+   ],
+   "hit": [
+    640,
+    453
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0154/Krillin/reactions",
+   "crop": [
+    1029,
+    26,
+    467,
+    474
+   ],
+   "pivot": [
+    1262,
+    488
+   ],
+   "hit": [
+    1369,
+    263
+   ],
+   "beam": [
+    1369,
+    263
+   ],
+   "zoom": 0.8
+  },
+  {
+   "image": "Art/V0154/Krillin/reactions",
+   "crop": [
+    505,
+    534,
+    350,
+    345
+   ],
+   "pivot": [
+    723,
+    961
+   ],
+   "hit": [
+    823,
+    754
+   ],
+   "beam": [
+    823,
+    754
+   ],
+   "zoom": 0.8
+  },
+  {
+   "image": "Art/V0154/Krillin/reactions",
+   "crop": [
+    839,
+    796,
+    670,
+    180
+   ],
+   "pivot": [
+    1213,
+    964
+   ],
+   "hit": [
+    1350,
+    886
+   ],
+   "beam": [
+    1350,
+    886
+   ],
+   "zoom": 0.8
+  }
+ ],
+ "clips": [
+  {
+   "id": "standing",
+   "reactionHoldAt": 130,
+   "title": "受击",
+   "duration": 360,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 188,
+     "drawing": 1
+    },
+    {
+     "at": 289,
+     "drawing": 2
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockback",
+   "reactionHoldAt": 146,
+   "title": "击退",
+   "duration": 425,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 3
+    },
+    {
+     "at": 114,
+     "drawing": 4
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "smallFloat",
+   "reactionHoldAt": 145,
+   "title": "小浮空",
+   "duration": 425,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 5
+    },
+    {
+     "at": 113,
+     "drawing": 6
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "largeFloat",
+   "reactionHoldAt": 196,
+   "title": "大浮空",
+   "duration": 425,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 7
+    },
+    {
+     "at": 164,
+     "drawing": 8
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockdown",
+   "reactionHoldAt": 146,
+   "title": "倒地",
+   "duration": 425,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 9
+    },
+    {
+     "at": 114,
+     "drawing": 10
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "defeat",
+   "title": "退场",
+   "duration": 815,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 11
+    },
+    {
+     "at": 146,
+     "drawing": 12
+    },
+    {
+     "at": 346,
+     "drawing": 13
+    }
+   ],
+   "impacts": [],
+   "root": []
+  }
+ ]
+}

@@ -4,6 +4,7 @@
 | --- | --- |
 | 角色制作与验收 | [从简表到可玩角色](character-production.md) |
 | 角色与战斗数据 | [角色配置与回合制](design/character-data.md) |
+| 战斗开发与验收 | [运行基线、实现与验证](design/battle.md) |
 | 人物与界面美术 | [角色和界面视觉](art/visual-style.md) |
 | 技能素材 | [技能图标、动作和特效](art/skill-assets.md) |
 | 工程、验证与交付 | [实现和发布流程](engineering/workflow.md) |

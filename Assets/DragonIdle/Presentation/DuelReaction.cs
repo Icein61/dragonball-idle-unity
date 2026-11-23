@@ -2,11 +2,12 @@ using UnityEngine;
 
 namespace DragonIdle {
  internal sealed class DuelReaction {
-  const float PoseBridge = 55;
+  const float PoseBridge=55,LaunchBridge=24,SmallLift=25,LargeLift=51,KnockbackDistance=60;
   readonly RoundMotionArt art;
   RoundMotionArt.Clip clip;
   RoundMotionArt.Pose bridge;
-  Vector2 start, settle, impulse;
+  Vector2 start,settle;
+  float travelFrom,travelUntil;
   float bridgeTime, releaseAt=-1;
   Vector2 releaseOffset;
   bool chained;
@@ -22,11 +23,13 @@ namespace DragonIdle {
    get {
     if (clip == null) return Vector2.zero;
     if(releaseAt>=0)return Vector2.Lerp(releaseOffset,Vector2.zero,Mathf.SmoothStep(0,1,Mathf.InverseLerp(releaseAt,clip.duration,Elapsed)));
-    float p = Mathf.Clamp01(Elapsed / clip.duration);
-    // A sharp displacement followed by a softer recovery. Both ends keep continuous positions.
-    float kick = p < .32f ? Mathf.SmoothStep(0, 1, p / .32f) : Mathf.SmoothStep(1, 0, (p - .32f) / .68f);
-    var position=Vector2.Lerp(start, settle, Mathf.SmoothStep(0, 1, p)) + impulse * kick;
-    return new Vector2(Mathf.Clamp(position.x,-12,12),Mathf.Max(-22,position.y));
+    if(Elapsed<travelUntil){
+     float progress=Mathf.InverseLerp(travelFrom,travelUntil,Elapsed);
+     float eased=travelFrom>0?progress*(2-progress):Mathf.SmoothStep(0,1,progress);
+     return Vector2.Lerp(start,settle,eased);
+    }
+    if(chained||Defeated)return settle;
+    return Vector2.Lerp(settle,Vector2.zero,Mathf.SmoothStep(0,1,Mathf.InverseLerp(EndOfHold,clip.duration,Elapsed)));
    }
   }
 
@@ -39,24 +42,26 @@ namespace DragonIdle {
    }
   }
 
-  internal void Hit(string track, int side, bool chained, RoundMotionArt.Pose fromPose = null) {
+  internal void Hit(string track,int side,bool chained,RoundMotionArt.Pose fromPose=null,float awayFromSource=0){
    Vector2 current = Offset;
    bridge = Pose ?? fromPose;
-   bridgeTime = bridge == null ? 0 : PoseBridge;
-   float sign = side == 0 ? -1 : 1;
-   start = current;
-   settle = new Vector2(chained ? sign * 4 : track == "defeat" ? current.x : 0, 0);
-   switch (track) {
-    case "knockback": impulse = new Vector2(sign * 10, 0); break;
-    case "smallFloat": impulse = new Vector2(sign * 4, -9); break;
-    case "largeFloat": impulse = new Vector2(sign * 7, -19); break;
-    case "knockdown": impulse = new Vector2(sign * 7, 0); break;
+   bool launches=track=="smallFloat"||track=="largeFloat";
+   bridgeTime=bridge==null?0:launches?LaunchBridge:PoseBridge;
+   travelFrom=launches?bridgeTime:0;
+   float sign=awayFromSource==0?(side==0?-1:1):Mathf.Sign(awayFromSource);
+   start=current;
+   clip=art[track];
+   switch(track){
+    case "knockback": settle=new Vector2(sign*KnockbackDistance,0); break;
+    case "smallFloat": settle=new Vector2(0,-SmallLift); break;
+    case "largeFloat": settle=new Vector2(0,-LargeLift); break;
+    case "knockdown":
+    case "defeat": settle=new Vector2(current.x,0); break;
     case "counterPrepare":
-    case "gohanGuard": impulse = Vector2.zero; break;
-    case "defeat": impulse = new Vector2(sign * 3, 0); break;
-    default: impulse = new Vector2(sign * 4, 0); break;
+    case "gohanGuard": settle=current; break;
+    default: settle=new Vector2(current.x+sign*4,current.y); break;
    }
-   clip = art[track];
+   travelUntil=Mathf.Min(EndOfHold,track=="largeFloat"?190:140);
    this.chained=chained;
    releaseAt=-1;
    Elapsed = 0;

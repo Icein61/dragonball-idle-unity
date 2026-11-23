@@ -211,7 +211,8 @@ static class RoundChecks {
   demo=RoundCombat.Demo(new[]{leader,victim},defs,3);
   var mitigated=demo.Step();
   var expected=(leader.Attack-victim.Defense)*goku.basicPower*.80;
-  check(Math.Abs(mitigated.Amount-expected)<.001&&Math.Abs(victim.HP-(1200-expected+10))<.001&&victim.Shield==0,
+  check(Math.Abs(mitigated.Amount-expected)<.001&&Math.Abs(victim.HP-(1200-expected+10))<.001&&victim.Shield==0&&
+   Math.Abs(mitigated.HealthDamage-(expected-10))<.001&&mitigated.ShieldDamage==10,
    "V1406 final 20% modifier applies once before the shield");
   leader=Fighter(1,0,1);victim=Fighter(1,1,1);
   demo=RoundCombat.Demo(new[]{leader,victim},defs,3);
@@ -278,12 +279,35 @@ static class RoundChecks {
   attacker.Crit=.10;attacker.Attack=20;target.Tenacity=.10;
   attack=RoundCombat.Demo(new[]{attacker,target},rules,2).Step();
   check(!attack.Critical&&attack.Amount==1,"V16009 tenacity cancels crit and a hit has minimum damage");
+  attacker=Fighter(0,0,1);target=Fighter(1,1,1);
+  attacker.Attack=1000;attacker.Crit=0;target.HP=8;target.Shield=11;
+  var overkill=RoundCombat.Demo(new[]{attacker,target},rules,67).Step();
+  check(overkill.Amount>19&&overkill.HealthDamage==8&&overkill.ShieldDamage==11&&target.HP==0,
+   "V18001 hit feedback reports actual health and shield loss on overkill");
   var healKit=rules.For("gohan-test");
   healKit.basicPower=.5;
   healKit.techniques=new RoundTechnique{basicHealsSelf=true};
   var receiver=Fighter(4,0,1);receiver.HP=900;receiver.Qi=.10;
   check(Math.Abs(RoundCombat.Demo(new[]{receiver,Fighter(3,1,1)},rules,2).Step().Amount-55)<.001&&
    Math.Abs(receiver.ReceivedAid(100)-110)<.001,"V16010 qi increases received healing and shield");
+ }
+
+ static void CheckBattlePanelTotals(Action<bool,string> check){
+  var totals=new RoundBattleStats();
+  var actor=Fighter(0,0,1);var mirror=Fighter(0,1,1);
+  var damage=new RoundAction{Actor=actor,Target=mirror,Amount=110,HealthDamage=74,ShieldDamage=13,ActorHPCost=5};
+  totals.RecordHit(damage);
+  totals.RecordHit(new RoundAction{Actor=actor,Target=mirror,Dodged=true});
+  totals.RecordCost(damage);
+  totals.RecordHit(new RoundAction{Actor=actor,Target=actor,Healing=true,Amount=30});
+  totals.RecordHit(new RoundAction{Actor=mirror,Target=mirror,Healing=true,Amount=20});
+  check(totals.Value(actor,RoundBattleMetric.Damage)==87&&totals.Value(mirror,RoundBattleMetric.Taken)==87&&
+   totals.Value(actor,RoundBattleMetric.Taken)==5&&totals.Value(actor,RoundBattleMetric.Healing)==30&&
+   totals.Value(mirror,RoundBattleMetric.Healing)==20&&totals.Value(mirror,RoundBattleMetric.Damage)==0,
+   "V18002 stats use actual HP plus shield, charge self-cost to taken, and attribute recovery to the source");
+  totals.Reset();
+  check(totals.Value(actor,RoundBattleMetric.Damage)==0&&totals.Value(mirror,RoundBattleMetric.Healing)==0,
+   "V18003 restart clears the previous battle stats");
  }
 
  static void CheckGohanKit(Action<bool,string> check){
@@ -674,6 +698,7 @@ static class RoundChecks {
   CheckCounterAcrossCharge(check);
   CheckProgression(check);
   CheckGohanKit(check);
+  CheckBattlePanelTotals(check);
   CheckKrillinKit(check);
   CheckSavedDemo(check);
   var rules=Rules();rules.Validate();

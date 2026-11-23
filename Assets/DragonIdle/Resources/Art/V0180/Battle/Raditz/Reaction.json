@@ -1,0 +1,389 @@
+{
+ "atlas": [
+  {
+   "image": "Art/V0180/Battle/Raditz/ReactionPoses",
+   "crop": [
+    4,
+    4,
+    359,
+    381
+   ],
+   "zoom": 0.93932,
+   "pivot": [
+    183,
+    382
+   ],
+   "hit": [
+    183,
+    194
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Raditz/ReactionPoses",
+   "crop": [
+    4,
+    393,
+    318,
+    327
+   ],
+   "zoom": 0.93932,
+   "pivot": [
+    163,
+    717
+   ],
+   "hit": [
+    163,
+    556
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Raditz/FloatPoses",
+   "crop": [
+    4,
+    4,
+    411,
+    256
+   ],
+   "zoom": 1.012508,
+   "pivot": [
+    209,
+    257
+   ],
+   "hit": [
+    209,
+    106
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Raditz/FloatPoses",
+   "crop": [
+    423,
+    4,
+    389,
+    306
+   ],
+   "zoom": 1.012508,
+   "pivot": [
+    617,
+    307
+   ],
+   "hit": [
+    617,
+    126
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Raditz/FloatPoses",
+   "crop": [
+    4,
+    344,
+    402,
+    332
+   ],
+   "zoom": 1.012508,
+   "pivot": [
+    205,
+    673
+   ],
+   "hit": [
+    205,
+    477
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Raditz/FloatPoses",
+   "crop": [
+    423,
+    344,
+    396,
+    312
+   ],
+   "zoom": 1.012508,
+   "pivot": [
+    621,
+    653
+   ],
+   "hit": [
+    621,
+    469
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Raditz/ReactionPoses",
+   "crop": [
+    427,
+    4,
+    381,
+    316
+   ],
+   "zoom": 0.93932,
+   "pivot": [
+    617,
+    317
+   ],
+   "hit": [
+    617,
+    162
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Raditz/ReactionPoses",
+   "crop": [
+    427,
+    393,
+    415,
+    129
+   ],
+   "zoom": 0.93932,
+   "pivot": [
+    634,
+    519
+   ],
+   "hit": [
+    634,
+    457
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0161/Raditz/battle-poses",
+   "crop": [
+    745,
+    742,
+    269,
+    332
+   ],
+   "pivot": [
+    888,
+    1072
+   ],
+   "hit": [
+    977,
+    831
+   ],
+   "beam": [
+    977,
+    831
+   ],
+   "zoom": 1.24
+  },
+  {
+   "image": "Art/V0161/Raditz/reaction-poses",
+   "crop": [
+    512,
+    574,
+    470,
+    383
+   ],
+   "pivot": [
+    747,
+    957
+   ],
+   "hit": [
+    747,
+    701
+   ],
+   "beam": [
+    747,
+    701
+   ],
+   "zoom": 1.02
+  },
+  {
+   "image": "Art/V0161/Raditz/reaction-poses",
+   "crop": [
+    1041,
+    722,
+    447,
+    272
+   ],
+   "pivot": [
+    1264,
+    994
+   ],
+   "hit": [
+    1264,
+    812
+   ],
+   "beam": [
+    1264,
+    812
+   ],
+   "zoom": 0.96
+  },
+  {
+   "image": "Art/V0161/Raditz/reaction-poses",
+   "crop": [
+    68,
+    536,
+    444,
+    456
+   ],
+   "pivot": [
+    290,
+    992
+   ],
+   "hit": [
+    290,
+    688
+   ],
+   "beam": [
+    290,
+    688
+   ],
+   "zoom": 0.9354385964912281
+  },
+  {
+   "image": "Art/V0161/Raditz/battle-poses",
+   "crop": [
+    418,
+    3,
+    221,
+    353
+   ],
+   "pivot": [
+    537,
+    354
+   ],
+   "hit": [
+    588,
+    179
+   ],
+   "beam": [
+    588,
+    179
+   ],
+   "zoom": 1.24
+  }
+ ],
+ "clips": [
+  {
+   "id": "knockback",
+   "reactionHoldAt": 146,
+   "title": "击退",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 114,
+     "drawing": 1
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "smallFloat",
+   "reactionHoldAt": 145,
+   "title": "小浮空",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 2
+    },
+    {
+     "at": 113,
+     "drawing": 3
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "largeFloat",
+   "reactionHoldAt": 196,
+   "title": "大浮空",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 4
+    },
+    {
+     "at": 164,
+     "drawing": 5
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockdown",
+   "reactionHoldAt": 146,
+   "title": "倒地",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 6
+    },
+    {
+     "at": 114,
+     "drawing": 7
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "defeat",
+   "title": "退场",
+   "duration": 590,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 8,
+     "kind": ""
+    },
+    {
+     "at": 100,
+     "drawing": 9,
+     "kind": ""
+    },
+    {
+     "at": 277,
+     "drawing": 10,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "standing",
+   "reactionHoldAt": 180,
+   "title": "受击",
+   "duration": 340,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 11,
+     "kind": ""
+    },
+    {
+     "at": 180,
+     "drawing": 8,
+     "kind": ""
+    },
+    {
+     "at": 270,
+     "drawing": 12,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": []
+  }
+ ]
+}

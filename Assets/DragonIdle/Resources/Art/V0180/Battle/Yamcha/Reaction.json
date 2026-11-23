@@ -1,0 +1,387 @@
+{
+ "atlas": [
+  {
+   "image": "Art/V0172/Yamcha/states",
+   "crop": [
+    58,
+    534,
+    367,
+    471
+   ],
+   "pivot": [
+    244,
+    997
+   ],
+   "hit": [
+    244,
+    997
+   ],
+   "beam": [
+    244,
+    997
+   ],
+   "zoom": 0.93
+  },
+  {
+   "image": "Art/V0172/Yamcha/recovery",
+   "crop": [
+    94,
+    733,
+    489,
+    512
+   ],
+   "pivot": [
+    312,
+    1238
+   ],
+   "hit": [
+    312,
+    1238
+   ],
+   "beam": [
+    312,
+    1238
+   ],
+   "zoom": 0.79
+  },
+  {
+   "image": "Art/V0172/Yamcha/states",
+   "crop": [
+    73,
+    23,
+    355,
+    469
+   ],
+   "pivot": [
+    241,
+    485
+   ],
+   "hit": [
+    241,
+    485
+   ],
+   "beam": [
+    241,
+    485
+   ],
+   "zoom": 0.93
+  },
+  {
+   "image": "Art/V0180/Battle/Yamcha/ReactionPoses",
+   "crop": [
+    4,
+    4,
+    318,
+    368
+   ],
+   "zoom": 1.00655,
+   "pivot": [
+    163,
+    369
+   ],
+   "hit": [
+    163,
+    188
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Yamcha/ReactionPoses",
+   "crop": [
+    4,
+    380,
+    259,
+    293
+   ],
+   "zoom": 1.00655,
+   "pivot": [
+    133,
+    670
+   ],
+   "hit": [
+    133,
+    526
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Yamcha/FloatPoses",
+   "crop": [
+    4,
+    4,
+    405,
+    270
+   ],
+   "zoom": 1.042881,
+   "pivot": [
+    206,
+    271
+   ],
+   "hit": [
+    206,
+    112
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Yamcha/FloatPoses",
+   "crop": [
+    425,
+    4,
+    403,
+    316
+   ],
+   "zoom": 1.042881,
+   "pivot": [
+    626,
+    317
+   ],
+   "hit": [
+    626,
+    130
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Yamcha/FloatPoses",
+   "crop": [
+    4,
+    354,
+    383,
+    342
+   ],
+   "zoom": 1.042881,
+   "pivot": [
+    195,
+    693
+   ],
+   "hit": [
+    195,
+    491
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Yamcha/FloatPoses",
+   "crop": [
+    425,
+    354,
+    413,
+    285
+   ],
+   "zoom": 1.042881,
+   "pivot": [
+    631,
+    636
+   ],
+   "hit": [
+    631,
+    468
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Yamcha/ReactionPoses",
+   "crop": [
+    435,
+    4,
+    366,
+    295
+   ],
+   "zoom": 1.00655,
+   "pivot": [
+    618,
+    296
+   ],
+   "hit": [
+    618,
+    151
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Yamcha/ReactionPoses",
+   "crop": [
+    435,
+    380,
+    423,
+    141
+   ],
+   "zoom": 1.00655,
+   "pivot": [
+    646,
+    518
+   ],
+   "hit": [
+    646,
+    450
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0172/Yamcha/recovery",
+   "crop": [
+    705,
+    637,
+    445,
+    555
+   ],
+   "pivot": [
+    931,
+    1185
+   ],
+   "hit": [
+    931,
+    1185
+   ],
+   "beam": [
+    931,
+    1185
+   ],
+   "zoom": 0.79
+  },
+  {
+   "image": "Art/V0172/Yamcha/states",
+   "crop": [
+    1037,
+    794,
+    453,
+    170
+   ],
+   "pivot": [
+    1261,
+    956
+   ],
+   "hit": [
+    1261,
+    956
+   ],
+   "beam": [
+    1261,
+    956
+   ],
+   "zoom": 0.93
+  }
+ ],
+ "clips": [
+  {
+   "id": "standing",
+   "title": "站立受击",
+   "duration": 388,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 183,
+     "drawing": 1
+    },
+    {
+     "at": 326,
+     "drawing": 2
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 124
+  },
+  {
+   "id": "knockback",
+   "title": "击退",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 3
+    },
+    {
+     "at": 114,
+     "drawing": 4
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 146
+  },
+  {
+   "id": "smallFloat",
+   "title": "小浮空",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 5
+    },
+    {
+     "at": 113,
+     "drawing": 6
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 145
+  },
+  {
+   "id": "largeFloat",
+   "title": "大浮空",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 7
+    },
+    {
+     "at": 164,
+     "drawing": 8
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 196
+  },
+  {
+   "id": "knockdown",
+   "title": "倒地",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 9
+    },
+    {
+     "at": 114,
+     "drawing": 10
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 146
+  },
+  {
+   "id": "defeat",
+   "title": "战败",
+   "duration": 950,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 170,
+     "drawing": 11
+    },
+    {
+     "at": 389,
+     "drawing": 12
+    },
+    {
+     "at": 900,
+     "drawing": 12
+    }
+   ],
+   "impacts": [],
+   "root": []
+  }
+ ]
+}

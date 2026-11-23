@@ -17,7 +17,8 @@ namespace DragonIdle {
    internal float Time;
    internal Vector2 Travel, BeamTarget, SourceOffset;
    internal bool Revealed, Manual, DemoLocomotion;
-   const float PiccoloRunSpeed=.44f, PiccoloStride=88;
+   const float PiccoloRunSpeed=.44f, PiccoloBasicTimeScale=.80f/BasicRate;
+   internal const float PiccoloBasicStride=88*PiccoloBasicTimeScale;
    Vector2 approachEnd;
    internal float ApproachDuration {get;private set;}
    internal float ApproachStart => IsPursuit?PursuitLead:0;
@@ -30,9 +31,10 @@ namespace DragonIdle {
     approachEnd=Clip.PlanarShift(Clip.runUntil,Travel);
     float contactDistance=Clip.PlanarShift(Clip.returnAt,Travel).magnitude;
     if(contactDistance<=2)return;
+    float basicTimeRatio=IsPursuit?1:PiccoloBasicTimeScale;
     ApproachDuration=IsPursuit?Mathf.Clamp(approachEnd.magnitude/.98f,265,390):
-     Mathf.Max(2*PiccoloStride+20,approachEnd.magnitude/PiccoloRunSpeed);
-    PiccoloReturnDuration=Mathf.Clamp(contactDistance/1.03f,250,375);
+     Mathf.Max(196,approachEnd.magnitude/PiccoloRunSpeed)*basicTimeRatio;
+    PiccoloReturnDuration=Mathf.Clamp(contactDistance/1.03f,250,375)*basicTimeRatio;
    }
 
    internal float ClockAtPose(float pose){
@@ -43,14 +45,16 @@ namespace DragonIdle {
     return ReturnStart+PiccoloReturnDuration+(pose-ReturnPoseEnd)/AfterApproachRate;
    }
 
-   internal const float PursuitLead=86, PursuitLength=390, OpeningFlash=320;
+   internal const float PursuitLead=104, PursuitLength=505, OpeningFlash=320;
    internal const float ReleaseSlowSpan=120, ReleaseRate=.62f, DemoRunRate=.65f;
    const float CounterGuardHold=480;
+   const float BasicRate=.68f, UltimateRate=.86f, HeavyUltimateRate=.73f, ChargeRate=.94f;
    internal bool IsCharge => Action?.Charging==true;
    internal bool IsUltimate => Action?.Move==RoundMove.Ultimate&&!IsCharge;
    internal bool IsCounter => Action?.Ability?.trigger=="onSingleTarget";
-   internal float PlaybackRate => IsCounter ? .70f : Clip?.id=="gohanHeavy" ? .78f :
-    Action?.Move==RoundMove.Basic ? .80f : IsUltimate ? .92f : 1f;
+   internal float PlaybackRate => IsCounter ? .70f :
+    Action?.Move==RoundMove.Basic ? BasicRate : IsPursuit&&IsScatter ? .86f : IsCharge ? ChargeRate :
+    IsUltimate ? (Clip?.id=="gohanHeavy" ? HeavyUltimateRate : UltimateRate) : 1f;
    internal float ReleaseAt => Clip!=null&&Clip.launchAt>0?Clip.launchAt:(Clip?.beam?.fire>0?Clip.beam.fire:145);
    internal bool IsScatter=>Clip?.id=="krillinScatter";
    internal bool IsRaditzEnergy=>Clip?.fx=="raditzKi";
@@ -126,7 +130,7 @@ namespace DragonIdle {
      float at=PoseTime;
      if(ApproachDuration>0&&Time>=ApproachStart&&Time<ApproachStart+ApproachDuration){
       if(IsPursuit)return Library.Atlas[Clip.approachDrawing];
-      return Library.Atlas[Clip.runFrames[(int)((Time-ApproachStart)/PiccoloStride)%Clip.runFrames.Length]];
+      return Library.Atlas[Clip.runFrames[(int)((Time-ApproachStart)/PiccoloBasicStride)%Clip.runFrames.Length]];
      }
      if(DemoLocomotion&&HasTravel){
       if(ApproachDuration<=0&&at<Clip.runUntil&&(!IsPursuit||Time>=PursuitLead)){
@@ -358,6 +362,7 @@ namespace DragonIdle {
    if (!roundPaused) roundIdleTime += seconds * 1000;
    foreach (var item in roundStanding) SetStandingPose(item.Key, item.Value);
    if (roundPaused && (roundMotion==null || !roundMotion.Manual))return;
+   if(roundDemo)demoFeedbackClock+=seconds*1000;
    if (roundMotion == null) { TickDemoReactions(seconds*1000); PaintDemo(); return; }
    float before = roundMotion.Time;
    roundMotion.Advance(seconds*1000);
@@ -384,7 +389,7 @@ namespace DragonIdle {
     run.RevealedCount++;
     run.SeenHits[hit.Target]=(hit,at);
     if(run.VolleyHits!=null)roundBefore[hit.Target]=new RoundVitals(hit,roundBefore[hit.Target]);
-    if(roundDemo)ApplyDemoHit(hit);
+    if(roundDemo){ApplyDemoHit(hit);RecordDemoHit(hit);}
     if(playAudio){
      if(run.VolleyHits!=null)PlayRoundCue(hit.Dodged?"dodge":run.IsScatter?"krillin-impact":run.IsRaditzEnergy?"raditz-impact":"vegeta-impact");
      if(hit.Countered)PlayRoundCue("charge");
@@ -393,6 +398,7 @@ namespace DragonIdle {
    }
    if(run.RevealedCount==hits.Length){
     run.Revealed=true;
+    if(roundDemo)demoStats.RecordCost(run.Action);
     AddRoundLog(run.Action);
     roundBefore=null;
    }

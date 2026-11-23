@@ -7,12 +7,12 @@ using UnityEngine.UI;
 namespace DragonIdle {
  public partial class DemoGame {
   const string DemoBattleRoute = "战斗 Demo";
-  const string ReactionFolder = "Art/V0135/Goku/";
   bool roundDemo;
   RoundSceneDefinitions demoScenes;
   RoundScene demoScene;
   readonly System.Random demoSceneRandom=new System.Random();
-  RoundMotionArt demoReactionArt;
+  readonly Dictionary<string,RoundMotionArt> battleReactionLibraries=new Dictionary<string,RoundMotionArt>();
+  RoundMotionArt demoReactionArt=>BattleReactionLibrary(RoundMotionArt.CardId);
   Texture2D demoBackground;
   RectTransform demoViewport, demoStage, demoProjectile;
   RoundMotionFx demoRearFx, demoFrontFx;
@@ -20,6 +20,14 @@ namespace DragonIdle {
   readonly Dictionary<RoundFighter, DuelReaction> demoReactions = new Dictionary<RoundFighter, DuelReaction>();
   readonly Dictionary<RoundFighter, RawImage> demoActors = new Dictionary<RoundFighter, RawImage>();
   readonly Dictionary<RoundFighter, Text> demoOutcomes = new Dictionary<RoundFighter, Text>();
+  readonly Dictionary<RoundFighter,(RoundAction Hit,float At)> demoFeedback=new Dictionary<RoundFighter,(RoundAction,float)>();
+  float demoFeedbackClock;
+  const float DemoFeedbackDuration=980;
+
+  void RecordDemoHit(RoundAction hit){
+   demoStats.RecordHit(hit);
+   if(DemoHitText(hit)!="")demoFeedback[hit.Target]=(hit,demoFeedbackClock);
+  }
   readonly List<RoundMotionFx.ChargePulse> demoCharges = new List<RoundMotionFx.ChargePulse>();
 
   void OpenFeature(string route) {
@@ -47,7 +55,6 @@ namespace DragonIdle {
    demoScene=scenes.PickDemoScene(demoSceneRandom,demoScene?.id);
    demoBackground=Resources.Load<Texture2D>(demoScene.background);
    if(demoBackground==null)throw new InvalidOperationException("缺少战斗场景背景："+demoScene.id);
-   if(demoReactionArt==null)demoReactionArt=RoundMotionArt.Load(ReactionFolder,"Reaction");
    int battleSeed=fixture==null?demoSceneRandom.Next():++seed;
    roundBattle=(fixture??scenes.demo).CreateBattle(RoundRules(),battleSeed,profile);
    roundDemo=true;
@@ -55,17 +62,8 @@ namespace DragonIdle {
   }
 
   void PrepareDemoPresentation() {
-   foreach(var fighter in roundBattle.Order){
-    var art=demoReactionArt;
-    if(fighter.CardId==RoundMotionArt.VegetaCardId)art=VegetaArt;
-    else if(fighter.CardId==RoundMotionArt.PiccoloCardId)art=PiccoloArt;
-    else if(fighter.CardId==RoundMotionArt.GohanCardId)art=GohanArt;
-    else if(fighter.CardId==RoundMotionArt.KrillinCardId)art=KrillinArt;
-    else if(fighter.CardId==RoundMotionArt.RaditzCardId)art=RaditzArt;
-    else if(fighter.CardId==RoundMotionArt.YamchaCardId)art=YamchaArt;
-    else if(fighter.CardId==RoundMotionArt.TienCardId)art=TienArt;
-    demoReactions.Add(fighter,new DuelReaction(art));
-   }
+   foreach(var fighter in roundBattle.Order)
+    demoReactions.Add(fighter,new DuelReaction(BattleReactionLibrary(fighter.CardId)));
    if(ReducedRoundMotion)return;
    roundMotion=new RoundMotionPlayback{Actor=roundBattle.Order[0],Clip=demoReactionArt["entry"]};
    if(roundBattle.Order.Any(fighter=>fighter.CardId==RoundMotionArt.CardId))PlayRoundCue("voice-entry");
@@ -81,6 +79,8 @@ namespace DragonIdle {
    demoReactions.Clear();
    demoActors.Clear();
    demoOutcomes.Clear();
+   demoFeedback.Clear();demoFeedbackClock=0;
+   demoStats.Reset();demoMetric=RoundBattleMetric.Damage;
    demoCharges.Clear();
    demoViewport=demoStage=demoProjectile=null;
    if(roundCueAudio!=null)roundCueAudio.Stop();
@@ -98,6 +98,23 @@ namespace DragonIdle {
   static Vector2 DemoGround(RoundFighter fighter) => DemoGround(fighter.Side,fighter.Position);
   static float BattleModelSize(string id)=>id==RoundMotionArt.RaditzCardId?1.09f:1;
   static float DemoScale(RoundFighter fighter)=>(.170f+.010f*RoundBoard.Row(fighter.Position))*BattleModelSize(fighter.CardId);
+
+  RoundMotionArt BattleReactionLibrary(string id){
+   if(battleReactionLibraries.TryGetValue(id,out var library))return library;
+   string actor;
+   switch(id){
+    case RoundMotionArt.CardId:actor="Goku";break;
+    case RoundMotionArt.VegetaCardId:actor="Vegeta";break;
+    case RoundMotionArt.PiccoloCardId:actor="Piccolo";break;
+    case RoundMotionArt.GohanCardId:actor="Gohan";break;
+    case RoundMotionArt.KrillinCardId:actor="Krillin";break;
+    case RoundMotionArt.RaditzCardId:actor="Raditz";break;
+    case RoundMotionArt.YamchaCardId:actor="Yamcha";break;
+    case RoundMotionArt.TienCardId:actor="Tien";break;
+    default:return demoReactionArt;
+   }
+   return battleReactionLibraries[id]=RoundMotionArt.Load("Art/V0180/Battle/"+actor+"/","Reaction");
+  }
 
   RoundMotionArt BattleMotionLibrary(string id){
    switch(id){
@@ -122,13 +139,16 @@ namespace DragonIdle {
    demoActors.Clear();
    demoOutcomes.Clear();demoSelfCost=null;
    const float width=RoundMotionFx.Width,height=RoundMotionFx.Height;
-   const float boardWidth=1326,boardHeight=650,inset=10,battlefieldWidth=boardWidth-inset*2;
+   const float boardWidth=1326,boardHeight=507,inset=10;
+   const float arenaX=inset+DemoStatsWidth+DemoStatsGap,battlefieldWidth=boardWidth-2*arenaX;
    var board=UPanel(roundPreviewRoot,"DemoBoard",0,58,boardWidth,boardHeight,InkPaper);
-   UText(board,"DemoSceneTitle",demoScene.title,inset,10,battlefieldWidth,26,16,InkMuted,TextAnchor.MiddleCenter);
-   demoMoveText=UText(board,"DemoMove","",inset,34,battlefieldWidth,36,23,InkText,TextAnchor.MiddleCenter);
+   UText(board,"DemoSceneTitle",demoScene.title,arenaX,10,battlefieldWidth,26,16,InkMuted,TextAnchor.MiddleCenter);
+   demoMoveText=UText(board,"DemoMove","",arenaX,34,battlefieldWidth,36,23,InkText,TextAnchor.MiddleCenter);
 
-   demoViewport=UNode(board,"DemoViewport",inset,77,width,height);
+   demoViewport=UNode(board,"DemoViewport",arenaX,77,width,height);
    float battlefieldScale=battlefieldWidth/width;
+   DrawDemoSideStats(board,0,inset,77,height*battlefieldScale);
+   DrawDemoSideStats(board,1,boardWidth-inset-DemoStatsWidth,77,height*battlefieldScale);
    demoViewport.localScale=new Vector3(battlefieldScale,battlefieldScale,1);
    demoViewport.gameObject.AddComponent<RectMask2D>();
    demoStage=UNode(demoViewport,"DemoStage",0,0,width,height);
@@ -169,24 +189,50 @@ namespace DragonIdle {
    demoFrontFx=UNode(demoStage,"DemoFrontFx",0,0,width,height).gameObject.AddComponent<RoundMotionFx>();
    demoFrontFx.raycastTarget=false;
    demoProjectile=UPanel(demoStage,"DemoProjectile",0,0,34,26,InkGold);
-   if(roundMotion!=null)
-    foreach(var entry in roundMotion.SeenHits.Values){
-     var hit=entry.Hit;
-     var label=UText(demoStage,"DemoHit"+hit.Target.Side+"_"+hit.Target.Position,"",0,0,196,28,18,InkIvory,TextAnchor.MiddleCenter);
-     var shadow=label.gameObject.AddComponent<Shadow>();
-     shadow.effectColor=new Color(0,0,0,.86f);
-     shadow.effectDistance=new Vector2(1,-1);
-     label.fontStyle=FontStyle.Bold;
-     demoOutcomes.Add(hit.Target,label);
+   foreach(var entry in demoFeedback.Values){
+    if(demoFeedbackClock-entry.At>=DemoFeedbackDuration)continue;
+    var hit=entry.Hit;
+    var label=UText(demoStage,"DemoHit"+hit.Target.Side+"_"+hit.Target.Position,DemoHitText(hit),
+     0,0,114,30,hit.Critical&&hit.HealthDamage>0?25:18,DemoHitColor(hit),TextAnchor.UpperCenter);
+    label.rectTransform.pivot=new Vector2(.5f,1);
+    label.fontStyle=FontStyle.Bold;
+    var shadow=label.gameObject.AddComponent<Shadow>();
+    shadow.effectColor=new Color(0,0,0,.85f);
+    shadow.effectDistance=new Vector2(1,-1);
+    if(hit.Critical&&hit.HealthDamage>0){
+     var rim=label.gameObject.AddComponent<Outline>();
+     rim.effectColor=new Color(.29f,.10f,.03f,.95f);
+     rim.effectDistance=new Vector2(1,-1);
     }
+    if(hit.HealthDamage>0&&hit.ShieldDamage>0){
+     var shield=UText(label.transform,"ShieldNumber",DemoNumber(hit.ShieldDamage),0,29,114,20,13,DemoShieldColor,TextAnchor.UpperCenter);
+     shield.fontStyle=FontStyle.Bold;
+     shield.gameObject.AddComponent<Shadow>().effectColor=new Color(0,0,0,.85f);
+    }
+    demoOutcomes.Add(hit.Target,label);
+   }
 
    if(roundMotion?.Revealed==true&&roundMotion.Action?.ActorHPCost>0){
-    demoSelfCost=UText(demoStage,"DemoSelfCost","自身生命 −"+roundMotion.Action.ActorHPCost.ToString("0"),
+    demoSelfCost=UText(demoStage,"DemoSelfCost",DemoNumber(roundMotion.Action.ActorHPCost),
      0,0,196,28,16,InkIvory,TextAnchor.MiddleCenter);
     demoSelfCost.gameObject.AddComponent<Shadow>().effectColor=new Color(0,0,0,.86f);
    }
    roundSkillBadge=CreateRoundSkillBadge(demoViewport,roundMotion);
    PaintDemo();
+  }
+
+  static readonly Color DemoShieldColor=new Color32(132,201,255,255);
+  static string DemoNumber(double amount)=>amount.ToString("0");
+  static string DemoHitText(RoundAction hit){
+   if(hit.Dodged)return "";
+   double score=hit.Healing?hit.Amount:hit.HealthDamage>0?hit.HealthDamage:hit.ShieldDamage;
+   return score>0?DemoNumber(score):"";
+  }
+
+  static Color DemoHitColor(RoundAction hit){
+   if(hit.Healing)return new Color32(137,250,175,255);
+   if(hit.HealthDamage==0&&hit.ShieldDamage>0)return DemoShieldColor;
+   return hit.Critical?(Color)new Color32(255,228,105,255):Color.white;
   }
 
   static string ReactionName(RoundHitState state) {
@@ -211,7 +257,7 @@ namespace DragonIdle {
 
   void ApplyDemoHit(RoundAction hit) {
    var target=hit.Target;
-   if(hit.Revives){demoReactions[target]=new DuelReaction(YamchaArt);return;}
+   if(hit.Revives){demoReactions[target]=new DuelReaction(BattleReactionLibrary(target.CardId));return;}
    if(hit.Dodged&&hit.Move==RoundMove.Pursuit)demoReactions[target].ReleaseChain();
    if(hit.Countered){
     demoReactions[target].Hit("counterPrepare",target.Side,false);
@@ -227,7 +273,8 @@ namespace DragonIdle {
     target.CardId==RoundMotionArt.PiccoloCardId?PiccoloIdlePose(target):
     target.CardId==RoundMotionArt.GohanCardId?GohanIdlePose(target):target.CardId==RoundMotionArt.KrillinCardId?KrillinIdlePose(target):
     target.CardId==RoundMotionArt.RaditzCardId?RaditzIdlePose(target):target.CardId==RoundMotionArt.YamchaCardId?YamchaIdlePose(target):target.CardId==RoundMotionArt.TienCardId?TienIdlePose(target):null;
-   demoReactions[target].Hit(track,target.Side,survives&&hit.TriggersPursuit&&roundBattle.NextPursuitTarget==target,from);
+   float direction=DemoGround(target).x-DemoGround(hit.Actor).x;
+   demoReactions[target].Hit(track,target.Side,survives&&hit.TriggersPursuit&&roundBattle.NextPursuitTarget==target,from,direction);
   }
 
   RoundMotionArt.Pose IdleDemoPose(RoundFighter fighter) {
@@ -321,8 +368,10 @@ namespace DragonIdle {
     run.BeamTarget=aim;
     return;
    }
-   var contact=FacingSpace(DemoFeet(run.Action.Target),mirror);
-   float depth=DemoGround(run.Action.Target).y-DemoGround(run.Actor).y;
+   var targetFighter=run.Action.Target;
+   var contact=FacingSpace(DemoFeet(targetFighter),mirror);
+   float depth=DemoGround(targetFighter).y-DemoGround(run.Actor).y;
+   if(run.IsPursuit)depth+=demoReactions[targetFighter].Offset.y;
    if(run.Clip==null){
     run.Travel=new Vector2(Mathf.Max(0,contact.x-origin.x-37),depth);
     return;
@@ -331,8 +380,12 @@ namespace DragonIdle {
    var frame=run.Library.Atlas[cue.drawing];
    var hand=RoundMotionArt.Anchor(frame,frame.hit,origin,DemoScale(run.Actor));
    float span=Mathf.Max(1,run.Clip.Travel(cue.at));
-   float contactInset=cue.kind=="hammer"?24:6;
-   run.Travel=new Vector2(Mathf.Max(0,contact.x-hand.x-contactInset)/span,depth);
+   var body=demoActors[targetFighter].rectTransform;
+   float left=mirror?RoundMotionFx.Width-body.anchoredPosition.x-body.rect.width:body.anchoredPosition.x;
+   float contactX=left+body.rect.width*.38f;
+   float bodyEdge=Mathf.Clamp(contactX-contact.x,-12,8);
+   float contactInset=cue.kind=="hammer"?8:2;
+   run.Travel=new Vector2(Mathf.Max(0,contact.x+bodyEdge-hand.x-contactInset)/span,depth);
    if(run.Actor.CardId==RoundMotionArt.PiccoloCardId&&run.Clip.runUntil>0)
     run.PacePiccoloApproach();
   }
@@ -399,6 +452,7 @@ namespace DragonIdle {
    }
 
    demoMoveText.text=entry?"进场":run==null?"":run.Actor.Name+" · "+(run.SkillName??run.Action?.Name??run.Clip.title);
+   PaintDemoFeedback(run,activeFeet);
    if(run==null)return;
    if(demoSelfCost!=null){
     float age=run.Time-run.ImpactAt;
@@ -406,19 +460,30 @@ namespace DragonIdle {
     demoSelfCost.rectTransform.anchoredPosition=new Vector2(point.x,-Mathf.Max(4,point.y));
     var color=InkIvory;color.a=1-Mathf.InverseLerp(430,735,age);demoSelfCost.color=color;
    }
-   foreach(var seen in run.SeenHits.Values){
-    var hit=seen.Hit;
-    float age=run.Time-seen.At;
-    var label=demoOutcomes[hit.Target];
-    var at=DemoChest(hit.Target)+new Vector2(0,-46-Mathf.Min(age,500)*.045f);
-    label.rectTransform.anchoredPosition=new Vector2(at.x-98,-Mathf.Max(1,at.y));
-    string result=hit.Dodged?hit.AvoidanceText:(hit.Healing?"+":"−")+hit.Amount.ToString("0")+" "+ReactionName(hit.TargetState);
-    if(hit.GuardAbility!=null)result=hit.GuardAbility.name+" · "+result;
-    if(hit.DefenseDelta<0)result+=" 防御↓";
-    if(hit.DefenseDelta>0)result+=" · 自身防御↑";
-    label.text=result;
-    var color=hit.Healing?new Color(.73f,1f,.88f):InkIvory;color.a=1-Mathf.InverseLerp(465,750,age);
-    label.color=color;
+  }
+
+  void PaintDemoFeedback(RoundMotionPlayback run,Vector2 activeFeet){
+   foreach(var pair in demoOutcomes){
+    var shown=demoFeedback[pair.Key];
+    var hit=shown.Hit;
+    float age=demoFeedbackClock-shown.At;
+    var label=pair.Value;
+    label.gameObject.SetActive(age<DemoFeedbackDuration);
+    if(age>=DemoFeedbackDuration)continue;
+    float x=DemoFeet(hit.Target).x;
+    float head=-demoActors[hit.Target].rectTransform.anchoredPosition.y;
+    if(run!=null&&hit.Target!=run.Actor&&Mathf.Abs(activeFeet.x-x)<64)
+     head=Mathf.Min(head,-demoActors[run.Actor].rectTransform.anchoredPosition.y);
+    float y=Mathf.Max(4,head-47-Mathf.Min(age,620)*.038f);
+    label.rectTransform.anchoredPosition=new Vector2(x,-y);
+    float alpha=1-Mathf.InverseLerp(650,DemoFeedbackDuration,age);
+    var color=DemoHitColor(hit);color.a=alpha;label.color=color;
+    if(hit.Critical&&hit.HealthDamage>0)
+     label.rectTransform.localScale=Vector3.one*Mathf.Lerp(1.20f,1,Mathf.SmoothStep(0,1,Mathf.InverseLerp(0,180,age)));
+    var shield=label.transform.Find("ShieldNumber");
+    if(shield!=null){
+     color=DemoShieldColor;color.a=alpha;shield.GetComponent<Text>().color=color;
+    }
    }
   }
 
@@ -443,7 +508,8 @@ namespace DragonIdle {
     float scale=DemoScale(fighter);
     RoundMotionArt.Draw(image,piccoloPose,at,scale,flip);
     if(visibleAlive&&fighter.IsCharging&&(run?.Actor!=fighter||!run.IsCharge)){
-     var palm=RoundMotionArt.Anchor(piccoloPose,piccoloPose.beam,FacingSpace(at,flip),scale);
+     var chargeAnchor=piccoloPose.beam?.Length==2?piccoloPose.beam:piccoloPose.hit;
+     var palm=RoundMotionArt.Anchor(piccoloPose,chargeAnchor,FacingSpace(at,flip),scale);
      var point=FacingSpace(FacingSpace(palm,flip),run?.Actor.Side==1);
      float phase=ReducedRoundMotion?0:roundIdleTime+fighter.Position*44;
      demoCharges.Add(new RoundMotionFx.ChargePulse{Center=point,Phase=phase});

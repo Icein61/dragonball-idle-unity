@@ -1,0 +1,429 @@
+{
+ "atlas": [
+  {
+   "image": "Art/V0153/Gohan/reaction-poses",
+   "crop": [
+    70,
+    27,
+    370,
+    470
+   ],
+   "pivot": [
+    260,
+    493
+   ],
+   "hit": [
+    321,
+    233
+   ],
+   "beam": [
+    321,
+    233
+   ],
+   "zoom": 0.766
+  },
+  {
+   "image": "Art/V0153/Gohan/combat-poses",
+   "crop": [
+    84,
+    457,
+    276,
+    350
+   ],
+   "pivot": [
+    220,
+    804
+   ],
+   "hit": [
+    204,
+    655
+   ],
+   "beam": [
+    204,
+    655
+   ],
+   "zoom": 0.9856
+  },
+  {
+   "image": "Art/V0153/Gohan/combat-poses",
+   "crop": [
+    93,
+    12,
+    263,
+    393
+   ],
+   "pivot": [
+    223,
+    402
+   ],
+   "hit": [
+    305,
+    190
+   ],
+   "beam": [
+    305,
+    190
+   ],
+   "zoom": 0.964
+  },
+  {
+   "image": "Art/V0153/Gohan/reaction-poses",
+   "crop": [
+    624,
+    18,
+    308,
+    487
+   ],
+   "pivot": [
+    773,
+    500
+   ],
+   "hit": [
+    868,
+    231
+   ],
+   "beam": [
+    868,
+    231
+   ],
+   "zoom": 0.7905
+  },
+  {
+   "image": "Art/V0180/Battle/Gohan/ReactionPoses",
+   "crop": [
+    4,
+    4,
+    313,
+    353
+   ],
+   "zoom": 0.88154,
+   "pivot": [
+    160,
+    354
+   ],
+   "hit": [
+    160,
+    180
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Gohan/ReactionPoses",
+   "crop": [
+    4,
+    365,
+    242,
+    322
+   ],
+   "zoom": 0.88154,
+   "pivot": [
+    125,
+    684
+   ],
+   "hit": [
+    125,
+    526
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Gohan/FloatPoses",
+   "crop": [
+    4,
+    4,
+    385,
+    297
+   ],
+   "zoom": 0.869811,
+   "pivot": [
+    196,
+    298
+   ],
+   "hit": [
+    196,
+    123
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Gohan/FloatPoses",
+   "crop": [
+    428,
+    4,
+    402,
+    312
+   ],
+   "zoom": 0.869811,
+   "pivot": [
+    629,
+    313
+   ],
+   "hit": [
+    629,
+    129
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Gohan/FloatPoses",
+   "crop": [
+    4,
+    343,
+    378,
+    331
+   ],
+   "zoom": 0.869811,
+   "pivot": [
+    193,
+    671
+   ],
+   "hit": [
+    193,
+    475
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Gohan/FloatPoses",
+   "crop": [
+    428,
+    343,
+    416,
+    300
+   ],
+   "zoom": 0.869811,
+   "pivot": [
+    636,
+    640
+   ],
+   "hit": [
+    636,
+    463
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Gohan/ReactionPoses",
+   "crop": [
+    417,
+    4,
+    382,
+    314
+   ],
+   "zoom": 0.88154,
+   "pivot": [
+    608,
+    315
+   ],
+   "hit": [
+    608,
+    161
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Gohan/ReactionPoses",
+   "crop": [
+    417,
+    365,
+    405,
+    151
+   ],
+   "zoom": 0.88154,
+   "pivot": [
+    619,
+    513
+   ],
+   "hit": [
+    619,
+    440
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0153/Gohan/reaction-poses",
+   "crop": [
+    94,
+    508,
+    355,
+    499
+   ],
+   "pivot": [
+    277,
+    1006
+   ],
+   "hit": [
+    375,
+    719
+   ],
+   "beam": [
+    375,
+    719
+   ],
+   "zoom": 0.7593
+  },
+  {
+   "image": "Art/V0153/Gohan/reaction-poses",
+   "crop": [
+    1003,
+    738,
+    504,
+    201
+   ],
+   "pivot": [
+    1264,
+    940
+   ],
+   "hit": [
+    1200,
+    879
+   ],
+   "beam": [
+    1200,
+    879
+   ],
+   "zoom": 0.8376
+  }
+ ],
+ "clips": [
+  {
+   "id": "gohanGuard",
+   "title": "超级防御",
+   "duration": 555,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 368,
+     "drawing": 1
+    },
+    {
+     "at": 462,
+     "drawing": 2
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "standing",
+   "reactionHoldAt": 140,
+   "title": "受击",
+   "duration": 375,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 3
+    },
+    {
+     "at": 272,
+     "drawing": 2
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockback",
+   "reactionHoldAt": 146,
+   "title": "击退",
+   "duration": 425,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 4
+    },
+    {
+     "at": 114,
+     "drawing": 5
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "smallFloat",
+   "reactionHoldAt": 145,
+   "title": "小浮空",
+   "duration": 425,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 6
+    },
+    {
+     "at": 113,
+     "drawing": 7
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "largeFloat",
+   "reactionHoldAt": 196,
+   "title": "大浮空",
+   "duration": 425,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 8
+    },
+    {
+     "at": 164,
+     "drawing": 9
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockdown",
+   "reactionHoldAt": 146,
+   "title": "倒地",
+   "duration": 425,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 10
+    },
+    {
+     "at": 114,
+     "drawing": 11
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "defeat",
+   "title": "退场",
+   "duration": 815,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 3
+    },
+    {
+     "at": 85,
+     "drawing": 12
+    },
+    {
+     "at": 205,
+     "drawing": 13
+    }
+   ],
+   "impacts": [],
+   "root": []
+  }
+ ]
+}

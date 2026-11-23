@@ -9,7 +9,7 @@ namespace DragonIdle {
  public partial class DemoGame {
   void VerifyGokuOpenings(){
    var icon=RoundMotionArt.LoadOpeningIcon();
-   AssertSmoke(icon!=null&&icon.width==1254&&icon.height==1254&&GokuArt.Atlas.Length==80&&GokuArt["opening"].duration==1050,"Missing Goku art");
+   AssertSmoke(icon!=null&&icon.width==1254&&icon.height==1254&&GokuArt.Atlas.Count(pose=>pose.Texture.name=="CombatPoses")>=11&&GokuArt["opening"].duration==1050,"Missing Goku art");
    var expected=roundBattle.Order.SelectMany(fighter=>RoundRules().For(fighter.CardId).skills
     .Where(skill=>skill.trigger=="opening"||skill.trigger=="whileAlive"||skill.trigger=="roundStart")
     .Select(skill=>(Fighter:fighter,Skill:skill))).ToArray();
@@ -110,7 +110,7 @@ namespace DragonIdle {
    UpdateRoundMotion(0);
    var guard=roundStanding[goku].uvRect;
    UpdateRoundMotion(.36f);
-   AssertSmoke(guard!=roundStanding[goku].uvRect&&roundStanding[goku].texture.name=="guard-poses","Idle sprite did not animate");
+   AssertSmoke(guard!=roundStanding[goku].uvRect&&roundStanding[goku].texture==GokuArt.At(GokuArt["idle"],360).Texture,"Idle sprite did not animate");
    UpdateRoundMotion(10.13f);
    AssertSmoke(roundStanding[goku].texture==GokuArt.At(GokuArt["accent"],289).Texture,"Occasional idle did not play");
 
@@ -141,7 +141,7 @@ namespace DragonIdle {
     roundLast.TargetState==RoundHitState.SmallFloat,"Knockdown did not dispatch the uppercut");
    AdvanceToMotionTime(roundMotion.ImpactAt+28);
    Canvas.ForceUpdateCanvases();
-   AssertSmoke(roundFrontFx.GeometryCount>0&&roundLog.Count==2&&roundFocusPose.texture.name=="strike-poses",
+   AssertSmoke(roundFrontFx.GeometryCount>0&&roundLog.Count==2&&roundFocusPose.texture==roundMotion.StagePose.Texture,
     "Uppercut pose, hit or rising effect missing");
 
    goku=SetupMotionProbe();
@@ -212,9 +212,10 @@ namespace DragonIdle {
     "Demo scene or eighteen formation anchors missing");
    var demoBoard=(RectTransform)demoViewport.parent;
    AssertSmoke(demoBoard.Find("DemoTeam0")==null&&demoBoard.Find("DemoTeam1")==null&&!roundPreviewRoot.Cast<Transform>().Any(child=>child.name=="RoundLog"&&child.gameObject.activeSelf)&&
-    demoViewport.sizeDelta.x*demoViewport.localScale.x>1290&&demoViewport.sizeDelta.y*demoViewport.localScale.y>545&&
-    demoViewport.anchoredPosition.x<15&&demoBoard.sizeDelta.y>=650,
-    "Battlefield must fill the former roster and log area");
+    demoViewport.sizeDelta.x*demoViewport.localScale.x>=980&&demoViewport.sizeDelta.y*demoViewport.localScale.y>=410&&
+    ((RectTransform)demoBoard.Find("DemoStats0")).anchoredPosition.x<demoViewport.anchoredPosition.x&&
+    ((RectTransform)demoBoard.Find("DemoStats1")).anchoredPosition.x>demoViewport.anchoredPosition.x,
+    "The arena must be centered between two independent roster panels");
    foreach(int position in Enumerable.Range(1,9)){
     var playerGround=DemoGround(0,position);var enemyGround=DemoGround(1,position);
     var playerSlot=(RectTransform)demoStage.Find("DemoSlot0_"+position);
@@ -237,7 +238,7 @@ namespace DragonIdle {
      Enumerable.Range(1,RoundBoard.Cells).All(slot=>grid.Layout.Center(slot)==DemoGround(side,slot)&&
       grid.Layout.SlotAt(DemoGround(side,slot))==slot),"Battle tiles must be congruent and centered on roster anchors");
    }
-   AssertSmoke(demoReactionArt.Atlas.Length==16&&roundCueClips.Count==97&&
+   AssertSmoke(demoReactionArt["entry"].poses.Length>1&&roundCueClips.Count==97&&
     roundCueClips["opening-passive"].Clip!=roundCueClips["pursuit-start"].Clip&&
     roundCueClips.Values.All(cue=>cue.Clip!=null&&cue.Clip.samples>0&&cue.Gain>0)&&
     roundCueAudio!=null&&roundCueAudio.volume==0&&!roundCueAudio.isPlaying&&Resources.LoadAll<AudioClip>("Audio/V0132/Goku").Length==0&&Resources.LoadAll<AudioClip>("Audio/V0133/Goku").Length==0,
@@ -331,8 +332,8 @@ namespace DragonIdle {
    cues=roundCueEvents;
    AdvanceToMotionTime(110);
    AssertSmoke(roundCueEvents==cues+2,"Basic should dispatch its attack voice and guard effect");
-   AssertSmoke(demoActors[opponent].texture.name=="guard-poses"&&
-    demoActors[opponent].uvRect.y==0,
+   AssertSmoke(demoActors[opponent].texture==GokuArt.At(GokuArt["guard"],200).Texture&&
+     demoActors[opponent].uvRect.width<0,
     "Receiver guard pose missing before contact");
    AssertSmoke(Mathf.Abs(RenderedGokuGroundY(goku)-DemoGround(goku).y)<.05f&&roundMotion.ShiftAt(roundMotion.Time).y==0,
     "Same-row approach raised the active fighter's feet");
@@ -353,13 +354,13 @@ namespace DragonIdle {
    var sheen=model.transform.Find("PursuitSheen").GetComponent<UI.RawImage>();
    var material=sheen.material;
    float lowerBand=material.GetFloat(SheenBandY);
-   AssertSmoke(roundMotion.Duration==390&&roundMotion.ImpactAt>86&&roundMotion.ShiftAt(roundMotion.Time)==Vector2.zero&&
+   AssertSmoke(roundMotion.Duration==505&&roundMotion.ImpactAt>104&&roundMotion.ShiftAt(roundMotion.Time)==Vector2.zero&&
     sheen.texture==model.texture&&sheen.uvRect==model.uvRect&&sheen.isActiveAndEnabled&&sheen.color.a>0&&sheen.color.a<.44f&&
     material.shader.name=="DragonIdle/UI/PursuitSheen"&&WaitingForRoundImpact,
     "The pursuit sheen must use the acting sprite silhouette before moving");
    UpdateRoundPreview(.034f);
    AssertSmoke(material.GetFloat(SheenBandY)>lowerBand&&WaitingForRoundImpact,"The sheen must move from the feet upward");
-   UpdateRoundPreview(.044f);
+   UpdateRoundPreview(.052f);
    Canvas.ForceUpdateCanvases();
    AssertSmoke(!sheen.gameObject.activeSelf&&WaitingForRoundImpact,"Pursuit sheen must clear before impact");
    UpdateRoundPreview((roundMotion.ImpactAt+14-roundMotion.Time)/1000);
@@ -379,7 +380,7 @@ namespace DragonIdle {
      react.Hit(to,1,false);
      AssertSmoke(react.Active&&react.Track==to&&react.Offset==before&&react.Pose==pose,"Reaction snapped "+from+" -> "+to);
      react.Advance(110);
-     AssertSmoke(react.Pose!=null&&react.Offset.y>=-22&&Mathf.Abs(react.Offset.x)<=12,"Reaction lost a legal pose "+from+" -> "+to);
+     AssertSmoke(react.Pose!=null&&react.Offset.y>=-51&&Mathf.Abs(react.Offset.x)<=64,"Reaction lost a legal pose "+from+" -> "+to);
      react.Advance(1000);
      AssertSmoke(!react.Active&&react.Offset==Vector2.zero,"Reaction failed to return after "+to);
     }
@@ -609,7 +610,7 @@ namespace DragonIdle {
      run.Advance(run.ApproachStart+48);
      var first=run.StagePose;
      var start=run.ShiftAt(run.Time);
-     run.Advance(88);
+     run.Advance(RoundMotionPlayback.PiccoloBasicStride);
      var path=Vector2.Distance(start,run.ShiftAt(run.Time));
      AssertSmoke(first!=run.StagePose&&path>0&&path<=38.73f&&
       (span.x==0||Mathf.Abs(path-38.72f)<.01f),"Piccolo approach cadence or distance varied by attack");
@@ -674,7 +675,7 @@ namespace DragonIdle {
     AdvanceToMotionTime(480);
     Canvas.ForceUpdateCanvases();
     AssertSmoke(demoRearFx.GeometryCount>0&&VisibleRoundVitals(gohan).HP==1130&&
-     roundCueEvents==cues+2&&demoOutcomes[gohan].text.StartsWith("+"),"Rally FX, sound or HP reveal missing");
+     roundCueEvents==cues+2&&demoOutcomes[gohan].text==DemoNumber(roundLast.Amount),"Rally FX, sound or HP reveal missing");
     AdvanceRoundPreview(true);
     gohan.Rage=100;
     AdvanceRoundPreview(true);
@@ -684,7 +685,7 @@ namespace DragonIdle {
     AssertSmoke(demoStage.Find(eliteStatus+"/Elite")!=null&&demoStage.Find(eliteStatus+"/DefenseDown")==null,
      "Permanent badge missing or defense debuff revealed before impact");
     var heavy=roundMotion;
-    AssertSmoke(heavy.PlaybackRate==.78f&&heavy.Clip.duration==1250&&heavy.ImpactAt==824,
+    AssertSmoke(heavy.PlaybackRate==.73f&&heavy.Clip.duration==1250&&heavy.ImpactAt==824,
      "Heavy strike did not slow down independently");
     AdvanceToMotionTime(443);
     var plant=heavy.ShiftAt(heavy.Time);
@@ -697,7 +698,7 @@ namespace DragonIdle {
      "Heavy windup must keep both ground coordinates planted and conceal pre-impact damage");
     AdvanceToMotionTime(roundMotion.ImpactAt+32);
     Canvas.ForceUpdateCanvases();
-    AssertSmoke(roundMotion.Revealed&&demoOutcomes[elite].text.Contains("防御↓")&&demoFrontFx.GeometryCount>0&&
+    AssertSmoke(roundMotion.Revealed&&demoOutcomes[elite].text.All(char.IsDigit)&&demoFrontFx.GeometryCount>0&&
      demoStage.Find(eliteStatus+"/DefenseDown")!=null,
      "Heavy strike must reveal the contact and weakening together");
     AdvanceRoundPreview(true);
@@ -706,7 +707,7 @@ namespace DragonIdle {
     AdvanceToMotionTime(roundMotion.ImpactAt+75);
     Canvas.ForceUpdateCanvases();
     AssertSmoke(roundLast.Target==gohan&&roundLast.GuardAbility==guard&&demoFrontFx.GeometryCount>0&&
-     demoOutcomes[gohan].text.Contains("超级防御"),"Gohan guard has no reveal or energy barrier");
+     demoOutcomes[gohan].text.All(char.IsDigit),"Gohan guard has no reveal or energy barrier");
 
     var ally=new RoundFighter(RoundMotionArt.CardId,0,1,1200,100,40,0){Dodge=0};
     gohan=new RoundFighter(RoundMotionArt.GohanCardId,0,2,1200,100,40,0){Dodge=0};
@@ -720,7 +721,7 @@ namespace DragonIdle {
     cues=roundCueEvents;
     AdvanceToMotionTime(roundMotion.ImpactAt+20);
     Canvas.ForceUpdateCanvases();
-    AssertSmoke(demoFrontFx.GeometryCount>0&&demoOutcomes[enemy].text.Contains("自身防御↑")&&roundCueEvents>=cues+3&&
+    AssertSmoke(demoFrontFx.GeometryCount>0&&demoOutcomes[enemy].text.All(char.IsDigit)&&roundCueEvents>=cues+3&&
      demoStage.Find("DemoSlot0_2/Buffs/DefenseUp")!=null,
      "Flash arc, defense feedback or matched voice and impact cues are missing");
    }finally{guard.chance=probability;}
@@ -758,7 +759,7 @@ namespace DragonIdle {
     var hit=volley[i];
     Canvas.ForceUpdateCanvases();
     AssertSmoke(demoFrontFx.VisibleVolleyBursts>0&&run.RevealedCount==i+1&&Math.Abs(VisibleRoundVitals(hit.Target).HP-hit.TargetHPAfter)<.001&&
-     demoOutcomes.ContainsKey(hit.Target)&&demoOutcomes[hit.Target].text.Contains("−"),
+     demoOutcomes.ContainsKey(hit.Target)&&demoOutcomes[hit.Target].text.All(char.IsDigit),
      "Energy shot did not update its actual target at index "+i);
    }
    AssertSmoke(run.Revealed&&roundLog.Count==1&&demoOutcomes.Count==5&&roundCueEvents==cues+13+volley.Length,
@@ -807,12 +808,12 @@ namespace DragonIdle {
     "Row beam did not aim at all affected enemies or leaked health early");
    AdvanceToMotionTime(1220);
    Canvas.ForceUpdateCanvases();
-   AssertSmoke(demoFrontFx.GeometryCount>300&&WaitingForRoundImpact&&demoOutcomes.Count==0,"Traveling effects or reveal timing failed");
+   AssertSmoke(demoFrontFx.GeometryCount>300&&WaitingForRoundImpact&&roundMotion.SeenHits.Count==0,"Traveling effects or current hit reveal timing failed");
    AdvanceToMotionTime(1470);
    Canvas.ForceUpdateCanvases();
    AssertSmoke(demoFrontFx.BeamTip.y==demoFrontFx.BeamPalm.y&&demoFrontFx.BeamTip.x>DemoGround(1,9).x+70,
     "Cross-row beam did not sweep every slot horizontally");
-   AssertSmoke(demoOutcomes.Count==2&&demoOutcomes.Values.All(label=>label.text.StartsWith("−"))&&
+   AssertSmoke(demoOutcomes.Count==2&&demoOutcomes.Values.All(label=>label.text.All(char.IsDigit))&&
     VisibleRoundVitals(flank).HP==flank.HP&&flank.HP<flankHealth&&
     roundLast.Hits.Count(hit=>hit.TargetState==RoundHitState.Knockback)==1&&
     demoReactions[otherLane].Track==null,"Demo did not display each affected target at impact");
@@ -859,14 +860,14 @@ namespace DragonIdle {
   }
 
   void VerifyBeatTiming(){
-   foreach(var item in new[]{(RoundMove.Basic,400f),(RoundMove.Ultimate,460f),(RoundMove.Pursuit,500f)}){
+   foreach(var item in new[]{(RoundMove.Basic,340f),(RoundMove.Ultimate,430f),(RoundMove.Pursuit,500f)}){
     var playback=new RoundMotionPlayback{Action=new RoundAction{Move=item.Item1},Clip=GokuArt["ultimate"]};
     playback.Advance(500);
     AssertSmoke(Mathf.Abs(playback.Time-item.Item2)<.001f,"Unexpected clock rate for "+item.Item1);
    }
-   var newAtlas=GokuArt.Atlas.Where(pose=>pose.Texture.name=="ka-me-poses").ToArray();
-   AssertSmoke(newAtlas.Length==6&&newAtlas.All(pose=>pose.Texture.width==1536&&pose.Texture.height==1024)&&
-    newAtlas.Select(pose=>pose.crop[0]+pose.crop[1]*1536).Distinct().Count()==6,
+   var newAtlas=GokuArt.Atlas.Where(pose=>pose.Texture.name=="BeamPoses").ToArray();
+   AssertSmoke(newAtlas.Length==6&&newAtlas.All(pose=>pose.beam.Length==2)&&
+    newAtlas.Select(pose=>(pose.crop[0],pose.crop[1])).Distinct().Count()==6,
     "Goku ultimate atlas was rescaled or its crop positions shifted");
    var basic=GokuArt["basic"];
    var sweep=GokuArt["sweep"];
@@ -933,13 +934,35 @@ namespace DragonIdle {
    AdvanceToMotionTime(roundMotion.ImpactAt+12);
    defenderSlot=demoStage.Find("DemoSlot1_"+defender.Position);
    AssertSmoke(roundLog.Count==1&&defender.Shield<13,"Impact did not consume the shield");
+   var damage=demoOutcomes[defender];
+   var shield=damage.transform.Find("ShieldNumber").GetComponent<UI.Text>();
+   AssertSmoke(damage.text==DemoNumber(first.HealthDamage)&&shield.text=="13"&&shield.fontSize==13&&shield.color==DemoShieldColor&&
+    damage.rectTransform.anchoredPosition.y>demoActors[defender].rectTransform.anchoredPosition.y+40,
+    "Impact must show only the actual HP loss and smaller blue shield number");
+   var shieldOnly=new RoundAction{ShieldDamage=30};
+   var critical=new RoundAction{HealthDamage=12,Critical=true};
+   AssertSmoke(DemoHitText(shieldOnly)=="30"&&DemoHitColor(shieldOnly)==DemoShieldColor&&
+    DemoHitText(critical)=="12"&&DemoHitColor(critical)!=Color.white&&
+    DemoHitText(new RoundAction{Dodged=true})==""&&DemoHitText(new RoundAction{Healing=true,Amount=15})=="15",
+    "Numeric feedback colors or dodge suppression failed");
+   string loss=DemoNumber(first.HealthDamage+first.ShieldDamage);
+   AssertSmoke(demoViewport.parent.Find("DemoStats0/StatsSlot"+attacker.Position+"/Value").GetComponent<UI.Text>().text==loss&&
+    demoViewport.parent.Find("DemoStats1/StatsSlot"+defender.Position+"/Value").GetComponent<UI.Text>().text=="0",
+    "Live damage panel did not count the impact exactly once");
+   GalleryTestButton("Metric1").onClick.Invoke();
+   AssertSmoke(demoMetric==RoundBattleMetric.Taken&&
+    demoViewport.parent.Find("DemoStats1/StatsSlot"+defender.Position+"/Value").GetComponent<UI.Text>().text==loss,
+    "Taken tab did not count actual HP and shield loss");
+   GalleryTestButton("Metric2").onClick.Invoke();
+   AssertSmoke(demoMetric==RoundBattleMetric.Healing,"Both panels did not switch to healing");
+   defenderSlot=demoStage.Find("DemoSlot1_"+defender.Position);
    AssertDemoMeter(defenderSlot,"Health",(float)(defender.HP/defender.MaxHP),RoundHealthFill);
    AssertDemoMeter(defenderSlot,"Shield",(float)(defender.Shield/defender.MaxHP),RoundShieldFill);
    AssertDemoMeter(defenderSlot,"Rage",(float)defender.Rage/RoundCombat.RageCap,RoundRageFill);
 
    AdvanceToMotionTime(roundMotion.Duration+1);
-   AssertSmoke(roundMotion==null&&roundLast==first&&Mathf.Abs(roundClock-.54f)<.001f,"Action did not start the longer handoff");
-   UpdateRoundPreview(.51f);
+   AssertSmoke(roundMotion==null&&roundLast==first&&Mathf.Abs(roundClock-.68f)<.001f,"Action did not start the slower handoff");
+   UpdateRoundPreview(.65f);
    AssertSmoke(roundMotion==null&&roundLast==first,"Combat stepped before the recovery time ended");
    UpdateRoundPreview(.045f);
    AssertSmoke(roundLast!=first&&roundMotion!=null,"Combat did not advance after the recovery time");
@@ -1182,15 +1205,35 @@ namespace DragonIdle {
 
   void VerifyChaseReactionHolds(){
    foreach(var id in Data.RoundRoster){
-    var library=id==RoundMotionArt.CardId?demoReactionArt:BattleMotionLibrary(id);
+    var library=BattleReactionLibrary(id);
     var idle=BattleMotionLibrary(id).At(BattleMotionLibrary(id)["idle"],0);
     foreach(string track in new[]{"smallFloat","largeFloat","knockback","knockdown"}){
+     var clip=library[track];
+     bool floats=track=="smallFloat"||track=="largeFloat";
+     string atlas=floats?"FloatPoses":"ReactionPoses";
+     AssertSmoke(clip.poses.Length>=2&&clip.poses.All(cue=>library.Atlas[cue.drawing].Texture.name==atlas),
+      "Missing the approved first and held reaction drawings for "+id+" "+track);
      var reaction=new DuelReaction(library);
      reaction.Hit(track,1,true,idle);
+     if(floats){
+      reaction.Advance(18);
+      AssertSmoke(reaction.Pose==idle&&reaction.Offset==Vector2.zero,"A fighter started to rise before taking the hit");
+      reaction.Advance(45);
+      AssertSmoke(reaction.Pose.Texture.name==atlas&&reaction.Offset.y<0,"Float launch did not start on the hit drawing");
+     }
      reaction.Advance(2000);
      var pose=reaction.Pose;
      var offset=reaction.Offset;
      AssertSmoke(reaction.Active&&pose!=null&&pose!=idle,"Queued chase lost "+id+" "+track);
+     var fixedSpot=track=="smallFloat"?new Vector2(0,-25):track=="largeFloat"?new Vector2(0,-51):
+      track=="knockback"?new Vector2(60,0):Vector2.zero;
+     AssertSmoke(offset==fixedSpot,"Held reaction is not at its required reference position");
+     if(track=="knockback"){
+      reaction.Hit("knockdown",1,true,idle);
+      reaction.Advance(2000);
+      AssertSmoke(reaction.Offset==fixedSpot,"Knockdown moved back to the initial tile");
+      pose=reaction.Pose;offset=reaction.Offset;
+     }
      reaction.Finish();
      AssertSmoke(reaction.Pose==pose&&reaction.Offset==offset,"Manual step reset a queued chase");
      reaction.Hit("knockback",1,false,idle);
@@ -1219,12 +1262,12 @@ namespace DragonIdle {
    AssertSmoke(roundMotion.Clip.id=="sweep"&&roundBattle.PursuitNext,"Expected the forced knockdown pursuit");
    var first=roundLast;
    AdvanceToMotionTime(roundMotion.Duration+1);
-   AssertSmoke(roundMotion==null&&roundLast==first&&Mathf.Abs(roundClock-.075f)<.001f,
-    "Follow-up did not replace the standard action gap");
-   UpdateRoundPreview(.055f);
-   AssertSmoke(roundMotion==null&&roundLast==first,"Follow-up skipped its short handoff");
-   UpdateRoundPreview(.03f);
-   AssertSmoke(roundLast.Move==RoundMove.Pursuit&&roundMotion!=null&&roundMotion.Duration==390,
+   AssertSmoke(roundMotion==null&&roundLast==first&&Mathf.Abs(roundClock-.20f)<.001f,
+    "Follow-up did not use its more readable handoff");
+   UpdateRoundPreview(.19f);
+   AssertSmoke(roundMotion==null&&roundLast==first,"Follow-up skipped its handoff");
+   UpdateRoundPreview(.02f);
+   AssertSmoke(roundLast.Move==RoundMove.Pursuit&&roundMotion!=null&&roundMotion.Duration==505,
     "Follow-up did not launch within its short window");
    GalleryTestButton("LeaveRoundPreview").onClick.Invoke();
   }
@@ -1341,7 +1384,7 @@ namespace DragonIdle {
    BeginRoundDemo(FiveCardDemoFixture());
    AssertSmoke(roundBattle.Order.Count(f=>f.CardId==RoundMotionArt.KrillinCardId)==2&&
     KrillinArt.Atlas.Length==18&&KrillinArt.Atlas[16].crop.SequenceEqual(new[]{505,534,350,345})&&
-    KrillinArt.Atlas[17].crop.SequenceEqual(new[]{839,796,670,180})&&GokuArt["basic"].runFrames.Length==4&&VegetaArt["basic"].runFrames.Length==4,
+    KrillinArt.Atlas[17].crop.SequenceEqual(new[]{839,796,670,180})&&GokuArt["basic"].runFrames.Distinct().Count()>=2&&VegetaArt["basic"].runFrames.Length==4,
     "Krillin, Goku or Vegeta movement art was not loaded");
    while(roundMotion!=null||roundOpenings.Count>0)AdvanceRoundPreview(true);
    var krillin=roundBattle.Order.First(f=>f.Side==0&&f.CardId==RoundMotionArt.KrillinCardId);
@@ -1477,8 +1520,8 @@ namespace DragonIdle {
    var raditz=roundBattle.Order[0];
    AssertSmoke(raditz.CardId==id&&RaditzArt.Atlas.Length==18&&
     roundCueClips.Count(pair=>pair.Key.StartsWith("raditz-"))==13&&
-    GokuArt["basic"].runFrames.All(frame=>GokuArt.Atlas[frame].Texture.name=="barefoot-run")&&
-    GokuArt.Atlas[75].Texture.name=="barefoot-run","Raditz cue/pose library or replacement Goku movement is missing");
+    GokuArt["basic"].runFrames.All(frame=>GokuArt.Atlas[frame].Texture.name=="CombatPoses")&&
+     GokuArt["basic"].returnHop==0,"Raditz cue/pose library or grounded Goku movement is missing");
    while(roundMotion!=null||roundOpenings.Count>0)AdvanceRoundPreview(true);
    foreach(var fighter in roundBattle.Order)fighter.Dodge=0;
    raditz.Rage=100;
@@ -1797,7 +1840,7 @@ namespace DragonIdle {
     VerifyRoundTempoAndMeters();
     VerifyQuickPursuitHandoff();
     VerifyBrokenPursuitRecovery();
-    File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"roundCombat\":true,\"gokuMotion\":true,\"openingIcon\":true,\"gridDemo\":true,\"gridMultiTarget\":true,\"fullGridReadability\":true,\"groundedMotion\":true,\"contrastTiming\":true,\"waveFeather\":true,\"thickerWave\":true,\"expandedBattlefield\":true,\"hiddenBattleSlotNumbers\":true,\"upwardPursuitSheen\":true,\"ultimateAtlasSize\":true,\"pursuitFlash\":true,\"quickPursuitHandoff\":true,\"roundedVitals\":true,\"slotVitals\":true,\"actionGap\":true,\"shortOpening\":true,\"reactionTransitions\":25,\"gokuAudioCues\":21,\"vegetaAudioCues\":9,\"savedFiveEnemyDemo\":true,\"characterSheetConfiguration\":true,\"vegetaVolley\":true,\"vegetaArt\":true,\"piccoloPresentation\":true,\"piccoloHeldCharge\":true,\"piccoloApproachPacing\":true,\"piccoloPursuitHop\":true,\"galleryOwnershipGroups\":true,\"galleryNumberSort\":true,\"galleryElasticSkills\":true,\"characterPageLoop\":true,\"characterPageSessionSort\":true,\"characterSkillFourLines\":true,\"sharedMenuLoop\":true,\"avatarSwipe\":true,\"roundStatusHud\":true,\"piccoloFingerGlow\":true,\"gohanHairArt\":true,\"gohanHeavyWindup\":true,\"gohanPresentation\":true,\"guardCounterPriority\":true,\"brokenPursuitRecovery\":true,\"raditzPresentation\":true,\"twinRaysAndSingleHit\":true,\"krillinReactionCrop\":true,\"formationDragAndSave\":true,\"formationExplicitSave\":true,\"yamchaPresentation\":true,\"tienPresentation\":true,\"roleArtwork\":true,\"greenBadgeAndRadar\":true,\"combinedStatGuide\":true,\"galleryRarityBackdrops\":true,\"multiCardHeldSwipe\":true,\"barefootGokuMovement\":true,\"activeRoster\":"+Data.RoundRoster.Count+",\"krillinPresentation\":true,\"galleryFavorites\":true,\"avatarElasticDrag\":true,\"authoredBuffIcons\":true,\"savedLevel100Demo\":true,\"ultimateCutIn\":true,\"smoothCameraRestore\":true,\"stableSkillBadge\":true,\"authoredSkillIcons\":true,\"beamTailWidened\":true,\"sharedOpeningFx\":true,\"battleSkillBadges\":true,\"congruentGridTiles\":true,\"horizontalRowBeam\":true,\"referenceTiming\":true,\"referenceVideoExcluded\":true,\"formationSave\":true,\"twoRoutes\":true,\"galleryDetails\":true,\"galleryCurrentAvatar\":true,\"gallerySkillColors\":true,\"gokuGalleryIcons\":true,\"neighborRarityBadges\":true,\"startupArt\":true,\"noRewards\":true,\"soundSilent\":true,\"homeAndBattleBgm\":true,\"compactBattleGrid\":true,\"actionRates\":true,\"vegetaScaleStable\":true,\"renderVerified\":false,\"actions\":"+events+"}");
+    File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"roundCombat\":true,\"gokuMotion\":true,\"openingIcon\":true,\"gridDemo\":true,\"gridMultiTarget\":true,\"fullGridReadability\":true,\"groundedMotion\":true,\"contrastTiming\":true,\"waveFeather\":true,\"thickerWave\":true,\"expandedBattlefield\":true,\"hiddenBattleSlotNumbers\":true,\"upwardPursuitSheen\":true,\"ultimateAtlasSize\":true,\"pursuitFlash\":true,\"quickPursuitHandoff\":true,\"roundedVitals\":true,\"slotVitals\":true,\"actionGap\":true,\"actualHitFeedback\":true,\"battleStats\":true,\"shortOpening\":true,\"reactionTransitions\":25,\"gokuAudioCues\":21,\"vegetaAudioCues\":9,\"savedFiveEnemyDemo\":true,\"characterSheetConfiguration\":true,\"vegetaVolley\":true,\"vegetaArt\":true,\"piccoloPresentation\":true,\"piccoloHeldCharge\":true,\"piccoloApproachPacing\":true,\"piccoloPursuitHop\":true,\"galleryOwnershipGroups\":true,\"galleryNumberSort\":true,\"galleryElasticSkills\":true,\"characterPageLoop\":true,\"characterPageSessionSort\":true,\"characterSkillFourLines\":true,\"sharedMenuLoop\":true,\"avatarSwipe\":true,\"roundStatusHud\":true,\"piccoloFingerGlow\":true,\"gohanHairArt\":true,\"gohanHeavyWindup\":true,\"gohanPresentation\":true,\"guardCounterPriority\":true,\"brokenPursuitRecovery\":true,\"raditzPresentation\":true,\"twinRaysAndSingleHit\":true,\"krillinReactionCrop\":true,\"formationDragAndSave\":true,\"formationExplicitSave\":true,\"yamchaPresentation\":true,\"tienPresentation\":true,\"roleArtwork\":true,\"greenBadgeAndRadar\":true,\"combinedStatGuide\":true,\"galleryRarityBackdrops\":true,\"multiCardHeldSwipe\":true,\"groundedGokuKit\":true,\"approvedReactionArt\":true,\"floatLaunchArtwork\":true,\"activeRoster\":"+Data.RoundRoster.Count+",\"krillinPresentation\":true,\"galleryFavorites\":true,\"avatarElasticDrag\":true,\"authoredBuffIcons\":true,\"savedLevel100Demo\":true,\"ultimateCutIn\":true,\"smoothCameraRestore\":true,\"stableSkillBadge\":true,\"authoredSkillIcons\":true,\"beamTailWidened\":true,\"sharedOpeningFx\":true,\"battleSkillBadges\":true,\"congruentGridTiles\":true,\"horizontalRowBeam\":true,\"referenceTiming\":true,\"referenceVideoExcluded\":true,\"formationSave\":true,\"twoRoutes\":true,\"galleryDetails\":true,\"galleryCurrentAvatar\":true,\"gallerySkillColors\":true,\"gokuGalleryIcons\":true,\"neighborRarityBadges\":true,\"startupArt\":true,\"noRewards\":true,\"soundSilent\":true,\"homeAndBattleBgm\":true,\"compactBattleGrid\":true,\"actionRates\":true,\"vegetaScaleStable\":true,\"renderVerified\":false,\"actions\":"+events+"}");
     Application.Quit(0);
    }catch(Exception ex){File.WriteAllText(Path.Combine(dir,"smoke-failure.txt"),ex.ToString());Debug.LogError(ex);Application.Quit(1);}
   }

@@ -3,7 +3,7 @@
 
 ## 当前阶段
 
-已草拟 [v0.18.0 开发单](release-plans/v0.18.0.md)，等待 v0.17.4 试玩反馈。
+[v0.18.0 开发单](release-plans/v0.18.0.md)已落实战斗统计、数字飘字、攻击接触、追打节奏和状态位移。悟空及八位角色两档浮空、击退、倒地均按确认版本接入。角色表同步、1008 项核心检查、11 张 Unity 后台画面、Windows Player 启动与 ZIP 校验通过。那巴与栽培人保留模板。[Windows 试玩包](../Builds/Releases/v0.18.0/龙珠爆裂激斗-v0.18.0-Windows-x64.zip)。
 
 v0.17.4 按[开发单](release-plans/v0.17.4.md)重绘定位图标，校准卡片徽标和编队、战场阵位。角色表同步检查、1005 项核心检查、4 张 Unity 后台画面、Windows Player 回归和 ZIP 校验均通过。 [Windows 试玩包](../Builds/Releases/v0.17.4/龙珠爆裂激斗-v0.17.4-Windows-x64.zip)。
 

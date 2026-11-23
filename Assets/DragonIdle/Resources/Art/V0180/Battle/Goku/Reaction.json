@@ -1,0 +1,453 @@
+{
+ "atlas": [
+  {
+   "image": "Art/V0132/Goku/hit-states",
+   "crop": [
+    0,
+    0,
+    512,
+    512
+   ],
+   "pivot": [
+    235,
+    488
+   ],
+   "zoom": 1,
+   "hit": [],
+   "beam": []
+  },
+  {
+   "image": "Art/V0132/Goku/reaction-transitions",
+   "crop": [
+    0,
+    0,
+    639,
+    615
+   ],
+   "pivot": [
+    310,
+    601
+   ],
+   "zoom": 0.81,
+   "hit": [],
+   "beam": []
+  },
+  {
+   "image": "Art/V0132/Goku/arrival-defeat",
+   "crop": [
+    1024,
+    0,
+    512,
+    512
+   ],
+   "pivot": [
+    1232,
+    486
+   ],
+   "zoom": 1,
+   "hit": [],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/ReactionPoses",
+   "crop": [
+    4,
+    4,
+    345,
+    385
+   ],
+   "zoom": 1.10277,
+   "pivot": [
+    176,
+    386
+   ],
+   "hit": [
+    176,
+    196
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/ReactionPoses",
+   "crop": [
+    4,
+    397,
+    295,
+    320
+   ],
+   "zoom": 1.10277,
+   "pivot": [
+    151,
+    714
+   ],
+   "hit": [
+    151,
+    557
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/FloatPoses",
+   "crop": [
+    4,
+    4,
+    413,
+    287
+   ],
+   "zoom": 1.195356,
+   "pivot": [
+    210,
+    288
+   ],
+   "hit": [
+    210,
+    119
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/FloatPoses",
+   "crop": [
+    425,
+    4,
+    392,
+    302
+   ],
+   "zoom": 1.195356,
+   "pivot": [
+    621,
+    303
+   ],
+   "hit": [
+    621,
+    125
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/FloatPoses",
+   "crop": [
+    4,
+    336,
+    391,
+    324
+   ],
+   "zoom": 1.195356,
+   "pivot": [
+    199,
+    657
+   ],
+   "hit": [
+    199,
+    466
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/FloatPoses",
+   "crop": [
+    425,
+    336,
+    395,
+    306
+   ],
+   "zoom": 1.195356,
+   "pivot": [
+    622,
+    639
+   ],
+   "hit": [
+    622,
+    458
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/ReactionPoses",
+   "crop": [
+    443,
+    4,
+    381,
+    302
+   ],
+   "zoom": 1.10277,
+   "pivot": [
+    633,
+    303
+   ],
+   "hit": [
+    633,
+    155
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Goku/ReactionPoses",
+   "crop": [
+    443,
+    397,
+    431,
+    130
+   ],
+   "zoom": 1.10277,
+   "pivot": [
+    658,
+    524
+   ],
+   "hit": [
+    658,
+    462
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0132/Goku/arrival-defeat",
+   "crop": [
+    0,
+    0,
+    512,
+    512
+   ],
+   "pivot": [
+    241,
+    401
+   ],
+   "zoom": 1,
+   "hit": [],
+   "beam": []
+  },
+  {
+   "image": "Art/V0132/Goku/arrival-defeat",
+   "crop": [
+    512,
+    0,
+    512,
+    512
+   ],
+   "pivot": [
+    739,
+    487
+   ],
+   "zoom": 1,
+   "hit": [],
+   "beam": []
+  },
+  {
+   "image": "Art/V0132/Goku/arrival-defeat",
+   "crop": [
+    0,
+    512,
+    440,
+    512
+   ],
+   "pivot": [
+    218,
+    992
+   ],
+   "zoom": 1,
+   "hit": [],
+   "beam": []
+  },
+  {
+   "image": "Art/V0132/Goku/arrival-defeat",
+   "crop": [
+    440,
+    512,
+    443,
+    512
+   ],
+   "pivot": [
+    671,
+    993
+   ],
+   "zoom": 1,
+   "hit": [],
+   "beam": []
+  },
+  {
+   "image": "Art/V0132/Goku/hit-states",
+   "crop": [
+    423,
+    512,
+    537,
+    512
+   ],
+   "pivot": [
+    686,
+    962
+   ],
+   "zoom": 1,
+   "hit": [],
+   "beam": []
+  },
+  {
+   "image": "Art/V0132/Goku/arrival-defeat",
+   "crop": [
+    883,
+    512,
+    653,
+    512
+   ],
+   "pivot": [
+    1190,
+    992
+   ],
+   "zoom": 1,
+   "hit": [],
+   "beam": []
+  }
+ ],
+ "clips": [
+  {
+   "id": "standing",
+   "reactionHoldAt": 105,
+   "title": "站立受击",
+   "duration": 340,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 105,
+     "drawing": 1
+    },
+    {
+     "at": 230,
+     "drawing": 2
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "knockback",
+   "reactionHoldAt": 146,
+   "title": "击退",
+   "duration": 425,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 3
+    },
+    {
+     "at": 114,
+     "drawing": 4
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "smallFloat",
+   "reactionHoldAt": 145,
+   "title": "小浮空",
+   "duration": 425,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 5
+    },
+    {
+     "at": 113,
+     "drawing": 6
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "largeFloat",
+   "reactionHoldAt": 196,
+   "title": "大浮空",
+   "duration": 425,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 7
+    },
+    {
+     "at": 164,
+     "drawing": 8
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "knockdown",
+   "reactionHoldAt": 146,
+   "title": "倒地",
+   "duration": 425,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 9
+    },
+    {
+     "at": 114,
+     "drawing": 10
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "entry",
+   "title": "进场",
+   "duration": 990,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 11
+    },
+    {
+     "at": 455,
+     "drawing": 12
+    },
+    {
+     "at": 740,
+     "drawing": 2
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "defeat",
+   "title": "战败",
+   "duration": 1060,
+   "impactAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 106,
+     "drawing": 13
+    },
+    {
+     "at": 285,
+     "drawing": 14
+    },
+    {
+     "at": 530,
+     "drawing": 15
+    },
+    {
+     "at": 720,
+     "drawing": 16
+    }
+   ],
+   "root": [],
+   "impacts": []
+  }
+ ]
+}

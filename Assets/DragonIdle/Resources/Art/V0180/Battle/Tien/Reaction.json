@@ -1,0 +1,387 @@
+{
+ "atlas": [
+  {
+   "image": "Art/V0173/Tien/states",
+   "crop": [
+    53,
+    528,
+    392,
+    472
+   ],
+   "pivot": [
+    242,
+    990
+   ],
+   "hit": [
+    242,
+    990
+   ],
+   "beam": [
+    242,
+    990
+   ],
+   "zoom": 0.99
+  },
+  {
+   "image": "Art/V0173/Tien/recovery",
+   "crop": [
+    78,
+    147,
+    492,
+    458
+   ],
+   "pivot": [
+    318,
+    597
+   ],
+   "hit": [
+    318,
+    597
+   ],
+   "beam": [
+    318,
+    597
+   ],
+   "zoom": 0.77
+  },
+  {
+   "image": "Art/V0173/Tien/states",
+   "crop": [
+    38,
+    39,
+    412,
+    444
+   ],
+   "pivot": [
+    241,
+    471
+   ],
+   "hit": [
+    241,
+    471
+   ],
+   "beam": [
+    241,
+    471
+   ],
+   "zoom": 0.99
+  },
+  {
+   "image": "Art/V0180/Battle/Tien/ReactionPoses",
+   "crop": [
+    4,
+    4,
+    321,
+    326
+   ],
+   "zoom": 1.15746,
+   "pivot": [
+    164,
+    327
+   ],
+   "hit": [
+    164,
+    167
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Tien/ReactionPoses",
+   "crop": [
+    4,
+    338,
+    275,
+    268
+   ],
+   "zoom": 1.15746,
+   "pivot": [
+    141,
+    603
+   ],
+   "hit": [
+    141,
+    472
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Tien/FloatPoses",
+   "crop": [
+    4,
+    4,
+    412,
+    265
+   ],
+   "zoom": 1.062368,
+   "pivot": [
+    210,
+    266
+   ],
+   "hit": [
+    210,
+    110
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Tien/FloatPoses",
+   "crop": [
+    425,
+    4,
+    410,
+    311
+   ],
+   "zoom": 1.062368,
+   "pivot": [
+    630,
+    312
+   ],
+   "hit": [
+    630,
+    128
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Tien/FloatPoses",
+   "crop": [
+    4,
+    348,
+    413,
+    336
+   ],
+   "zoom": 1.062368,
+   "pivot": [
+    210,
+    681
+   ],
+   "hit": [
+    210,
+    482
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Tien/FloatPoses",
+   "crop": [
+    425,
+    348,
+    397,
+    300
+   ],
+   "zoom": 1.062368,
+   "pivot": [
+    623,
+    645
+   ],
+   "hit": [
+    623,
+    468
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Tien/ReactionPoses",
+   "crop": [
+    455,
+    4,
+    345,
+    281
+   ],
+   "zoom": 1.15746,
+   "pivot": [
+    627,
+    282
+   ],
+   "hit": [
+    627,
+    144
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Tien/ReactionPoses",
+   "crop": [
+    455,
+    338,
+    443,
+    127
+   ],
+   "zoom": 1.15746,
+   "pivot": [
+    676,
+    462
+   ],
+   "hit": [
+    676,
+    401
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0173/Tien/recovery",
+   "crop": [
+    45,
+    639,
+    540,
+    580
+   ],
+   "pivot": [
+    302,
+    1209
+   ],
+   "hit": [
+    302,
+    1209
+   ],
+   "beam": [
+    302,
+    1209
+   ],
+   "zoom": 0.77
+  },
+  {
+   "image": "Art/V0173/Tien/states",
+   "crop": [
+    960,
+    769,
+    545,
+    187
+   ],
+   "pivot": [
+    1225,
+    944
+   ],
+   "hit": [
+    1225,
+    944
+   ],
+   "beam": [
+    1225,
+    944
+   ],
+   "zoom": 0.99
+  }
+ ],
+ "clips": [
+  {
+   "id": "standing",
+   "title": "站立受击",
+   "duration": 398,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 176,
+     "drawing": 1
+    },
+    {
+     "at": 328,
+     "drawing": 2
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 125
+  },
+  {
+   "id": "knockback",
+   "title": "击退",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 3
+    },
+    {
+     "at": 114,
+     "drawing": 4
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 146
+  },
+  {
+   "id": "smallFloat",
+   "title": "小浮空",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 5
+    },
+    {
+     "at": 113,
+     "drawing": 6
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 145
+  },
+  {
+   "id": "largeFloat",
+   "title": "大浮空",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 7
+    },
+    {
+     "at": 164,
+     "drawing": 8
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 196
+  },
+  {
+   "id": "knockdown",
+   "title": "倒地",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 9
+    },
+    {
+     "at": 114,
+     "drawing": 10
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 146
+  },
+  {
+   "id": "defeat",
+   "title": "战败",
+   "duration": 950,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 165,
+     "drawing": 11
+    },
+    {
+     "at": 388,
+     "drawing": 12
+    },
+    {
+     "at": 900,
+     "drawing": 12
+    }
+   ],
+   "impacts": [],
+   "root": []
+  }
+ ]
+}

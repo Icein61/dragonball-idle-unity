@@ -1,0 +1,607 @@
+{
+  "tool": "built-in imagegen",
+  "assets": {
+    "GokuReaction": {
+      "asset": "Art/Production/V0180/Battle/candidates/GokuReaction.png",
+      "sha256": "f1324c4754852a6a836ca3354c7eb3f39b7acd636f20af858e24aa4d770c71d9",
+      "reference": "Goku",
+      "columns": 4,
+      "rows": 2,
+      "regions": [
+        [
+          119,
+          22,
+          219,
+          390
+        ],
+        [
+          544,
+          57,
+          245,
+          319
+        ],
+        [
+          926,
+          41,
+          345,
+          385
+        ],
+        [
+          1347,
+          123,
+          381,
+          302
+        ],
+        [
+          121,
+          497,
+          225,
+          339
+        ],
+        [
+          536,
+          507,
+          242,
+          247
+        ],
+        [
+          910,
+          499,
+          295,
+          320
+        ],
+        [
+          1319,
+          709,
+          431,
+          130
+        ]
+      ],
+      "prompt": "Generate one original production 2D fighting-game SPRITESHEET: exactly EIGHT separate full-body sprites of the SAME fighter from the supplied project reference (identity, Saiyan-saga costume and ink style reference only). 4 equally sized COLUMNS and 2 equally sized ROWS on real TRANSPARENT alpha, with broad empty gutters, characters never touching the cell edge. Roughly 2:1 wide sheet. Gameplay camera side-on with slight three-quarter view, normal fighter proportions, hand-inked manga linework with crisp cel colors, right side is the incoming attack in every frame, fighter always faces screen RIGHT. No number, text, grid lines, floor, FX or shadow. Animate the same character across two poses per state. Column 1 SMALL AIRBORNE: upper is onset, knees lift slightly, torso tips forward; lower is the held pose, shallow bend, face and chest distinctly downward toward ground. Column 2 HIGH AIRBORNE: upper is onset, torso folds deeply, legs draw in; lower is suspended strong folded body arc, chest and face downward and legs tucked, clearly deeper than column 1. Column 3 KNOCKBACK: upper flinches, head and chest directed toward the blow at screen right, body displaced left; lower hunched / recoiling horizontally to left with chest visibly toward source at right, knees bent and feet trailing, no face-up falling. Column 4 KNOCKDOWN: upper is descent, hips turn and shoulders roll back; lower lies FULLY HORIZONTAL and SUPINE face-up, head and feet clearly visible. Distinct transition poses in upper row, distinct held poses in lower row. Keep character scale, face, hands, shoes and colors consistent. Appropriately snug body shapes for 64-112 pixel runtime sprites. Adult Goku from reference, bare feet, orange Turtle School gi, navy belt and dark blue wrist wraps, black spiked hair.",
+      "review": "击退、倒地已确认。首轮小浮空和大浮空退出候选。"
+    },
+    "VegetaReaction": {
+      "asset": "Art/Production/V0180/Battle/candidates/VegetaReaction.png",
+      "sha256": "9492d0873779d7604087f4923fdbacc6b653913edaa87c0ada5a4eb35ea85ab2",
+      "reference": "Vegeta",
+      "columns": 4,
+      "rows": 2,
+      "regions": [
+        [
+          109,
+          26,
+          226,
+          385
+        ],
+        [
+          542,
+          57,
+          208,
+          304
+        ],
+        [
+          922,
+          81,
+          319,
+          327
+        ],
+        [
+          1337,
+          148,
+          385,
+          288
+        ],
+        [
+          108,
+          498,
+          205,
+          330
+        ],
+        [
+          528,
+          532,
+          223,
+          248
+        ],
+        [
+          902,
+          521,
+          396,
+          285
+        ],
+        [
+          1298,
+          680,
+          446,
+          132
+        ]
+      ],
+      "prompt": "Generate one original production 2D fighting-game SPRITESHEET: exactly EIGHT separate full-body sprites of the SAME fighter from the supplied project reference (identity, Saiyan-saga costume and ink style reference only). 4 equally sized COLUMNS and 2 equally sized ROWS on real TRANSPARENT alpha, with broad empty gutters, characters never touching the cell edge. Roughly 2:1 wide sheet. Gameplay camera side-on with slight three-quarter view, normal fighter proportions, hand-inked manga linework with crisp cel colors, right side is the incoming attack in every frame, fighter always faces screen RIGHT. No number, text, grid lines, floor, FX or shadow. Animate the same character across two poses per state. Column 1 SMALL AIRBORNE: upper is onset, knees lift slightly, torso tips forward; lower is the held pose, shallow bend, face and chest distinctly downward toward ground. Column 2 HIGH AIRBORNE: upper is onset, torso folds deeply, legs draw in; lower is suspended strong folded body arc, chest and face downward and legs tucked, clearly deeper than column 1. Column 3 KNOCKBACK: upper flinches, head and chest directed toward the blow at screen right, body displaced left; lower hunched / recoiling horizontally to left with chest visibly toward source at right, knees bent and feet trailing, no face-up falling. Column 4 KNOCKDOWN: upper is descent, hips turn and shoulders roll back; lower lies FULLY HORIZONTAL and SUPINE face-up, head and feet clearly visible. Distinct transition poses in upper row, distinct held poses in lower row. Keep character scale, face, hands, shoes and colors consistent. Appropriately snug body shapes for 64-112 pixel runtime sprites. Adult Saiyan-era Vegeta from image, short dark upswept hair, white-and-brown Saiyan pauldrons, navy bodysuit, tail belt and gloves/boots.",
+      "review": "击退、倒地已确认。首轮小浮空和大浮空退出候选。"
+    },
+    "PiccoloReaction": {
+      "asset": "Art/Production/V0180/Battle/candidates/PiccoloReaction.png",
+      "sha256": "23e9912c441f419fd537dc4cd83c5e23995fa0ba1af09cc759a4f18f1624daac",
+      "reference": "Piccolo",
+      "columns": 4,
+      "rows": 2,
+      "regions": [
+        [
+          95,
+          61,
+          235,
+          348
+        ],
+        [
+          550,
+          76,
+          230,
+          283
+        ],
+        [
+          923,
+          54,
+          322,
+          356
+        ],
+        [
+          1371,
+          84,
+          350,
+          325
+        ],
+        [
+          98,
+          538,
+          229,
+          291
+        ],
+        [
+          556,
+          520,
+          225,
+          228
+        ],
+        [
+          892,
+          526,
+          301,
+          286
+        ],
+        [
+          1338,
+          680,
+          424,
+          148
+        ]
+      ],
+      "prompt": "Generate one original production 2D fighting-game SPRITESHEET: exactly EIGHT separate full-body sprites of the SAME fighter from the supplied project reference (identity, Saiyan-saga costume and ink style reference only). 4 equally sized COLUMNS and 2 equally sized ROWS on real TRANSPARENT alpha, with broad empty gutters, characters never touching the cell edge. Roughly 2:1 wide sheet. Gameplay camera side-on with slight three-quarter view, normal fighter proportions, hand-inked manga linework with crisp cel colors, right side is the incoming attack in every frame, fighter always faces screen RIGHT. No number, text, grid lines, floor, FX or shadow. Animate the same character across two poses per state. Column 1 SMALL AIRBORNE: upper is onset, knees lift slightly, torso tips forward; lower is the held pose, shallow bend, face and chest distinctly downward toward ground. Column 2 HIGH AIRBORNE: upper is onset, torso folds deeply, legs draw in; lower is suspended strong folded body arc, chest and face downward and legs tucked, clearly deeper than column 1. Column 3 KNOCKBACK: upper flinches, head and chest directed toward the blow at screen right, body displaced left; lower hunched / recoiling horizontally to left with chest visibly toward source at right, knees bent and feet trailing, no face-up falling. Column 4 KNOCKDOWN: upper is descent, hips turn and shoulders roll back; lower lies FULLY HORIZONTAL and SUPINE face-up, head and feet clearly visible. Distinct transition poses in upper row, distinct held poses in lower row. Keep character scale, face, hands, shoes and colors consistent. Appropriately snug body shapes for 64-112 pixel runtime sprites. Adult green Piccolo, exactly two curved antennae and pink arm pads, purple sleeveless gi, blue sash, brown boots, no cape or turban.",
+      "review": "击退、倒地已确认。首轮小浮空和大浮空退出候选。"
+    },
+    "GohanReaction": {
+      "asset": "Art/Production/V0180/Battle/candidates/GohanReaction.png",
+      "sha256": "2401abfd5531860838d37ef049bb59264111e84bb03a12a0a1683c798b0aba5d",
+      "reference": "Gohan",
+      "columns": 4,
+      "rows": 2,
+      "regions": [
+        [
+          121,
+          49,
+          200,
+          361
+        ],
+        [
+          574,
+          63,
+          216,
+          301
+        ],
+        [
+          934,
+          51,
+          313,
+          353
+        ],
+        [
+          1343,
+          105,
+          382,
+          314
+        ],
+        [
+          134,
+          514,
+          203,
+          313
+        ],
+        [
+          564,
+          524,
+          229,
+          242
+        ],
+        [
+          927,
+          503,
+          242,
+          322
+        ],
+        [
+          1338,
+          672,
+          405,
+          151
+        ]
+      ],
+      "prompt": "Generate one original production 2D fighting-game SPRITESHEET: exactly EIGHT separate full-body sprites of the SAME fighter from the supplied project reference (identity, Saiyan-saga costume and ink style reference only). 4 equally sized COLUMNS and 2 equally sized ROWS on real TRANSPARENT alpha, with broad empty gutters, characters never touching the cell edge. Roughly 2:1 wide sheet. Gameplay camera side-on with slight three-quarter view, normal fighter proportions, hand-inked manga linework with crisp cel colors, right side is the incoming attack in every frame, fighter always faces screen RIGHT. No number, text, grid lines, floor, FX or shadow. Animate the same character across two poses per state. Column 1 SMALL AIRBORNE: upper is onset, knees lift slightly, torso tips forward; lower is the held pose, shallow bend, face and chest distinctly downward toward ground. Column 2 HIGH AIRBORNE: upper is onset, torso folds deeply, legs draw in; lower is suspended strong folded body arc, chest and face downward and legs tucked, clearly deeper than column 1. Column 3 KNOCKBACK: upper flinches, head and chest directed toward the blow at screen right, body displaced left; lower hunched / recoiling horizontally to left with chest visibly toward source at right, knees bent and feet trailing, no face-up falling. Column 4 KNOCKDOWN: upper is descent, hips turn and shoulders roll back; lower lies FULLY HORIZONTAL and SUPINE face-up, head and feet clearly visible. Distinct transition poses in upper row, distinct held poses in lower row. Keep character scale, face, hands, shoes and colors consistent. Appropriately snug body shapes for 64-112 pixel runtime sprites. Small child Gohan, black hair and white neck scarf, violet gi, red ties and yellow shoes. Keep the child face and proportions.",
+      "review": "击退、倒地已确认。首轮小浮空和大浮空退出候选。"
+    },
+    "KrillinReaction": {
+      "asset": "Art/Production/V0180/Battle/candidates/KrillinReaction.png",
+      "sha256": "1ffeb87ca590c25ee774733be318c4aaf6de4971f118e5865188bb7cc548f1ac",
+      "reference": "Krillin",
+      "columns": 4,
+      "rows": 2,
+      "regions": [
+        [
+          123,
+          47,
+          195,
+          361
+        ],
+        [
+          554,
+          70,
+          211,
+          317
+        ],
+        [
+          923,
+          51,
+          310,
+          364
+        ],
+        [
+          1352,
+          109,
+          376,
+          314
+        ],
+        [
+          128,
+          504,
+          204,
+          312
+        ],
+        [
+          549,
+          532,
+          218,
+          230
+        ],
+        [
+          907,
+          525,
+          256,
+          296
+        ],
+        [
+          1316,
+          667,
+          419,
+          154
+        ]
+      ],
+      "prompt": "Generate one original production 2D fighting-game SPRITESHEET: exactly EIGHT separate full-body sprites of the SAME fighter from the supplied project reference (identity, Saiyan-saga costume and ink style reference only). 4 equally sized COLUMNS and 2 equally sized ROWS on real TRANSPARENT alpha, with broad empty gutters, characters never touching the cell edge. Roughly 2:1 wide sheet. Gameplay camera side-on with slight three-quarter view, normal fighter proportions, hand-inked manga linework with crisp cel colors, right side is the incoming attack in every frame, fighter always faces screen RIGHT. No number, text, grid lines, floor, FX or shadow. Animate the same character across two poses per state. Column 1 SMALL AIRBORNE: upper is onset, knees lift slightly, torso tips forward; lower is the held pose, shallow bend, face and chest distinctly downward toward ground. Column 2 HIGH AIRBORNE: upper is onset, torso folds deeply, legs draw in; lower is suspended strong folded body arc, chest and face downward and legs tucked, clearly deeper than column 1. Column 3 KNOCKBACK: upper flinches, head and chest directed toward the blow at screen right, body displaced left; lower hunched / recoiling horizontally to left with chest visibly toward source at right, knees bent and feet trailing, no face-up falling. Column 4 KNOCKDOWN: upper is descent, hips turn and shoulders roll back; lower lies FULLY HORIZONTAL and SUPINE face-up, head and feet clearly visible. Distinct transition poses in upper row, distinct held poses in lower row. Keep character scale, face, hands, shoes and colors consistent. Appropriately snug body shapes for 64-112 pixel runtime sprites. Short adult Krillin, bald with six forehead dots, orange sleeveless gi over dark blue underlayer, white socks, navy shoes.",
+      "review": "击退、倒地已确认。首轮小浮空和大浮空退出候选。"
+    },
+    "RaditzReaction": {
+      "asset": "Art/Production/V0180/Battle/candidates/RaditzReaction.png",
+      "sha256": "3c1bf9faa49809b93129edaa92c45f370b6af9ae840403df9152159e589ddfce",
+      "reference": "Raditz",
+      "columns": 4,
+      "rows": 2,
+      "regions": [
+        [
+          93,
+          27,
+          214,
+          387
+        ],
+        [
+          533,
+          21,
+          263,
+          354
+        ],
+        [
+          925,
+          41,
+          359,
+          381
+        ],
+        [
+          1369,
+          101,
+          381,
+          316
+        ],
+        [
+          92,
+          496,
+          240,
+          334
+        ],
+        [
+          544,
+          499,
+          255,
+          292
+        ],
+        [
+          889,
+          513,
+          318,
+          327
+        ],
+        [
+          1342,
+          706,
+          415,
+          129
+        ]
+      ],
+      "prompt": "Generate one original production 2D fighting-game SPRITESHEET: exactly EIGHT separate full-body sprites of the SAME fighter from the supplied project reference (identity, Saiyan-saga costume and ink style reference only). 4 equally sized COLUMNS and 2 equally sized ROWS on real TRANSPARENT alpha, with broad empty gutters, characters never touching the cell edge. Roughly 2:1 wide sheet. Gameplay camera side-on with slight three-quarter view, normal fighter proportions, hand-inked manga linework with crisp cel colors, right side is the incoming attack in every frame, fighter always faces screen RIGHT. No number, text, grid lines, floor, FX or shadow. Animate the same character across two poses per state. Column 1 SMALL AIRBORNE: upper is onset, knees lift slightly, torso tips forward; lower is the held pose, shallow bend, face and chest distinctly downward toward ground. Column 2 HIGH AIRBORNE: upper is onset, torso folds deeply, legs draw in; lower is suspended strong folded body arc, chest and face downward and legs tucked, clearly deeper than column 1. Column 3 KNOCKBACK: upper flinches, head and chest directed toward the blow at screen right, body displaced left; lower hunched / recoiling horizontally to left with chest visibly toward source at right, knees bent and feet trailing, no face-up falling. Column 4 KNOCKDOWN: upper is descent, hips turn and shoulders roll back; lower lies FULLY HORIZONTAL and SUPINE face-up, head and feet clearly visible. Distinct transition poses in upper row, distinct held poses in lower row. Keep character scale, face, hands, shoes and colors consistent. Appropriately snug body shapes for 64-112 pixel runtime sprites. Saiyan Raditz, very long black spiky hair, green scouter, brown-and-black plate armor with white trim, dark greaves and bare thighs. Fit hair inside cell.",
+      "review": "击退、倒地已确认。首轮小浮空和大浮空退出候选。"
+    },
+    "YamchaReaction": {
+      "asset": "Art/Production/V0180/Battle/candidates/YamchaReaction.png",
+      "sha256": "f8a6da9966a9ecc91f693b599299b722a7669ec47eb2c747817d2034f0e6e0ec",
+      "reference": "Yamcha",
+      "columns": 4,
+      "rows": 2,
+      "regions": [
+        [
+          133,
+          55,
+          224,
+          364
+        ],
+        [
+          544,
+          48,
+          245,
+          312
+        ],
+        [
+          939,
+          54,
+          318,
+          368
+        ],
+        [
+          1363,
+          115,
+          366,
+          295
+        ],
+        [
+          132,
+          510,
+          217,
+          323
+        ],
+        [
+          548,
+          485,
+          216,
+          257
+        ],
+        [
+          928,
+          522,
+          259,
+          293
+        ],
+        [
+          1331,
+          674,
+          423,
+          141
+        ]
+      ],
+      "prompt": "Generate one original production 2D fighting-game SPRITESHEET: exactly EIGHT separate full-body sprites of the SAME fighter from the supplied project reference (identity, Saiyan-saga costume and ink style reference only). 4 equally sized COLUMNS and 2 equally sized ROWS on real TRANSPARENT alpha, with broad empty gutters, characters never touching the cell edge. Roughly 2:1 wide sheet. Gameplay camera side-on with slight three-quarter view, normal fighter proportions, hand-inked manga linework with crisp cel colors, right side is the incoming attack in every frame, fighter always faces screen RIGHT. No number, text, grid lines, floor, FX or shadow. Animate the same character across two poses per state. Column 1 SMALL AIRBORNE: upper is onset, knees lift slightly, torso tips forward; lower is the held pose, shallow bend, face and chest distinctly downward toward ground. Column 2 HIGH AIRBORNE: upper is onset, torso folds deeply, legs draw in; lower is suspended strong folded body arc, chest and face downward and legs tucked, clearly deeper than column 1. Column 3 KNOCKBACK: upper flinches, head and chest directed toward the blow at screen right, body displaced left; lower hunched / recoiling horizontally to left with chest visibly toward source at right, knees bent and feet trailing, no face-up falling. Column 4 KNOCKDOWN: upper is descent, hips turn and shoulders roll back; lower lies FULLY HORIZONTAL and SUPINE face-up, head and feet clearly visible. Distinct transition poses in upper row, distinct held poses in lower row. Keep character scale, face, hands, shoes and colors consistent. Appropriately snug body shapes for 64-112 pixel runtime sprites. Adult Yamcha, shoulder-length shaggy dark hair, cheek scar, orange gi with navy belt, navy boots with white ankle wraps.",
+      "review": "击退、倒地已确认。首轮小浮空和大浮空退出候选。"
+    },
+    "TienReaction": {
+      "asset": "Art/Production/V0180/Battle/candidates/TienReaction.png",
+      "sha256": "46b6c30e0086b5e8fe7c678557d48bd59ef382241e1e3c615aa46e9ab9d427af",
+      "reference": "Tien",
+      "columns": 4,
+      "rows": 2,
+      "regions": [
+        [
+          119,
+          68,
+          245,
+          319
+        ],
+        [
+          556,
+          80,
+          217,
+          259
+        ],
+        [
+          921,
+          70,
+          321,
+          326
+        ],
+        [
+          1369,
+          97,
+          345,
+          281
+        ],
+        [
+          127,
+          546,
+          214,
+          262
+        ],
+        [
+          560,
+          506,
+          198,
+          228
+        ],
+        [
+          898,
+          534,
+          275,
+          268
+        ],
+        [
+          1316,
+          691,
+          443,
+          127
+        ]
+      ],
+      "prompt": "Generate one original production 2D fighting-game SPRITESHEET: exactly EIGHT separate full-body sprites of the SAME fighter from the supplied project reference (identity, Saiyan-saga costume and ink style reference only). 4 equally sized COLUMNS and 2 equally sized ROWS on real TRANSPARENT alpha, with broad empty gutters, characters never touching the cell edge. Roughly 2:1 wide sheet. Gameplay camera side-on with slight three-quarter view, normal fighter proportions, hand-inked manga linework with crisp cel colors, right side is the incoming attack in every frame, fighter always faces screen RIGHT. No number, text, grid lines, floor, FX or shadow. Animate the same character across two poses per state. Column 1 SMALL AIRBORNE: upper is onset, knees lift slightly, torso tips forward; lower is the held pose, shallow bend, face and chest distinctly downward toward ground. Column 2 HIGH AIRBORNE: upper is onset, torso folds deeply, legs draw in; lower is suspended strong folded body arc, chest and face downward and legs tucked, clearly deeper than column 1. Column 3 KNOCKBACK: upper flinches, head and chest directed toward the blow at screen right, body displaced left; lower hunched / recoiling horizontally to left with chest visibly toward source at right, knees bent and feet trailing, no face-up falling. Column 4 KNOCKDOWN: upper is descent, hips turn and shoulders roll back; lower lies FULLY HORIZONTAL and SUPINE face-up, head and feet clearly visible. Distinct transition poses in upper row, distinct held poses in lower row. Keep character scale, face, hands, shoes and colors consistent. Appropriately snug body shapes for 64-112 pixel runtime sprites. Adult Tien, bald with exactly three eyes, bare muscular torso, forest-green pants, red waist tie and red wraps, white ankle wraps and dark shoes.",
+      "review": "击退、倒地已确认。首轮小浮空和大浮空退出候选。"
+    },
+    "GokuCombat": {
+      "asset": "Art/Production/V0180/Battle/candidates/GokuCombat.png",
+      "sha256": "62648af7c01dd0dbe09101a9903e676ac0fd53c8953885ba222911f505907bf5",
+      "reference": "Goku",
+      "columns": 4,
+      "rows": 3,
+      "regions": [
+        [
+          52,
+          9,
+          254,
+          339
+        ],
+        [
+          412,
+          16,
+          223,
+          332
+        ],
+        [
+          745,
+          24,
+          305,
+          320
+        ],
+        [
+          1133,
+          14,
+          269,
+          330
+        ],
+        [
+          53,
+          374,
+          231,
+          333
+        ],
+        [
+          389,
+          369,
+          294,
+          338
+        ],
+        [
+          741,
+          370,
+          348,
+          337
+        ],
+        [
+          1124,
+          365,
+          273,
+          343
+        ],
+        [
+          52,
+          785,
+          235,
+          279
+        ],
+        [
+          380,
+          786,
+          317,
+          278
+        ],
+        [
+          748,
+          724,
+          307,
+          338
+        ],
+        [
+          1118,
+          805,
+          282,
+          259
+        ]
+      ],
+      "prompt": "Original 2D game sprite animation sheet for this exact adult Goku of our project. Orange Turtle School gi, navy belt, ring crest, black hair, barefoot in every cell. Very clean hand-inked C-style anime linework with consistent cel colors. True transparent background, full body. 4 equal columns x 3 equal rows, twelve independent figures with spacious transparent gutters. Camera entire sequence side-on and slightly three-quarter, actions face SCREEN RIGHT, strong grounded martial arts. No text, environment, SFX or FX; no ground shadows. Row 1: [low stable guard both feet planted], [guard compression with closer fists for idle action], [low run stride left forward planted], [opposite run stride right forward planted]. Row 2: [compressed twist first jab preparation], [straight left jab contacting screen-right target with stable rooted back foot], [deep strong second right cross with straight attacking arm, hip transfer and back toes planted], [grounded recoil to guard]. Row 3: [low sweep prep, crouch one hand guarding], [low sweeping shin and foot striking near ground to screen right, other foot bearing weight], [pursuit uppercut, fist visibly reaches up and forward with both feet near the floor], [kneeling three-point landing, hands and feet visible]. No jumps or hovering except subtle extension required for pursuit, no rotation of the camera, true alpha transparent.",
+      "review": "悟空整套已确认"
+    },
+    "GokuBeam": {
+      "asset": "Art/Production/V0180/Battle/candidates/GokuBeam.png",
+      "sha256": "cdc1d03b9cea4d3d36771e2ea78d40eb59ea73b14ed79b6bddc62dd7c3c4d097",
+      "reference": "Goku",
+      "columns": 3,
+      "rows": 2,
+      "regions": [
+        [
+          67,
+          16,
+          343,
+          462
+        ],
+        [
+          521,
+          49,
+          441,
+          431
+        ],
+        [
+          1041,
+          79,
+          442,
+          400
+        ],
+        [
+          34,
+          551,
+          410,
+          448
+        ],
+        [
+          532,
+          547,
+          425,
+          455
+        ],
+        [
+          1062,
+          540,
+          393,
+          461
+        ]
+      ],
+      "prompt": "Original fighting game gameplay sprite sheet, adult Saiyan-era Goku matching reference, orange Turtle School gi with front emblem and dark blue waist and wrist wraps, black spiked hair, barefoot. Six full body sprites in exact 3 columns × 2 rows, wide layout with independent transparent gutters, authentic hand-inked cel-shaded comic game style. Camera side and three-quarter from SAME direction across all six, facing screen RIGHT. Every frame has bare feet firmly planted on an imaginary ground line, bent knees and stable hips, muscular compact athletic proportions. Row 1 left to right: [guard then wide grounded lunge prep], [deep lunge, hands cupped low near rear hip gathering Kamehameha], [compressed crouch coil with both cupped palms near rear hip, shoulders wound]. Row 2: [push transition with both palms passing centerline], [both arms fully pushed toward screen right, palms and fingers visible, strength braced through grounded feet], [lower the arms into guarded low stance, weight planted]. No effects at all, NO beams or glow, no backgrounds, no floor shadows, no lettering. Actual alpha transparent background. Keep each whole figure centered and scaled in its cell, no cut off limbs.",
+      "review": "悟空整套已确认"
+    }
+  }
+}

@@ -1,0 +1,406 @@
+{
+ "atlas": [
+  {
+   "image": "Art/V050/vegeta-test-atlas",
+   "crop": [
+    996,
+    337,
+    231,
+    305
+   ],
+   "pivot": [
+    1111,
+    640
+   ],
+   "hit": [
+    1146,
+    455
+   ],
+   "beam": [
+    1146,
+    455
+   ],
+   "zoom": 1.63
+  },
+  {
+   "image": "Art/V050/vegeta-test-atlas",
+   "crop": [
+    743,
+    31,
+    204,
+    270
+   ],
+   "pivot": [
+    845,
+    299
+   ],
+   "hit": [
+    875,
+    136
+   ],
+   "beam": [
+    875,
+    136
+   ],
+   "zoom": 1.63
+  },
+  {
+   "image": "Art/V050/vegeta-test-atlas",
+   "crop": [
+    505,
+    7,
+    211,
+    295
+   ],
+   "pivot": [
+    610,
+    300
+   ],
+   "hit": [
+    642,
+    122
+   ],
+   "beam": [
+    642,
+    122
+   ],
+   "zoom": 1.63
+  },
+  {
+   "image": "Art/V0180/Battle/Vegeta/ReactionPoses",
+   "crop": [
+    4,
+    4,
+    319,
+    327
+   ],
+   "zoom": 1.04913,
+   "pivot": [
+    163,
+    328
+   ],
+   "hit": [
+    163,
+    167
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Vegeta/ReactionPoses",
+   "crop": [
+    4,
+    339,
+    396,
+    285
+   ],
+   "zoom": 1.04913,
+   "pivot": [
+    202,
+    621
+   ],
+   "hit": [
+    202,
+    481
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Vegeta/FloatPoses",
+   "crop": [
+    4,
+    4,
+    410,
+    273
+   ],
+   "zoom": 0.968236,
+   "pivot": [
+    209,
+    274
+   ],
+   "hit": [
+    209,
+    113
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Vegeta/FloatPoses",
+   "crop": [
+    424,
+    4,
+    405,
+    278
+   ],
+   "zoom": 0.968236,
+   "pivot": [
+    626,
+    279
+   ],
+   "hit": [
+    626,
+    115
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Vegeta/FloatPoses",
+   "crop": [
+    4,
+    307,
+    400,
+    295
+   ],
+   "zoom": 0.968236,
+   "pivot": [
+    204,
+    599
+   ],
+   "hit": [
+    204,
+    425
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Vegeta/FloatPoses",
+   "crop": [
+    424,
+    307,
+    412,
+    276
+   ],
+   "zoom": 0.968236,
+   "pivot": [
+    630,
+    580
+   ],
+   "hit": [
+    630,
+    417
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Vegeta/ReactionPoses",
+   "crop": [
+    458,
+    4,
+    385,
+    288
+   ],
+   "zoom": 1.04913,
+   "pivot": [
+    650,
+    289
+   ],
+   "hit": [
+    650,
+    148
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0180/Battle/Vegeta/ReactionPoses",
+   "crop": [
+    458,
+    339,
+    446,
+    132
+   ],
+   "zoom": 1.04913,
+   "pivot": [
+    681,
+    468
+   ],
+   "hit": [
+    681,
+    405
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V050/vegeta-test-atlas",
+   "crop": [
+    1269,
+    349,
+    258,
+    294
+   ],
+   "pivot": [
+    1398,
+    641
+   ],
+   "hit": [
+    1436,
+    463
+   ],
+   "beam": [
+    1436,
+    463
+   ],
+   "zoom": 1.63
+  },
+  {
+   "image": "Art/V050/vegeta-test-atlas",
+   "crop": [
+    748,
+    727,
+    195,
+    267
+   ],
+   "pivot": [
+    845,
+    992
+   ],
+   "hit": [
+    874,
+    831
+   ],
+   "beam": [
+    874,
+    831
+   ],
+   "zoom": 1.63
+  },
+  {
+   "image": "Art/V050/vegeta-test-atlas",
+   "crop": [
+    968,
+    847,
+    302,
+    128
+   ],
+   "pivot": [
+    1119,
+    973
+   ],
+   "hit": [
+    1164,
+    896
+   ],
+   "beam": [
+    1164,
+    896
+   ],
+   "zoom": 1.63
+  }
+ ],
+ "clips": [
+  {
+   "id": "standing",
+   "title": "standing",
+   "duration": 426,
+   "reactionHoldAt": 120,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 246,
+     "drawing": 1
+    },
+    {
+     "at": 355,
+     "drawing": 2
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "knockback",
+   "title": "knockback",
+   "duration": 425,
+   "reactionHoldAt": 146,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 3
+    },
+    {
+     "at": 114,
+     "drawing": 4
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "smallFloat",
+   "title": "smallFloat",
+   "duration": 425,
+   "reactionHoldAt": 145,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 5
+    },
+    {
+     "at": 113,
+     "drawing": 6
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "largeFloat",
+   "title": "largeFloat",
+   "duration": 425,
+   "reactionHoldAt": 196,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 7
+    },
+    {
+     "at": 164,
+     "drawing": 8
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "knockdown",
+   "title": "knockdown",
+   "duration": 425,
+   "reactionHoldAt": 146,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 9
+    },
+    {
+     "at": 114,
+     "drawing": 10
+    }
+   ],
+   "root": [],
+   "impacts": []
+  },
+  {
+   "id": "defeat",
+   "title": "defeat",
+   "duration": 900,
+   "reactionHoldAt": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 11
+    },
+    {
+     "at": 150,
+     "drawing": 12
+    },
+    {
+     "at": 380,
+     "drawing": 13
+    }
+   ],
+   "root": [],
+   "impacts": []
+  }
+ ]
+}
