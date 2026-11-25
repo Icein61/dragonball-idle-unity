@@ -20,6 +20,7 @@ WORKBOOK = ROOT / "outputs/character/character.xlsx"
 BINDINGS = ROOT / "Tools/round-character-assets.json"
 CATALOG = ASSETS / "Core/RoundSheetCatalog.cs"
 KITS = ASSETS / "Resources/Config/Characters/RoundKits.json"
+PORTRAITS = ASSETS / "Resources/Config/Characters/RoundPortraits.json"
 N = {
     "s": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
     "pr": "http://schemas.openxmlformats.org/package/2006/relationships",
@@ -332,7 +333,7 @@ def render_catalog(cards, featured):
     entries = "\n".join(
         '   { '+quote(c["id"])+', new RoundSheetCard('+', '.join(
             [quote(c["name"]), quote(c["title"]), quote(c["rarity"]), "CharacterType."+c["type"], str(c["number"]),
-             quote(c["portrait"]), 'new[]{'+', '.join(map(quote, c["tags"]))+'}',
+             'new[]{'+', '.join(map(quote, c["tags"]))+'}',
              *map(quote,c["potentials"])])+') },'
         for c in cards
     )
@@ -343,13 +344,13 @@ using System.Collections.Generic;
 
 namespace DragonIdle {{
  internal sealed class RoundSheetCard {{
-  internal readonly string Name,Title,Rarity,Portrait,AttackPotential,DefensePotential,HpPotential;
+  internal readonly string Name,Title,Rarity,AttackPotential,DefensePotential,HpPotential;
   internal readonly CharacterType Type;
   internal readonly int Number;
   internal readonly string[] Tags;
 
-  internal RoundSheetCard(string name,string title,string rarity,CharacterType type,int number,string portrait,string[] tags,string attackPotential,string defensePotential,string hpPotential){{
-   Name=name;Title=title;Rarity=rarity;Type=type;Number=number;Portrait=portrait;Tags=tags;
+  internal RoundSheetCard(string name,string title,string rarity,CharacterType type,int number,string[] tags,string attackPotential,string defensePotential,string hpPotential){{
+   Name=name;Title=title;Rarity=rarity;Type=type;Number=number;Tags=tags;
    AttackPotential=attackPotential;DefensePotential=defensePotential;HpPotential=hpPotential;
   }}
  }}
@@ -529,10 +530,15 @@ def sheet_sync(workbook, check):
         catalog = render_catalog(cards, featured)
         stale_catalog = old_catalog != catalog
         stale_kits = old_kits != {"cards": kits}
+        portrait_payload = {
+            "cards": [{"cardId": card["id"], "portrait": card["portrait"]} for card in cards]
+        }
+        old_portraits = json.loads(PORTRAITS.read_text(encoding="utf-8-sig")) if PORTRAITS.exists() else None
+        stale_portraits = old_portraits != portrait_payload
         if not check and workbook.read_bytes() != origin:
             raise ValueError("同步期间工作簿已更新，请保存后重新打包")
         if check:
-            if stale_catalog or stale_kits or entries:
+            if stale_catalog or stale_kits or stale_portraits or entries:
                 raise ValueError("角色表、运行配置或立绘尚未同步")
         elif entries:
             result = io.BytesIO()
@@ -557,6 +563,8 @@ def sheet_sync(workbook, check):
                 atomic_write(CATALOG, catalog.encode("utf-8"))
             if stale_kits:
                 atomic_write(KITS, (json.dumps({"cards": kits}, ensure_ascii=False, indent=1)+"\n").encode("utf-8"))
+            if stale_portraits:
+                atomic_write(PORTRAITS, (json.dumps(portrait_payload, ensure_ascii=False, indent=1)+"\n").encode("utf-8"))
     print(f"CHARACTER_SHEET_PASS online={len(cards)} featured={featured} portraits_updated={portrait_changes} chain_cells_updated={len(statistics)}", flush=True)
 
 

@@ -104,8 +104,8 @@ namespace DragonIdle {
   void ShowAcquisition(int i){
    var c=Data.Cards[i];var panel=NewGalleryDialog("获取 · "+c.Name,c.Title+" / "+c.Stage+" / "+c.Rarity+"。重复获得将转为本张卡的专属成长资源。");
    float y=160;
-   if(Data.InSaiyanPool(c)){UButton(panel,"GoSaiyanPool","前往赛亚人篇召唤 · 独立保底",26,y,682,46,()=>{saiyanPool=true;NavigateGallery("召唤");});y+=66;}
-   if(Data.InClassicPool(c)){UButton(panel,"GoLegacyPool","前往基础常驻召唤 · 仅赛亚人篇",26,y,682,46,()=>{saiyanPool=false;NavigateGallery("召唤");});y+=66;}
+   if(Data.InSaiyanPool(c)){UButton(panel,"GoSaiyanPool","前往赛亚人篇召唤 · 独立保底",26,y,682,46,()=>{saiyanPool=true;NavigateGallery(PageRoute.LegacySummon);});y+=66;}
+   if(Data.InClassicPool(c)){UButton(panel,"GoLegacyPool","前往基础常驻召唤 · 仅赛亚人篇",26,y,682,46,()=>{saiyanPool=false;NavigateGallery(PageRoute.LegacySummon);});y+=66;}
    UText(panel,"PityInfo","每抽 50 晶石。概率和保底进度可在召唤页查看。",26,y+5,682,62,16,uiDim);
   }
   UI.Slider AudioSlider(Transform parent,string title,float y,float value,Action<float> update){

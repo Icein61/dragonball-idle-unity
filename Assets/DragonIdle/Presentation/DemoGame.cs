@@ -7,7 +7,11 @@ using UnityEngine;
 namespace DragonIdle {
  public partial class DemoGame:MonoBehaviour {
   Profile profile;Battle battle;BattleEvent last;
-  string page="主页",notice="",reward="",savePath,saveError="";
+  PageRoute page=PageRoute.Home;
+  string notice="",reward="";
+  readonly ProfileStore profileStore=new ProfileStore();
+  string savePath {get=>profileStore.FilePath;set=>profileStore.FilePath=value;}
+  string saveError {get=>profileStore.SaveError;set=>profileStore.SaveError=value;}
   int selectedCard,selectedSlot,seed=1024,rate=1;bool running,settled,autoRepeat,paused;
   float clock,fx,repeatTimer,saveClock;Font font;Texture2D disc;
   List<string> log=new List<string>();
@@ -18,39 +22,35 @@ namespace DragonIdle {
    font=Font.CreateDynamicFontFromOSFont(new[]{"Microsoft YaHei","SimHei","Arial"},20);
    disc=new Texture2D(64,64);for(int y=0;y<64;y++)for(int x=0;x<64;x++)disc.SetPixel(x,y,Vector2.Distance(new Vector2(x,y),new Vector2(31.5f,31.5f))<31?Color.white:Color.clear);disc.Apply();
    string[] args=Environment.GetCommandLineArgs();
-   int saveArg=Array.IndexOf(args,"-savePath");savePath=saveArg>=0&&saveArg+1<args.Length?args[saveArg+1]:Data.DefaultSavePath(Application.persistentDataPath);
-   if(args.Contains("-logicSmoke")&&saveArg<0){Debug.LogError("Smoke requires isolated -savePath");Application.Quit(1);return;}
+   int saveArg=Array.IndexOf(args,"-savePath");
+   string explicitSave=saveArg>=0&&saveArg+1<args.Length?args[saveArg+1]:null;
+   bool logicSmoke=args.Contains("-logicSmoke"),profileSmoke=args.Contains("-profileSmoke");
+   if((logicSmoke||profileSmoke)&&(string.IsNullOrWhiteSpace(explicitSave)||explicitSave.StartsWith("-"))){
+    Debug.LogError("Smoke requires isolated -savePath");
+    Application.Quit(1);
+    return;
+   }
+   savePath=explicitSave??Data.DefaultSavePath(Application.persistentDataPath);
    Load();
-   InitializeMenuAudio(args.Contains("-logicSmoke")||Application.isBatchMode);
-   if(args.Contains("-logicSmoke")){StartCoroutine(RunRoundSmoke(args));return;}
-   BeginShellLoad("主页");
+   if(profileSmoke){RunProfileSmoke(args);return;}
+   InitializeMenuAudio(logicSmoke||Application.isBatchMode);
+   if(logicSmoke){StartCoroutine(RunRoundSmoke(args));return;}
+   BeginShellLoad(PageRoute.Home);
   }
   void Load(){
-   try{if(File.Exists(savePath)){
-    profile=JsonUtility.FromJson<Profile>(File.ReadAllText(savePath));if(profile==null)throw new Exception("空存档");
-    bool rosterMigration=profile.NeedsRosterMigration,formationMigration=profile.NeedsFormationMigration;
-    if(rosterMigration||formationMigration)File.Copy(savePath,savePath+(profile.schemaVersion<3?".pre-v041-":rosterMigration?".pre-v080-":".pre-v0120-")+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak",false);
-    bool roundMigration=profile.NeedsRoundRosterMigration;
-    if(roundMigration)File.Copy(savePath,savePath+".pre-v0144-"+DateTime.UtcNow.ToString("yyyyMMddHHmmssfff")+".bak",false);
-    profile.Normalize();profile.CreateTeam();
-    if(roundMigration){profile.MigrateRoundRoster();Save();}
-    if(formationMigration)notice="已升级为前三后三。原成员仍在收藏中。";
-    if(rosterMigration)notice+=" 退役卡成长已归档，装备已退回背包。";
-   }else{profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;Save();}}
-   catch(Exception ex){profile=new Profile();profile.LastClaimTicks=DateTime.UtcNow.Ticks;saveError="存档读取失败，原文件保留。请检查备份："+ex.Message;}
+   var loaded=profileStore.Open();
+   profile=loaded.Profile;
+   if(loaded.FormationMigration)notice="已升级为前三后三。原成员仍在收藏中。";
+   if(loaded.RosterMigration)notice+=" 退役卡成长已归档，装备已退回背包。";
   }
-  void Save(){
-   if(saveError!="")throw new IOException(saveError);
-   profile.Validate();Directory.CreateDirectory(Path.GetDirectoryName(savePath));string tmp=savePath+".tmp";File.WriteAllText(tmp,JsonUtility.ToJson(profile,true));
-   if(File.Exists(savePath))File.Replace(tmp,savePath,savePath+".bak");else File.Move(tmp,savePath);
-  }
+  void Save()=>profileStore.Write(profile);
   bool Change(Action change){
    string before=JsonUtility.ToJson(profile);
    try{change();Save();galleryDirty=true;return true;}catch(Exception ex){profile=JsonUtility.FromJson<Profile>(before);notice="保存失败，本次操作已撤回："+ex.Message;return false;}
   }
   void StartBattle(){
    if(saveError!=""){notice=saveError;return;}
-   ClearBattlePresentation();battle=storyMode?profile.NewStoryBattle(profile.StorySelected,++seed):profile.NewBattle(profile.SelectedStage,++seed);log.Clear();last=null;reward="";settled=false;running=true;paused=false;clock=0;page="挑战";repeatTimer=0;
+   ClearBattlePresentation();battle=storyMode?profile.NewStoryBattle(profile.StorySelected,++seed):profile.NewBattle(profile.SelectedStage,++seed);log.Clear();last=null;reward="";settled=false;running=true;paused=false;clock=0;page=PageRoute.LegacyChallenge;repeatTimer=0;
   }
   void Advance(){
    if(battle==null)return;
@@ -97,13 +97,13 @@ namespace DragonIdle {
    Label(955,28,610,38,"素材  "+profile.Materials+"     晶石  "+profile.Crystals+"     珠子  "+profile.Gems,19,InkOnDark);
 
    for(int i=0;i<FeatureRoutes.Length;i++){
-    string target=FeatureRoutes[i];
-    if(InkGuiButton(18,126+i*62,154,45,target,enabled:!running||target=="挑战",selected:target=="挑战")&&target!="挑战"){
+    PageRoute target=FeatureRoutes[i];
+    if(InkGuiButton(18,126+i*62,154,45,RouteLabel(target),enabled:!running||target==PageRoute.LegacyChallenge,selected:target==PageRoute.LegacyChallenge)&&target!=PageRoute.LegacyChallenge){
      OpenFeature(target);
      return;
     }
    }
-   if(InkGuiButton(18,819,154,47,"返回主页",enabled:!running)){NavigateGallery("主页");return;}
+   if(InkGuiButton(18,819,154,47,"返回主页",enabled:!running)){NavigateGallery(PageRoute.Home);return;}
    DrawChapterSelection();
    InkGuiSurface(224,280,1045,440,InkPaper);
    // Side fields keep formation readable while the fight crosses a light, clear center.
@@ -148,15 +148,15 @@ namespace DragonIdle {
    StartBattle();for(int i=0;i<12;i++)Advance();yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"02-battle.png"));yield return new WaitForSeconds(.5f);
    int events=0;while(running&&events++<2000)Advance();
    if(battle.Result!=1||!settled)throw new Exception("Smoke battle failed");
-   int wins=profile.Wins;profile=JsonUtility.FromJson<Profile>(File.ReadAllText(savePath));if(profile.Wins!=wins)throw new Exception("Save roundtrip failed");
+   int wins=profile.Wins;profile=profileStore.Read();if(profile.Wins!=wins)throw new Exception("Save roundtrip failed");
    yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"03-result.png"));yield return new WaitForSeconds(.5f);
-   page="养成";yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"04-training.png"));yield return new WaitForSeconds(.5f);
+   page=PageRoute.LegacyTraining;yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"04-training.png"));yield return new WaitForSeconds(.5f);
    if(!Change(()=>{profile.SetSkill(0,0,"focus");profile.SetSkill(0,1,"pierce");profile.Train(0);profile.Equip(profile.Items.Last().id,0,1);}))throw new Exception("Loadout save failed");
-   profile=JsonUtility.FromJson<Profile>(File.ReadAllText(savePath));
+   profile=profileStore.Read();
    if(profile.Skill2[0]!="pierce"||profile.Skill[0]!="focus"||profile.Training[0]<1)throw new Exception("Loadout persistence failed");
-   page="装备";yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"05-equipment.png"));yield return new WaitForSeconds(.5f);
-   page="编队";yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"06-team.png"));yield return new WaitForSeconds(.5f);
-   page="召唤";yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"07-summon.png"));yield return new WaitForSeconds(.5f);
+   page=PageRoute.LegacyEquipment;yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"05-equipment.png"));yield return new WaitForSeconds(.5f);
+   page=PageRoute.Formation;yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"06-team.png"));yield return new WaitForSeconds(.5f);
+   page=PageRoute.LegacySummon;yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(dir,"07-summon.png"));yield return new WaitForSeconds(.5f);
    File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"version\":\""+Data.Version+"\",\"battleWon\":true,\"saveRoundTrip\":true,\"events\":"+events+"}");
    Application.Quit(0);
   }

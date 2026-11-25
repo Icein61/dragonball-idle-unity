@@ -1,0 +1,373 @@
+状态	Resources 键	原始项目路径	Unity GUID	核查依据
+保留	Art/Effects/PortraitGray	Assets/DragonIdle/Resources/Art/Effects/PortraitGray.shader	88db36260f261304f980650e6eb993ac	Assets/DragonIdle/Presentation/GalleryUI.cs (key)
+保留	Art/Effects/PursuitSheen	Assets/DragonIdle/Resources/Art/Effects/PursuitSheen.shader	8f31fc66a62c56040854e586dfccac85	Assets/DragonIdle/Presentation/RoundPursuitSheen.cs (key)
+保留	Art/V0131/Goku/Motion	Assets/DragonIdle/Resources/Art/V0131/Goku/Motion.json	c45a7803577afe04097ef4e57ec05939	旧版制作脚本 Tools/sync-goku-round-art.mjs 的输出组；被动图另有加载回退
+保留	Art/V0131/Goku/beam-transitions	Assets/DragonIdle/Resources/Art/V0131/Goku/beam-transitions.png	cf3a6d716a183614189eb150e7628f48	旧版制作脚本 Tools/sync-goku-round-art.mjs 的输出组；被动图另有加载回退 | 在用或回退清单 Art/V0131/Goku/Motion | 同批历史清单 Art/V0133/Goku/Motion | 同批历史清单 Art/V0135/Goku/Motion | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+保留	Art/V0131/Goku/chase-transitions	Assets/DragonIdle/Resources/Art/V0131/Goku/chase-transitions.png	92ec1c9edd9ce1d4a8aa32a0e84c60c8	旧版制作脚本 Tools/sync-goku-round-art.mjs 的输出组；被动图另有加载回退 | 在用或回退清单 Art/V0131/Goku/Motion | 同批历史清单 Art/V0133/Goku/Motion | 同批历史清单 Art/V0135/Goku/Motion | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+保留	Art/V0131/Goku/combat-keyframes	Assets/DragonIdle/Resources/Art/V0131/Goku/combat-keyframes.png	b78e5d2b8ba5ca84cb8c041c893177dd	旧版制作脚本 Tools/sync-goku-round-art.mjs 的输出组；被动图另有加载回退 | 在用或回退清单 Art/V0131/Goku/Motion | 同批历史清单 Art/V0133/Goku/Motion | 同批历史清单 Art/V0135/Goku/Motion | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+保留	Art/V0131/Goku/idle-keyframes	Assets/DragonIdle/Resources/Art/V0131/Goku/idle-keyframes.png	1a0dd7193d74a6740b70b825edcecf99	旧版制作脚本 Tools/sync-goku-round-art.mjs 的输出组；被动图另有加载回退 | 在用或回退清单 Art/V0131/Goku/Motion | 同批历史清单 Art/V0133/Goku/Motion | 同批历史清单 Art/V0135/Goku/Motion | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+保留	Art/V0131/Goku/idle-transitions	Assets/DragonIdle/Resources/Art/V0131/Goku/idle-transitions.png	5da7269a840e29a45ad08f843ffe32ef	旧版制作脚本 Tools/sync-goku-round-art.mjs 的输出组；被动图另有加载回退 | 在用或回退清单 Art/V0131/Goku/Motion | 同批历史清单 Art/V0133/Goku/Motion | 同批历史清单 Art/V0135/Goku/Motion | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+保留	Art/V0131/Goku/passive-training	Assets/DragonIdle/Resources/Art/V0131/Goku/passive-training.png	b2b94f18b633635409812d12f3b48f0c	Assets/DragonIdle/Presentation/RoundMotionArt.cs (key) | 旧版制作脚本 Tools/sync-goku-round-art.mjs 的输出组；被动图另有加载回退
+保留	Art/V0131/Goku/punch-transitions	Assets/DragonIdle/Resources/Art/V0131/Goku/punch-transitions.png	61b0f83aee46ffe43ab3c441b3a42877	旧版制作脚本 Tools/sync-goku-round-art.mjs 的输出组；被动图另有加载回退 | 在用或回退清单 Art/V0131/Goku/Motion | 同批历史清单 Art/V0133/Goku/Motion | 同批历史清单 Art/V0135/Goku/Motion | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+保留	Art/V0131/Goku/rapid-transitions	Assets/DragonIdle/Resources/Art/V0131/Goku/rapid-transitions.png	6c814f1622b5d6d488f23d99c786fad0	旧版制作脚本 Tools/sync-goku-round-art.mjs 的输出组；被动图另有加载回退 | 在用或回退清单 Art/V0131/Goku/Motion | 同批历史清单 Art/V0133/Goku/Motion | 同批历史清单 Art/V0135/Goku/Motion | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+保留	Art/V0131/Goku/skill-icons	Assets/DragonIdle/Resources/Art/V0131/Goku/skill-icons.png	2868800fd09a6614582b8a5cc14d674a	旧版制作脚本 Tools/sync-goku-round-art.mjs 的输出组；被动图另有加载回退
+保留	Art/V0131/Goku/sweep-contact	Assets/DragonIdle/Resources/Art/V0131/Goku/sweep-contact.png	ceae8512f45c9df4981712eec814a1a1	旧版制作脚本 Tools/sync-goku-round-art.mjs 的输出组；被动图另有加载回退 | 在用或回退清单 Art/V0131/Goku/Motion | 同批历史清单 Art/V0133/Goku/Motion | 同批历史清单 Art/V0135/Goku/Motion | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+保留	Art/V0131/Goku/sweep-transitions	Assets/DragonIdle/Resources/Art/V0131/Goku/sweep-transitions.png	3cdf7003f2917fc41bd54a02ebd1f85f	旧版制作脚本 Tools/sync-goku-round-art.mjs 的输出组；被动图另有加载回退 | 在用或回退清单 Art/V0131/Goku/Motion | 同批历史清单 Art/V0133/Goku/Motion | 同批历史清单 Art/V0135/Goku/Motion | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+保留	Art/V0131/Goku/ultimate-keyframes	Assets/DragonIdle/Resources/Art/V0131/Goku/ultimate-keyframes.png	2a806be8862265c49888c27a87df284a	旧版制作脚本 Tools/sync-goku-round-art.mjs 的输出组；被动图另有加载回退 | 在用或回退清单 Art/V0131/Goku/Motion | 同批历史清单 Art/V0133/Goku/Motion | 同批历史清单 Art/V0135/Goku/Motion | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+归档	Art/V0132/Goku/Reaction	Assets/DragonIdle/Resources/Art/V0132/Goku/Reaction.json	800ca79cdd3b5e04b831a08dccb10c65	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0132/Goku/arena	Assets/DragonIdle/Resources/Art/V0132/Goku/arena.png	b78bfa66846588444b386f6f44aa24bd	Tools/RoundChecks.cs (key) | 在用或回退清单 Config/Battle/Scenes
+保留	Art/V0132/Goku/arrival-defeat	Assets/DragonIdle/Resources/Art/V0132/Goku/arrival-defeat.png	7272e8cfe1ce2434a8df2181fdba38a1	同批历史清单 Art/V0132/Goku/Reaction | 同批历史清单 Art/V0135/Goku/Reaction | 在用或回退清单 Art/V0180/Battle/Goku/Reaction
+保留	Art/V0132/Goku/hit-states	Assets/DragonIdle/Resources/Art/V0132/Goku/hit-states.png	96306a592b3c5b945a7aa7c6d0e82d6b	同批历史清单 Art/V0132/Goku/Reaction | 同批历史清单 Art/V0135/Goku/Reaction | 在用或回退清单 Art/V0180/Battle/Goku/Reaction
+保留	Art/V0132/Goku/reaction-transitions	Assets/DragonIdle/Resources/Art/V0132/Goku/reaction-transitions.png	aaaf3a813f3127d409c6debc5db348d5	同批历史清单 Art/V0132/Goku/Reaction | 同批历史清单 Art/V0135/Goku/Reaction | 在用或回退清单 Art/V0180/Battle/Goku/Reaction
+归档	Art/V0133/Goku/Motion	Assets/DragonIdle/Resources/Art/V0133/Goku/Motion.json	6d7ded1391380d047adfb2b61ffa1523	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0133/Goku/beam-poses	Assets/DragonIdle/Resources/Art/V0133/Goku/beam-poses.png	e94a7657af71ae246922bc2a961eea9d	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0133/Goku/Motion | 同批历史清单 Art/V0135/Goku/Motion | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+归档	Art/V0133/Goku/guard-poses	Assets/DragonIdle/Resources/Art/V0133/Goku/guard-poses.png	19681800acf6a7449807afc3bdeaa088	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0133/Goku/Motion | 同批历史清单 Art/V0135/Goku/Motion | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+归档	Art/V0133/Goku/strike-poses	Assets/DragonIdle/Resources/Art/V0133/Goku/strike-poses.png	daad8282655c1114dac54541acde671d	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0133/Goku/Motion | 同批历史清单 Art/V0135/Goku/Motion | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+归档	Art/V0135/Goku/Motion	Assets/DragonIdle/Resources/Art/V0135/Goku/Motion.json	54a59caec178c3d4a94589bd6095dbfe	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0135/Goku/Reaction	Assets/DragonIdle/Resources/Art/V0135/Goku/Reaction.json	377ce28b000bc4a459732b5e3e65c26a	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0136/Goku/Motion	Assets/DragonIdle/Resources/Art/V0136/Goku/Motion.json	d7c2556b2d0f4044d836d377fc3b11cf	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0136/Goku/ka-me-poses	Assets/DragonIdle/Resources/Art/V0136/Goku/ka-me-poses.png	b76c105eda727fb4298556d94a802bec	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion | 同批历史清单 Art/V0161/Goku/Motion
+归档	Art/V0140/Vegeta/Motion	Assets/DragonIdle/Resources/Art/V0140/Vegeta/Motion.json	276390fd241035f408d874ef772eb0d7	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0140/Vegeta/opening-hammer	Assets/DragonIdle/Resources/Art/V0140/Vegeta/opening-hammer.png	904d237b07b1fad43a5b00e7bf140360	同批历史清单 Art/V0140/Vegeta/Motion | 在用或回退清单 Art/V0154/Vegeta/Motion
+归档	Art/V0140/Vegeta/portrait	Assets/DragonIdle/Resources/Art/V0140/Vegeta/portrait.png	403216ac45dd7694fb863414a0455c8c	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0140/Vegeta/skill-icons	Assets/DragonIdle/Resources/Art/V0140/Vegeta/skill-icons.png	3cd3a15f30ea0d84f9b81fd3029d5ef5	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0141/Battle/landing-meadow	Assets/DragonIdle/Resources/Art/V0141/Battle/landing-meadow.png	e8de2a8c3c206ab4ca300deaad335d05	在用或回退清单 Config/Battle/Scenes
+保留	Art/V0141/Battle/red-rock-canyon	Assets/DragonIdle/Resources/Art/V0141/Battle/red-rock-canyon.png	e2d378a25ea6e6341b8b207bf19d68ff	在用或回退清单 Config/Battle/Scenes
+保留	Art/V0141/Battle/wind-carved-plateau	Assets/DragonIdle/Resources/Art/V0141/Battle/wind-carved-plateau.png	f6cfcc38e1702be4a86a1d7c98c87f1f	在用或回退清单 Config/Battle/Scenes
+归档	Art/V0141/Vegeta/portrait	Assets/DragonIdle/Resources/Art/V0141/Vegeta/portrait.png	0224317b3ed503d4e9fa237d954eff4b	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0142/Goku/uppercut-icon	Assets/DragonIdle/Resources/Art/V0142/Goku/uppercut-icon.png	0151678c514745e45bdd7788651750ce	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0142/Vegeta/portrait	Assets/DragonIdle/Resources/Art/V0142/Vegeta/portrait.png	29a7f83ef2bfc774c93fe6467eef3e91	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0143/Piccolo/Motion	Assets/DragonIdle/Resources/Art/V0143/Piccolo/Motion.json	5a26c47d2d2c5a64b9c0064f833666ac	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0143/Piccolo/combat-poses	Assets/DragonIdle/Resources/Art/V0143/Piccolo/combat-poses.png	d1e485ab200ac7f4494f886a7eedd300	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0143/Piccolo/Motion
+归档	Art/V0143/Piccolo/portrait	Assets/DragonIdle/Resources/Art/V0143/Piccolo/portrait.png	ff6183f5048228e439d45b4f7260b72c	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0143/Piccolo/reaction-poses	Assets/DragonIdle/Resources/Art/V0143/Piccolo/reaction-poses.png	a9dc788d4b8bbd04e80cb0788af6b8d1	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0143/Piccolo/Motion
+归档	Art/V0143/Piccolo/skill-icons	Assets/DragonIdle/Resources/Art/V0143/Piccolo/skill-icons.png	324993f8f0506cc448ec8e43dc5b17b6	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0143/Piccolo/special-poses	Assets/DragonIdle/Resources/Art/V0143/Piccolo/special-poses.png	8758b376b83f9344c964166ea380ffc9	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0143/Piccolo/Motion
+保留	Art/V0143/Vegeta/portrait	Assets/DragonIdle/Resources/Art/V0143/Vegeta/portrait.png	61f9c7329ab8e9744be5fce57ced9d70	RoundPortraits 与 Tools/round-character-assets.json 的立绘入口
+归档	Art/V0144/Goku/movement	Assets/DragonIdle/Resources/Art/V0144/Goku/movement.png	439fc3110efe0024996fd884812990be	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0136/Goku/Motion | 同批历史清单 Art/V0154/Goku/Motion
+归档	Art/V0144/Piccolo/Motion	Assets/DragonIdle/Resources/Art/V0144/Piccolo/Motion.json	afd8b3820266656488aa62cb04cf24e5	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0144/Piccolo/combat-poses	Assets/DragonIdle/Resources/Art/V0144/Piccolo/combat-poses.png	ba107c2f37ea3a543badb775c54ce8e9	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0144/Piccolo/Motion | 同批历史清单 Art/V0180/Battle/Piccolo/Reaction
+归档	Art/V0144/Piccolo/guard-hop	Assets/DragonIdle/Resources/Art/V0144/Piccolo/guard-hop.png	6c82f54df5b35d1488a51ecc56a74dc5	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0144/Piccolo/Motion | 同批历史清单 Art/V0180/Battle/Piccolo/Reaction
+归档	Art/V0144/Piccolo/portrait	Assets/DragonIdle/Resources/Art/V0144/Piccolo/portrait.png	2c620561ca8637c48894434dd0bc26e5	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0144/Piccolo/reaction-poses	Assets/DragonIdle/Resources/Art/V0144/Piccolo/reaction-poses.png	31ab4d10f77280d4b9a891386485c525	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0144/Piccolo/Motion | 同批历史清单 Art/V0180/Battle/Piccolo/Reaction
+归档	Art/V0144/Piccolo/special-poses	Assets/DragonIdle/Resources/Art/V0144/Piccolo/special-poses.png	560d6b33e6d06794bac5c48504dae0d8	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0144/Piccolo/Motion | 同批历史清单 Art/V0180/Battle/Piccolo/Reaction
+保留	Art/V0144/Vegeta/movement	Assets/DragonIdle/Resources/Art/V0144/Vegeta/movement.png	c222031836ea8c940964ac84740ce170	同批历史清单 Art/V0140/Vegeta/Motion | 在用或回退清单 Art/V0154/Vegeta/Motion
+保留	Art/V0144/Vegeta/skill-icons	Assets/DragonIdle/Resources/Art/V0144/Vegeta/skill-icons.png	9f59b7e15d7f0124f871a726691cad5e	Assets/DragonIdle/Presentation/RoundSmoke.cs (key) | Tools/round-character-assets.json (key) | 在用或回退清单 Config/Characters/RoundKits
+归档	Art/V0145/Vegeta/continuous-energy-volley	Assets/DragonIdle/Resources/Art/V0145/Vegeta/continuous-energy-volley.png	b188fd408379bc94d81749fc794f08d0	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0145/Vegeta/saiyan-elite	Assets/DragonIdle/Resources/Art/V0145/Vegeta/saiyan-elite.png	2be52a469a1ec1d45913499df31f0f29	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0150/Vegeta/continuous-energy-volley	Assets/DragonIdle/Resources/Art/V0150/Vegeta/continuous-energy-volley.png	b5c85f1c1f411b6468f7cfcaf1590b61	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0150/Vegeta/saiyan-elite	Assets/DragonIdle/Resources/Art/V0150/Vegeta/saiyan-elite.png	49761b296c965334782f90410cbca6d7	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0151/Gohan/Motion	Assets/DragonIdle/Resources/Art/V0151/Gohan/Motion.json	1da5d9a5847b7b44e88b35162d9dfa93	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0151/Gohan/combat-poses	Assets/DragonIdle/Resources/Art/V0151/Gohan/combat-poses.png	2117973c7e72dc548b3fe420ad11a00f	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0151/Gohan/Motion | 同批历史清单 Art/V0152/Gohan/Motion
+归档	Art/V0151/Gohan/portrait	Assets/DragonIdle/Resources/Art/V0151/Gohan/portrait.png	929824ff8cea94144bc557b85811cf0d	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0151/Gohan/reaction-poses	Assets/DragonIdle/Resources/Art/V0151/Gohan/reaction-poses.png	cf5a4a19759064f47b33610bc75ef5dd	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0151/Gohan/Motion | 同批历史清单 Art/V0152/Gohan/Motion
+保留	Art/V0151/Gohan/skill-icons	Assets/DragonIdle/Resources/Art/V0151/Gohan/skill-icons.png	e074b1f098849834c81e4e7ca8d83ed3	Assets/DragonIdle/Presentation/RoundSmoke.cs (key) | Tools/round-character-assets.json (key) | 在用或回退清单 Config/Characters/RoundKits
+归档	Art/V0151/Vegeta/continuous-energy-volley	Assets/DragonIdle/Resources/Art/V0151/Vegeta/continuous-energy-volley.png	42fb513e69c47e64d879cc2612c1620d	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0151/Vegeta/saiyan-elite	Assets/DragonIdle/Resources/Art/V0151/Vegeta/saiyan-elite.png	620e0a79286d55a48b2683b39b26d815	Assets/DragonIdle/Presentation/RoundSmoke.cs (key) | Tools/round-character-assets.json (key) | 在用或回退清单 Config/Characters/RoundKits
+归档	Art/V0152/Gohan/Motion	Assets/DragonIdle/Resources/Art/V0152/Gohan/Motion.json	d3a99e5ee7bfd9948aefe84beffed1c3	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0152/Gohan/heavy-windup	Assets/DragonIdle/Resources/Art/V0152/Gohan/heavy-windup.png	8446dee0d8da3084093c5466ca845b78	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0152/Gohan/Motion
+归档	Art/V0152/Piccolo/portrait	Assets/DragonIdle/Resources/Art/V0152/Piccolo/portrait.png	8c1b2ffe095dc414b9c45c7f650a7b21	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0152/Vegeta/continuous-energy-volley	Assets/DragonIdle/Resources/Art/V0152/Vegeta/continuous-energy-volley.png	9ffb61062544e6f40b10364ac4ce9612	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0153/Gohan/Motion	Assets/DragonIdle/Resources/Art/V0153/Gohan/Motion.json	35e68d532a541b542ac8e38ed63d2621	RoundMotionUI 的 Motion 入口或回退
+保留	Art/V0153/Gohan/combat-poses	Assets/DragonIdle/Resources/Art/V0153/Gohan/combat-poses.png	0bb11331c2f6d1f4289b632e4606e127	在用或回退清单 Art/V0153/Gohan/Motion | 在用或回退清单 Art/V0180/Battle/Gohan/Reaction
+保留	Art/V0153/Gohan/heavy-windup	Assets/DragonIdle/Resources/Art/V0153/Gohan/heavy-windup.png	fc2739984b1934447b9caf6bd1577f01	在用或回退清单 Art/V0153/Gohan/Motion
+保留	Art/V0153/Gohan/portrait	Assets/DragonIdle/Resources/Art/V0153/Gohan/portrait.png	56062ce97e959564786598764c9e4ba3	Assets/DragonIdle/Presentation/RoundSmoke.cs (key)
+保留	Art/V0153/Gohan/reaction-poses	Assets/DragonIdle/Resources/Art/V0153/Gohan/reaction-poses.png	05e7ed4d62541f241813b63ed1182d28	在用或回退清单 Art/V0153/Gohan/Motion | 在用或回退清单 Art/V0180/Battle/Gohan/Reaction
+保留	Art/V0153/Vegeta/continuous-energy-volley	Assets/DragonIdle/Resources/Art/V0153/Vegeta/continuous-energy-volley.png	72ecf562037cd2745823c9117a7cdec5	Assets/DragonIdle/Presentation/RoundSmoke.cs (key) | Tools/round-character-assets.json (key) | 在用或回退清单 Config/Characters/RoundKits
+归档	Art/V0154/Goku/Motion	Assets/DragonIdle/Resources/Art/V0154/Goku/Motion.json	529644b6cb34c714dbab455b36766fd2	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0154/Goku/run-cycle	Assets/DragonIdle/Resources/Art/V0154/Goku/run-cycle.png	69b496ba92621bd429b60848d61dec68	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0154/Goku/Motion
+归档	Art/V0154/Krillin/Motion	Assets/DragonIdle/Resources/Art/V0154/Krillin/Motion.json	f0a1091c27c4e99409ccaf9c7cbbc1e4	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0154/Krillin/combat-poses	Assets/DragonIdle/Resources/Art/V0154/Krillin/combat-poses.png	677d54d0a09f65f4f8daff6957da5fe5	同批历史清单 Art/V0154/Krillin/Motion | 在用或回退清单 Art/V0180/Battle/Krillin/Reaction | 在用或回退清单 Art/V0182/Krillin/Motion
+归档	Art/V0154/Krillin/portrait	Assets/DragonIdle/Resources/Art/V0154/Krillin/portrait.png	e49b4bb723b4a13428fccaabd6ac0f5a	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0154/Krillin/reactions	Assets/DragonIdle/Resources/Art/V0154/Krillin/reactions.png	8e2699982b94f8b40b687af31b0f7d30	同批历史清单 Art/V0154/Krillin/Motion | 在用或回退清单 Art/V0180/Battle/Krillin/Reaction | 在用或回退清单 Art/V0182/Krillin/Motion
+归档	Art/V0154/Krillin/skill-icons	Assets/DragonIdle/Resources/Art/V0154/Krillin/skill-icons.png	8d9e44b7e2dc5a14586f0b5c696c3dda	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0154/Vegeta/Motion	Assets/DragonIdle/Resources/Art/V0154/Vegeta/Motion.json	21912837758152c438f2d82825224002	RoundMotionUI 的 Motion 入口或回退
+保留	Art/V0154/Vegeta/run-cycle	Assets/DragonIdle/Resources/Art/V0154/Vegeta/run-cycle.png	0288be3197260334f950a4175956f4fd	在用或回退清单 Art/V0154/Vegeta/Motion
+归档	Art/V0161/Goku/Motion	Assets/DragonIdle/Resources/Art/V0161/Goku/Motion.json	1eeeac5457cc088498d81ea122901ed4	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0161/Goku/barefoot-run	Assets/DragonIdle/Resources/Art/V0161/Goku/barefoot-run.png	39d44f473bebe624e9ae297750d11c56	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0161/Goku/Motion
+归档	Art/V0161/Raditz/Motion	Assets/DragonIdle/Resources/Art/V0161/Raditz/Motion.json	cabcde3d8cbe4734087d1226c69be5ba	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0161/Raditz/battle-poses	Assets/DragonIdle/Resources/Art/V0161/Raditz/battle-poses.png	6fe0310894b37dd44959382e0a301553	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0161/Raditz/Motion | 同批历史清单 Art/V0180/Battle/Raditz/Reaction
+保留	Art/V0161/Raditz/portrait	Assets/DragonIdle/Resources/Art/V0161/Raditz/portrait.png	3be284c044d56bb48a45368c9a34e977	Assets/DragonIdle/Presentation/RoundSmoke.cs (key)
+归档	Art/V0161/Raditz/reaction-poses	Assets/DragonIdle/Resources/Art/V0161/Raditz/reaction-poses.png	185749578e6e605418b210b3cceccddb	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0161/Raditz/Motion | 同批历史清单 Art/V0180/Battle/Raditz/Reaction
+归档	Art/V0161/Raditz/skill-icons	Assets/DragonIdle/Resources/Art/V0161/Raditz/skill-icons.png	1aaac4717a41e6d4f9d93312db1ad21c	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0162/Raditz/shining-friday	Assets/DragonIdle/Resources/Art/V0162/Raditz/shining-friday.png	c5f220449778fa6459431cd3c101508c	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0172/Yamcha/Motion	Assets/DragonIdle/Resources/Art/V0172/Yamcha/Motion.json	7b2ae068982b3864f99e6b0b59a047fe	RoundMotionUI 的 Motion 入口或回退
+归档	Art/V0172/Yamcha/icons-a	Assets/DragonIdle/Resources/Art/V0172/Yamcha/icons-a.png	9284290d31fc25d418e6fbccbcf7a969	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0172/Yamcha/icons-b	Assets/DragonIdle/Resources/Art/V0172/Yamcha/icons-b.png	68adeab5b7fef5447970b4050e1e567c	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0172/Yamcha/moves	Assets/DragonIdle/Resources/Art/V0172/Yamcha/moves.png	d74617d342d356b45b493cf2f6652c8e	在用或回退清单 Art/V0172/Yamcha/Motion
+保留	Art/V0172/Yamcha/portrait	Assets/DragonIdle/Resources/Art/V0172/Yamcha/portrait.png	afc7d9ccd0ceedc479c9df111c44bd77	Assets/DragonIdle/Presentation/RoundSmoke.cs (key)
+保留	Art/V0172/Yamcha/recovery	Assets/DragonIdle/Resources/Art/V0172/Yamcha/recovery.png	0a1ec7e8565ba74498465707e4fbad51	在用或回退清单 Art/V0172/Yamcha/Motion | 在用或回退清单 Art/V0180/Battle/Yamcha/Reaction
+保留	Art/V0172/Yamcha/states	Assets/DragonIdle/Resources/Art/V0172/Yamcha/states.png	591ed8fe5e56d8746b6016b916e30198	在用或回退清单 Art/V0172/Yamcha/Motion | 在用或回退清单 Art/V0180/Battle/Yamcha/Reaction
+保留	Art/V0173/Tien/Motion	Assets/DragonIdle/Resources/Art/V0173/Tien/Motion.json	a535e42e594454d489e3d9b4d752888d	RoundMotionUI 的 Motion 入口或回退
+保留	Art/V0173/Tien/moves	Assets/DragonIdle/Resources/Art/V0173/Tien/moves.png	a7a4925ef758be349a3286b8c4539dc5	在用或回退清单 Art/V0173/Tien/Motion
+保留	Art/V0173/Tien/portrait	Assets/DragonIdle/Resources/Art/V0173/Tien/portrait.png	0b1c9d8a262992c45b2a472ae819eaa8	Assets/DragonIdle/Presentation/RoundSmoke.cs (key)
+保留	Art/V0173/Tien/recovery	Assets/DragonIdle/Resources/Art/V0173/Tien/recovery.png	475f75fb8c22e3246b41d0f61ac5d90b	在用或回退清单 Art/V0173/Tien/Motion | 在用或回退清单 Art/V0180/Battle/Tien/Reaction
+保留	Art/V0173/Tien/skills-a	Assets/DragonIdle/Resources/Art/V0173/Tien/skills-a.png	4bbfb5562a330a746b3b077feae974a3	Tools/round-character-assets.json (key) | 在用或回退清单 Config/Characters/RoundKits
+保留	Art/V0173/Tien/skills-b	Assets/DragonIdle/Resources/Art/V0173/Tien/skills-b.png	4c0ae21745db5d84fb4d6a70cf9c4196	Tools/round-character-assets.json (key) | 在用或回退清单 Config/Characters/RoundKits
+保留	Art/V0173/Tien/states	Assets/DragonIdle/Resources/Art/V0173/Tien/states.png	24cabea61901d2c4c9b8aaa4d79a7e54	在用或回退清单 Art/V0173/Tien/Motion | 在用或回退清单 Art/V0180/Battle/Tien/Reaction
+保留	Art/V0180/Battle/Gohan/FloatPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Gohan/FloatPoses.png	8878c171a9e94bd9847af2b344626684	在用或回退清单 Art/V0180/Battle/Gohan/Reaction
+保留	Art/V0180/Battle/Gohan/Reaction	Assets/DragonIdle/Resources/Art/V0180/Battle/Gohan/Reaction.json	ecafb41fab5e4e53bd3b9ee5869e3cca	RoundDemoUI 当前 Reaction 路径或回退
+保留	Art/V0180/Battle/Gohan/ReactionPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Gohan/ReactionPoses.png	60cedc4e8c5d46be9dac0583556b66ba	在用或回退清单 Art/V0180/Battle/Gohan/Reaction
+保留	Art/V0180/Battle/Goku/BeamPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Goku/BeamPoses.png	35e93f8cb4964750b35e064a769b93d7	在用或回退清单 Art/V0180/Battle/Goku/Motion | 在用或回退清单 Art/V0182/Goku/Motion
+保留	Art/V0180/Battle/Goku/CombatPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Goku/CombatPoses.png	1e031850e84b46b49b4a5d93a68c01e3	在用或回退清单 Art/V0180/Battle/Goku/Motion | 在用或回退清单 Art/V0182/Goku/Motion
+保留	Art/V0180/Battle/Goku/FloatPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Goku/FloatPoses.png	0f51a6b5f38040fdb12357919776de5e	在用或回退清单 Art/V0180/Battle/Goku/Reaction
+保留	Art/V0180/Battle/Goku/Motion	Assets/DragonIdle/Resources/Art/V0180/Battle/Goku/Motion.json	dfb710aa1a7a43b1bf3de894db416028	RoundMotionUI 的 Motion 入口或回退
+保留	Art/V0180/Battle/Goku/Reaction	Assets/DragonIdle/Resources/Art/V0180/Battle/Goku/Reaction.json	c2dc0171a7564f97aa1950eb8580fc92	RoundDemoUI 当前 Reaction 路径或回退
+保留	Art/V0180/Battle/Goku/ReactionPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Goku/ReactionPoses.png	af04da151d6e4fb6a5fa10b08b06b695	在用或回退清单 Art/V0180/Battle/Goku/Reaction
+保留	Art/V0180/Battle/Krillin/FloatPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Krillin/FloatPoses.png	aba73959a104477ea0916c7c19b192dc	在用或回退清单 Art/V0180/Battle/Krillin/Reaction
+保留	Art/V0180/Battle/Krillin/Reaction	Assets/DragonIdle/Resources/Art/V0180/Battle/Krillin/Reaction.json	93a715311c614d14a339d65a26afb605	RoundDemoUI 当前 Reaction 路径或回退
+保留	Art/V0180/Battle/Krillin/ReactionPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Krillin/ReactionPoses.png	0c94d37c93714d6e9f8a74845ad8ffcc	在用或回退清单 Art/V0180/Battle/Krillin/Reaction
+归档	Art/V0180/Battle/Piccolo/FloatPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Piccolo/FloatPoses.png	32b4bd35b45d43918f0091811364f16d	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0180/Battle/Piccolo/Reaction
+归档	Art/V0180/Battle/Piccolo/Reaction	Assets/DragonIdle/Resources/Art/V0180/Battle/Piccolo/Reaction.json	6046fc5759e545fabf1cd5ba4111e927	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0180/Battle/Piccolo/ReactionPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Piccolo/ReactionPoses.png	567712da29824a2198c485f3073e1ad3	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0180/Battle/Piccolo/Reaction
+归档	Art/V0180/Battle/Raditz/FloatPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Raditz/FloatPoses.png	8f4e6d7533ac47c092e2fc3194587087	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0180/Battle/Raditz/Reaction
+归档	Art/V0180/Battle/Raditz/Reaction	Assets/DragonIdle/Resources/Art/V0180/Battle/Raditz/Reaction.json	badce1780f2742d783ae9b153c6ebfaf	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Art/V0180/Battle/Raditz/ReactionPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Raditz/ReactionPoses.png	edb5ec0609f1494ea97b0f58cef67250	无现行 Unity GUID、配置、加载入口或回退引用 | 同批历史清单 Art/V0180/Battle/Raditz/Reaction
+保留	Art/V0180/Battle/Tien/FloatPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Tien/FloatPoses.png	73a25c2f8bb8430f9ccf6624e4e8f4ac	在用或回退清单 Art/V0180/Battle/Tien/Reaction
+保留	Art/V0180/Battle/Tien/Reaction	Assets/DragonIdle/Resources/Art/V0180/Battle/Tien/Reaction.json	fdba26f20b014507bd9d5bdb779ab777	RoundDemoUI 当前 Reaction 路径或回退
+保留	Art/V0180/Battle/Tien/ReactionPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Tien/ReactionPoses.png	7f91ab3479734703b17d0a275b83bd1f	在用或回退清单 Art/V0180/Battle/Tien/Reaction
+保留	Art/V0180/Battle/Vegeta/FloatPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Vegeta/FloatPoses.png	68832d87431342338928fdee9b7d752d	在用或回退清单 Art/V0180/Battle/Vegeta/Reaction
+保留	Art/V0180/Battle/Vegeta/Reaction	Assets/DragonIdle/Resources/Art/V0180/Battle/Vegeta/Reaction.json	045f53567f2e441f95483211c1acc9df	RoundDemoUI 当前 Reaction 路径或回退
+保留	Art/V0180/Battle/Vegeta/ReactionPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Vegeta/ReactionPoses.png	e840ef3ea1094b3886d3c8306c90044b	在用或回退清单 Art/V0180/Battle/Vegeta/Reaction
+保留	Art/V0180/Battle/Yamcha/FloatPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Yamcha/FloatPoses.png	1943b084cee64414bba033407da9c91d	在用或回退清单 Art/V0180/Battle/Yamcha/Reaction
+保留	Art/V0180/Battle/Yamcha/Reaction	Assets/DragonIdle/Resources/Art/V0180/Battle/Yamcha/Reaction.json	4def5ef7afc645098322cb4b64b8fced	RoundDemoUI 当前 Reaction 路径或回退
+保留	Art/V0180/Battle/Yamcha/ReactionPoses	Assets/DragonIdle/Resources/Art/V0180/Battle/Yamcha/ReactionPoses.png	9475bb056495422d8648f0bca0e78430	在用或回退清单 Art/V0180/Battle/Yamcha/Reaction
+保留	Art/V0181/Saibaman/Motion	Assets/DragonIdle/Resources/Art/V0181/Saibaman/Motion.json	ed62f9b1d9814421996556c4e91b15c6	RoundMotionUI 的 Motion 入口或回退
+保留	Art/V0181/Saibaman/Reaction	Assets/DragonIdle/Resources/Art/V0181/Saibaman/Reaction.json	dcd0803430094a2487f9c3b354b62fb9	RoundDemoUI 当前 Reaction 路径或回退
+归档	Art/V0181/Saibaman/icons	Assets/DragonIdle/Resources/Art/V0181/Saibaman/icons.png	9542488df7c84870bf732ebe99c8f528	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0181/Saibaman/moves	Assets/DragonIdle/Resources/Art/V0181/Saibaman/moves.png	67841cbf2ed2462a900aac5589367c22	在用或回退清单 Art/V0181/Saibaman/Motion | 在用或回退清单 Art/V0181/Saibaman/Reaction | 在用或回退清单 Art/V0182/Saibaman/Motion
+归档	Art/V0181/Saibaman/portrait	Assets/DragonIdle/Resources/Art/V0181/Saibaman/portrait.png	370e488177a14fe38848fb6b29254726	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0181/Saibaman/reactions	Assets/DragonIdle/Resources/Art/V0181/Saibaman/reactions.png	7b4675e41a1442619a38e283d21e144d	在用或回退清单 Art/V0181/Saibaman/Motion | 在用或回退清单 Art/V0181/Saibaman/Reaction | 在用或回退清单 Art/V0182/Saibaman/Motion
+保留	Art/V0182/Goku/Motion	Assets/DragonIdle/Resources/Art/V0182/Goku/Motion.json	ad09651b5758586682ebc546dd126eb0	RoundMotionArt.Load 优先加载角色新版 Motion
+保留	Art/V0182/Goku/portrait	Assets/DragonIdle/Resources/Art/V0182/Goku/portrait.png	0218bd47086f505a9f49be9a8b6f6ff1	RoundSmoke 使用角色文件夹常量拼接立绘
+保留	Art/V0182/Goku/skill-images	Assets/DragonIdle/Resources/Art/V0182/Goku/skill-images.png	22884412dc705e42b73bdf09040ce73b	Tools/round-character-assets.json (key) | 在用或回退清单 Config/Characters/RoundKits
+保留	Art/V0182/Goku/skill-motion	Assets/DragonIdle/Resources/Art/V0182/Goku/skill-motion.png	7224a53257065c0b93513fd5c252d073	在用或回退清单 Art/V0182/Goku/Motion
+保留	Art/V0182/Krillin/Motion	Assets/DragonIdle/Resources/Art/V0182/Krillin/Motion.json	1818d0ad1617574c8dd2e7260af277a9	RoundMotionArt.Load 优先加载角色新版 Motion | RoundMotionUI 的 Motion 入口或回退
+保留	Art/V0182/Krillin/disc-orbit	Assets/DragonIdle/Resources/Art/V0182/Krillin/disc-orbit.png	fa31470c66434b53af2d5333896d42b3	在用或回退清单 Art/V0182/Krillin/Motion
+保留	Art/V0182/Krillin/portrait	Assets/DragonIdle/Resources/Art/V0182/Krillin/portrait.png	b20ea3949dc24030846157b148b5b80d	RoundSmoke 使用角色文件夹常量拼接立绘
+保留	Art/V0182/Krillin/skill-images	Assets/DragonIdle/Resources/Art/V0182/Krillin/skill-images.png	a6ab5c4970195aec9c7a01a705418491	Tools/round-character-assets.json (key) | 在用或回退清单 Config/Characters/RoundKits
+保留	Art/V0182/Krillin/skill-motion	Assets/DragonIdle/Resources/Art/V0182/Krillin/skill-motion.png	fb53f907846957b4b54076064914dcad	在用或回退清单 Art/V0182/Krillin/Motion
+保留	Art/V0182/Piccolo/Motion	Assets/DragonIdle/Resources/Art/V0182/Piccolo/Motion.json	fe722eeda7a35542b765d079ba6cf733	RoundMotionArt.Load 优先加载角色新版 Motion | RoundMotionUI 的 Motion 入口或回退
+保留	Art/V0182/Piccolo/Reaction	Assets/DragonIdle/Resources/Art/V0182/Piccolo/Reaction.json	a5ed68e2b0804390832fcdf9ceedced9	RoundDemoUI 当前 Reaction 路径或回退 | RoundMotionArt.Load 优先加载新版 Reaction
+保留	Art/V0182/Piccolo/corrected-beam-cels	Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-beam-cels.png	863e3edeb44645c289535b94a145ca90	RoundDemoUI.PaintDemoActor 的历史纹理名着色分支
+保留	Art/V0182/Piccolo/corrected-combat-poses	Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-combat-poses.png	8cb1631715fd45bca8ea874918977bdc	RoundDemoUI.PaintDemoActor 的历史纹理名着色分支
+归档	Art/V0182/Piccolo/corrected-counter-stance	Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-counter-stance.png	ebd54a585b6e46c6878feb54c95b6264	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0182/Piccolo/corrected-floatposes	Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-floatposes.png	e1b5cec2e8704fb4913efdb4ec0a0f10	RoundDemoUI.PaintDemoActor 的历史纹理名着色分支
+保留	Art/V0182/Piccolo/corrected-guard-hop	Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-guard-hop.png	4fcc473782df43c9b113cf3d3bb73161	RoundDemoUI.PaintDemoActor 的历史纹理名着色分支
+保留	Art/V0182/Piccolo/corrected-reaction-poses	Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-reaction-poses.png	2f530280c04d48c180bd99bcf7ed9852	RoundDemoUI.PaintDemoActor 的历史纹理名着色分支
+保留	Art/V0182/Piccolo/corrected-reactionposes	Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-reactionposes.png	f5dfb8607dff495bb06a411e79eb923c	RoundDemoUI.PaintDemoActor 的历史纹理名着色分支
+归档	Art/V0182/Piccolo/corrected-shoulder-windup	Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-shoulder-windup.png	48fecca1491444d98caa710aae3b69a5	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Art/V0182/Piccolo/corrected-skill-motion	Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-skill-motion.png	9d38f1a3db7b40a798d36dbd906ec5d4	RoundDemoUI.PaintDemoActor 的历史纹理名着色分支
+保留	Art/V0182/Piccolo/corrected-special-poses	Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-special-poses.png	bb37473471264c4eaa86f33f19cd842f	RoundDemoUI.PaintDemoActor 的历史纹理名着色分支
+保留	Art/V0182/Piccolo/portrait	Assets/DragonIdle/Resources/Art/V0182/Piccolo/portrait.png	534495c9d30c5705900d24dae4f5e870	RoundSmoke 使用角色文件夹常量拼接立绘
+保留	Art/V0182/Piccolo/rework-base	Assets/DragonIdle/Resources/Art/V0182/Piccolo/rework-base.png	a7626077d5aa4b37ab79de26a0c1773f	在用或回退清单 Art/V0182/Piccolo/Motion | 在用或回退清单 Art/V0182/Piccolo/Reaction
+保留	Art/V0182/Piccolo/rework-cast	Assets/DragonIdle/Resources/Art/V0182/Piccolo/rework-cast.png	9830c67725f54dc7904e85962cfe3bdb	在用或回退清单 Art/V0182/Piccolo/Motion | 在用或回退清单 Art/V0182/Piccolo/Reaction
+保留	Art/V0182/Piccolo/rework-melee	Assets/DragonIdle/Resources/Art/V0182/Piccolo/rework-melee.png	16efcd984bc34b02a5b5114221719b91	在用或回退清单 Art/V0182/Piccolo/Motion
+保留	Art/V0182/Piccolo/rework-reactions	Assets/DragonIdle/Resources/Art/V0182/Piccolo/rework-reactions.png	357075ac8e9e4fafb8cec3bf289f2886	在用或回退清单 Art/V0182/Piccolo/Motion | 在用或回退清单 Art/V0182/Piccolo/Reaction
+保留	Art/V0182/Piccolo/rework-transitions	Assets/DragonIdle/Resources/Art/V0182/Piccolo/rework-transitions.png	ecc27d1fbfb046a99bbdfb1a699a582f	在用或回退清单 Art/V0182/Piccolo/Motion
+保留	Art/V0182/Piccolo/skill-images	Assets/DragonIdle/Resources/Art/V0182/Piccolo/skill-images.png	ea81ac951b83576c9fbaa3e2c4f58072	Tools/round-character-assets.json (key) | 在用或回退清单 Config/Characters/RoundKits
+保留	Art/V0182/Raditz/Motion	Assets/DragonIdle/Resources/Art/V0182/Raditz/Motion.json	49c96b7c0b8f0e3458a6a3a7908f54b5	RoundMotionArt.Load 优先加载角色新版 Motion | RoundMotionUI 的 Motion 入口或回退
+保留	Art/V0182/Raditz/Reaction	Assets/DragonIdle/Resources/Art/V0182/Raditz/Reaction.json	fc8f19635792b394da7067fa3a0f1932	RoundDemoUI 当前 Reaction 路径或回退 | RoundMotionArt.Load 优先加载新版 Reaction
+保留	Art/V0182/Raditz/review-combat	Assets/DragonIdle/Resources/Art/V0182/Raditz/review-combat.png	5bc48c4b160f42d9981573b92c2c9720	在用或回退清单 Art/V0182/Raditz/Motion
+保留	Art/V0182/Raditz/review-movement	Assets/DragonIdle/Resources/Art/V0182/Raditz/review-movement.png	2b7f3fd40cb44872bcbba75fd539e956	在用或回退清单 Art/V0182/Raditz/Motion | 在用或回退清单 Art/V0182/Raditz/Reaction
+保留	Art/V0182/Raditz/review-reactions	Assets/DragonIdle/Resources/Art/V0182/Raditz/review-reactions.png	815e6da60e44400d9f682aa81464e8aa	在用或回退清单 Art/V0182/Raditz/Motion | 在用或回退清单 Art/V0182/Raditz/Reaction
+保留	Art/V0182/Raditz/skill-images	Assets/DragonIdle/Resources/Art/V0182/Raditz/skill-images.png	d54d22da7e10470e9dca21f5e01a354f	Tools/round-character-assets.json (key) | 在用或回退清单 Config/Characters/RoundKits
+保留	Art/V0182/Saibaman/Motion	Assets/DragonIdle/Resources/Art/V0182/Saibaman/Motion.json	1fcc7ae1e8f05b5fb6bf2ea0b483dd4a	RoundMotionArt.Load 优先加载角色新版 Motion
+保留	Art/V0182/Saibaman/Reaction	Assets/DragonIdle/Resources/Art/V0182/Saibaman/Reaction.json	789965e890b154c2add57656401bebd8	RoundMotionArt.Load 优先加载新版 Reaction
+保留	Art/V0182/Saibaman/detonation-clouds	Assets/DragonIdle/Resources/Art/V0182/Saibaman/detonation-clouds.png	861be6debf4c59349dd5428fb289712c	Assets/DragonIdle/Presentation/RoundDemoUI.cs (key)
+保留	Art/V0182/Saibaman/detonation-poses	Assets/DragonIdle/Resources/Art/V0182/Saibaman/detonation-poses.png	0773e9f353ae5fceb8f691c6ee5e3c1f	在用或回退清单 Art/V0182/Saibaman/Motion
+保留	Art/V0182/Saibaman/portrait	Assets/DragonIdle/Resources/Art/V0182/Saibaman/portrait.png	478786aeeb4f5a8c9a5b58cd57ff1cdd	Assets/DragonIdle/Presentation/RoundSmoke.cs (key)
+保留	Art/V0182/Saibaman/reactions	Assets/DragonIdle/Resources/Art/V0182/Saibaman/reactions.png	d78abc23a6355385a5a8f2cba0398f9f	在用或回退清单 Art/V0182/Saibaman/Reaction
+保留	Art/V0182/Saibaman/skill-images	Assets/DragonIdle/Resources/Art/V0182/Saibaman/skill-images.png	dc3fca39d28d5faf86892cce892240ac	Tools/round-character-assets.json (key) | 在用或回退清单 Config/Characters/RoundKits
+保留	Art/V0182/Saibaman/skill-motion	Assets/DragonIdle/Resources/Art/V0182/Saibaman/skill-motion.png	adfe3730e59455bdae43bf94ed3ffa55	在用或回退清单 Art/V0182/Saibaman/Motion
+保留	Art/V0182/Yamcha/Motion	Assets/DragonIdle/Resources/Art/V0182/Yamcha/Motion.json	6fc79ca733ff46808425af87a165274f	RoundMotionArt.Load 优先加载角色新版 Motion
+保留	Art/V0182/Yamcha/Reaction	Assets/DragonIdle/Resources/Art/V0182/Yamcha/Reaction.json	3cc35507c703416eafeea80f74249d83	RoundMotionArt.Load 优先加载新版 Reaction
+保留	Art/V0182/Yamcha/skill-images	Assets/DragonIdle/Resources/Art/V0182/Yamcha/skill-images.png	1a2e4fd0bae4462183e399098bf0334f	Tools/round-character-assets.json (key) | 在用或回退清单 Config/Characters/RoundKits
+保留	Art/V0182/Yamcha/trial-battle	Assets/DragonIdle/Resources/Art/V0182/Yamcha/trial-battle.png	4514ddb19f78408bbbf6e77d1d056ade	在用或回退清单 Art/V0182/Yamcha/Motion | 在用或回退清单 Art/V0182/Yamcha/Reaction
+保留	Art/V0182/Yamcha/trial-movement	Assets/DragonIdle/Resources/Art/V0182/Yamcha/trial-movement.png	6530516ba13345e2b347429537d56640	在用或回退清单 Art/V0182/Yamcha/Motion | 在用或回退清单 Art/V0182/Yamcha/Reaction
+保留	Art/V0182/Yamcha/trial-reactions	Assets/DragonIdle/Resources/Art/V0182/Yamcha/trial-reactions.png	130402c5395b4c29a367964a0c43af1b	在用或回退清单 Art/V0182/Yamcha/Motion | 在用或回退清单 Art/V0182/Yamcha/Reaction
+保留	Art/V0182/Yamcha/trial-recovery	Assets/DragonIdle/Resources/Art/V0182/Yamcha/trial-recovery.png	f02b6d6d60034467ab9a494376dd58c2	在用或回退清单 Art/V0182/Yamcha/Motion | 在用或回退清单 Art/V0182/Yamcha/Reaction
+保留	Art/V0182/Yamcha/wolf-finisher	Assets/DragonIdle/Resources/Art/V0182/Yamcha/wolf-finisher.png	ab2b6c04e060481fa843eeab11341e9b	RoundYamchaFx 拼接狼头特效纹理
+保留	Art/V0182/skill-frame	Assets/DragonIdle/Resources/Art/V0182/skill-frame.png	7764dd874471541baf0ee8e049c6455f	Assets/DragonIdle/Presentation/RoundSkillPresentation.cs (key) | Assets/DragonIdle/Presentation/RoundSmoke.cs (key)
+保留	Art/V050/chiaotzu-saiyan-v020-atlas	Assets/DragonIdle/Resources/Art/V050/chiaotzu-saiyan-v020-atlas.png	0f65ccec1da25fc48be096ed6b9b2217	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/chiaotzu-saiyan-v020-frames	Assets/DragonIdle/Resources/Art/V050/chiaotzu-saiyan-v020-frames.json	8b5e2f2af0ce9e949b860ba55a2694ac	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/gohan-test-atlas	Assets/DragonIdle/Resources/Art/V050/gohan-test-atlas.png	b985d11adfff0cf479dee882c4f99def	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/gohan-test-frames	Assets/DragonIdle/Resources/Art/V050/gohan-test-frames.json	cac5a498d7f5bab41b5513ad89cbfa37	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/goku-saiyan-kaioken-v020-atlas	Assets/DragonIdle/Resources/Art/V050/goku-saiyan-kaioken-v020-atlas.png	864792356962fe742bc0359ceb7a8467	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/goku-saiyan-kaioken-v020-frames	Assets/DragonIdle/Resources/Art/V050/goku-saiyan-kaioken-v020-frames.json	dbf9306cc79523c47bf3cde9883f621d	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/goku-test-atlas	Assets/DragonIdle/Resources/Art/V050/goku-test-atlas.png	c6c07fdeb30940241b92a75194acdd3a	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/goku-test-frames	Assets/DragonIdle/Resources/Art/V050/goku-test-frames.json	6b3aaa14b1bffcd43a9a7a4603f153e8	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/krillin-test-atlas	Assets/DragonIdle/Resources/Art/V050/krillin-test-atlas.png	1723e2a6905e88c4f82ae295877eeff2	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/krillin-test-frames	Assets/DragonIdle/Resources/Art/V050/krillin-test-frames.json	c45e0a4de023c004493d327a812ee3dd	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/piccolo-test-atlas	Assets/DragonIdle/Resources/Art/V050/piccolo-test-atlas.png	9123deded3036454ba67853784d3d8bd	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/piccolo-test-frames	Assets/DragonIdle/Resources/Art/V050/piccolo-test-frames.json	ca4ea16add2146b4fbe0b999c93987e2	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/tien-test-atlas	Assets/DragonIdle/Resources/Art/V050/tien-test-atlas.png	8955c927e6294c24eb13a78b84cb57bd	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/tien-test-frames	Assets/DragonIdle/Resources/Art/V050/tien-test-frames.json	8c483268969fc5f4eb2e0203c5776b39	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/vegeta-test-atlas	Assets/DragonIdle/Resources/Art/V050/vegeta-test-atlas.png	aaf45a2824cf1b949a0a97e7ae4ed310	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1 | 同批历史清单 Art/V0140/Vegeta/Motion | 在用或回退清单 Art/V0154/Vegeta/Motion | 在用或回退清单 Art/V0180/Battle/Vegeta/Reaction
+保留	Art/V050/vegeta-test-frames	Assets/DragonIdle/Resources/Art/V050/vegeta-test-frames.json	51948e5e6f634084191ada45e87ba6a8	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/yamcha-saiyan-v020-atlas	Assets/DragonIdle/Resources/Art/V050/yamcha-saiyan-v020-atlas.png	3865cc50071739147a0e23b668350361	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V050/yamcha-saiyan-v020-frames	Assets/DragonIdle/Resources/Art/V050/yamcha-saiyan-v020-frames.json	c6bcd87b174db5c41a7406c07e93cd96	按卡 ID 加载的旧战斗图集和矩形；Tools/validate-art.ps1
+保留	Art/V051/chiaotzu-saiyan-v020-portrait	Assets/DragonIdle/Resources/Art/V051/chiaotzu-saiyan-v020-portrait.png	1a4040f4f1875374f8a8385497efcb5d	非回合卡立绘回退或旧立绘构建溯源校验；Tools/validate-art.ps1
+保留	Art/V051/gohan-test-portrait	Assets/DragonIdle/Resources/Art/V051/gohan-test-portrait.png	b6bb26328a931fe4585f90061aad3dfe	非回合卡立绘回退或旧立绘构建溯源校验；Tools/validate-art.ps1
+保留	Art/V051/goku-saiyan-kaioken-v020-portrait	Assets/DragonIdle/Resources/Art/V051/goku-saiyan-kaioken-v020-portrait.png	04d6cfcf39810ea4ca35ba21cc6a9cd4	非回合卡立绘回退或旧立绘构建溯源校验；Tools/validate-art.ps1
+保留	Art/V051/goku-test-portrait	Assets/DragonIdle/Resources/Art/V051/goku-test-portrait.png	cf2e769f4bde61540926a051f3931b78	非回合卡立绘回退或旧立绘构建溯源校验；Tools/validate-art.ps1
+保留	Art/V051/krillin-test-portrait	Assets/DragonIdle/Resources/Art/V051/krillin-test-portrait.png	9742481b0b45ba04cb889e6bbb060812	非回合卡立绘回退或旧立绘构建溯源校验；Tools/validate-art.ps1
+保留	Art/V051/piccolo-test-portrait	Assets/DragonIdle/Resources/Art/V051/piccolo-test-portrait.png	7f51ae60330ec984bbe44412d8f2d2bc	非回合卡立绘回退或旧立绘构建溯源校验；Tools/validate-art.ps1
+保留	Art/V051/tien-test-portrait	Assets/DragonIdle/Resources/Art/V051/tien-test-portrait.png	e59a0dc9828569c4a9adca26b6ef59a2	非回合卡立绘回退或旧立绘构建溯源校验；Tools/validate-art.ps1
+保留	Art/V051/vegeta-test-portrait	Assets/DragonIdle/Resources/Art/V051/vegeta-test-portrait.png	220a82b99e97fd342bea95872bce54b2	非回合卡立绘回退或旧立绘构建溯源校验；Tools/validate-art.ps1
+保留	Art/V051/yamcha-saiyan-v020-portrait	Assets/DragonIdle/Resources/Art/V051/yamcha-saiyan-v020-portrait.png	6c254f704c6221547a65beda5fe55d63	非回合卡立绘回退或旧立绘构建溯源校验；Tools/validate-art.ps1
+保留	Art/goku-raditz-c-v030	Assets/DragonIdle/Resources/Art/goku-raditz-c-v030.png	5c4267c563294330830218427fc35137	Assets/DragonIdle/Presentation/LogicSmoke.cs (key)
+归档	Art/goku-saiyan-sample-v1	Assets/DragonIdle/Resources/Art/goku-saiyan-sample-v1.png	7417ae1cfd2853146922f3712e101678	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Audio/V0138/Goku/beam	Assets/DragonIdle/Resources/Audio/V0138/Goku/beam.wav	4dac402bad8a19e418dca61c6307e682	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Audio/V0138/Goku/beam-tail	Assets/DragonIdle/Resources/Audio/V0138/Goku/beam-tail.wav	0fbbcaafe7cea8441bdbd2efdfdbe754	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/charge	Assets/DragonIdle/Resources/Audio/V0138/Goku/charge.wav	b2698c6643b5fbe468cda799cdd27e33	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/cloth	Assets/DragonIdle/Resources/Audio/V0138/Goku/cloth.wav	aa48d97ebc98aeb4dab77653ed8a7695	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/dodge	Assets/DragonIdle/Resources/Audio/V0138/Goku/dodge.wav	2b6e23caca1dfcb428d885d4189d4958	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/guard	Assets/DragonIdle/Resources/Audio/V0138/Goku/guard.wav	c7ad78a6ba5688f4fab0659a297c824e	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/heavy	Assets/DragonIdle/Resources/Audio/V0138/Goku/heavy.wav	179a71eaf6a0c00488d0a6bb0f145f1b	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/land	Assets/DragonIdle/Resources/Audio/V0138/Goku/land.wav	12b1a9054b2c7664b8730d6208757c38	在用或回退清单 Config/Characters/GohanAudio | 在用或回退清单 Config/Characters/GokuAudio | 在用或回退清单 Config/Characters/KrillinAudio | 在用或回退清单 Config/Characters/PiccoloAudio | 在用或回退清单 Config/Characters/RaditzAudio
+保留	Audio/V0138/Goku/punch	Assets/DragonIdle/Resources/Audio/V0138/Goku/punch.wav	7267f992e903c7b4d850d94388e66a65	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/pursuit-start	Assets/DragonIdle/Resources/Audio/V0138/Goku/pursuit-start.wav	0d943850edb65864e91b44f713000ecd	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/sweep	Assets/DragonIdle/Resources/Audio/V0138/Goku/sweep.wav	8a0751ef73d4e614eaca8f6c2347a806	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/uppercut	Assets/DragonIdle/Resources/Audio/V0138/Goku/uppercut.wav	bb217aad60dd2c64994386774cb88138	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/voice-entry	Assets/DragonIdle/Resources/Audio/V0138/Goku/voice-entry.wav	709214a0183bdba45a1b0b5f306e6457	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/voice-fire	Assets/DragonIdle/Resources/Audio/V0138/Goku/voice-fire.wav	ca8297cafae0630498976243aff7c10c	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/voice-gather	Assets/DragonIdle/Resources/Audio/V0138/Goku/voice-gather.wav	bbb777f11107f7c49a3d4e2376320deb	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/voice-hit-heavy	Assets/DragonIdle/Resources/Audio/V0138/Goku/voice-hit-heavy.wav	59db189900568a5479ea694b0584463e	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/voice-hit-light	Assets/DragonIdle/Resources/Audio/V0138/Goku/voice-hit-light.wav	75d2afbe4e430de4b96a8c0680f64bc6	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/voice-kick	Assets/DragonIdle/Resources/Audio/V0138/Goku/voice-kick.wav	5dd2d57118906ee40bec9f1046dce6fa	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/voice-opening	Assets/DragonIdle/Resources/Audio/V0138/Goku/voice-opening.wav	7b88a96de9445b449a9274965dd66a20	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0138/Goku/voice-punch	Assets/DragonIdle/Resources/Audio/V0138/Goku/voice-punch.wav	2928e1ba303ff2d4c9fef6491abdbe23	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0139/Shared/opening-passive	Assets/DragonIdle/Resources/Audio/V0139/Shared/opening-passive.wav	8700e61e1a73ef547ab858a9eaaa379d	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0140/Vegeta/vegeta-basic-voice	Assets/DragonIdle/Resources/Audio/V0140/Vegeta/vegeta-basic-voice.wav	d9a46174632a2814a9a76c299abd9b8a	在用或回退清单 Config/Characters/VegetaAudio
+保留	Audio/V0140/Vegeta/vegeta-hammer	Assets/DragonIdle/Resources/Audio/V0140/Vegeta/vegeta-hammer.wav	618b8dd3bb289c5488ec7772158ec289	在用或回退清单 Config/Characters/VegetaAudio
+保留	Audio/V0140/Vegeta/vegeta-hammer-voice	Assets/DragonIdle/Resources/Audio/V0140/Vegeta/vegeta-hammer-voice.wav	904372d0b4171354f91c782128b15986	在用或回退清单 Config/Characters/VegetaAudio
+保留	Audio/V0140/Vegeta/vegeta-hit-heavy	Assets/DragonIdle/Resources/Audio/V0140/Vegeta/vegeta-hit-heavy.wav	403e9f46fec2da54ca76a4196451c199	在用或回退清单 Config/Characters/VegetaAudio
+保留	Audio/V0140/Vegeta/vegeta-hit-light	Assets/DragonIdle/Resources/Audio/V0140/Vegeta/vegeta-hit-light.wav	9ec4c3fa468a0114b8fcd03823950337	在用或回退清单 Config/Characters/VegetaAudio
+保留	Audio/V0140/Vegeta/vegeta-impact	Assets/DragonIdle/Resources/Audio/V0140/Vegeta/vegeta-impact.wav	0dc0c9aec6d08a0499cce7392288424d	在用或回退清单 Config/Characters/KrillinAudio | 在用或回退清单 Config/Characters/RaditzAudio | 在用或回退清单 Config/Characters/VegetaAudio
+保留	Audio/V0140/Vegeta/vegeta-launch	Assets/DragonIdle/Resources/Audio/V0140/Vegeta/vegeta-launch.wav	52328d335dcd04440a684720b7f6091e	在用或回退清单 Config/Characters/VegetaAudio
+保留	Audio/V0140/Vegeta/vegeta-opening	Assets/DragonIdle/Resources/Audio/V0140/Vegeta/vegeta-opening.wav	3ab6af930dd44bf49b568e0ac2684e06	在用或回退清单 Config/Characters/VegetaAudio
+保留	Audio/V0140/Vegeta/vegeta-volley-voice	Assets/DragonIdle/Resources/Audio/V0140/Vegeta/vegeta-volley-voice.wav	8e2a044cefbd31a4fa06520c5170cad0	在用或回退清单 Config/Characters/VegetaAudio
+归档	Audio/V0141/BGM/gurus-house-calm-loop	Assets/DragonIdle/Resources/Audio/V0141/BGM/gurus-house-calm-loop.wav	cf6130bf7de5e27458b09963872b8015	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Audio/V0141/BGM/landing-meadow	Assets/DragonIdle/Resources/Audio/V0141/BGM/landing-meadow.wav	a52f18736328f8945a6d0267ed636e61	在用或回退清单 Config/Battle/Scenes
+保留	Audio/V0141/BGM/red-rock-canyon	Assets/DragonIdle/Resources/Audio/V0141/BGM/red-rock-canyon.wav	fee62cc419fda10458514bcc03da03ce	在用或回退清单 Config/Battle/Scenes
+保留	Audio/V0141/BGM/wind-carved-plateau	Assets/DragonIdle/Resources/Audio/V0141/BGM/wind-carved-plateau.wav	ff0eed5f756ad554a9465306beee3c3b	在用或回退清单 Config/Battle/Scenes
+保留	Audio/V0143/Piccolo/piccolo-basic	Assets/DragonIdle/Resources/Audio/V0143/Piccolo/piccolo-basic.wav	e22aaec1bae87ef49a4df03e216c5311	在用或回退清单 Config/Characters/PiccoloAudio
+保留	Audio/V0143/Piccolo/piccolo-blast	Assets/DragonIdle/Resources/Audio/V0143/Piccolo/piccolo-blast.wav	26062884de09bc748a9e2055c0fffc4d	在用或回退清单 Config/Characters/PiccoloAudio
+保留	Audio/V0143/Piccolo/piccolo-counter	Assets/DragonIdle/Resources/Audio/V0143/Piccolo/piccolo-counter.wav	4086c62ccc395a2489abff902835daec	在用或回退清单 Config/Characters/PiccoloAudio
+保留	Audio/V0143/Piccolo/piccolo-dash	Assets/DragonIdle/Resources/Audio/V0143/Piccolo/piccolo-dash.wav	f4a1a6cf1df5b4c48934944c54f71bd7	在用或回退清单 Config/Characters/PiccoloAudio
+保留	Audio/V0143/Piccolo/piccolo-fire	Assets/DragonIdle/Resources/Audio/V0143/Piccolo/piccolo-fire.wav	e51943cbf84a5f040affe3b1e8c677b1	在用或回退清单 Config/Characters/PiccoloAudio
+保留	Audio/V0143/Piccolo/piccolo-gather	Assets/DragonIdle/Resources/Audio/V0143/Piccolo/piccolo-gather.wav	e8486211eea635b4eb6e92a378f703ae	在用或回退清单 Config/Characters/PiccoloAudio
+保留	Audio/V0143/Piccolo/piccolo-hit-heavy	Assets/DragonIdle/Resources/Audio/V0143/Piccolo/piccolo-hit-heavy.wav	e61747bfe7ef8bd4db0149c88b15a09b	在用或回退清单 Config/Characters/PiccoloAudio
+保留	Audio/V0143/Piccolo/piccolo-hit-light	Assets/DragonIdle/Resources/Audio/V0143/Piccolo/piccolo-hit-light.wav	57f22427064d47c429c31abdc438d2ee	在用或回退清单 Config/Characters/PiccoloAudio
+保留	Audio/V0143/Piccolo/piccolo-short	Assets/DragonIdle/Resources/Audio/V0143/Piccolo/piccolo-short.wav	1561fbb5cca018243bd54482d86dec98	在用或回退清单 Config/Characters/PiccoloAudio
+保留	Audio/V0151/Gohan/gohan-entry	Assets/DragonIdle/Resources/Audio/V0151/Gohan/gohan-entry.wav	8c0334ad794a85842b80cb730d0483dd	在用或回退清单 Config/Characters/GohanAudio
+保留	Audio/V0151/Gohan/gohan-flash	Assets/DragonIdle/Resources/Audio/V0151/Gohan/gohan-flash.wav	ff6a07d0125ab4e40820717263af964c	在用或回退清单 Config/Characters/GohanAudio
+保留	Audio/V0151/Gohan/gohan-flash-voice	Assets/DragonIdle/Resources/Audio/V0151/Gohan/gohan-flash-voice.wav	37e54b642f9ba6645ba99b2b14e47ffb	在用或回退清单 Config/Characters/GohanAudio
+保留	Audio/V0151/Gohan/gohan-guard	Assets/DragonIdle/Resources/Audio/V0151/Gohan/gohan-guard.wav	9346f2b7433c91f438bd662e07eab20f	在用或回退清单 Config/Characters/GohanAudio
+保留	Audio/V0151/Gohan/gohan-heavy	Assets/DragonIdle/Resources/Audio/V0151/Gohan/gohan-heavy.wav	445835fda45a9ea4e99ba8802d55cb7e	在用或回退清单 Config/Characters/GohanAudio
+保留	Audio/V0151/Gohan/gohan-heavy-voice	Assets/DragonIdle/Resources/Audio/V0151/Gohan/gohan-heavy-voice.wav	c67079f640f75a44a8b6452841c5bbd5	在用或回退清单 Config/Characters/GohanAudio
+保留	Audio/V0151/Gohan/gohan-hit-heavy	Assets/DragonIdle/Resources/Audio/V0151/Gohan/gohan-hit-heavy.wav	643cd31bc6f52ac4d8ee2cd2bb6ab453	在用或回退清单 Config/Characters/GohanAudio
+保留	Audio/V0151/Gohan/gohan-hit-light	Assets/DragonIdle/Resources/Audio/V0151/Gohan/gohan-hit-light.wav	b96063aaa1388854a84ccb87331c6916	在用或回退清单 Config/Characters/GohanAudio
+保留	Audio/V0151/Gohan/gohan-rally	Assets/DragonIdle/Resources/Audio/V0151/Gohan/gohan-rally.wav	5fa53441df7159d4b93df48829d3b1ad	在用或回退清单 Config/Characters/GohanAudio
+保留	Audio/V0151/Gohan/gohan-rally-voice	Assets/DragonIdle/Resources/Audio/V0151/Gohan/gohan-rally-voice.wav	0827357ef861aa541b18ec89a818b871	在用或回退清单 Config/Characters/GohanAudio
+保留	Audio/V0152/BGM/character-selection-loop	Assets/DragonIdle/Resources/Audio/V0152/BGM/character-selection-loop.wav	24ad4a57e03e4786a0b24a4e224362ee	Assets/DragonIdle/Presentation/MenuAudio.cs (key)
+保留	Audio/V0154/Krillin/krillin-basic-impact	Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-basic-impact.wav	3b7c56c6a6b2041419ce6d7a0f41a0a0	在用或回退清单 Config/Characters/KrillinAudio
+保留	Audio/V0154/Krillin/krillin-basic-voice	Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-basic-voice.wav	0146e81954d00044ab60696fa0e90ce9	在用或回退清单 Config/Characters/KrillinAudio
+保留	Audio/V0154/Krillin/krillin-disc-charge	Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-disc-charge.wav	729df50a0897ae240bc5c99dbb69bdeb	在用或回退清单 Config/Characters/KrillinAudio
+保留	Audio/V0154/Krillin/krillin-disc-cut	Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-disc-cut.wav	9200a21e86856bf449399621375dde39	在用或回退清单 Config/Characters/KrillinAudio
+保留	Audio/V0154/Krillin/krillin-disc-throw	Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-disc-throw.wav	03c3a7376b824ff46aed104dce19e4ec	在用或回退清单 Config/Characters/KrillinAudio
+保留	Audio/V0154/Krillin/krillin-disc-voice	Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-disc-voice.wav	6142bd9756f89a349bd0efb5a804cc33	在用或回退清单 Config/Characters/KrillinAudio
+保留	Audio/V0154/Krillin/krillin-entry	Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-entry.wav	3269635dc1feeda49b98dfa0772e6435	在用或回退清单 Config/Characters/KrillinAudio
+保留	Audio/V0154/Krillin/krillin-hit-heavy	Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-hit-heavy.wav	5f8d3b3d7b8630e449ac73e3cdbe73da	在用或回退清单 Config/Characters/KrillinAudio
+保留	Audio/V0154/Krillin/krillin-hit-light	Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-hit-light.wav	7e209765ac33eff489175ae9f56c7b36	在用或回退清单 Config/Characters/KrillinAudio
+保留	Audio/V0154/Krillin/krillin-opening	Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-opening.wav	d10dc7069bff45c4d8462a2e7593cbaf	在用或回退清单 Config/Characters/KrillinAudio
+保留	Audio/V0154/Krillin/krillin-scatter-charge	Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-scatter-charge.wav	159886d19204213468e2fa7e56d6a252	在用或回退清单 Config/Characters/KrillinAudio
+归档	Audio/V0154/Krillin/krillin-scatter-shot	Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-scatter-shot.wav	45a7242edb4b6e5418ceca3bf54fa53b	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Audio/V0161/Raditz/raditz-entry	Assets/DragonIdle/Resources/Audio/V0161/Raditz/raditz-entry.wav	92fecda0e9ffd7a4ea69e7bf16b7edfb	在用或回退清单 Config/Characters/RaditzAudio
+保留	Audio/V0161/Raditz/raditz-friday	Assets/DragonIdle/Resources/Audio/V0161/Raditz/raditz-friday.wav	5554faab363afbf4d9397cc5530706ae	在用或回退清单 Config/Characters/RaditzAudio
+保留	Audio/V0161/Raditz/raditz-friday-hold	Assets/DragonIdle/Resources/Audio/V0161/Raditz/raditz-friday-hold.wav	7ce2f7a0677ee564996308278ef68aec	在用或回退清单 Config/Characters/RaditzAudio
+保留	Audio/V0161/Raditz/raditz-friday-release	Assets/DragonIdle/Resources/Audio/V0161/Raditz/raditz-friday-release.wav	00b3bb9d2082fe64880b244e126d9ffa	在用或回退清单 Config/Characters/RaditzAudio
+保留	Audio/V0161/Raditz/raditz-hit-heavy	Assets/DragonIdle/Resources/Audio/V0161/Raditz/raditz-hit-heavy.wav	dcea55a9b01edba428ff354045d8de16	在用或回退清单 Config/Characters/RaditzAudio
+保留	Audio/V0161/Raditz/raditz-hit-light	Assets/DragonIdle/Resources/Audio/V0161/Raditz/raditz-hit-light.wav	20e600911f0753b449e94be0fb6ba0e0	在用或回退清单 Config/Characters/RaditzAudio
+保留	Audio/V0161/Raditz/raditz-kick	Assets/DragonIdle/Resources/Audio/V0161/Raditz/raditz-kick.wav	9ff76d144f64b0e4ebec6d2961caa6c3	在用或回退清单 Config/Characters/RaditzAudio
+保留	Audio/V0161/Raditz/raditz-opening	Assets/DragonIdle/Resources/Audio/V0161/Raditz/raditz-opening.wav	0ba517d9f2286e74fa9ac00f3e8aba5e	在用或回退清单 Config/Characters/RaditzAudio
+保留	Audio/V0161/Raditz/raditz-sunday	Assets/DragonIdle/Resources/Audio/V0161/Raditz/raditz-sunday.wav	16179b1dfd6e2fb45929c0c73ceb6aad	在用或回退清单 Config/Characters/RaditzAudio
+保留	Audio/V0161/Raditz/raditz-sunday-charge	Assets/DragonIdle/Resources/Audio/V0161/Raditz/raditz-sunday-charge.wav	ee64927e39fa44e4a904cdfa1e68b11a	在用或回退清单 Config/Characters/RaditzAudio
+保留	Audio/V0161/Raditz/raditz-sunday-release	Assets/DragonIdle/Resources/Audio/V0161/Raditz/raditz-sunday-release.wav	bb181b4ec09515a4894e0d6ab0aac856	在用或回退清单 Config/Characters/RaditzAudio
+保留	Audio/V0172/Yamcha/basic	Assets/DragonIdle/Resources/Audio/V0172/Yamcha/basic.wav	f3d4b8362e8c6a944a919c6726641aeb	在用或回退清单 Config/Characters/YamchaAudio
+保留	Audio/V0172/Yamcha/entry	Assets/DragonIdle/Resources/Audio/V0172/Yamcha/entry.wav	e6a213f33cd6b5f46b3421bbb483eee7	在用或回退清单 Config/Characters/YamchaAudio
+保留	Audio/V0172/Yamcha/hit-heavy	Assets/DragonIdle/Resources/Audio/V0172/Yamcha/hit-heavy.wav	3cbfc9d74ea8a1849bdb9cc8eaa59493	在用或回退清单 Config/Characters/YamchaAudio
+保留	Audio/V0172/Yamcha/hit-light	Assets/DragonIdle/Resources/Audio/V0172/Yamcha/hit-light.wav	a218aebbd1cf3664291d6d9a2c9d94ad	在用或回退清单 Config/Characters/YamchaAudio
+保留	Audio/V0172/Yamcha/land	Assets/DragonIdle/Resources/Audio/V0172/Yamcha/land.wav	eff5a806e06552d42ba9cefa5bd20155	在用或回退清单 Config/Characters/YamchaAudio
+保留	Audio/V0172/Yamcha/rise	Assets/DragonIdle/Resources/Audio/V0172/Yamcha/rise.wav	420d71396223c6544aab94289db2a885	在用或回退清单 Config/Characters/YamchaAudio
+保留	Audio/V0172/Yamcha/sweep	Assets/DragonIdle/Resources/Audio/V0172/Yamcha/sweep.wav	f0231147df8d860418b2456e93c4bac1	在用或回退清单 Config/Characters/YamchaAudio
+保留	Audio/V0172/Yamcha/wolf	Assets/DragonIdle/Resources/Audio/V0172/Yamcha/wolf.wav	4fa0b9f49635b874fbf3412527072d9d	在用或回退清单 Config/Characters/YamchaAudio
+保留	Audio/V0173/Tien/cannon	Assets/DragonIdle/Resources/Audio/V0173/Tien/cannon.wav	84725914cede66843b189b6a4d16c068	在用或回退清单 Config/Characters/TienAudio
+保留	Audio/V0173/Tien/cannon-impact	Assets/DragonIdle/Resources/Audio/V0173/Tien/cannon-impact.wav	b3af0ba60a6451c4d8bca5a06bb19780	在用或回退清单 Config/Characters/TienAudio
+保留	Audio/V0173/Tien/entry	Assets/DragonIdle/Resources/Audio/V0173/Tien/entry.wav	f13713ff2b1970c498db789426cee7dd	在用或回退清单 Config/Characters/TienAudio
+归档	Audio/V0173/Tien/finger	Assets/DragonIdle/Resources/Audio/V0173/Tien/finger.wav	6baada2a5a4a0c242ae3036010736778	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Audio/V0173/Tien/finger-impact	Assets/DragonIdle/Resources/Audio/V0173/Tien/finger-impact.wav	8068b94d1bc722e49beacf5be57c8548	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Audio/V0173/Tien/hit-heavy	Assets/DragonIdle/Resources/Audio/V0173/Tien/hit-heavy.wav	74d33f992d663c245b004803b1f72ad2	在用或回退清单 Config/Characters/TienAudio
+保留	Audio/V0173/Tien/hit-light	Assets/DragonIdle/Resources/Audio/V0173/Tien/hit-light.wav	6f4f44b0ef8385e45bcace9e85c9e259	在用或回退清单 Config/Characters/TienAudio
+保留	Audio/V0173/Tien/land	Assets/DragonIdle/Resources/Audio/V0173/Tien/land.wav	95a646df97d6e2c4aaf891aba33a14fc	在用或回退清单 Config/Characters/TienAudio
+保留	Audio/V0173/Tien/set	Assets/DragonIdle/Resources/Audio/V0173/Tien/set.wav	9907e90be18575e479f79714fe7e363d	在用或回退清单 Config/Characters/TienAudio
+保留	Audio/V0173/Tien/volley	Assets/DragonIdle/Resources/Audio/V0173/Tien/volley.wav	ffc37016f9e20704d973610d80cccda2	在用或回退清单 Config/Characters/TienAudio
+归档	Audio/V0181/Saibaman/acid	Assets/DragonIdle/Resources/Audio/V0181/Saibaman/acid.wav	740447b1f9de42ccb4beceead9949d11	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Audio/V0181/Saibaman/acid-impact	Assets/DragonIdle/Resources/Audio/V0181/Saibaman/acid-impact.wav	90f952234e484630a49026d568be2727	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Audio/V0181/Saibaman/basic	Assets/DragonIdle/Resources/Audio/V0181/Saibaman/basic.wav	d83ca5a4f9bc493a9610a496c7dbb228	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Audio/V0181/Saibaman/burst	Assets/DragonIdle/Resources/Audio/V0181/Saibaman/burst.wav	a3e65d323b814f2a865624b37d7baa05	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Audio/V0181/Saibaman/burst-voice	Assets/DragonIdle/Resources/Audio/V0181/Saibaman/burst-voice.wav	ff16524e431b4498852725ead4cadff5	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Audio/V0181/Saibaman/entry	Assets/DragonIdle/Resources/Audio/V0181/Saibaman/entry.wav	ba489c5a511c4e7a9dc161f87b4d1ffb	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Audio/V0181/Saibaman/hit-heavy	Assets/DragonIdle/Resources/Audio/V0181/Saibaman/hit-heavy.wav	84377cbbcf1f494c8997d8f2fd87c03d	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Audio/V0181/Saibaman/hit-light	Assets/DragonIdle/Resources/Audio/V0181/Saibaman/hit-light.wav	abc93120fb49493d91d88bcd8f825c99	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Audio/V0181/Saibaman/smash	Assets/DragonIdle/Resources/Audio/V0181/Saibaman/smash.wav	e19ad3a885e04116bb910ae21f5c539c	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Audio/V0181/Tien/finger-impact	Assets/DragonIdle/Resources/Audio/V0181/Tien/finger-impact.wav	220fb0fa08944895ab94f3f806805912	Assets/DragonIdle/Presentation/RoundCueAudio.cs (key) | 在用或回退清单 Config/Characters/TienAudio
+保留	Audio/V0181/Tien/finger-release	Assets/DragonIdle/Resources/Audio/V0181/Tien/finger-release.wav	c675102b999b417f95ad978dc4ac8f34	在用或回退清单 Config/Characters/TienAudio
+保留	Audio/V0182/Goku/beam-sustain	Assets/DragonIdle/Resources/Audio/V0182/Goku/beam-sustain.wav	cf7f57282ffe0a04fa0a3cabfbcfa09a	在用或回退清单 Config/Characters/GokuAudio
+保留	Audio/V0182/Krillin/scatter-shot-short	Assets/DragonIdle/Resources/Audio/V0182/Krillin/scatter-shot-short.wav	c324afbd870c6bb469331a11aad1b4dd	在用或回退清单 Config/Characters/KrillinAudio
+保留	Audio/V0182/Piccolo/beam-charge	Assets/DragonIdle/Resources/Audio/V0182/Piccolo/beam-charge.wav	1e20bfe12de62474b8202bcecb062478	在用或回退清单 Config/Characters/PiccoloAudio
+保留	Audio/V0182/Piccolo/beam-fire	Assets/DragonIdle/Resources/Audio/V0182/Piccolo/beam-fire.wav	49f9448fff408b44fa3beb0023a09392	在用或回退清单 Config/Characters/PiccoloAudio
+保留	Audio/V0182/Saibaman/acid	Assets/DragonIdle/Resources/Audio/V0182/Saibaman/acid.wav	54a7c9a58cba50029a4964bcc9bdbd76	在用或回退清单 Config/Characters/SaibamanAudio
+保留	Audio/V0182/Saibaman/acid-impact	Assets/DragonIdle/Resources/Audio/V0182/Saibaman/acid-impact.wav	d6f7451e69e9535985185515d4c3d521	在用或回退清单 Config/Characters/SaibamanAudio
+保留	Audio/V0182/Saibaman/basic	Assets/DragonIdle/Resources/Audio/V0182/Saibaman/basic.wav	6c5d23942c945a8fa7ef66224eb82a0f	在用或回退清单 Config/Characters/SaibamanAudio
+保留	Audio/V0182/Saibaman/burst	Assets/DragonIdle/Resources/Audio/V0182/Saibaman/burst.wav	b81e8120f3ce596aaa31800ac24bce10	在用或回退清单 Config/Characters/SaibamanAudio
+保留	Audio/V0182/Saibaman/burst-voice	Assets/DragonIdle/Resources/Audio/V0182/Saibaman/burst-voice.wav	c9b102f40f625ca594ba57ef2d96ffae	在用或回退清单 Config/Characters/SaibamanAudio
+保留	Audio/V0182/Saibaman/entry	Assets/DragonIdle/Resources/Audio/V0182/Saibaman/entry.wav	482f4c5331f5506983c7e4ba18f255e5	在用或回退清单 Config/Characters/SaibamanAudio
+保留	Audio/V0182/Saibaman/hit-heavy	Assets/DragonIdle/Resources/Audio/V0182/Saibaman/hit-heavy.wav	62090685e30e53459d8fdcd169a02b19	在用或回退清单 Config/Characters/SaibamanAudio
+保留	Audio/V0182/Saibaman/hit-light	Assets/DragonIdle/Resources/Audio/V0182/Saibaman/hit-light.wav	00bd24806b045fa6819a4ff6e0bd32c0	在用或回退清单 Config/Characters/SaibamanAudio
+保留	Audio/V0182/Saibaman/smash	Assets/DragonIdle/Resources/Audio/V0182/Saibaman/smash.wav	9f26abe6c28952b4bc91b1fa09d3a9ad	在用或回退清单 Config/Characters/SaibamanAudio
+保留	Config/Battle/RoundEncounters	Assets/DragonIdle/Resources/Config/Battle/RoundEncounters.json	20156c7b32f843de9fb80cfaaa8dee73	Assets/DragonIdle/Presentation/RoundUI.cs (key) | 配置入口：ChapterViews / RoundUI / RoundDemoUI / RoundCueAudio
+保留	Config/Battle/Scenes	Assets/DragonIdle/Resources/Config/Battle/Scenes.json	5b092da1a909dde44ad571212d4b6fe1	Assets/DragonIdle/Presentation/RoundDemoUI.cs (key) | 配置入口：ChapterViews / RoundUI / RoundDemoUI / RoundCueAudio
+保留	Config/Characters/GohanAudio	Assets/DragonIdle/Resources/Config/Characters/GohanAudio.json	73975becc2518a646a1aa02f590af9ae	配置入口：ChapterViews / RoundUI / RoundDemoUI / RoundCueAudio
+保留	Config/Characters/GokuAudio	Assets/DragonIdle/Resources/Config/Characters/GokuAudio.json	3896f5cb6d2cdc44eabeb92b849dff88	配置入口：ChapterViews / RoundUI / RoundDemoUI / RoundCueAudio
+保留	Config/Characters/KrillinAudio	Assets/DragonIdle/Resources/Config/Characters/KrillinAudio.json	d0290555b4f2ed645aafa19ac7593958	配置入口：ChapterViews / RoundUI / RoundDemoUI / RoundCueAudio
+保留	Config/Characters/PiccoloAudio	Assets/DragonIdle/Resources/Config/Characters/PiccoloAudio.json	34a0cf955c4c88b499c6d07cc07320f8	配置入口：ChapterViews / RoundUI / RoundDemoUI / RoundCueAudio
+保留	Config/Characters/RaditzAudio	Assets/DragonIdle/Resources/Config/Characters/RaditzAudio.json	613914a7e263b254ead7c44f2cab1f63	配置入口：ChapterViews / RoundUI / RoundDemoUI / RoundCueAudio
+保留	Config/Characters/RoundKits	Assets/DragonIdle/Resources/Config/Characters/RoundKits.json	171acc3a36e545d78e45d4164fd30a7e	Assets/DragonIdle/Presentation/RoundUI.cs (key) | Tools/build-windows.ps1 (key) | Tools/smoke-windows.ps1 (key) | Tools/sync-character-sheet.py (key) | 配置入口：ChapterViews / RoundUI / RoundDemoUI / RoundCueAudio
+保留	Config/Characters/RoundPortraits	Assets/DragonIdle/Resources/Config/Characters/RoundPortraits.json	cf36c48c40054cb8bcf5f22ac862b891	Assets/DragonIdle/Presentation/ChapterViews.cs (key) | Tools/sync-character-sheet.py (key) | 配置入口：ChapterViews / RoundUI / RoundDemoUI / RoundCueAudio
+保留	Config/Characters/SaibamanAudio	Assets/DragonIdle/Resources/Config/Characters/SaibamanAudio.json	c745735b0e6e46d8b6108fac48245a45	配置入口：ChapterViews / RoundUI / RoundDemoUI / RoundCueAudio
+保留	Config/Characters/TienAudio	Assets/DragonIdle/Resources/Config/Characters/TienAudio.json	4fcb4dd3adeaecf4aa51e3012b058b45	配置入口：ChapterViews / RoundUI / RoundDemoUI / RoundCueAudio
+保留	Config/Characters/VegetaAudio	Assets/DragonIdle/Resources/Config/Characters/VegetaAudio.json	d99d66bf8c497774cb28413b979454fd	配置入口：ChapterViews / RoundUI / RoundDemoUI / RoundCueAudio
+保留	Config/Characters/YamchaAudio	Assets/DragonIdle/Resources/Config/Characters/YamchaAudio.json	0053d684f90af1947a15740a9ff7553f	配置入口：ChapterViews / RoundUI / RoundDemoUI / RoundCueAudio
+归档	Interface/Gallery/Rarity/A	Assets/DragonIdle/Resources/Interface/Gallery/Rarity/A.png	fac972e9d779e2542842d83e69183413	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Interface/Gallery/Rarity/B	Assets/DragonIdle/Resources/Interface/Gallery/Rarity/B.png	ee10d89f8afbfdd468dde4cdd50dc653	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Interface/Gallery/Rarity/C	Assets/DragonIdle/Resources/Interface/Gallery/Rarity/C.png	b744720bc9950684dbe3f7fa34698013	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Interface/Gallery/Rarity/S	Assets/DragonIdle/Resources/Interface/Gallery/Rarity/S.png	55d09158aa3f60b418528d500c3d9895	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Interface/Gallery/Rarity/V0170/A	Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/A.png	587f57039d25fc84fa3d77aaa8de59c4	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Interface/Gallery/Rarity/V0170/B	Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/B.png	3685eab3852054a43b289175a8075725	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Interface/Gallery/Rarity/V0170/C	Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/C.png	91deb1311b0e9da4f8a29326b90e3f6f	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Interface/Gallery/Rarity/V0170/S	Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/S.png	46d45dd630179bf4d955b8ed57f6dd34	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Interface/Gallery/Rarity/V0171/A	Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0171/A.png	35ee71457da46e742945d2a5a193fc49	GalleryTheme.RarityBackdrop 依稀有度拼接
+保留	Interface/Gallery/Rarity/V0171/B	Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0171/B.png	fd93c3a8466379341ab2efe075562c3b	GalleryTheme.RarityBackdrop 依稀有度拼接
+保留	Interface/Gallery/Rarity/V0171/C	Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0171/C.png	e722ddae81ad408488c3e0a1e024ccd2	GalleryTheme.RarityBackdrop 依稀有度拼接
+保留	Interface/Gallery/Rarity/V0171/S	Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0171/S.png	8a0eff8acb4e4d140b12af6af62d8132	GalleryTheme.RarityBackdrop 依稀有度拼接
+保留	Interface/Rarity/A	Assets/DragonIdle/Resources/Interface/Rarity/A.png	cd8cf15b9b19b4547bbfe1c597b027fd	GalleryUI 徽章与 Tools/validate-ui-shell.ps1 原版校验
+保留	Interface/Rarity/B	Assets/DragonIdle/Resources/Interface/Rarity/B.png	a57965a76ec08c24caf21d19bd573af1	GalleryUI 徽章与 Tools/validate-ui-shell.ps1 原版校验
+保留	Interface/Rarity/C	Assets/DragonIdle/Resources/Interface/Rarity/C.png	1b26545b26033e642a79b535ce4859c6	GalleryUI 徽章与 Tools/validate-ui-shell.ps1 原版校验
+保留	Interface/Rarity/S	Assets/DragonIdle/Resources/Interface/Rarity/S.png	dd5d050403d4d0a41830639a24d9cad0	GalleryUI 徽章与 Tools/validate-ui-shell.ps1 原版校验
+保留	Interface/Rarity/V0170/C	Assets/DragonIdle/Resources/Interface/Rarity/V0170/C.png	f6e28376b4100d24f9bdabd89659c02f	Assets/DragonIdle/Presentation/RoundSmoke.cs (key) | GalleryUI 徽章与 Tools/validate-ui-shell.ps1 原版校验
+归档	Interface/Role/V0173/regions	Assets/DragonIdle/Resources/Interface/Role/V0173/regions.json	90c0e7cfc088fe04ebea8abf80903165	无现行 Unity GUID、配置、加载入口或回退引用
+归档	Interface/Role/V0173/roles	Assets/DragonIdle/Resources/Interface/Role/V0173/roles.png	ec8c5bd9be49b3e4ea4c5c7c6560b627	无现行 Unity GUID、配置、加载入口或回退引用
+保留	Interface/Role/V0174/regions	Assets/DragonIdle/Resources/Interface/Role/V0174/regions.json	5e03cf007e16401fa042f033dce58f38	Assets/DragonIdle/Presentation/GalleryRoleArt.cs (key) | GalleryRoleArt 的当前职业图和区域表
+保留	Interface/Role/V0174/roles	Assets/DragonIdle/Resources/Interface/Role/V0174/roles.png	7157daf8f9a84590915e6b36441e4370	Assets/DragonIdle/Presentation/GalleryRoleArt.cs (key) | Assets/DragonIdle/Presentation/RoundSmoke.cs (key) | GalleryRoleArt 的当前职业图和区域表

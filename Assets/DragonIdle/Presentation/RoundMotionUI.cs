@@ -224,28 +224,6 @@ namespace DragonIdle {
    }
   }
 
-  struct RoundVitals {
-   internal readonly double HP, Shield;
-   internal readonly int Rage;
-   internal readonly IReadOnlyList<RoundFighter.StatChange> DefenseChanges,DodgeChanges,AttackChanges;
-   internal RoundVitals(RoundFighter fighter,bool freezeDefense=false) {
-    HP = fighter.HP;
-    Shield = fighter.Shield;
-    Rage = fighter.Rage;
-    AttackChanges=freezeDefense?fighter.AttackChanges.ToArray():fighter.AttackChanges;
-    DodgeChanges=freezeDefense?fighter.DodgeChanges.ToArray():fighter.DodgeChanges;
-    DefenseChanges=freezeDefense?fighter.DefenseChanges.ToArray():fighter.DefenseChanges;
-   }
-   internal RoundVitals(RoundAction hit,RoundVitals previous){
-    HP=hit.TargetHPAfter;
-    Shield=hit.TargetShieldAfter;
-    Rage=hit.TargetRageAfter;
-    AttackChanges=previous.AttackChanges;
-    DefenseChanges=previous.DefenseChanges;
-    DodgeChanges=previous.DodgeChanges;
-   }
-  }
-
   readonly Queue<(RoundFighter Actor,RoundAbility Skill)> roundOpenings = new Queue<(RoundFighter,RoundAbility)>();
   readonly Dictionary<RoundFighter, RawImage> roundStanding = new Dictionary<RoundFighter, RawImage>();
   RoundMotionArt roundArt,vegetaArt,piccoloArt,gohanArt,krillinArt,raditzArt,yamchaArt,tienArt;

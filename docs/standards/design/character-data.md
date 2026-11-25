@@ -19,3 +19,10 @@
 ## 技能连击字段
 
 每张卡的招式表在 N 列填写技能连击。数字表示当前招式可贡献的连击数。伤害招式的未标注单段默认为 1，纯治疗、被动或复活填 0，分段与多目标按已配置上限逐个记录实击。玩家展示属性原文保留，角色同步工具独立校验本字段。
+
+## 客户端配置生成
+
+- 用户填写 [character.xlsx](../../../outputs/character/character.xlsx) 中的「角色设计」。以「角色编号」右侧 H 列编号的四位前缀关联 [round-character-assets.json](../../../Tools/round-character-assets.json) 中的稳定 CardId、立绘与技能图。M 列序号负责展示排序。编译器按上线开关选入运行阵容，保留现有工作簿布局、身份及技能原文。
+- [同步工具](../../../Tools/sync-character-sheet.py)生成 `Core/RoundSheetCatalog.cs`、`Config/Characters/RoundKits.json` 和 `Config/Characters/RoundPortraits.json`。生成目录随核心编译，Unity 运行时读取两个 JSON。资源链接或数值需改时在来源与映射处理，随后重新生成。
+- 使用 `Tools/sync-character-sheet.ps1` 同步，`-Check` 只回读验证。同步可按现有规则回写嵌入立绘和 Q 至 U 列统计。另存或修改工作簿布局、身份、规则含义及已填专有文案时按现有确认流程处理。
+- 交付按编号复核 CardId、上线状态、描述、技能类型、目标、触发、结算、潜力、连击、立绘键和图标裁切。纯重构的验收还要比对工作簿与生成配置的输入输出。

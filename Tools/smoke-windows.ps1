@@ -1,4 +1,4 @@
-param([string]$Executable, [string]$OutputDirectory)
+param([string]$Executable, [string]$OutputDirectory, [string]$ResourceArchiveManifest)
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 if(!$Executable){$Executable=Join-Path $root 'Builds/Windows/龙珠爆裂激斗.exe'}
@@ -6,6 +6,12 @@ $expectedRoster=(Get-Content -LiteralPath (Join-Path $root 'Assets/DragonIdle/Re
 if(!$OutputDirectory){$OutputDirectory=Join-Path $root ('.validation/headless-smoke-'+(Get-Date -Format 'yyyyMMddHHmmssfff'))}
 New-Item -ItemType Directory -Force $OutputDirectory | Out-Null
 $argsList=@('-batchmode','-nographics','-logicSmoke','-smokeOut',('"'+$OutputDirectory+'"'),'-savePath',('"'+$OutputDirectory+'/test-save.json"'),'-logFile',('"'+$OutputDirectory+'/player.log"'))
+if($ResourceArchiveManifest){
+ $manifestPath=(Resolve-Path -LiteralPath $ResourceArchiveManifest).Path
+ $archiveKeys=@((Get-Content -LiteralPath $manifestPath -Raw -Encoding UTF8 | ConvertFrom-Json).resourceKeys)
+ if(!$archiveKeys.Count){throw 'Resource archive manifest has no keys'}
+ $argsList+=@('-resourceArchiveManifest',('"'+$manifestPath+'"'))
+}
 $process=Start-Process -FilePath $Executable -ArgumentList $argsList -WindowStyle Hidden -PassThru
 if(!$process.WaitForExit(60000)){Stop-Process -Id $process.Id;throw 'Headless Player smoke timed out'}
 if($process.ExitCode -ne 0){throw ('Player smoke failed; see '+$OutputDirectory)}
@@ -22,4 +28,11 @@ if(!$result.tienPresentation -or !$result.roleArtwork){throw 'Incomplete v0.17.3
 if(!$result.actualHitFeedback -or !$result.battleStats -or !$result.groundedGokuKit -or !$result.approvedReactionArt -or !$result.floatLaunchArtwork){throw 'Incomplete v0.18.0 battle verification'}
 if(!$result.battleSidebarBars -or ($expectedRoster -eq 9 -and !$result.saibamanPresentation)){throw 'Incomplete v0.18.1 battle sidebar or Saibaman verification'}
 if(Select-String -LiteralPath (Join-Path $OutputDirectory 'player.log') -Pattern 'Exception|NullReferenceException' -Quiet){throw 'Exception found in Player smoke log'}
+if($ResourceArchiveManifest){
+ $archivePass='RESOURCE_ARCHIVE_SMOKE_PASS '+$archiveKeys.Count
+ if(!(Select-String -LiteralPath (Join-Path $OutputDirectory 'player.log') -SimpleMatch $archivePass -Quiet)){
+  throw 'Incomplete archive exclusion check'
+ }
+ Write-Output $archivePass
+}
 Write-Output ('HEADLESS_SMOKE_PASS '+$OutputDirectory)

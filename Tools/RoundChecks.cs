@@ -464,8 +464,8 @@ static class RoundChecks {
   var rules=Rules();
   var kit=rules.For(id);
   check(Data.IsRoundCard(id)&&Data.Card(id).Type==CharacterType.Output&&Data.Card(id).Rarity=="C"&&
-   Data.Card(id).HasTag(Data.LowerClassTag)&&RoundSheetCatalog.Cards[id].Portrait=="V0161/Raditz/portrait",
-   "V16101 Raditz is online with authored type, ID and art");
+   Data.Card(id).HasTag(Data.LowerClassTag),
+   "V16101 Raditz is online with authored type and identity");
   kit.basicPower=.50;kit.ultimatePower=.80;kit.pursuitPower=.20;
   kit.techniques=new RoundTechnique{basicRandomTarget=true,basicEnhancedChance=.30,basicEnhancedPower=.80,
    ultimateTargets=2,ultimateAttackBonus=.20,ultimateAttackRounds=2,

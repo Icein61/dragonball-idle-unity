@@ -1,0 +1,40 @@
+{
+ "cards": [
+  {
+   "cardId": "goku-test",
+   "portrait": "V0182/Goku/portrait"
+  },
+  {
+   "cardId": "vegeta-test",
+   "portrait": "V0143/Vegeta/portrait"
+  },
+  {
+   "cardId": "piccolo-test",
+   "portrait": "V0182/Piccolo/portrait"
+  },
+  {
+   "cardId": "gohan-test",
+   "portrait": "V0153/Gohan/portrait"
+  },
+  {
+   "cardId": "krillin-test",
+   "portrait": "V0182/Krillin/portrait"
+  },
+  {
+   "cardId": "raditz-arrival-v030",
+   "portrait": "V0161/Raditz/portrait"
+  },
+  {
+   "cardId": "yamcha-saiyan-v020",
+   "portrait": "V0172/Yamcha/portrait"
+  },
+  {
+   "cardId": "tien-test",
+   "portrait": "V0173/Tien/portrait"
+  },
+  {
+   "cardId": "saibaman-saiyan-v030",
+   "portrait": "V0182/Saibaman/portrait"
+  }
+ ]
+}

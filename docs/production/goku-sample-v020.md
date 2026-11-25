@@ -3,7 +3,7 @@
 日期：2026-11-16。状态：AI 生成原型，未确定最终 2D / 3渲2 路线。
 
 - 工具：内置 image_gen（非 CLI / API）。
-- 文件：Assets/DragonIdle/Resources/Art/goku-saiyan-sample-v1.png。
+- v0.19.0 归档位置见[悟空旧试制图](../../Art/Archive/V0190Resources/Resources/Art/goku-saiyan-sample-v1.png)，原路径为 `Assets/DragonIdle/Resources/Art/goku-saiyan-sample-v1.png`。
 - 尺寸：1024 × 1536；PNG 带 alpha，抽样透明度 0–254，原文件未经后处理。
 - 用途：goku-test 的图鉴详情与养成页；其他 19 张原型卡仍使用占位表现。
 - 已目视检查：黑发常态悟空、橙蓝武道服、全身战斗姿势。只验静态样片，不代表已完成模型、绑定、动画或游戏内画面验收。

@@ -9,25 +9,26 @@ namespace DragonIdle {
   RectTransform workshopRoot,workBody;UI.ScrollRect workScroll;
   readonly Dictionary<string,float> workPositions=new Dictionary<string,float>();
   string renderedWorkshop="";int equipmentTab,selectedSkillSlot;
-  static bool IsWorkshop(string p){return p=="养成"||p=="装备";}
-  static bool IsModernPage(string p){return p=="角色"||p==FormationRoute||p==RoundPreviewPage||IsShellPage(p);}
+  static bool IsWorkshop(PageRoute route){return route==PageRoute.LegacyTraining||route==PageRoute.LegacyEquipment;}
   void RefreshModernFrame(){
-   galleryListRoot.gameObject.SetActive(page=="角色"&&!galleryDetailOpen);
-   detailRoot.gameObject.SetActive(page=="角色"&&galleryDetailOpen);
+   galleryListRoot.gameObject.SetActive(page==PageRoute.Characters&&!galleryDetailOpen);
+   detailRoot.gameObject.SetActive(page==PageRoute.Characters&&galleryDetailOpen);
    if(workshopRoot!=null)workshopRoot.gameObject.SetActive(false);
    if(summonRoot!=null)summonRoot.gameObject.SetActive(false);
-   if(formationRoot!=null)formationRoot.gameObject.SetActive(page==FormationRoute);
-   if(roundPreviewRoot!=null)roundPreviewRoot.gameObject.SetActive(page==RoundPreviewPage);
-   if(homeRoot!=null)homeRoot.gameObject.SetActive(page=="主页");
-   if(loadingRoot!=null)loadingRoot.gameObject.SetActive(page=="加载");
+   if(formationRoot!=null)formationRoot.gameObject.SetActive(page==PageRoute.Formation);
+   if(roundPreviewRoot!=null)roundPreviewRoot.gameObject.SetActive(page==PageRoute.RoundBattle);
+   if(homeRoot!=null)homeRoot.gameObject.SetActive(page==PageRoute.Home);
+   if(loadingRoot!=null)loadingRoot.gameObject.SetActive(page==PageRoute.Loading);
    galleryChrome.gameObject.SetActive(!IsShellPage(page));
-   galleryChrome.Find("Section").GetComponent<UI.Text>().text=page=="角色"?"角色":page==FormationRoute?FormationRoute:roundDemo?DemoBattleRoute:"回合试阵";
+   galleryChrome.Find("Section").GetComponent<UI.Text>().text=RouteLabel(page==PageRoute.Characters||page==PageRoute.Formation?page:roundDemo?PageRoute.BattleDemo:PageRoute.RoundBattle);
    RefreshFeatureHeaderCount();
-   foreach(string name in FeatureRoutes)SetButtonActive(galleryChrome.Find("Nav"+name).GetComponent<UI.Button>(),page==name||(name==DemoBattleRoute&&page==RoundPreviewPage&&roundDemo));
+   foreach(var route in FeatureRoutes)
+    SetButtonActive(galleryChrome.Find(NavName(route)).GetComponent<UI.Button>(),
+     page==route||(route==PageRoute.BattleDemo&&page==PageRoute.RoundBattle&&roundDemo));
    galleryToast.gameObject.SetActive(!IsShellPage(page));
   }
   void RefreshFeatureHeaderCount(){
-   galleryResources.text=page=="角色"?"拥有"+RoundOwnedCount+"/"+Data.RoundRoster.Count:"";
+   galleryResources.text=page==PageRoute.Characters?"拥有"+RoundOwnedCount+"/"+Data.RoundRoster.Count:"";
   }
   GameObject ActiveBackButton(Transform root,string name){return root.GetComponentsInChildren<UI.Button>().First(b=>b.name==name).gameObject;}
   string WorkshopKey(){return page+":"+selectedCard+":"+equipmentTab;}
@@ -38,7 +39,7 @@ namespace DragonIdle {
    string focus=focused!=null&&workshopRoot!=null&&focused.transform.IsChildOf(workshopRoot)?focused.name:null;
    if(workshopRoot==null)workshopRoot=UNode(galleryRoot,"Workshop",222,112,1336,716);else ClearUI(workshopRoot);
    if(selectedCard<0||!profile.Owned[selectedCard])selectedCard=Enumerable.Range(0,Data.Cards.Length).First(i=>profile.Owned[i]);
-   UButton(workshopRoot,"WorkshopBack","‹ 返回图鉴",0,0,194,42,()=>NavigateGallery("角色"));
+   UButton(workshopRoot,"WorkshopBack","‹ 返回图鉴",0,0,194,42,()=>NavigateGallery(PageRoute.Characters));
    UText(workshopRoot,"WorkTitle",Data.Cards[selectedCard].DisplayName,214,0,900,44,26,uiPaper);
    var portrait=UPanel(workshopRoot,"CharacterContext",0,62,300,654,uiPanel);
    UPanel(portrait,"PortraitMat",16,18,268,366,InkMist);UArt(portrait,selectedCard,16,18,268,366);
@@ -46,10 +47,10 @@ namespace DragonIdle {
    UText(portrait,"ContextIdentity",Data.Cards[selectedCard].Stage+"\n"+Data.Cards[selectedCard].KeywordText,20,448,260,70,18,uiDim);
    UButton(portrait,"PreviousCharacter","上一位",16,538,128,42,()=>CycleWorkshopCard(-1));
    UButton(portrait,"NextCharacter","下一位",156,538,128,42,()=>CycleWorkshopCard(1));
-   UButton(portrait,"SwitchWorkshop",page=="养成"?"装备与技能 ›":"培养与策略 ›",16,596,268,42,()=>NavigateGallery(page=="养成"?"装备":"养成"));
+   UButton(portrait,"SwitchWorkshop",page==PageRoute.LegacyTraining?"装备与技能 ›":"培养与策略 ›",16,596,268,42,()=>NavigateGallery(page==PageRoute.LegacyTraining?PageRoute.LegacyEquipment:PageRoute.LegacyTraining));
    UPanel(workshopRoot,"WorkPanel",320,62,1016,654,uiPanel);
    workScroll=UScroll(workshopRoot,"WorkScroll",344,82,968,614,out workBody);
-   if(page=="养成")DrawModernTraining();else DrawModernEquipment();
+   if(page==PageRoute.LegacyTraining)DrawModernTraining();else DrawModernEquipment();
    renderedWorkshop=WorkshopKey();Canvas.ForceUpdateCanvases();float position;
    workScroll.verticalNormalizedPosition=workPositions.TryGetValue(renderedWorkshop,out position)?position:1;
    RefreshModernFrame();

@@ -6,9 +6,34 @@ namespace DragonIdle {
  public partial class DemoGame {
   bool storyMode=true,saiyanPool=true;
   readonly Dictionary<string,Texture2D> portraits=new Dictionary<string,Texture2D>();
-  static string PortraitKey(int index){string card=Data.Cards[index].Id;
-   if(RoundSheetCatalog.Cards.TryGetValue(card,out var sheet))return sheet.Portrait;
-   return "V051/"+card+"-portrait";}
+  [Serializable] sealed class RoundPortraitTable {
+   public RoundPortraitBinding[] cards;
+  }
+
+  [Serializable] sealed class RoundPortraitBinding {
+   public string cardId,portrait;
+  }
+
+  Dictionary<string,string> roundPortraits;
+
+  Dictionary<string,string> LoadRoundPortraits(){
+   const string resource="Config/Characters/RoundPortraits";
+   var file=Resources.Load<TextAsset>(resource);
+   if(file==null)throw new InvalidOperationException("Missing portrait configuration: "+resource);
+   var table=JsonUtility.FromJson<RoundPortraitTable>(file.text);
+   if(table?.cards==null||table.cards.Length!=Data.RoundRoster.Count||
+      table.cards.Any(binding=>binding==null||!Data.IsRoundCard(binding.cardId)||string.IsNullOrWhiteSpace(binding.portrait))||
+      table.cards.Select(binding=>binding.cardId).Distinct().Count()!=Data.RoundRoster.Count)
+    throw new InvalidOperationException("Portrait configuration must bind each online card exactly once: "+resource);
+   return table.cards.ToDictionary(binding=>binding.cardId,binding=>binding.portrait);
+  }
+
+  string PortraitKey(int index){
+   string card=Data.Cards[index].Id;
+   if(!Data.IsRoundCard(card))return "V051/"+card+"-portrait";
+   if(roundPortraits==null)roundPortraits=LoadRoundPortraits();
+   return roundPortraits[card];
+  }
   Texture2D PortraitTexture(int index){return LoadCharacterTexture(PortraitKey(index));}
   Texture2D FighterTexture(int index){return LoadCharacterTexture("V050/"+Data.Cards[index].Id+"-atlas");}
   Texture2D LoadCharacterTexture(string key){

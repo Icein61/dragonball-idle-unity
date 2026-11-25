@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 namespace DragonIdle {
  public partial class DemoGame {
-  const string DemoBattleRoute = "战斗 Demo";
   bool roundDemo;
   RoundSceneDefinitions demoScenes;
   RoundScene demoScene;
@@ -63,12 +62,10 @@ namespace DragonIdle {
   }
   readonly List<RoundMotionFx.ChargePulse> demoCharges = new List<RoundMotionFx.ChargePulse>();
 
-  void OpenFeature(string route) {
-   if(route==DemoBattleRoute)BeginRoundDemo();
+  void OpenFeature(PageRoute route) {
+   if(route==PageRoute.BattleDemo)BeginRoundDemo();
    else NavigateGallery(route);
   }
-
-  string RoundBackPage() => "主页";
 
   RoundSceneDefinitions DemoScenes() {
    if(demoScenes!=null)return demoScenes;

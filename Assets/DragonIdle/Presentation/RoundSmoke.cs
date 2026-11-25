@@ -102,7 +102,7 @@ namespace DragonIdle {
    roundBattle=new RoundCombat(new[]{goku,ally}.Concat(enemies),RoundRules(),fixedSeed);
    roundLast=null;roundLog.Clear();roundPaused=false;
    PrepareRoundMotion();
-   NavigateGallery(RoundPreviewPage);
+   NavigateGallery(PageRoute.RoundBattle);
    while(roundMotion!=null||roundOpenings.Count>0)AdvanceRoundPreview(true);
    roundPaused=false;
    return goku;
@@ -196,11 +196,11 @@ namespace DragonIdle {
 
   void VerifyGridDemo(){
    var formation=profile.RoundFormation();
-   NavigateGallery("主页");
-   GalleryTestButton("HomeNav"+DemoBattleRoute).onClick.Invoke();
+   NavigateGallery(PageRoute.Home);
+   GalleryTestButton(HomeNavName(PageRoute.BattleDemo)).onClick.Invoke();
    var allies=roundBattle.Order.Where(f=>f.Side==0).ToArray();
    var enemies=roundBattle.Order.Where(f=>f.Side==1).ToArray();
-   AssertSmoke(roundDemo&&page==RoundPreviewPage&&roundMotion.Clip.id=="entry"&&roundBattle.Order.All(f=>f.Level==100)&&
+   AssertSmoke(roundDemo&&page==PageRoute.RoundBattle&&roundMotion.Clip.id=="entry"&&roundBattle.Order.All(f=>f.Level==100)&&
     allies.Length==formation.Count(i=>i>=0)&&allies.All(f=>formation[f.Position-1]==Data.Index(f.CardId))&&
     enemies.Length==5&&enemies.Select(f=>f.CardId).Distinct().Count()==5&&enemies.Select(f=>f.Position).Distinct().Count()==5,
     "The actual Demo did not load the saved level-100 roster and five random enemies");
@@ -408,11 +408,11 @@ namespace DragonIdle {
    GalleryTestButton("StepRound").onClick.Invoke();
    AssertSmoke(roundMotion==null&&demoReactions[opponent].Pose!=null&&!opponent.Alive&&VisibleRoundResult==1,"Final defeated pose did not persist");
    GalleryTestButton("LeaveRoundPreview").onClick.Invoke();
-   AssertSmoke(page=="主页"&&roundBattle==null&&!roundDemo&&demoReactions.Count==0&&profile.RoundFormation().SequenceEqual(formation),"Duel exited with retained battle or changed formation");
+   AssertSmoke(page==PageRoute.Home&&roundBattle==null&&!roundDemo&&demoReactions.Count==0&&profile.RoundFormation().SequenceEqual(formation),"Duel exited with retained battle or changed formation");
   }
 
   void VerifyPageMusic(){
-   NavigateGallery("主页");
+   NavigateGallery(PageRoute.Home);
    SyncPageMusic();
    var home=Resources.Load<AudioClip>(CharacterPageBgm);
    AssertSmoke(home!=null&&home.loadType==AudioClipLoadType.Streaming&&pageMusic.clip==home&&
@@ -443,16 +443,16 @@ namespace DragonIdle {
      pageMusic.clip==clip&&pageMusic.volume==0&&!pageMusic.isPlaying&&
      Resources.Load<Texture2D>(scene.background)!=null,"Missing, mispaired or unmuted Demo soundtrack "+scene.id);
    }
-   NavigateGallery("主页");SyncPageMusic();
+   NavigateGallery(PageRoute.Home);SyncPageMusic();
    AssertSmoke(pageMusic.clip==home,"Leaving Demo did not restore home music");
-   NavigateGallery("角色");SyncPageMusic();
+   NavigateGallery(PageRoute.Characters);SyncPageMusic();
    var character=Resources.Load<AudioClip>(CharacterPageBgm);
    AssertSmoke(character!=null&&character.loadType==AudioClipLoadType.Streaming&&character.samples>0&&
     character.channels==2&&pageMusic.clip==character&&pageMusic.loop&&!pageMusic.isPlaying&&pageMusic.volume==0,
     "Character page is missing the shared menu loop");
    OpenGalleryCard(0);SyncPageMusic();
    AssertSmoke(pageMusic.clip==character&&activeMusicPath==CharacterPageBgm,"Opening detail interrupted the page music");
-   NavigateGallery("主页");SyncPageMusic();
+   NavigateGallery(PageRoute.Home);SyncPageMusic();
   }
 
   void VerifyVegetaScale(){
@@ -483,11 +483,11 @@ namespace DragonIdle {
    }
    AssertSmoke(PortraitKey(Data.Index(RoundMotionArt.VegetaCardId))=="V0143/Vegeta/portrait"&&
     PortraitTexture(Data.Index(RoundMotionArt.VegetaCardId))!=null,"Updated Vegeta card art is missing");
-   NavigateGallery("主页");
+   NavigateGallery(PageRoute.Home);
   }
 
   void VerifyPiccoloPresentation(){
-   NavigateGallery("主页");
+   NavigateGallery(PageRoute.Home);
    BeginRoundDemo();
    var goku=new RoundFighter(RoundMotionArt.CardId,0,2,1200,100,40,0){Dodge=0};
    var piccolo=new RoundFighter(RoundMotionArt.PiccoloCardId,1,2,1200,100,40,0){Dodge=0};
@@ -629,7 +629,7 @@ namespace DragonIdle {
    AssertSmoke(demoFrontFx.VisibleHeldCharges==0&&demoStage.Find("DemoSlot0_2/Buffs")==null,
     "A defeated charger left an aura or status icon on the field");
    audioSettings.ReducedMotion=false;
-   NavigateGallery("主页");
+   NavigateGallery(PageRoute.Home);
   }
 
   Vector2 VerifyPiccoloFingertipPosition(RoundFighter fighter,int drawing){
@@ -702,11 +702,11 @@ namespace DragonIdle {
    AssertSmoke(chase.StagePose==PiccoloArt.Atlas[chase.Clip.hopDrawing]&&chase.ShiftAt(chase.Time).x>0&&
     chase.ShiftAt(chase.Duration).sqrMagnitude<.001f,"The backward hop must return to the original position");
    chase.Time=savedTime;
-   NavigateGallery("主页");
+   NavigateGallery(PageRoute.Home);
   }
 
   void VerifyGohanPresentation(){
-   NavigateGallery("主页");
+   NavigateGallery(PageRoute.Home);
    BeginRoundDemo();
    var gohan=new RoundFighter(RoundMotionArt.GohanCardId,0,2,1200,100,40,0){Dodge=0,HP=1100};
    var enemy=new RoundFighter(RoundMotionArt.CardId,1,2,1200,120,45,0){Dodge=0};
@@ -784,7 +784,7 @@ namespace DragonIdle {
   }
 
   void VerifyVegetaVolley(){
-   NavigateGallery("主页");
+   NavigateGallery(PageRoute.Home);
    BeginRoundDemo(FiveCardDemoFixture());
    AssertSmoke(demoActors.Count==10&&roundBattle.Order[0].Side==0&&roundBattle.Order[1].Side==1,
     "5v5 presentation did not load the configured rosters");
@@ -959,8 +959,8 @@ namespace DragonIdle {
   }
 
   void VerifyRoundTempoAndMeters(){
-   NavigateGallery("主页");
-   GalleryTestButton("HomeNav"+DemoBattleRoute).onClick.Invoke();
+   NavigateGallery(PageRoute.Home);
+   GalleryTestButton(HomeNavName(PageRoute.BattleDemo)).onClick.Invoke();
    while(roundMotion!=null||roundOpenings.Count>0)AdvanceRoundPreview(true);
    AssertSmoke(Mathf.Abs(roundClock-RoundOpeningGap)<.001f,"Opening should use the short transition");
    roundBattle=MakeGokuMirrorFixture(1);
@@ -1052,8 +1052,8 @@ namespace DragonIdle {
   void VerifyFormationDrag(){
    var initial=profile.RoundFormation();
    var saved=File.ReadAllText(savePath);
-   NavigateGallery(FormationRoute);
-   AssertSmoke(page==FormationRoute&&galleryChrome.Find("Nav"+FormationRoute)!=null&&homeRoot.Find("HomeNav"+FormationRoute)!=null&&
+   NavigateGallery(PageRoute.Formation);
+   AssertSmoke(page==PageRoute.Formation&&galleryChrome.Find(NavName(PageRoute.Formation))!=null&&homeRoot.Find(HomeNavName(PageRoute.Formation))!=null&&
     formationRoot.Find("FormationStart")==null&&formationRoot.Find("FormationTitle")==null&&
     formationRoot.Find("FormationBattlefield/FormationCountPanel")==null&&formationRoot.Find("FormationBattlefield/FormationSelectedPanel")==null,
     "Formation entry or clean layout failed");
@@ -1076,7 +1076,7 @@ namespace DragonIdle {
    Canvas.ForceUpdateCanvases();
    var modal=dialogRoot.Find("Modal");
    var scroll=modal.Find("FormationCardScroll").GetComponent<UI.ScrollRect>();
-   AssertSmoke(page==FormationRoute&&modal.Find("Title").GetComponent<UI.Text>().text==Data.Cards[id].Name&&
+   AssertSmoke(page==PageRoute.Formation&&modal.Find("Title").GetComponent<UI.Text>().text==Data.Cards[id].Name&&
     scroll.content.Find("StatTile0")!=null&&
     scroll.content.GetComponentsInChildren<UI.RawImage>().Count(icon=>icon.name!="SkillFrame")==4&&
     scroll.content.GetComponentsInChildren<UI.RawImage>().Count(icon=>icon.name=="SkillFrame")==4&&
@@ -1097,10 +1097,10 @@ namespace DragonIdle {
    drag.OnEndDrag(pointer);
    AssertSmoke(formationGhost==null&&formationDraft[6]==id&&profile.RoundFormation().SequenceEqual(initial)&&File.ReadAllText(savePath)==saved,
     "Drop must update only the draft");
-   GalleryTestButton("Nav"+DemoBattleRoute).onClick.Invoke();
+   GalleryTestButton(NavName(PageRoute.BattleDemo)).onClick.Invoke();
    AssertSmoke(roundBattle.Order.Any(f=>f.Side==0&&f.CardId==RoundMotionArt.CardId&&f.Position==source)&&
     roundBattle.Order.Count(f=>f.Side==1)==5&&formationDraft==null,"Leaving with an unpublished draft affected Demo");
-   NavigateGallery(FormationRoute);
+   NavigateGallery(PageRoute.Formation);
    AssertSmoke(formationDraft.SequenceEqual(initial),"Reentering formation did not restore the saved lineup");
 
    int occupied=Enumerable.Range(1,9).First(slot=>slot!=source&&formationDraft[slot-1]>=0);
@@ -1128,7 +1128,7 @@ namespace DragonIdle {
    Load();
    AssertSmoke(profile.RoundFormation().SequenceEqual(expected)&&!GalleryTestButton("FormationSave").interactable&&saveError=="",
     "Save button did not persist the whole draft");
-   GalleryTestButton("Nav"+DemoBattleRoute).onClick.Invoke();
+   GalleryTestButton(NavName(PageRoute.BattleDemo)).onClick.Invoke();
    AssertSmoke(roundBattle.Order.Any(f=>f.Side==0&&f.CardId==RoundMotionArt.YamchaCardId&&f.Position==source)&&
     roundBattle.Order.Count(f=>f.Side==1)==5,"Demo did not load the explicitly saved lineup");
    GalleryTestButton("LeaveRoundPreview").onClick.Invoke();
@@ -1197,7 +1197,7 @@ namespace DragonIdle {
   }
 
   void VerifyV174Roles(){
-   NavigateGallery("角色");
+   NavigateGallery(PageRoute.Characters);
    var roleCards=new[]{Data.Index(RoundMotionArt.TienCardId),Data.Index(RoundMotionArt.GohanCardId),Data.Index(RoundMotionArt.YamchaCardId)};
    var icons=roleCards.Select(i=>cardButtons[i].transform.Find("CharacterRoleIcon").GetComponent<UI.RawImage>()).ToArray();
    void CheckTitleAlignment(UI.RawImage icon,UI.Text description){
@@ -1215,7 +1215,7 @@ namespace DragonIdle {
    OpenGalleryCard(roleCards[0]);
    CheckTitleAlignment(detailRoot.Find("CharacterRoleIcon").GetComponent<UI.RawImage>(),
     detailRoot.Find("CharacterTitle").GetComponent<UI.Text>());
-   NavigateGallery(FormationRoute);
+   NavigateGallery(PageRoute.Formation);
    var tile=GalleryTestButton("FormationCard"+RoundMotionArt.TienCardId).transform;
    var badges=(RectTransform)tile.Find("FormationCardBadges");
    AssertSmoke(tile.Find("FormationCardDescription")!=null&&tile.Find("FormationCardName")!=null&&
@@ -1228,7 +1228,7 @@ namespace DragonIdle {
     Mathf.Abs(role.anchoredPosition.y-rarity.anchoredPosition.y)<.01f&&
     Mathf.Abs(role.anchoredPosition.x-rarity.anchoredPosition.x-rarity.rect.width-3)<.01f,
     "Formation badges must share visible height and have a three-pixel gap");
-   NavigateGallery("主页");
+   NavigateGallery(PageRoute.Home);
   }
 
   void VerifyYamchaPresentation(){
@@ -1378,7 +1378,7 @@ namespace DragonIdle {
    AssertSmoke(VisibleRoundResult==1,"Battle result failed to appear after the final detonation");
    AssertSmoke(demoReactions[victim].Defeated&&!demoActors[victim].enabled,
     "Detonation finish did not remove the attacker after the burst");
-   NavigateGallery("主页");
+   NavigateGallery(PageRoute.Home);
   }
 
   void VerifyChaseReactionHolds(){
@@ -1436,7 +1436,7 @@ namespace DragonIdle {
   }
 
   void VerifyQuickPursuitHandoff(){
-   NavigateGallery("主页");
+   NavigateGallery(PageRoute.Home);
    BeginRoundDemo();
    roundBattle=MakeGokuMirrorFixture(2);
    StartRoundPresentation();
@@ -1463,7 +1463,7 @@ namespace DragonIdle {
 
   void VerifyBrokenPursuitRecovery(){
    for(int scenario=0;scenario<2;scenario++){
-    NavigateGallery("主页");BeginRoundDemo();
+    NavigateGallery(PageRoute.Home);BeginRoundDemo();
     roundBattle=MakeGokuMirrorFixture(2);
     StartRoundPresentation();
     while(roundMotion!=null||roundOpenings.Count>0)AdvanceRoundPreview(true);
@@ -1484,7 +1484,7 @@ namespace DragonIdle {
     AssertSmoke(demoReactions[defender].Pose==null&&demoReactions[defender].Offset==Vector2.zero,
      "Interrupted pursuit left the receiver in the impact pose");
    }
-   NavigateGallery("主页");
+   NavigateGallery(PageRoute.Home);
   }
 
   void VerifyCharacterPageSession(){
@@ -1492,21 +1492,21 @@ namespace DragonIdle {
    filterButtons[2].onClick.Invoke();
    filterDropdown.GetComponentsInChildren<UI.Button>().Single(button=>button.name=="FilterOption1").onClick.Invoke();
    OpenGalleryCard(Data.Index(RoundMotionArt.PiccoloCardId));
-   NavigateGallery("主页");
-   GalleryTestButton("HomeNav角色").onClick.Invoke();
+   NavigateGallery(PageRoute.Home);
+   GalleryTestButton(HomeNavName(PageRoute.Characters)).onClick.Invoke();
    AssertSmoke(!galleryDetailOpen&&galleryListRoot.gameObject.activeSelf&&catalog.Sort==1&&detailTab==0,
     "Home entry must show the list while preserving the session sort");
    OpenGalleryCard(Data.Index(RoundMotionArt.VegetaCardId));
-   GalleryTestButton("Nav"+FormationRoute).onClick.Invoke();
-   AssertSmoke(page==FormationRoute&&formationRoot.gameObject.activeInHierarchy&&catalog.Sort==1,
+   GalleryTestButton(NavName(PageRoute.Formation)).onClick.Invoke();
+   AssertSmoke(page==PageRoute.Formation&&formationRoot.gameObject.activeInHierarchy&&catalog.Sort==1,
     "Formation must be available directly below the character entry");
-   NavigateGallery("主页");
-   GalleryTestButton("HomeNav角色").onClick.Invoke();
+   NavigateGallery(PageRoute.Home);
+   GalleryTestButton(HomeNavName(PageRoute.Characters)).onClick.Invoke();
    GalleryTestButton("ResetFilters").onClick.Invoke();
    AssertSmoke(catalog.Sort==1,"Clearing filters discarded the chosen session sort");
    BeginRoundDemo();
-   GalleryTestButton("Nav角色").onClick.Invoke();
-   AssertSmoke(page=="角色"&&!galleryDetailOpen&&catalog.Sort==1&&roundBattle==null,
+   GalleryTestButton(NavName(PageRoute.Characters)).onClick.Invoke();
+   AssertSmoke(page==PageRoute.Characters&&!galleryDetailOpen&&catalog.Sort==1&&roundBattle==null,
     "Battle entry did not reopen the character list or retain the session sort");
    filterButtons[2].onClick.Invoke();
    filterDropdown.GetComponentsInChildren<UI.Button>().Single(button=>button.name=="FilterOption4").onClick.Invoke();
@@ -1569,7 +1569,7 @@ namespace DragonIdle {
   }
 
   void VerifyKrillinPresentation(){
-   NavigateGallery("主页");
+   NavigateGallery(PageRoute.Home);
    BeginRoundDemo(FiveCardDemoFixture());
    AssertSmoke(roundBattle.Order.Count(f=>f.CardId==RoundMotionArt.KrillinCardId)==2&&
     KrillinArt.Atlas.Length==38&&KrillinArt.Atlas.Count(pose=>pose.Texture.name=="disc-orbit")==4&&KrillinArt.Atlas[16].crop.SequenceEqual(new[]{505,534,350,345})&&
@@ -1645,7 +1645,7 @@ namespace DragonIdle {
   }
 
   void VerifyCharacterDetailsV162(){
-   NavigateGallery("角色");
+   NavigateGallery(PageRoute.Characters);
    int raditz=Data.Index(RoundMotionArt.RaditzCardId);
    AssertSmoke(profile.Owned[raditz],"Raditz is unavailable from the default roster");
    OpenGalleryCard(raditz);
@@ -1755,7 +1755,7 @@ namespace DragonIdle {
     AssertSmoke(roundSkillArt.texture==Resources.Load<Texture2D>(RoundMotionArt.RaditzFolder+"skill-images")&&
      roundSkillArt.transform.Find("SkillFrame")!=null&&roundMotion.Clip.id==(enhanced?"raditzSurge":"raditzShot")&&
      roundMotion.Clip.duration==(enhanced?1710:1400),"Enhanced basic did not play the longer authored variant");
-    roundBefore=roundBattle.Order.ToDictionary(f=>f,f=>new RoundVitals(f,freezeDefense:true));
+    roundBefore=roundBattle.Order.ToDictionary(f=>f,f=>new RoundVitals(f,freezeChanges:true));
     AdvanceToMotionTime(roundMotion.ReleaseAt+55);
     Canvas.ForceUpdateCanvases();
     AssertSmoke(demoFrontFx.VisibleVolleyOrbs==1&&demoFrontFx.GeometryCount>40&&!roundMotion.Revealed,
@@ -1810,7 +1810,7 @@ namespace DragonIdle {
    var gohan=new RoundFighter(RoundMotionArt.GohanCardId,1,2,2400,100,40,0){Dodge=0};
    roundBattle=RoundCombat.Demo(new[]{goku,gohan},RoundRules(),1);
    int round=roundBattle.Round;
-   var before=new RoundVitals(gohan,freezeDefense:true);
+   var before=new RoundVitals(gohan,freezeChanges:true);
    gohan.ChangeDefense(.20,round,1);
    gohan.ChangeDefense(.10,round,2);
    gohan.ChangeDefense(-.20,round,1);
@@ -1884,23 +1884,45 @@ namespace DragonIdle {
    SwitchDetailCard(Data.Index(RoundMotionArt.CardId));
   }
 
+  [Serializable] sealed class ArchivedResourceManifest {
+   public string[] resourceKeys;
+  }
+
+  void AssertArchivedResources(string[] args){
+   int index=Array.IndexOf(args,"-resourceArchiveManifest");
+   if(index<0)return;
+   AssertSmoke(index+1<args.Length,"Missing resource archive manifest path");
+   var manifest=JsonUtility.FromJson<ArchivedResourceManifest>(File.ReadAllText(args[index+1]));
+   AssertSmoke(manifest?.resourceKeys!=null&&manifest.resourceKeys.Length>0&&
+    manifest.resourceKeys.Distinct(StringComparer.OrdinalIgnoreCase).Count()==manifest.resourceKeys.Length,
+    "Resource archive manifest has no unique resource keys");
+   foreach(string key in manifest.resourceKeys)
+    AssertSmoke(!string.IsNullOrWhiteSpace(key)&&Resources.Load(key)==null,"Archived resource shipped in Player: "+key);
+   Debug.Log("RESOURCE_ARCHIVE_SMOKE_PASS "+manifest.resourceKeys.Length);
+  }
+
   IEnumerator RunRoundSmoke(string[] args){
    int o=Array.IndexOf(args,"-smokeOut");string dir=o>=0&&o+1<args.Length?args[o+1]:Path.GetDirectoryName(savePath);
    Directory.CreateDirectory(dir);
-   BeginShellLoad("主页");
+   BeginShellLoad(PageRoute.Home);
    float deadline=Time.realtimeSinceStartup+20;
    while(shellLoad.Active&&Time.realtimeSinceStartup<deadline)yield return null;
    try{
     AssertSmoke(args.Contains("-savePath")&&saveError==""&&Application.productName==Data.GameTitle&&
      Application.version==Data.Version,"Packaged title/version/save initialization");
-    AssertSmoke(page=="主页"&&!shellLoad.Active&&shellLoad.Missing==0&&shellLoad.Completed==Data.RoundRoster.Count+Data.Rarities.Length,"Startup art resources not loaded");
-    AssertSmoke(homeRoot.GetComponentsInChildren<UI.Button>().Count(b=>b.name.StartsWith("HomeNav"))==3&&FeatureRoutes.SequenceEqual(new[]{"角色",FormationRoute,DemoBattleRoute}),"Home feature routes failed");
-    foreach(string route in new[]{"挑战","养成","装备","召唤"}){NavigateGallery(route);AssertSmoke(page=="主页","Obsolete route entered: "+route);}
+    AssertSmoke(page==PageRoute.Home&&!shellLoad.Active&&shellLoad.Missing==0&&shellLoad.Completed==Data.RoundRoster.Count+Data.Rarities.Length,"Startup art resources not loaded");
+    AssertSmoke(homeRoot.GetComponentsInChildren<UI.Button>().Count(b=>b.name.StartsWith("HomeNav"))==3&&FeatureRoutes.SequenceEqual(new[]{PageRoute.Characters,PageRoute.Formation,PageRoute.BattleDemo}),"Home feature routes failed");
+    AssertSmoke(GalleryTestButton("HomeNavCharacters").GetComponentInChildren<UI.Text>().text=="角色"&&
+     GalleryTestButton("HomeNavFormation").GetComponentInChildren<UI.Text>().text=="编队"&&
+     GalleryTestButton("HomeNavBattleDemo").GetComponentInChildren<UI.Text>().text=="战斗 Demo",
+     "The stable home navigation names lost their player-facing labels");
+    foreach(var route in new[]{PageRoute.LegacyChallenge,PageRoute.LegacyTraining,PageRoute.LegacyEquipment,PageRoute.LegacySummon}){NavigateGallery(route);AssertSmoke(page==PageRoute.Home,"Obsolete route entered: "+route);}
     GalleryTestButton("HomeSettings").onClick.Invoke();
-    AssertSmoke(dialogRoot!=null&&!GalleryTestButton("HomeNav角色").interactable,"Settings lost modal isolation");
+    AssertSmoke(dialogRoot!=null&&!GalleryTestButton(HomeNavName(PageRoute.Characters)).interactable,"Settings lost modal isolation");
     CloseGalleryDialog();
     AssertSmoke(silentAudio&&!uiSounds.isPlaying&&uiSounds.volume==0,"Smoke must run silent");
     AssertSmoke(Resources.LoadAll("Videos").Length==0,"Authoring reference video shipped in Player");
+    AssertArchivedResources(args);
     var rules=RoundRules();var boards=RoundBoards().boards;
     var krillin=rules.For(RoundMotionArt.KrillinCardId);
     AssertSmoke(Data.Card(RoundMotionArt.PiccoloCardId).HasTag(Data.RivalTag)&&
@@ -1910,9 +1932,9 @@ namespace DragonIdle {
     AssertSmoke(boards.Select(b=>b.positions.Count(id=>!string.IsNullOrEmpty(id))).SequenceEqual(new[]{5,7,9}),"Board assets missing difficulty sizes");
     AssertSmoke(rules.cards.Length==Data.RoundRoster.Count&&Data.Rarities.All(rank=>RarityBadge(rank)!=null),"Card configuration or badges missing");
     AssertSmoke(Data.RoundRoster.Select(Data.Index).All(i=>PortraitTexture(i)!=null),"Portrait loading regressions");
-    GalleryTestButton("HomeNav角色").onClick.Invoke();
-    AssertSmoke(page=="角色"&&cardButtons.Count==Data.RoundRoster.Count&&galleryResources.text=="拥有"+RoundOwnedCount+"/"+Data.RoundRoster.Count&&
-     GalleryTestButton("Nav角色").GetComponentInChildren<UI.Text>().text=="角色",
+    GalleryTestButton(HomeNavName(PageRoute.Characters)).onClick.Invoke();
+    AssertSmoke(page==PageRoute.Characters&&cardButtons.Count==Data.RoundRoster.Count&&galleryResources.text=="拥有"+RoundOwnedCount+"/"+Data.RoundRoster.Count&&
+     GalleryTestButton(NavName(PageRoute.Characters)).GetComponentInChildren<UI.Text>().text=="角色",
      "Online character page or its header is inaccurate");
     VerifyCharacterPageSession();
     VerifyFavorites();
@@ -2041,7 +2063,7 @@ namespace DragonIdle {
     roundDemo=false;
     roundBattle=profile.NewRoundBattle(RoundRules(),RoundBoards().boards[2],++seed);
     StartRoundPresentation();
-    AssertSmoke(page==RoundPreviewPage&&roundBattle.Order.Count==profile.RoundFormation().Count(i=>i>=0)+9,"Nine-enemy preview did not start");
+    AssertSmoke(page==PageRoute.RoundBattle&&roundBattle.Order.Count==profile.RoundFormation().Count(i=>i>=0)+9,"Nine-enemy preview did not start");
     AssertSmoke(roundBattle.Order[0].Side==0&&roundBattle.Order[1].Side==1,"Round preview disagrees on opening initiative");
     var p1=(RectTransform)roundPreviewRoot.Find("Field0/BattleCell1");
     var e1=(RectTransform)roundPreviewRoot.Find("Field1/BattleCell1");
@@ -2052,7 +2074,7 @@ namespace DragonIdle {
     int events=1;
     while(roundBattle.Result==0&&events++<1000)roundBattle.Step();
     AssertSmoke(roundBattle.Result!=0&&profile.Materials==materials&&profile.Wins==wins&&profile.Crystals==crystals,"Preview mutated rewards or failed to terminate");
-    GalleryTestButton("LeaveRoundPreview").onClick.Invoke();AssertSmoke(page=="主页"&&roundBattle==null,"Preview exit retained battle");
+    GalleryTestButton("LeaveRoundPreview").onClick.Invoke();AssertSmoke(page==PageRoute.Home&&roundBattle==null,"Preview exit retained battle");
     VerifyCharacterDetailsV162();
     VerifyGokuMoves();
     VerifyPageMusic();

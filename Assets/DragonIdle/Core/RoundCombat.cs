@@ -490,6 +490,12 @@ namespace DragonIdle {
    return hit;
   }
 
+  // Capture display state before advancing the simulation exactly once.
+  internal RoundStep ResolveStep(bool captureVitals){
+   var before=captureVitals?order.ToDictionary(fighter=>fighter,fighter=>new RoundVitals(fighter,freezeChanges:true)):null;
+   return new RoundStep(Step(),before);
+  }
+
   public RoundAction Step(){
    if(Result!=0)return null;
    comboBudget=-1;

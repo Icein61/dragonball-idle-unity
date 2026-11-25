@@ -1,0 +1,1480 @@
+{
+  "schema": 1,
+  "sourceCommit": "2593313f22a803b5a3fdb708d90b0402a907ae37",
+  "resourceKeys": [
+    "Art/V0132/Goku/Reaction",
+    "Art/V0133/Goku/Motion",
+    "Art/V0133/Goku/beam-poses",
+    "Art/V0133/Goku/guard-poses",
+    "Art/V0133/Goku/strike-poses",
+    "Art/V0135/Goku/Motion",
+    "Art/V0135/Goku/Reaction",
+    "Art/V0136/Goku/Motion",
+    "Art/V0136/Goku/ka-me-poses",
+    "Art/V0140/Vegeta/Motion",
+    "Art/V0140/Vegeta/portrait",
+    "Art/V0140/Vegeta/skill-icons",
+    "Art/V0141/Vegeta/portrait",
+    "Art/V0142/Goku/uppercut-icon",
+    "Art/V0142/Vegeta/portrait",
+    "Art/V0143/Piccolo/Motion",
+    "Art/V0143/Piccolo/combat-poses",
+    "Art/V0143/Piccolo/portrait",
+    "Art/V0143/Piccolo/reaction-poses",
+    "Art/V0143/Piccolo/skill-icons",
+    "Art/V0143/Piccolo/special-poses",
+    "Art/V0144/Goku/movement",
+    "Art/V0144/Piccolo/Motion",
+    "Art/V0144/Piccolo/combat-poses",
+    "Art/V0144/Piccolo/guard-hop",
+    "Art/V0144/Piccolo/portrait",
+    "Art/V0144/Piccolo/reaction-poses",
+    "Art/V0144/Piccolo/special-poses",
+    "Art/V0145/Vegeta/continuous-energy-volley",
+    "Art/V0145/Vegeta/saiyan-elite",
+    "Art/V0150/Vegeta/continuous-energy-volley",
+    "Art/V0150/Vegeta/saiyan-elite",
+    "Art/V0151/Gohan/Motion",
+    "Art/V0151/Gohan/combat-poses",
+    "Art/V0151/Gohan/portrait",
+    "Art/V0151/Gohan/reaction-poses",
+    "Art/V0151/Vegeta/continuous-energy-volley",
+    "Art/V0152/Gohan/Motion",
+    "Art/V0152/Gohan/heavy-windup",
+    "Art/V0152/Piccolo/portrait",
+    "Art/V0152/Vegeta/continuous-energy-volley",
+    "Art/V0154/Goku/Motion",
+    "Art/V0154/Goku/run-cycle",
+    "Art/V0154/Krillin/Motion",
+    "Art/V0154/Krillin/portrait",
+    "Art/V0154/Krillin/skill-icons",
+    "Art/V0161/Goku/Motion",
+    "Art/V0161/Goku/barefoot-run",
+    "Art/V0161/Raditz/Motion",
+    "Art/V0161/Raditz/battle-poses",
+    "Art/V0161/Raditz/reaction-poses",
+    "Art/V0161/Raditz/skill-icons",
+    "Art/V0162/Raditz/shining-friday",
+    "Art/V0172/Yamcha/icons-a",
+    "Art/V0172/Yamcha/icons-b",
+    "Art/V0180/Battle/Piccolo/FloatPoses",
+    "Art/V0180/Battle/Piccolo/Reaction",
+    "Art/V0180/Battle/Piccolo/ReactionPoses",
+    "Art/V0180/Battle/Raditz/FloatPoses",
+    "Art/V0180/Battle/Raditz/Reaction",
+    "Art/V0180/Battle/Raditz/ReactionPoses",
+    "Art/V0181/Saibaman/icons",
+    "Art/V0181/Saibaman/portrait",
+    "Art/V0182/Piccolo/corrected-counter-stance",
+    "Art/V0182/Piccolo/corrected-shoulder-windup",
+    "Art/goku-saiyan-sample-v1",
+    "Audio/V0138/Goku/beam",
+    "Audio/V0141/BGM/gurus-house-calm-loop",
+    "Audio/V0154/Krillin/krillin-scatter-shot",
+    "Audio/V0173/Tien/finger",
+    "Audio/V0173/Tien/finger-impact",
+    "Audio/V0181/Saibaman/acid",
+    "Audio/V0181/Saibaman/acid-impact",
+    "Audio/V0181/Saibaman/basic",
+    "Audio/V0181/Saibaman/burst",
+    "Audio/V0181/Saibaman/burst-voice",
+    "Audio/V0181/Saibaman/entry",
+    "Audio/V0181/Saibaman/hit-heavy",
+    "Audio/V0181/Saibaman/hit-light",
+    "Audio/V0181/Saibaman/smash",
+    "Interface/Gallery/Rarity/A",
+    "Interface/Gallery/Rarity/B",
+    "Interface/Gallery/Rarity/C",
+    "Interface/Gallery/Rarity/S",
+    "Interface/Gallery/Rarity/V0170/A",
+    "Interface/Gallery/Rarity/V0170/B",
+    "Interface/Gallery/Rarity/V0170/C",
+    "Interface/Gallery/Rarity/V0170/S",
+    "Interface/Role/V0173/regions",
+    "Interface/Role/V0173/roles"
+  ],
+  "files": [
+    {
+      "original": "Assets/DragonIdle/Resources/Art/goku-saiyan-sample-v1.png",
+      "archive": "Resources/Art/goku-saiyan-sample-v1.png",
+      "sha256": "33aa5d6fc040e5f396a6323700146069584b3ed661c3c8b98fc963327becb9e7",
+      "bytes": 1716125
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/goku-saiyan-sample-v1.png.meta",
+      "archive": "Resources/Art/goku-saiyan-sample-v1.png.meta",
+      "sha256": "cb1069dc8184d94763a6f162aa9a4ba204899e50c995d179e76fcb248760d26c",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0132/Goku/Reaction.json",
+      "archive": "Resources/Art/V0132/Goku/Reaction.json",
+      "sha256": "ef6a53f7f915b67df6f4cb503cac74a9ae45ecd4b59cce9ed8110eb99978be64",
+      "bytes": 7209
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0132/Goku/Reaction.json.meta",
+      "archive": "Resources/Art/V0132/Goku/Reaction.json.meta",
+      "sha256": "bfda6fbfc877816d73ae60ee6e26f5b1c3b76c7361c340a87a4abe2f2f4173a2",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0133/Goku/beam-poses.png",
+      "archive": "Resources/Art/V0133/Goku/beam-poses.png",
+      "sha256": "b53f6feda15ca0f1bd2f9d5b1fd86bf53b9bea76e11be8bc0f05628b13ca684d",
+      "bytes": 2094971
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0133/Goku/beam-poses.png.meta",
+      "archive": "Resources/Art/V0133/Goku/beam-poses.png.meta",
+      "sha256": "11a035572081de4843c6b63dd3e9b4fbd48f100fc5fb1feebbb879d9d024694c",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0133/Goku/guard-poses.png",
+      "archive": "Resources/Art/V0133/Goku/guard-poses.png",
+      "sha256": "bbea6d610d9f7fb5759a18428d552c6e99d2e16f5cc15e5bdf661ad0c129fb86",
+      "bytes": 1977611
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0133/Goku/guard-poses.png.meta",
+      "archive": "Resources/Art/V0133/Goku/guard-poses.png.meta",
+      "sha256": "f30ecd51e5e1368fb1adc60e4ee173cea0f5a903b3177aa00c69e313371a8833",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0133/Goku/Motion.json",
+      "archive": "Resources/Art/V0133/Goku/Motion.json",
+      "sha256": "1aacd7ecae4a9047c4d67280046b9197f2140ab2e1c5c77d8efb6ec7e7dc36d6",
+      "bytes": 27584
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0133/Goku/Motion.json.meta",
+      "archive": "Resources/Art/V0133/Goku/Motion.json.meta",
+      "sha256": "2a1d9f9c00d49d2b3f9f24f9a857c796babda61e1265620d47e6ba531d500f3b",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0133/Goku/strike-poses.png",
+      "archive": "Resources/Art/V0133/Goku/strike-poses.png",
+      "sha256": "3ea00a7658874b6f8f0668f4996ae99bba074d3b3ece498f586b0dacc08fc7af",
+      "bytes": 1951132
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0133/Goku/strike-poses.png.meta",
+      "archive": "Resources/Art/V0133/Goku/strike-poses.png.meta",
+      "sha256": "4a74e7b8f0082a9c1c3cac7a12f0d4f37b602b25a6448c1c249ba667f1568459",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0133/Goku.meta",
+      "archive": "Resources/Art/V0133/Goku.meta",
+      "sha256": "7fff9ac693f9b5bd9d00bf8a130a2062572caffd925fc9dddebe28f0b9918130",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0133.meta",
+      "archive": "Resources/Art/V0133.meta",
+      "sha256": "6bed93764484f0cb8a68a1a24cd8be2b40905540c01e1d562c2a68bf3f5cd2c0",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0135/Goku/Motion.json",
+      "archive": "Resources/Art/V0135/Goku/Motion.json",
+      "sha256": "ec9c21a46aab876317a12bf7805a954e2575fceb54730b3733084e74fb66069c",
+      "bytes": 27878
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0135/Goku/Motion.json.meta",
+      "archive": "Resources/Art/V0135/Goku/Motion.json.meta",
+      "sha256": "ae9f58a612ef58a44880ee79ff70dbd538c30e245ced0b6aef637dbb914dfdc4",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0135/Goku/Reaction.json",
+      "archive": "Resources/Art/V0135/Goku/Reaction.json",
+      "sha256": "dd2da53f93949e86784857628067df2acfc6391dea005546a781baed1d51aedf",
+      "bytes": 7599
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0135/Goku/Reaction.json.meta",
+      "archive": "Resources/Art/V0135/Goku/Reaction.json.meta",
+      "sha256": "678a17080f052cef1c127c8a5923b8fbb9bed70874cc95d0936969f009e00dcb",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0135/Goku.meta",
+      "archive": "Resources/Art/V0135/Goku.meta",
+      "sha256": "e84d40bc12d014832b5c2e2719635fe1a332eeaf85bf50eddd6c14c5f3069e70",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0135.meta",
+      "archive": "Resources/Art/V0135.meta",
+      "sha256": "233839fd532786c704fa4032c6ee0526c3d7135e774455aaab16a95c4cbf5b29",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0136/Goku/ka-me-poses.png",
+      "archive": "Resources/Art/V0136/Goku/ka-me-poses.png",
+      "sha256": "6c6ee16cd35278d5b18b41b416d83174e9c7c33c3c3de5a4480e4657703182a7",
+      "bytes": 2128036
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0136/Goku/ka-me-poses.png.meta",
+      "archive": "Resources/Art/V0136/Goku/ka-me-poses.png.meta",
+      "sha256": "250822b7c478fe42f57dc33c9121d9daf1ac9b4be6d75e873b1d05936e139a06",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0136/Goku/Motion.json",
+      "archive": "Resources/Art/V0136/Goku/Motion.json",
+      "sha256": "f51101f12e74efb53a6fc201fd24aeedb26fe2157c34f1d59fb3fc9eeac05e76",
+      "bytes": 30490
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0136/Goku/Motion.json.meta",
+      "archive": "Resources/Art/V0136/Goku/Motion.json.meta",
+      "sha256": "27a316dcdd56d50ee083608b82784f9056b81b500865d8a5f4a32c72b0872245",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0136/Goku.meta",
+      "archive": "Resources/Art/V0136/Goku.meta",
+      "sha256": "21b1e86bd9d774753c074b32e81b6eddea98f610d5d5b48a2c72d3a65342de50",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0136.meta",
+      "archive": "Resources/Art/V0136.meta",
+      "sha256": "d7e3ac01ce57ee3b2b0f6b0e97abe5874c5e61035b0410ccd48b7eeddd4e6f42",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0140/Vegeta/Motion.json",
+      "archive": "Resources/Art/V0140/Vegeta/Motion.json",
+      "sha256": "e532ba86f4661926cf07b81c7f1de859030b46eaf63ae2ee0bddfe11ced0b896",
+      "bytes": 13041
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0140/Vegeta/Motion.json.meta",
+      "archive": "Resources/Art/V0140/Vegeta/Motion.json.meta",
+      "sha256": "47127deac65688dd84d67d27951f5e8badc68624181c54d6d268080106877231",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0140/Vegeta/portrait.png",
+      "archive": "Resources/Art/V0140/Vegeta/portrait.png",
+      "sha256": "53af82383f5e51df0b77b85f99c94a975aa6aa4a01a7cdc9e8f22ba1e7b47a79",
+      "bytes": 1921996
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0140/Vegeta/portrait.png.meta",
+      "archive": "Resources/Art/V0140/Vegeta/portrait.png.meta",
+      "sha256": "cf021d4333293a52d334fded44c2bc84bc3e2920d689fd00740561111d24c914",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0140/Vegeta/skill-icons.png",
+      "archive": "Resources/Art/V0140/Vegeta/skill-icons.png",
+      "sha256": "3e0f20e96ee565580d22c638ba7fe50b9235be6c32691eaf535e355dfed6ac5b",
+      "bytes": 2432602
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0140/Vegeta/skill-icons.png.meta",
+      "archive": "Resources/Art/V0140/Vegeta/skill-icons.png.meta",
+      "sha256": "43be5e999aef7889d41bdb0186bc6a7be6e488f05f602247c3ad58d026832133",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0141/Vegeta/portrait.png",
+      "archive": "Resources/Art/V0141/Vegeta/portrait.png",
+      "sha256": "0994828b28226965736327563b0f0b1ac9aeea5bb9780f074accb4d9faf64d88",
+      "bytes": 1825218
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0141/Vegeta/portrait.png.meta",
+      "archive": "Resources/Art/V0141/Vegeta/portrait.png.meta",
+      "sha256": "d2d2cf6bd033906da5856f38b3ff63bc04c8730c6577acc8946fe784a5ae95cc",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0141/Vegeta.meta",
+      "archive": "Resources/Art/V0141/Vegeta.meta",
+      "sha256": "7b9b7bf81a703953793fc78329726d8df2756c9f4be7f29dce963e1d9b8b7ef7",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0142/Goku/uppercut-icon.png",
+      "archive": "Resources/Art/V0142/Goku/uppercut-icon.png",
+      "sha256": "0544c2dbd67b2b7e55d553063262e8536db58e339813607b5c36e1f8496924f7",
+      "bytes": 2476418
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0142/Goku/uppercut-icon.png.meta",
+      "archive": "Resources/Art/V0142/Goku/uppercut-icon.png.meta",
+      "sha256": "4fc35ee823f46b333841cecee4adba8d9b9946e921095957886f0701930d75f7",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0142/Goku.meta",
+      "archive": "Resources/Art/V0142/Goku.meta",
+      "sha256": "2e9ce5e22bf9be4e3e6dd87aa461fc952760cead2be4783c5e794e6af88c2389",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0142/Vegeta/portrait.png",
+      "archive": "Resources/Art/V0142/Vegeta/portrait.png",
+      "sha256": "befea8595f99fa9483e11ffb68305b12644977536905b15429b35c0216a64159",
+      "bytes": 1844440
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0142/Vegeta/portrait.png.meta",
+      "archive": "Resources/Art/V0142/Vegeta/portrait.png.meta",
+      "sha256": "504f19a05ecc2b21ab4d8b6010eb18e71fd992bf197c044fb8ba4af7a8333783",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0142/Vegeta.meta",
+      "archive": "Resources/Art/V0142/Vegeta.meta",
+      "sha256": "f8e9b36c1810cd1c8a9e058e5f6fe0c24e15c9a2f0a8d0e32e0eaa210882a221",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0142.meta",
+      "archive": "Resources/Art/V0142.meta",
+      "sha256": "7504cbd3864c1348e5a5cf7dbe2442295915e0d744c2866f154ac545d0e331eb",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo/combat-poses.png",
+      "archive": "Resources/Art/V0143/Piccolo/combat-poses.png",
+      "sha256": "6561f1f5dc337e5d0bbe3f194c684d289d2b3e56167242ca6dbeed18f85f1ae3",
+      "bytes": 1877082
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo/combat-poses.png.meta",
+      "archive": "Resources/Art/V0143/Piccolo/combat-poses.png.meta",
+      "sha256": "42baea41833ff77d7a474ae20997690131b024fc5952320f2df0a9b083be05d1",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo/Motion.json",
+      "archive": "Resources/Art/V0143/Piccolo/Motion.json",
+      "sha256": "eaf940c8ea3d8ed9b98862622d88b23bbe3f8bd65a6f0765beeda31899402889",
+      "bytes": 14636
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo/Motion.json.meta",
+      "archive": "Resources/Art/V0143/Piccolo/Motion.json.meta",
+      "sha256": "67aecf59608cc17f2abea47518a6d6b07b575c10092b553e886dc669a0703cb7",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo/portrait.png",
+      "archive": "Resources/Art/V0143/Piccolo/portrait.png",
+      "sha256": "32bdc06ed3354280137e41792e5fb6ae7c81dedf2fe5743d7fd3e3e8a0bb51d2",
+      "bytes": 1666226
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo/portrait.png.meta",
+      "archive": "Resources/Art/V0143/Piccolo/portrait.png.meta",
+      "sha256": "3b200e138e58154e1ceb388f27ea7fbf78f478296bb28a583da773940b097c0d",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo/reaction-poses.png",
+      "archive": "Resources/Art/V0143/Piccolo/reaction-poses.png",
+      "sha256": "3e16f88e5958113da2b0291dd382c579b622a8e619fd2a10c1ca06d9d775cb94",
+      "bytes": 1916970
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo/reaction-poses.png.meta",
+      "archive": "Resources/Art/V0143/Piccolo/reaction-poses.png.meta",
+      "sha256": "118008970b0ed8d4aae84a0daf9bb5e618d6d76d73064134bd40f3e5e5fffeb7",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo/skill-icons.png",
+      "archive": "Resources/Art/V0143/Piccolo/skill-icons.png",
+      "sha256": "6b9f694bb1a13dea26e756fe77ec8383d99bbe36abb8bd9d443d86a9173b69f8",
+      "bytes": 2301543
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo/skill-icons.png.meta",
+      "archive": "Resources/Art/V0143/Piccolo/skill-icons.png.meta",
+      "sha256": "44520e10708509227f496bd435484da64fd541012ff2b9addb286e9074a5dcfa",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo/special-poses.png",
+      "archive": "Resources/Art/V0143/Piccolo/special-poses.png",
+      "sha256": "2dbcb83df14a428339809c95241d39266027c3394c9142432ed9b0c981e6bb8b",
+      "bytes": 2035170
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo/special-poses.png.meta",
+      "archive": "Resources/Art/V0143/Piccolo/special-poses.png.meta",
+      "sha256": "4a74110f9b9fd7625eb83a721f2982db286bc3211b722496bec16c7c2db5423a",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo.meta",
+      "archive": "Resources/Art/V0143/Piccolo.meta",
+      "sha256": "a964eb12e68113dde746e0a229b09b6735c8fe11959c9b58bf5f57e73784dbfc",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Goku/movement.png",
+      "archive": "Resources/Art/V0144/Goku/movement.png",
+      "sha256": "2cd02fe2e8eba4af241b523560041f1160826ea2b755c9f514d28d1cc33d9b12",
+      "bytes": 926751
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Goku/movement.png.meta",
+      "archive": "Resources/Art/V0144/Goku/movement.png.meta",
+      "sha256": "956ac85d4384d26cf03b1c898a134fc6a72ae814445bab85014284d724b90c93",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Goku.meta",
+      "archive": "Resources/Art/V0144/Goku.meta",
+      "sha256": "ec6612dca258bba2683f2e590530092ce2df5b75dde36afca32f227ea6a44082",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo/combat-poses.png",
+      "archive": "Resources/Art/V0144/Piccolo/combat-poses.png",
+      "sha256": "c6886ea97bca55500479935acb8afecbc8015ccd5802a05ee890f0910ee0a640",
+      "bytes": 1901478
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo/combat-poses.png.meta",
+      "archive": "Resources/Art/V0144/Piccolo/combat-poses.png.meta",
+      "sha256": "f5a6282ade8237e166e3505a29e1e8e044cd2e3066e27ca202796c5c9d2ae3ae",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo/guard-hop.png",
+      "archive": "Resources/Art/V0144/Piccolo/guard-hop.png",
+      "sha256": "a764283ff3b0e444864bccbeb643cad32de6739c7e51bf03e2acec0df9bd4242",
+      "bytes": 1650329
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo/guard-hop.png.meta",
+      "archive": "Resources/Art/V0144/Piccolo/guard-hop.png.meta",
+      "sha256": "0bbe5d8dd66e82398b3a07c32c7161f5d953f8fe3f37dcf66a345ffbc6ea120b",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo/Motion.json",
+      "archive": "Resources/Art/V0144/Piccolo/Motion.json",
+      "sha256": "8a000e722dc03458c1da8e5d9a48ad3665985f663fa4c6111c2bf30265e79c03",
+      "bytes": 15288
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo/Motion.json.meta",
+      "archive": "Resources/Art/V0144/Piccolo/Motion.json.meta",
+      "sha256": "1425a434ce823fc8de86c0549d3af2f74d583f574acf832eaabaa12f230d0761",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo/portrait.png",
+      "archive": "Resources/Art/V0144/Piccolo/portrait.png",
+      "sha256": "473283d7460fde9175cd5192dcd80cc070858aedc25e2e51caea0c0041d604c4",
+      "bytes": 1534099
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo/portrait.png.meta",
+      "archive": "Resources/Art/V0144/Piccolo/portrait.png.meta",
+      "sha256": "bc2b8214aba2662454e9cc1ed9f9b5ea7d40cdbb2cb843e5868bee82fa7d80f4",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo/reaction-poses.png",
+      "archive": "Resources/Art/V0144/Piccolo/reaction-poses.png",
+      "sha256": "c8016e5ff2bd0f20d4ebe5f14f633484603a65f343e5014895895fe0fec94160",
+      "bytes": 1899624
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo/reaction-poses.png.meta",
+      "archive": "Resources/Art/V0144/Piccolo/reaction-poses.png.meta",
+      "sha256": "9044cf516ec6aafc27e86984d88a640d582576ac924200a51e740d41e69b3f45",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo/special-poses.png",
+      "archive": "Resources/Art/V0144/Piccolo/special-poses.png",
+      "sha256": "f4f576c9eaea270caebba0af15157c9a33d866557223903377216ac775e981c4",
+      "bytes": 2077687
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo/special-poses.png.meta",
+      "archive": "Resources/Art/V0144/Piccolo/special-poses.png.meta",
+      "sha256": "c351845e578c924033c5fde36252ac14dbfc50624e4e8f722d307fd8a65b4faf",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo.meta",
+      "archive": "Resources/Art/V0144/Piccolo.meta",
+      "sha256": "404f462d036c91086e2a1dec4a234b3a65c11b7b9b7576c33c3e90cffc4dd7ef",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0145/Vegeta/continuous-energy-volley.png",
+      "archive": "Resources/Art/V0145/Vegeta/continuous-energy-volley.png",
+      "sha256": "6b541e190b63be92645c89047b62ff07e92d679210bf8bb538f0b95321d0a221",
+      "bytes": 2266785
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0145/Vegeta/continuous-energy-volley.png.meta",
+      "archive": "Resources/Art/V0145/Vegeta/continuous-energy-volley.png.meta",
+      "sha256": "dfb87711c5daa8644fd874c640f69d965bb7d81689a0471afb8d6312c064d486",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0145/Vegeta/saiyan-elite.png",
+      "archive": "Resources/Art/V0145/Vegeta/saiyan-elite.png",
+      "sha256": "d2c80cac500fd5b0886683bb95f7d69285737eef9a8633716875d787951a648b",
+      "bytes": 2291478
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0145/Vegeta/saiyan-elite.png.meta",
+      "archive": "Resources/Art/V0145/Vegeta/saiyan-elite.png.meta",
+      "sha256": "b2a0267880bf59bc4291790177e6a9dd84e346bf64570e17047cc32d38da3b0e",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0145/Vegeta.meta",
+      "archive": "Resources/Art/V0145/Vegeta.meta",
+      "sha256": "28c62faa04a4ed991c949ad37dadec90de1607d4a823cf2933809e954782f7b3",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0145.meta",
+      "archive": "Resources/Art/V0145.meta",
+      "sha256": "9dcce5bc43ff8d232a36ab5b3f2affb3703fdd341363c5e0d8c9b9014a160a8a",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0150/Vegeta/continuous-energy-volley.png",
+      "archive": "Resources/Art/V0150/Vegeta/continuous-energy-volley.png",
+      "sha256": "8dfd3f3e2c0f9aab56e8d67215fa0cfde0de0e4db1eeb2b6ab9cf09e3c66ac1a",
+      "bytes": 2591719
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0150/Vegeta/continuous-energy-volley.png.meta",
+      "archive": "Resources/Art/V0150/Vegeta/continuous-energy-volley.png.meta",
+      "sha256": "4bcfc048b958ebd6f6fea2c693dc59491a5ba1718523590d3752621aaab69fd1",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0150/Vegeta/saiyan-elite.png",
+      "archive": "Resources/Art/V0150/Vegeta/saiyan-elite.png",
+      "sha256": "5a2bed8edfbf9a3aef00d27e4112dc22ca9bc4c29dfbc32315b3114a7daf76a8",
+      "bytes": 2767957
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0150/Vegeta/saiyan-elite.png.meta",
+      "archive": "Resources/Art/V0150/Vegeta/saiyan-elite.png.meta",
+      "sha256": "306f78f8e98717a2a1ec3bca06b64796f8a6d97922fee43b88584ee2c62a8b1a",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0150/Vegeta.meta",
+      "archive": "Resources/Art/V0150/Vegeta.meta",
+      "sha256": "348ffdcfcc994251093aa8eafa133ef91c193fc6a0e4b3dee8a7e319c493f704",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0150.meta",
+      "archive": "Resources/Art/V0150.meta",
+      "sha256": "d46e6a11c1ac2bc2a9a4ca4ff3d5cbe3b6881f20687b22a540810dae75975e23",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0151/Gohan/combat-poses.png",
+      "archive": "Resources/Art/V0151/Gohan/combat-poses.png",
+      "sha256": "e26d21a24826040ed5a379867afb003c330ee3424b0cd9ecadb78b387a84b2b7",
+      "bytes": 1327660
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0151/Gohan/combat-poses.png.meta",
+      "archive": "Resources/Art/V0151/Gohan/combat-poses.png.meta",
+      "sha256": "9bb241546c28ae1b4e5184b966a76598b3a4e285608f86a82a97ea6c26356898",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0151/Gohan/Motion.json",
+      "archive": "Resources/Art/V0151/Gohan/Motion.json",
+      "sha256": "4112a01d1deab0c4083aee2150317599dc4451d9fbc9b0f54fbc12151f44f2c4",
+      "bytes": 11352
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0151/Gohan/Motion.json.meta",
+      "archive": "Resources/Art/V0151/Gohan/Motion.json.meta",
+      "sha256": "e57d22837e85d15aee9b5b4647de93ac37a94287e9a7db8a6e63dab24cc7f514",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0151/Gohan/portrait.png",
+      "archive": "Resources/Art/V0151/Gohan/portrait.png",
+      "sha256": "a9d10a7ed75d288aaf060fa309f1fdbcb26087ebd3d3f581367067ce0107f963",
+      "bytes": 1593579
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0151/Gohan/portrait.png.meta",
+      "archive": "Resources/Art/V0151/Gohan/portrait.png.meta",
+      "sha256": "c075ffb26c8c72fdcd1b6d5061aaa93f25e459ce366e1c095de0512703d27c2d",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0151/Gohan/reaction-poses.png",
+      "archive": "Resources/Art/V0151/Gohan/reaction-poses.png",
+      "sha256": "53787405cb4e6abe6e403fe18b0f748c1f23d2e11a501381d3f5e3002ede35f6",
+      "bytes": 1887552
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0151/Gohan/reaction-poses.png.meta",
+      "archive": "Resources/Art/V0151/Gohan/reaction-poses.png.meta",
+      "sha256": "b33569d7267a3aac50579c48ee9e5969e5f1ffbc4b53a7e476b16404d6e5fdca",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0151/Vegeta/continuous-energy-volley.png",
+      "archive": "Resources/Art/V0151/Vegeta/continuous-energy-volley.png",
+      "sha256": "451513d9f012cfe321ad5c1ac890f55ecdcf322003f0085ea5b7964ae7e90bc7",
+      "bytes": 2214644
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0151/Vegeta/continuous-energy-volley.png.meta",
+      "archive": "Resources/Art/V0151/Vegeta/continuous-energy-volley.png.meta",
+      "sha256": "d3ee5fa85818bcc406df722b48c000f0ede70840a4959202ebf46b60da19f9ba",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Gohan/heavy-windup.png",
+      "archive": "Resources/Art/V0152/Gohan/heavy-windup.png",
+      "sha256": "8101c515c5ec82af98f558be094f5b14a8dbf3107b4636f0d1381304c8b7c518",
+      "bytes": 1644551
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Gohan/heavy-windup.png.meta",
+      "archive": "Resources/Art/V0152/Gohan/heavy-windup.png.meta",
+      "sha256": "7ad2e05dea7b9b26ab34ec65bd3778fc718e606a3e43b2127a23f5d7015e5bac",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Gohan/Motion.json",
+      "archive": "Resources/Art/V0152/Gohan/Motion.json",
+      "sha256": "db79ba5e089a76274b46b0a682c00abef5f2401e3e9012ab3d586adba36077e3",
+      "bytes": 12567
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Gohan/Motion.json.meta",
+      "archive": "Resources/Art/V0152/Gohan/Motion.json.meta",
+      "sha256": "6aef8294d6465b927ea198c36d8693fab832fe7ff96ead56203f326f0b2789e7",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Gohan.meta",
+      "archive": "Resources/Art/V0152/Gohan.meta",
+      "sha256": "8cf31692649153d98513de113396824c43d7ac10df11bdb3bf10ee0ad82b1f0e",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Piccolo/portrait.png",
+      "archive": "Resources/Art/V0152/Piccolo/portrait.png",
+      "sha256": "195e9a5d5395c0fecad3514befaf6ee9e39cf9cad828d4d2f4e0147a391e36d3",
+      "bytes": 1491894
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Piccolo/portrait.png.meta",
+      "archive": "Resources/Art/V0152/Piccolo/portrait.png.meta",
+      "sha256": "f325dfee0f3abd5065dc15449dbe0084346b274e945fb620779be6ad72d3bdc3",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Piccolo.meta",
+      "archive": "Resources/Art/V0152/Piccolo.meta",
+      "sha256": "b1edd80fa1cb7f0bf3d6d5032b12c0bb56b90ae3391878ad763ab444a543e4e1",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Vegeta/continuous-energy-volley.png",
+      "archive": "Resources/Art/V0152/Vegeta/continuous-energy-volley.png",
+      "sha256": "7817379b81b58c7902446bbd7923a196e9349494b37ff113a5f759c262b6aefa",
+      "bytes": 2150075
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Vegeta/continuous-energy-volley.png.meta",
+      "archive": "Resources/Art/V0152/Vegeta/continuous-energy-volley.png.meta",
+      "sha256": "45e4044869dcbb29be3816c1282b39e2d965d9e43b09c2a65063e0e0f1cf100c",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Vegeta.meta",
+      "archive": "Resources/Art/V0152/Vegeta.meta",
+      "sha256": "c4ae17a33e09bf792f6c4d2ea247af001eaf21b348ebc2944864fb2f5673c63b",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152.meta",
+      "archive": "Resources/Art/V0152.meta",
+      "sha256": "16a7e8e8c37cc5421daaa434781c9a0152505a5af3a2e83da9846656388b6f82",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0154/Goku/Motion.json",
+      "archive": "Resources/Art/V0154/Goku/Motion.json",
+      "sha256": "dbc8163210cfd69354c360e889ed0753ceea3c8d3c8743822fb97d473e39fd05",
+      "bytes": 22952
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0154/Goku/Motion.json.meta",
+      "archive": "Resources/Art/V0154/Goku/Motion.json.meta",
+      "sha256": "82df79fc55aeb9403e451da98e4c3bfc118dcd9ad1e753a6576efd92549af1fd",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0154/Goku/run-cycle.png",
+      "archive": "Resources/Art/V0154/Goku/run-cycle.png",
+      "sha256": "4453693ac140a3b8de90f55562ebd9bc71d3b17c61071e327b6659d4f2d3a9f2",
+      "bytes": 1680755
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0154/Goku/run-cycle.png.meta",
+      "archive": "Resources/Art/V0154/Goku/run-cycle.png.meta",
+      "sha256": "7686c267aee133ef2d3a2ab32e2d99b8e558b361c980bdad69a4153d482d880f",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0154/Goku.meta",
+      "archive": "Resources/Art/V0154/Goku.meta",
+      "sha256": "acde4b28fcb17cd8d69a9b16792da3efc8c00b2c2c6263f93d6dc893e95fb4d7",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0154/Krillin/Motion.json",
+      "archive": "Resources/Art/V0154/Krillin/Motion.json",
+      "sha256": "26220290dbd8ab3fb94b42e042cf79c817d21e95c74381f71ea93ae38b40c3e1",
+      "bytes": 9748
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0154/Krillin/Motion.json.meta",
+      "archive": "Resources/Art/V0154/Krillin/Motion.json.meta",
+      "sha256": "bc122592c7791208fde028d78b69fe15662f2d18c19a153d15fde2bef4ca944b",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0154/Krillin/portrait.png",
+      "archive": "Resources/Art/V0154/Krillin/portrait.png",
+      "sha256": "5b10d69500a1e77879bc3c12f47b379ac496c641d375c1caf40db1732c2ed476",
+      "bytes": 1696815
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0154/Krillin/portrait.png.meta",
+      "archive": "Resources/Art/V0154/Krillin/portrait.png.meta",
+      "sha256": "23af49fe192a36d9872b5970411694e56481614797df1d99367bbbfef269db34",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0154/Krillin/skill-icons.png",
+      "archive": "Resources/Art/V0154/Krillin/skill-icons.png",
+      "sha256": "005619fa4ca8d30fc8acc4279abe2b2730ddfbae5eb6bd53c6461fd303b10f05",
+      "bytes": 2104722
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0154/Krillin/skill-icons.png.meta",
+      "archive": "Resources/Art/V0154/Krillin/skill-icons.png.meta",
+      "sha256": "853401f1fb7a1d358dbcfd80e2e41069be4c7f9d62945f4a5effb2727e2c47d8",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Goku/barefoot-run.png",
+      "archive": "Resources/Art/V0161/Goku/barefoot-run.png",
+      "sha256": "bef554ef43cc498892de3991898ee2e58e0cb02a062f78443aa84cca7b028c43",
+      "bytes": 1166278
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Goku/barefoot-run.png.meta",
+      "archive": "Resources/Art/V0161/Goku/barefoot-run.png.meta",
+      "sha256": "97ac8f225d1a84166bc400d0312aca509e854c466312367cfe3045f6bd3d7e46",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Goku/Motion.json",
+      "archive": "Resources/Art/V0161/Goku/Motion.json",
+      "sha256": "a83d6187f8cfbbfaeb01d3284a861323f7c524253ccacc6f3d3c31592a03fcc1",
+      "bytes": 22913
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Goku/Motion.json.meta",
+      "archive": "Resources/Art/V0161/Goku/Motion.json.meta",
+      "sha256": "aecffcebdb3f776320a98d4ac442b2e1cf1ca49282181f6fa2e94c100a96981b",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Goku.meta",
+      "archive": "Resources/Art/V0161/Goku.meta",
+      "sha256": "38331ceea8099ec66cc21242388451b76af026c566bbc72cd50d2a2bcba35aa5",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Raditz/battle-poses.png",
+      "archive": "Resources/Art/V0161/Raditz/battle-poses.png",
+      "sha256": "5925b2ca6d89a17c91ef775ec22e637618b5b9d974c870146c052b6b3ee2a076",
+      "bytes": 1553439
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Raditz/battle-poses.png.meta",
+      "archive": "Resources/Art/V0161/Raditz/battle-poses.png.meta",
+      "sha256": "a07048636cef331e7f2a0bae99840ad48beda95763b72bdcd217f0731ba9be17",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Raditz/Motion.json",
+      "archive": "Resources/Art/V0161/Raditz/Motion.json",
+      "sha256": "d294f926f37826f596daad680aba8cdb9a16653b02129ec91396e6df45d08ba7",
+      "bytes": 10082
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Raditz/Motion.json.meta",
+      "archive": "Resources/Art/V0161/Raditz/Motion.json.meta",
+      "sha256": "f0c5afcc535753e89b47c2d517a148eb550cc425063007bbfe14e72801a9c032",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Raditz/reaction-poses.png",
+      "archive": "Resources/Art/V0161/Raditz/reaction-poses.png",
+      "sha256": "19729a08295783005e45d48067e7f830ae12f8d9f429277a2ebab390f13f01a9",
+      "bytes": 1890992
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Raditz/reaction-poses.png.meta",
+      "archive": "Resources/Art/V0161/Raditz/reaction-poses.png.meta",
+      "sha256": "a959fd20a64373eed958ae3fe8650e5a72e43140cd619a196fc58968140fdb29",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Raditz/skill-icons.png",
+      "archive": "Resources/Art/V0161/Raditz/skill-icons.png",
+      "sha256": "7c1662e4b10720e2ce6752a9a35f29f6153763a707fe641352d213aad081dc97",
+      "bytes": 3302143
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Raditz/skill-icons.png.meta",
+      "archive": "Resources/Art/V0161/Raditz/skill-icons.png.meta",
+      "sha256": "2331fdf47a04da2f22fcd13e8f35670b6906ed61f2bd78164702ecc4a6364e8f",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0162/Raditz/shining-friday.png",
+      "archive": "Resources/Art/V0162/Raditz/shining-friday.png",
+      "sha256": "b588d19077f9e4da9f0f93d19618af955c1bca6133924bf908b9b6d21f9ae408",
+      "bytes": 2930464
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0162/Raditz/shining-friday.png.meta",
+      "archive": "Resources/Art/V0162/Raditz/shining-friday.png.meta",
+      "sha256": "98aae4073737c4d5870f47a440a177dd4088eb77a41aba2112d368a0bd00c456",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0162/Raditz.meta",
+      "archive": "Resources/Art/V0162/Raditz.meta",
+      "sha256": "49b7e2da03a0900b48f7a99ee87396d6ee88965840abf463be033c054a6a3606",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0162.meta",
+      "archive": "Resources/Art/V0162.meta",
+      "sha256": "9f83825dd27206ea3a1728a35c2a5482493df4f697ebe710b26b7220b13788f8",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0172/Yamcha/icons-a.png",
+      "archive": "Resources/Art/V0172/Yamcha/icons-a.png",
+      "sha256": "48dd2a7f72b7592c0fa23932dc485a2ce6488dad447200c25321edb3ba56f58a",
+      "bytes": 2684053
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0172/Yamcha/icons-a.png.meta",
+      "archive": "Resources/Art/V0172/Yamcha/icons-a.png.meta",
+      "sha256": "823005399d7eb26b6047617e5d54f419f1fcc62ac85488fa73ba767156a8a439",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0172/Yamcha/icons-b.png",
+      "archive": "Resources/Art/V0172/Yamcha/icons-b.png",
+      "sha256": "9f03d64df480e98199de9800b1b3c6613151c3d0f8dca4a4a2f0f3a4e47b2e8a",
+      "bytes": 2773879
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0172/Yamcha/icons-b.png.meta",
+      "archive": "Resources/Art/V0172/Yamcha/icons-b.png.meta",
+      "sha256": "c752936f094ff1ffab07e129d76d04e9be40b3d31ba34e188e58b6a94abbcf18",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Piccolo/FloatPoses.png",
+      "archive": "Resources/Art/V0180/Battle/Piccolo/FloatPoses.png",
+      "sha256": "052fe054ea26688f4d706fa82b7c95535b5200157c686e4ccda13ebf6053632f",
+      "bytes": 628136
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Piccolo/FloatPoses.png.meta",
+      "archive": "Resources/Art/V0180/Battle/Piccolo/FloatPoses.png.meta",
+      "sha256": "89ba692c90ab4916d16e0a0613064c2bfd80f3635f49f96706f4c743023dafc0",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Piccolo/Reaction.json",
+      "archive": "Resources/Art/V0180/Battle/Piccolo/Reaction.json",
+      "sha256": "f48779344845c1da3bf4e6281cf001e70b516580f35dd753f50cf129c047bb62",
+      "bytes": 6359
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Piccolo/Reaction.json.meta",
+      "archive": "Resources/Art/V0180/Battle/Piccolo/Reaction.json.meta",
+      "sha256": "dad633896ad56f53161b3e498e00838044ec979eb04634e735d77a2875e64881",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Piccolo/ReactionPoses.png",
+      "archive": "Resources/Art/V0180/Battle/Piccolo/ReactionPoses.png",
+      "sha256": "b36f113967f274ca77feca2a9f30593f3582334c0136a2a74f33f4f9cf83998a",
+      "bytes": 518210
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Piccolo/ReactionPoses.png.meta",
+      "archive": "Resources/Art/V0180/Battle/Piccolo/ReactionPoses.png.meta",
+      "sha256": "074e8d3d5c8457f29e7d7002567f076497335e40023fc5ddd166bb896ae1a318",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Piccolo.meta",
+      "archive": "Resources/Art/V0180/Battle/Piccolo.meta",
+      "sha256": "658abf36a2428613bd8694e70d6f190a567f2ab5fd22f1ba3fd7a728d446e8e2",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Raditz/FloatPoses.png",
+      "archive": "Resources/Art/V0180/Battle/Raditz/FloatPoses.png",
+      "sha256": "c29f3f03f484f4bd7415969bf1b832827ba40dfe520b7425c3f159d727cfb7c3",
+      "bytes": 658495
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Raditz/FloatPoses.png.meta",
+      "archive": "Resources/Art/V0180/Battle/Raditz/FloatPoses.png.meta",
+      "sha256": "4ed3c7f662ebf176acb4997c7e90ab2827ab2677323a087cdf26d9f5f062a821",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Raditz/Reaction.json",
+      "archive": "Resources/Art/V0180/Battle/Raditz/Reaction.json",
+      "sha256": "441ff55cc80bc54b41517f15d765dc58cbdb1a733f9524e46e3aceaaddd8885f",
+      "bytes": 4596
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Raditz/Reaction.json.meta",
+      "archive": "Resources/Art/V0180/Battle/Raditz/Reaction.json.meta",
+      "sha256": "b7176a0d7e07e62aabde33706a2f390d70bd6c1fdf9eec52a0b33f0bc97a565e",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Raditz/ReactionPoses.png",
+      "archive": "Resources/Art/V0180/Battle/Raditz/ReactionPoses.png",
+      "sha256": "b070780a78f20b6638f054c2dd0153018994e0453b7c1d01ff2c52077f40f812",
+      "bytes": 567137
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Raditz/ReactionPoses.png.meta",
+      "archive": "Resources/Art/V0180/Battle/Raditz/ReactionPoses.png.meta",
+      "sha256": "77286ba27dfaab5df2559ed7f834f6d4e87e470fed5e16cd06af300ac98eef8a",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Raditz.meta",
+      "archive": "Resources/Art/V0180/Battle/Raditz.meta",
+      "sha256": "37b348bc0a42443c6b69ff44a6732f375402d0c7d54303bf2c755541a6e70ed5",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0181/Saibaman/icons.png",
+      "archive": "Resources/Art/V0181/Saibaman/icons.png",
+      "sha256": "ff6f9961f6cc213322f17dd5dc835e0ce701ff8828d367b90a9c3a3b8f404ab1",
+      "bytes": 1809609
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0181/Saibaman/icons.png.meta",
+      "archive": "Resources/Art/V0181/Saibaman/icons.png.meta",
+      "sha256": "a743c0ee478babc21c493360e13fad4ee9200a927642a6a2a7e741060c4b1869",
+      "bytes": 2585
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0181/Saibaman/portrait.png",
+      "archive": "Resources/Art/V0181/Saibaman/portrait.png",
+      "sha256": "e51715d792cbd9d8154a24469a3017aa3d4da27c4f906d4c85f562c6ba13a911",
+      "bytes": 1680254
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0181/Saibaman/portrait.png.meta",
+      "archive": "Resources/Art/V0181/Saibaman/portrait.png.meta",
+      "sha256": "b1f5d9ec4d35bf11cf45702ace286e0ad85928efc20c300c92673462798109b8",
+      "bytes": 2585
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-counter-stance.png",
+      "archive": "Resources/Art/V0182/Piccolo/corrected-counter-stance.png",
+      "sha256": "c9dc4ec3986d29dde6e9b8bd55279825b8af4c987da59a213d2948896909ec36",
+      "bytes": 372504
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-counter-stance.png.meta",
+      "archive": "Resources/Art/V0182/Piccolo/corrected-counter-stance.png.meta",
+      "sha256": "61bc00c7706239de8c621a3be4d074c268d73e79df2106a57158546abe31f143",
+      "bytes": 2585
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-shoulder-windup.png",
+      "archive": "Resources/Art/V0182/Piccolo/corrected-shoulder-windup.png",
+      "sha256": "9ca3156ed29927b47b96b5fa3a84baf472e3e0f024b857d47e138c0f170240ed",
+      "bytes": 338605
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-shoulder-windup.png.meta",
+      "archive": "Resources/Art/V0182/Piccolo/corrected-shoulder-windup.png.meta",
+      "sha256": "61dacd28ff7adf92d93343fc037cad0fc2313023e2a467915eca34816ea7fc57",
+      "bytes": 2585
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0138/Goku/beam.wav",
+      "archive": "Resources/Audio/V0138/Goku/beam.wav",
+      "sha256": "e68c1d25bf26012f9993a6d22ed91f51890653dab09aaf671a3fd93df7a1f4c6",
+      "bytes": 265772
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0138/Goku/beam.wav.meta",
+      "archive": "Resources/Audio/V0138/Goku/beam.wav.meta",
+      "sha256": "2f663a3a9e6977a10027f0e492ff2a76ca5d306425e49283108d91ae057bcffb",
+      "bytes": 485
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0141/BGM/gurus-house-calm-loop.wav",
+      "archive": "Resources/Audio/V0141/BGM/gurus-house-calm-loop.wav",
+      "sha256": "a70565b4a222af61dd51e46e2961d60a1a049b4e56596a9d310105b4df28cce1",
+      "bytes": 23040236
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0141/BGM/gurus-house-calm-loop.wav.meta",
+      "archive": "Resources/Audio/V0141/BGM/gurus-house-calm-loop.wav.meta",
+      "sha256": "4a56cb0b84e0390c3f10e7fbcbcd7930bf745ced5a21a9b48b2e503fbe99c604",
+      "bytes": 488
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-scatter-shot.wav",
+      "archive": "Resources/Audio/V0154/Krillin/krillin-scatter-shot.wav",
+      "sha256": "047c8abb0b3aac0df721690b36274dd511a05ff1792d0eff0afffcf4726a3449",
+      "bytes": 86572
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0154/Krillin/krillin-scatter-shot.wav.meta",
+      "archive": "Resources/Audio/V0154/Krillin/krillin-scatter-shot.wav.meta",
+      "sha256": "d3eedcdaa50b0010f6d2f8151344b1154bf29af835b9d6da28480c8cc08ec3c2",
+      "bytes": 485
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0173/Tien/finger-impact.wav",
+      "archive": "Resources/Audio/V0173/Tien/finger-impact.wav",
+      "sha256": "959faa48a0b5ab5a9b2b4b921b02365e4f766c4777ef93ee7ca1d93baf92ad96",
+      "bytes": 54828
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0173/Tien/finger-impact.wav.meta",
+      "archive": "Resources/Audio/V0173/Tien/finger-impact.wav.meta",
+      "sha256": "faa6b28bf516f669be973799a8231df3044ebe3f6d9c5ffae1ed67fb4b29be59",
+      "bytes": 485
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0173/Tien/finger.wav",
+      "archive": "Resources/Audio/V0173/Tien/finger.wav",
+      "sha256": "629bab19ca780e1cc94a6d70aecbf1847216fd751c3f9c4576101de672dbcdb5",
+      "bytes": 16884
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0173/Tien/finger.wav.meta",
+      "archive": "Resources/Audio/V0173/Tien/finger.wav.meta",
+      "sha256": "01bebb0096603b9fc474ccec8941333008aedf72dca9bf8453cdb0afbcaff6e5",
+      "bytes": 485
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/acid-impact.wav",
+      "archive": "Resources/Audio/V0181/Saibaman/acid-impact.wav",
+      "sha256": "7007c212fbefc726031d9b9aa8ec0f370164ae7d238bc1ef3e4041b9c14fe13d",
+      "bytes": 130530
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/acid-impact.wav.meta",
+      "archive": "Resources/Audio/V0181/Saibaman/acid-impact.wav.meta",
+      "sha256": "ca81284e3c02cbf6be87fcb1f5c079726243e625eff652b29f822cbad24d8c5c",
+      "bytes": 482
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/acid.wav",
+      "archive": "Resources/Audio/V0181/Saibaman/acid.wav",
+      "sha256": "61e15b88260845dc9e6694ef189ba2b52f6fa55213a79aed560f6467823c0d69",
+      "bytes": 137620
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/acid.wav.meta",
+      "archive": "Resources/Audio/V0181/Saibaman/acid.wav.meta",
+      "sha256": "8b8e32d0c079c71fac566054bc5259a052465667a92f9f4ea683590a97b1aff8",
+      "bytes": 482
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/basic.wav",
+      "archive": "Resources/Audio/V0181/Saibaman/basic.wav",
+      "sha256": "41ff6422e8500701656b47a858638cf76832674d458fe7763e72534c2c8f0775",
+      "bytes": 32648
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/basic.wav.meta",
+      "archive": "Resources/Audio/V0181/Saibaman/basic.wav.meta",
+      "sha256": "fdfbc0708c3a44fcbfab8bb0a7773224d527989d4d6b61fdc576cf60d6d97184",
+      "bytes": 482
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/burst-voice.wav",
+      "archive": "Resources/Audio/V0181/Saibaman/burst-voice.wav",
+      "sha256": "61761814fafed9ae813dff3cde18db2723aa1d77f9bf90e308a5c427895ebfb4",
+      "bytes": 50246
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/burst-voice.wav.meta",
+      "archive": "Resources/Audio/V0181/Saibaman/burst-voice.wav.meta",
+      "sha256": "dd8b5754db01d95040a360d76f16eeaf707dab3e318e2d325f5e1390215947f3",
+      "bytes": 482
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/burst.wav",
+      "archive": "Resources/Audio/V0181/Saibaman/burst.wav",
+      "sha256": "fbbdcfcadb7328f2fe2814ff29a675fec854dc74cbe9dee29fb333735a688ffa",
+      "bytes": 251948
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/burst.wav.meta",
+      "archive": "Resources/Audio/V0181/Saibaman/burst.wav.meta",
+      "sha256": "6acdcab5e3060c4219c449de47a81b48bc4654b4b872dcdb6b3410d90b1e745d",
+      "bytes": 482
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/entry.wav",
+      "archive": "Resources/Audio/V0181/Saibaman/entry.wav",
+      "sha256": "a7081596be2d8e63a24159c5e2889ada93ca63b625340411348c240473b29730",
+      "bytes": 18502
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/entry.wav.meta",
+      "archive": "Resources/Audio/V0181/Saibaman/entry.wav.meta",
+      "sha256": "f214e56648dffee805a397a17df584d8ce4c6cf08cc3d4c2c28cdd55523d6134",
+      "bytes": 482
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/hit-heavy.wav",
+      "archive": "Resources/Audio/V0181/Saibaman/hit-heavy.wav",
+      "sha256": "67ab7dff5ec443528f82c00d8d88b79ac7fc4a7cae552a161dcfaab510b879e5",
+      "bytes": 30454
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/hit-heavy.wav.meta",
+      "archive": "Resources/Audio/V0181/Saibaman/hit-heavy.wav.meta",
+      "sha256": "58297db4ff16ee885e84285a62a9624c64b943221023fead3fd7b074a10dba96",
+      "bytes": 482
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/hit-light.wav",
+      "archive": "Resources/Audio/V0181/Saibaman/hit-light.wav",
+      "sha256": "2a521351a4691e38be79374db1035b53ef07b8a4c457ea6d88721183495a3489",
+      "bytes": 30768
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/hit-light.wav.meta",
+      "archive": "Resources/Audio/V0181/Saibaman/hit-light.wav.meta",
+      "sha256": "b5a4a6191694d7171165e25b40c4d94d1c8c20cb4a67f4bbd06653b13e10017b",
+      "bytes": 482
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/smash.wav",
+      "archive": "Resources/Audio/V0181/Saibaman/smash.wav",
+      "sha256": "a1a7a5d5731cdde1a427a082a795734d28f8bba3705bd8fc7ec0b9f7ca011423",
+      "bytes": 44106
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman/smash.wav.meta",
+      "archive": "Resources/Audio/V0181/Saibaman/smash.wav.meta",
+      "sha256": "00fd32cdc27151a2dcd4c8379b0bd710e4a57a244ffba4fe6f604e4c381c99d5",
+      "bytes": 482
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman.meta",
+      "archive": "Resources/Audio/V0181/Saibaman.meta",
+      "sha256": "843b56fc295688e9f52293bbdc95f11ca4e3e86981e50d4e1a3fb2ac931c17bc",
+      "bytes": 169
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/A.png",
+      "archive": "Resources/Interface/Gallery/Rarity/A.png",
+      "sha256": "0ac811cdbe996275647b74d9ff8179ff0879a06c1e8c9f1e211017c7ce6ee609",
+      "bytes": 2119150
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/A.png.meta",
+      "archive": "Resources/Interface/Gallery/Rarity/A.png.meta",
+      "sha256": "b215fa0ce8c3d09eb5901df0bbb8f0dd751096b1cbfa69897ca83ca40e8b774d",
+      "bytes": 2590
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/B.png",
+      "archive": "Resources/Interface/Gallery/Rarity/B.png",
+      "sha256": "96c1c2c71784c6530cb784e344d0fa95d22c21825a1b3e1e9d22c5f4a9ffb0e3",
+      "bytes": 1782725
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/B.png.meta",
+      "archive": "Resources/Interface/Gallery/Rarity/B.png.meta",
+      "sha256": "6e48c3bfdf8e0365fbc1f208ede30174ce438cddfd167f6d3fe1e604756d5b86",
+      "bytes": 2590
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/C.png",
+      "archive": "Resources/Interface/Gallery/Rarity/C.png",
+      "sha256": "ec6d877586db8a4066900e2f9ac79ada880f3726727d4d18f2c131ce427ebeae",
+      "bytes": 1702535
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/C.png.meta",
+      "archive": "Resources/Interface/Gallery/Rarity/C.png.meta",
+      "sha256": "d3c68836669c1b03ed1ef7af75dc665e06a95f1b8c37fd15f79baaf8d5d66ab1",
+      "bytes": 2590
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/S.png",
+      "archive": "Resources/Interface/Gallery/Rarity/S.png",
+      "sha256": "04a7bcb7b6465ae94868c5bca820f79b2d43a312964b35c97e1e06a62c5dadd6",
+      "bytes": 1721655
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/S.png.meta",
+      "archive": "Resources/Interface/Gallery/Rarity/S.png.meta",
+      "sha256": "46ee589b951325c9aab589fe763df92d4b61bc17752811774f35275259ab10b7",
+      "bytes": 2590
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/A.png",
+      "archive": "Resources/Interface/Gallery/Rarity/V0170/A.png",
+      "sha256": "0b0e7fb27acefe611f39ab027c580182800aa6f78e85508fbb4dc69219d9cb94",
+      "bytes": 3186199
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/A.png.meta",
+      "archive": "Resources/Interface/Gallery/Rarity/V0170/A.png.meta",
+      "sha256": "efdb2efacb7a69a2e0a831762519dfab92a11b50045eb609a266705078c97e4c",
+      "bytes": 2590
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/B.png",
+      "archive": "Resources/Interface/Gallery/Rarity/V0170/B.png",
+      "sha256": "7f7a8991223ff117250c44e22c6c650b9ac334216adab5f12f21f4618c277be6",
+      "bytes": 2694197
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/B.png.meta",
+      "archive": "Resources/Interface/Gallery/Rarity/V0170/B.png.meta",
+      "sha256": "2c6d4f6d116cfec77465d30d35db4cc69b3b459cf4cae98d9f17282924ba5628",
+      "bytes": 2590
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/C.png",
+      "archive": "Resources/Interface/Gallery/Rarity/V0170/C.png",
+      "sha256": "656760a665e246d96471765f7208bb0436aa6e6347fc947a7f39f4fac573870a",
+      "bytes": 3620733
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/C.png.meta",
+      "archive": "Resources/Interface/Gallery/Rarity/V0170/C.png.meta",
+      "sha256": "9dc81e204fbfaaf7d8a3587d967c80e64cac135e463ecf8aa072882b960144a1",
+      "bytes": 2590
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/S.png",
+      "archive": "Resources/Interface/Gallery/Rarity/V0170/S.png",
+      "sha256": "946839ae3fe4712bcef4820dceedb928e05e5304eae8dc85e8ba7ac92f1f12f4",
+      "bytes": 4323774
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170/S.png.meta",
+      "archive": "Resources/Interface/Gallery/Rarity/V0170/S.png.meta",
+      "sha256": "83c10b0d3c4453d547d1e0045a6dda99fd2a3b9452f0e7243cbb30e863d2d493",
+      "bytes": 2590
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170.meta",
+      "archive": "Resources/Interface/Gallery/Rarity/V0170.meta",
+      "sha256": "e1b8a73c59c22a526610efd1bbc60cc2f3f084425e6c0a1bcaf985018e4bcaa2",
+      "bytes": 172
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Role/V0173/regions.json",
+      "archive": "Resources/Interface/Role/V0173/regions.json",
+      "sha256": "0b1861770b5039ffaa6a045bdfd1cf943f2c99e6a61070d4b8838aec438b5b64",
+      "bytes": 267
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Role/V0173/regions.json.meta",
+      "archive": "Resources/Interface/Role/V0173/regions.json.meta",
+      "sha256": "786cf8b484ae72077a7d4e141af5a36299b334fbe6f78f4bb17a04e27327a0f4",
+      "bytes": 158
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Role/V0173/roles.png",
+      "archive": "Resources/Interface/Role/V0173/roles.png",
+      "sha256": "1648e01d7ea6635f7df62c3915a952a5c543a5171627e3a3f0814f8660de91df",
+      "bytes": 1177725
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Role/V0173/roles.png.meta",
+      "archive": "Resources/Interface/Role/V0173/roles.png.meta",
+      "sha256": "d900caaea766ff258cee318c7becd73a01e04345e5c13cb7189c64c7801027ba",
+      "bytes": 2591
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Role/V0173.meta",
+      "archive": "Resources/Interface/Role/V0173.meta",
+      "sha256": "4cae580ab81dee1aabfcac6a7df4b4715e6231c2504d5fd5dbd1d8696e9288e8",
+      "bytes": 172
+    }
+  ],
+  "directories": [
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Piccolo",
+      "archive": "Resources/Art/V0180/Battle/Piccolo"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0180/Battle/Raditz",
+      "archive": "Resources/Art/V0180/Battle/Raditz"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Gallery/Rarity/V0170",
+      "archive": "Resources/Interface/Gallery/Rarity/V0170"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0133/Goku",
+      "archive": "Resources/Art/V0133/Goku"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0135/Goku",
+      "archive": "Resources/Art/V0135/Goku"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0136/Goku",
+      "archive": "Resources/Art/V0136/Goku"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0141/Vegeta",
+      "archive": "Resources/Art/V0141/Vegeta"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0142/Goku",
+      "archive": "Resources/Art/V0142/Goku"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0142/Vegeta",
+      "archive": "Resources/Art/V0142/Vegeta"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0143/Piccolo",
+      "archive": "Resources/Art/V0143/Piccolo"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Goku",
+      "archive": "Resources/Art/V0144/Goku"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0144/Piccolo",
+      "archive": "Resources/Art/V0144/Piccolo"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0145/Vegeta",
+      "archive": "Resources/Art/V0145/Vegeta"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0150/Vegeta",
+      "archive": "Resources/Art/V0150/Vegeta"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Gohan",
+      "archive": "Resources/Art/V0152/Gohan"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Piccolo",
+      "archive": "Resources/Art/V0152/Piccolo"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152/Vegeta",
+      "archive": "Resources/Art/V0152/Vegeta"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0154/Goku",
+      "archive": "Resources/Art/V0154/Goku"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0161/Goku",
+      "archive": "Resources/Art/V0161/Goku"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0162/Raditz",
+      "archive": "Resources/Art/V0162/Raditz"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Audio/V0181/Saibaman",
+      "archive": "Resources/Audio/V0181/Saibaman"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Interface/Role/V0173",
+      "archive": "Resources/Interface/Role/V0173"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0133",
+      "archive": "Resources/Art/V0133"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0135",
+      "archive": "Resources/Art/V0135"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0136",
+      "archive": "Resources/Art/V0136"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0142",
+      "archive": "Resources/Art/V0142"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0145",
+      "archive": "Resources/Art/V0145"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0150",
+      "archive": "Resources/Art/V0150"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0152",
+      "archive": "Resources/Art/V0152"
+    },
+    {
+      "original": "Assets/DragonIdle/Resources/Art/V0162",
+      "archive": "Resources/Art/V0162"
+    }
+  ]
+}

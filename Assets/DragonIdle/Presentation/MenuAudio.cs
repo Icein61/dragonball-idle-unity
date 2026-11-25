@@ -52,9 +52,9 @@ namespace DragonIdle {
   }
   void SyncPageMusic(){
    if(pageMusic==null)return;
-   bool menu=page=="主页"||page=="角色"||page==FormationRoute;
+   bool menu=page==PageRoute.Home||page==PageRoute.Characters||page==PageRoute.Formation;
    string path=menu&&!shellLoad.Active?CharacterPageBgm:
-    page==RoundPreviewPage&&roundDemo?demoScene?.bgm:null;
+    page==PageRoute.RoundBattle&&roundDemo?demoScene?.bgm:null;
    if(activeMusicPath==path)return;
    activeMusicPath=path;
    pageMusic.Stop();

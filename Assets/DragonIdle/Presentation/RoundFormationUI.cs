@@ -6,7 +6,6 @@ using UI=UnityEngine.UI;
 
 namespace DragonIdle {
  public partial class DemoGame {
-  const string FormationRoute="编队";
   RectTransform formationRoot,formationDragLayer,formationListViewport;
   FormationGridGraphic formationGrid;
   UI.RawImage formationGhost;
@@ -109,11 +108,11 @@ namespace DragonIdle {
 
   internal void BeginFormationDrag(int card,int source=0){
    CancelFormationDrag();
-   if(saveError==""&&page==FormationRoute&&dialogRoot==null){formationDragCard=card;formationDragSource=source;}
+   if(saveError==""&&page==PageRoute.Formation&&dialogRoot==null){formationDragCard=card;formationDragSource=source;}
   }
 
   internal void UpdateFormationDrag(Vector2 screen,Camera camera,bool fromList){
-   if(formationDragCard<0||page!=FormationRoute)return;
+   if(formationDragCard<0||page!=PageRoute.Formation)return;
    bool show=!fromList||!RectTransformUtility.RectangleContainsScreenPoint(formationListViewport,screen,camera);
    int slot=show?FormationSlotAt(screen,camera):0;
    formationGrid.SetHighlight(slot==0?formationSelection:slot,slot!=0);
@@ -130,7 +129,7 @@ namespace DragonIdle {
   internal void EndFormationDrag(Vector2 screen,Camera camera){
    int card=formationDragCard,source=formationDragSource,slot=FormationSlotAt(screen,camera);
    CancelFormationDrag();
-   if(card<0||page!=FormationRoute||formationDraft==null)return;
+   if(card<0||page!=PageRoute.Formation||formationDraft==null)return;
    if(slot>0){
     if(!profile.TryPlaceRoundMember(formationDraft,slot,card)){
      GalleryNotice("最多上阵五人，可拖到已有成员的阵位替换",false);

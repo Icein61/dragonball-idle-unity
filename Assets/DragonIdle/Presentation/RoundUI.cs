@@ -5,8 +5,6 @@ using UnityEngine.EventSystems;
 using UI=UnityEngine.UI;
 namespace DragonIdle {
  public partial class DemoGame {
-  const string RoundPreviewPage="试阵";
-  const float RoundActionGap=.78f,RoundOpeningGap=.18f,RoundPursuitGap=.14f,RoundReactionGap=.075f;
   static readonly Color RoundHealthFill=new Color32(76,216,116,255);
   static readonly Color RoundShieldFill=new Color32(75,164,248,255);
   static readonly Color RoundRageFill=new Color32(249,157,55,255);
@@ -48,61 +46,6 @@ namespace DragonIdle {
    var m=RoundCardPreview(i);
    double raw=m.Attack*(1+.5*m.Crit)+.065*m.MaxHP+.64*m.Defense+.04*m.Shield;
    return Math.Min(1499,(int)Math.Round(1500*raw/(400+raw),MidpointRounding.AwayFromZero));
-  }
-  void StartRoundPresentation(){
-   roundLast=null;roundLog.Clear();roundPaused=false;roundClock=RoundOpeningGap;
-   PrepareRoundMotion();
-   NavigateGallery(RoundPreviewPage);
-  }
-  void UpdateRoundPreview(float dt){
-   if(page!=RoundPreviewPage||roundBattle==null)return;
-   bool presenting=roundMotion!=null;
-   UpdateRoundMotion(dt);
-   if(presenting||roundPaused||roundBattle.Result!=0)return;
-   roundClock-=dt;
-   if(roundClock>0)return;
-   if(roundDemo&&!ReducedRoundMotion){
-    var reviving=roundBattle.NextRevivingFighter;
-    if(reviving?.CardId==RoundMotionArt.YamchaCardId&&demoReactions.TryGetValue(reviving,out var fall)&&
-       fall.Defeated&&fall.Active)return;
-   }
-   AdvanceRoundPreview(false);
-  }
-  float NormalRoundActionGap=>roundDemo&&DemoScenes().demo.actionGap>0?DemoScenes().demo.actionGap:RoundActionGap;
-  float NextRoundActionGap(){
-   if(roundBattle.ReactionSkillNext)return RoundReactionGap;
-   if(!roundBattle.PursuitNext)return NormalRoundActionGap;
-   float remaining=DemoChaseRemaining();
-   return remaining>=0?Mathf.Max(0,remaining-RoundMotionPlayback.PursuitContact)/1000:RoundPursuitGap;
-  }
-  void AdvanceRoundPreview(bool manual){
-   if(roundBattle==null)return;
-   if(roundMotion!=null){FinishRoundMotion(true);return;}
-   if(StartNextRoundOpening(manual)){DrawRoundPreview();return;}
-   if(roundBattle.Result!=0)return;
-   var before=ReducedRoundMotion?null:roundBattle.Order.ToDictionary(f=>f,f=>new RoundVitals(f,freezeDefense:true));
-   roundLast=roundBattle.Step();
-   roundClock=NextRoundActionGap();
-   if(roundLast!=null){
-    if(roundDemo)BeginDemoComboAction(roundLast);
-    if(StartRoundActionMotion(roundLast,manual))roundBefore=before;
-    else {
-     PlayPursuitCue(roundLast);
-     PlayUnanimatedRoundCue(roundLast);
-     if(roundLast.Detonates&&roundDemo)CompleteDemoDetonation(roundLast.Actor);
-     if(roundLast.Revives){
-      if(roundDemo)ApplyDemoHit(roundLast);
-      PlayRoundCue("yamcha-rise");
-     }
-     if(!roundLast.Charging)foreach(var hit in roundLast.Hits){
-      if(roundDemo){RecordDemoHit(hit);RevealDemoComboHit(hit,true);}
-      PlayRoundHitVoice(hit);
-     }
-     if(roundDemo)demoStats.RecordCost(roundLast);
-     AddRoundLog(roundLast);
-    }
-   }
-   DrawRoundPreview();
   }
   void AddRoundLog(RoundAction a){
    string kind=a.Move==RoundMove.Basic?"普攻":a.Move==RoundMove.Ultimate?"必杀":a.Move==RoundMove.Pursuit?"追打":"技能";
@@ -148,7 +91,7 @@ namespace DragonIdle {
   void DrawRoundPreview(){
    if(roundBattle==null)return;
    if(roundPreviewRoot==null)roundPreviewRoot=UNode(galleryRoot,"RoundPreview",222,110,1336,720);else ClearUI(roundPreviewRoot);
-   UButton(roundPreviewRoot,"LeaveRoundPreview","‹ 返回主页",0,0,170,44,()=>NavigateGallery(RoundBackPage()));
+   UButton(roundPreviewRoot,"LeaveRoundPreview","‹ 返回主页",0,0,170,44,()=>NavigateGallery(PageRoute.Home));
    if(roundDemo)UButton(roundPreviewRoot,"RestartDemo","重开",176,0,94,44,BeginRoundDemo);
    roundStanding.Clear();
    int result=VisibleRoundResult;

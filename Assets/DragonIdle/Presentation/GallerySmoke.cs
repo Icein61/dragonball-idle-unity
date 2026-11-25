@@ -7,7 +7,7 @@ namespace DragonIdle {
  public partial class DemoGame {
   UI.Button GalleryTestButton(string name){return galleryRoot.GetComponentsInChildren<UI.Button>().First(x=>x.name==name);}
   void RunGallerySmoke(string dir){
-   savePath=Path.Combine(dir,"gallery-save.json");profile=new Profile();Save();page="角色";selectedCard=0;
+   savePath=Path.Combine(dir,"gallery-save.json");profile=new Profile();Save();page=PageRoute.Characters;selectedCard=0;
    EnsureGallery();galleryCanvas.SetActive(true);catalog.OwnedOnly=true;ResetGalleryFilters();
    var brand=galleryRoot.GetComponentsInChildren<UI.Text>().Single(t=>t.name=="Brand");
    AssertSmoke(brand.text==Data.GameTitle&&brand.preferredWidth<=brand.rectTransform.rect.width&&brand.preferredHeight<=brand.rectTransform.rect.height,"New game title clipped or missing");
@@ -130,17 +130,17 @@ namespace DragonIdle {
    AssertSmoke(filterDropdown==null&&catalog.Tag=="赛亚人","Clicking outside changed selection or failed to close");
    ResetGalleryFilters();cardButtons[0].onClick.Invoke();detailTab=0;DrawGalleryDetail();
    AssertSmoke(detailRoot.GetComponentsInChildren<UI.Button>().All(b=>b.name!="TrainOnce"&&b.name!="Resonance"),"Information page leaked training entry");
-   RefreshGallery(false);NavigateGallery("编队");
+   RefreshGallery(false);NavigateGallery(PageRoute.Formation);
    GalleryTestButton("RoundSlot1").onClick.Invoke();GalleryTestButton("RoundReserve0").onClick.Invoke();
    AssertSmoke(profile.Team[1]==0&&profile.Team[0]==1&&profile.Leader==0&&selectedCard==0,"Formation picker swap failed");
    var snapshot=profile.InspectCharacter(0,true);var actual=profile.CreateTeam()[1];
    AssertSmoke(Math.Abs(snapshot.AttackValue-actual.AttackValue)<.000001,"Gallery stat mismatch");
    galleryScroll.verticalNormalizedPosition=.35f;float scroll=galleryScroll.verticalNormalizedPosition;
-   galleryEquipButton.onClick.Invoke();AssertSmoke(page=="装备"&&selectedCard==0,"Equipment navigation lost character");
-   page="角色";UpdateGallery();AssertSmoke(Math.Abs(galleryScroll.verticalNormalizedPosition-scroll)<.01f&&selectedCard==0,"Gallery return lost browsing position");
-   page="角色";UpdateGallery();ShowAcquisition(kaioken);GalleryTestButton("GoSaiyanPool").onClick.Invoke();
-   AssertSmoke(page=="召唤"&&saiyanPool,"Pool acquisition route failed");
-   page="角色";UpdateGallery();ShowAudioSettings();
+   galleryEquipButton.onClick.Invoke();AssertSmoke(page==PageRoute.LegacyEquipment&&selectedCard==0,"Equipment navigation lost character");
+   page=PageRoute.Characters;UpdateGallery();AssertSmoke(Math.Abs(galleryScroll.verticalNormalizedPosition-scroll)<.01f&&selectedCard==0,"Gallery return lost browsing position");
+   page=PageRoute.Characters;UpdateGallery();ShowAcquisition(kaioken);GalleryTestButton("GoSaiyanPool").onClick.Invoke();
+   AssertSmoke(page==PageRoute.LegacySummon&&saiyanPool,"Pool acquisition route failed");
+   page=PageRoute.Characters;UpdateGallery();ShowAudioSettings();
    var sliders=dialogRoot.GetComponentsInChildren<UI.Slider>();AssertSmoke(sliders.Length==3,"Audio controls missing");
    sliders[0].value=.4f;sliders[1].value=.3f;sliders[2].value=.2f;GalleryTestButton("Motion").onClick.Invoke();CloseGalleryDialog();
    var restored=JsonUtility.FromJson<AudioPreferences>(File.ReadAllText(audioPath));

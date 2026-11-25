@@ -18,12 +18,11 @@ namespace DragonIdle {
   static readonly Color GalleryLockedCard=new Color32(219,222,217,255),GalleryLockedMat=new Color32(198,204,195,255);
   readonly Dictionary<int,UI.Button> cardButtons=new Dictionary<int,UI.Button>();
   readonly List<UI.Text> measuredText=new List<UI.Text>();
-  int detailTab;bool galleryDirty=true;string previousPage="";
+  int detailTab;bool galleryDirty=true;PageRoute previousPage=PageRoute.None;
   float toastUntil,detailFade=1;CanvasGroup detailGroup;
   static Color uiPaper=>InkText;
   static Color uiPanel=>InkPaper;
   static readonly Color uiDim=new Color32(55,67,62,255),uiAccent=new Color32(105,70,39,255);
-  static readonly string[] FeatureRoutes={"角色",FormationRoute,DemoBattleRoute};
   static string[] SortLabels={"上阵优先","稀有度优先","角色名称","角色类型","按序号"};
 
   RectTransform UNode(Transform parent,string name,float x,float y,float w,float h){
@@ -129,15 +128,15 @@ namespace DragonIdle {
    UPanel(galleryChrome,"Sidebar",0,90,190,810,InkPaper);
    UPanel(galleryChrome,"HeaderLine",0,88,1600,2,InkBorder);
    UText(galleryChrome,"Brand",Data.GameTitle,25,20,180,40,26,InkIvory);
-   UText(galleryChrome,"Section","角色",232,28,500,40,22,InkIvory);
+   UText(galleryChrome,"Section",RouteLabel(PageRoute.Characters),232,28,500,40,22,InkIvory);
    galleryResources=UText(galleryChrome,"Resources","",900,27,650,40,19,InkOnDark,TextAnchor.MiddleRight);
    for(int i=0;i<FeatureRoutes.Length;i++){
-    string target=FeatureRoutes[i];
-    UButton(galleryChrome,"Nav"+target,target,18,126+i*62,154,45,()=>OpenFeature(target),selected:target=="角色");
+    PageRoute target=FeatureRoutes[i];
+    UButton(galleryChrome,NavName(target),RouteLabel(target),18,126+i*62,154,45,()=>OpenFeature(target),selected:target==PageRoute.Characters);
    }
    UButton(galleryChrome,"AudioSettings","声音与显示",18,735,154,44,ShowAudioSettings);
    UText(galleryChrome,"Version","v"+Data.Version+"  /  预览版",20,840,160,30,13,uiDim);
-   UButton(galleryChrome,"Nav主页","返回主页",18,819,154,47,()=>NavigateGallery("主页"));
+   UButton(galleryChrome,NavName(PageRoute.Home),"返回主页",18,819,154,47,()=>NavigateGallery(PageRoute.Home));
    galleryListRoot=UNode(galleryRoot,"CardLibrary",0,0,1600,900);
    var input=UPanel(galleryListRoot,"Search",222,105,450,44,InkLight,true);
    gallerySearch=input.gameObject.AddComponent<UI.InputField>();
@@ -160,36 +159,36 @@ namespace DragonIdle {
    galleryToast=UText(galleryRoot,"Toast","",232,845,1320,42,17,uiAccent);
    detailRoot.gameObject.SetActive(false);
   }
-  void NavigateGallery(string target){
-   if(!IsModernPage(target)||target==RoundPreviewPage&&roundBattle==null)return;
-   if(shellLoad.Active&&target!="加载")shellLoad.Cancel();
-   bool openingCharacterList=target=="角色"&&page!="角色";
+  void NavigateGallery(PageRoute target){
+   if(!IsModernPage(target)||target==PageRoute.RoundBattle&&roundBattle==null)return;
+   if(shellLoad.Active&&target!=PageRoute.Loading)shellLoad.Cancel();
+   bool openingCharacterList=target==PageRoute.Characters&&page!=PageRoute.Characters;
    if(openingCharacterList){
     galleryDetailOpen=false;
     selectedCard=-1;
     detailTab=0;
    }
-   if(page==FormationRoute&&target!=FormationRoute)LeaveFormation();
-   if(page==RoundPreviewPage&&target!=RoundPreviewPage){roundBattle=null;roundLast=null;roundLog.Clear();ResetRoundMotion();roundDemo=false;}
+   if(page==PageRoute.Formation&&target!=PageRoute.Formation)LeaveFormation();
+   if(page==PageRoute.RoundBattle&&target!=PageRoute.RoundBattle){roundBattle=null;roundLast=null;roundLog.Clear();ResetRoundMotion();roundDemo=false;}
    CloseFilterDropdown();CloseGalleryDialog();page=target;autoRepeat=false;notice="";galleryDirty=true;
-   galleryCanvas.SetActive(IsModernPage(target));previousPage="";UpdateGallery();
+   galleryCanvas.SetActive(IsModernPage(target));previousPage=PageRoute.None;UpdateGallery();
    if(openingCharacterList){
     galleryScroll.StopMovement();
     galleryScroll.verticalNormalizedPosition=1;
    }
-   if(target=="角色"&&EventSystem.current!=null){
+   if(target==PageRoute.Characters&&EventSystem.current!=null){
     if(galleryDetailOpen&&selectedCard>=0)EventSystem.current.SetSelectedGameObject(null);
     else if(cardButtons.ContainsKey(selectedCard))EventSystem.current.SetSelectedGameObject(cardButtons[selectedCard].gameObject);
    }
-   if(target=="主页"&&EventSystem.current!=null&&homeRoot!=null)EventSystem.current.SetSelectedGameObject(ActiveBackButton(homeRoot,"HomeNav角色"));
+   if(target==PageRoute.Home&&EventSystem.current!=null&&homeRoot!=null)EventSystem.current.SetSelectedGameObject(ActiveBackButton(homeRoot,HomeNavName(PageRoute.Characters)));
   }
   void UpdateGallery(){
    if(IsModernPage(page)){EnsureGallery();if(!galleryCanvas.activeSelf)galleryCanvas.SetActive(true);
-    if((previousPage!=page||galleryDirty)&&dialogRoot==null){if(page=="角色")RefreshGallery(false);else if(page==FormationRoute)DrawFormation();else if(page=="主页")DrawHome();else if(page==RoundPreviewPage)DrawRoundPreview();galleryDirty=false;RefreshModernFrame();}
-    if(Input.GetKeyDown(KeyCode.Escape)){if(filterDropdown!=null)CloseFilterDropdown();else if(dialogRoot!=null)CloseGalleryDialog();else if(page==RoundPreviewPage)NavigateGallery(RoundBackPage());else if(page=="角色"&&galleryDetailOpen)ReturnToCards();else if(page=="角色"||page==FormationRoute)NavigateGallery("主页");else if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(null);}
+    if((previousPage!=page||galleryDirty)&&dialogRoot==null){if(page==PageRoute.Characters)RefreshGallery(false);else if(page==PageRoute.Formation)DrawFormation();else if(page==PageRoute.Home)DrawHome();else if(page==PageRoute.RoundBattle)DrawRoundPreview();galleryDirty=false;RefreshModernFrame();}
+    if(Input.GetKeyDown(KeyCode.Escape)){if(filterDropdown!=null)CloseFilterDropdown();else if(dialogRoot!=null)CloseGalleryDialog();else if(page==PageRoute.RoundBattle)NavigateGallery(PageRoute.Home);else if(page==PageRoute.Characters&&galleryDetailOpen)ReturnToCards();else if(page==PageRoute.Characters||page==PageRoute.Formation)NavigateGallery(PageRoute.Home);else if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(null);}
     if(detailGroup!=null){detailFade=Math.Min(1,detailFade+Time.unscaledDeltaTime*8);detailGroup.alpha=audioSettings!=null&&audioSettings.ReducedMotion?1:detailFade;}
     galleryToast.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"";
-    if(page=="主页")RefreshHomeNotice();
+    if(page==PageRoute.Home)RefreshHomeNotice();
    }else if(galleryCanvas!=null&&galleryCanvas.activeSelf){CloseFilterDropdown();galleryCanvas.SetActive(false);}
    previousPage=page;
   }

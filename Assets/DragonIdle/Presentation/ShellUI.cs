@@ -10,7 +10,6 @@ namespace DragonIdle {
   readonly MenuLoadProgress shellLoad=new MenuLoadProgress();
   UI.Image loadingFill;
   UI.Text loadingStatus,loadingPercent,loadingCount,homeNotice;
-  static bool IsShellPage(string p){return p=="主页"||p=="加载";}
   void DrawHome(){
    galleryDirty=false;
    var selected=EventSystem.current==null?null:EventSystem.current.currentSelectedGameObject;
@@ -23,13 +22,13 @@ namespace DragonIdle {
    UText(summary,"HomeRoundHeading","整备出战",45,40,720,66,44,InkText);
    UText(summary,"HomeRoundHelp","在编队安排己方阵位，进入战斗 Demo 挑战随机五人。",48,136,1300,54,22,InkMuted);
    UText(summary,"HomeRoundCount","已拥有 "+RoundOwnedCount+"/"+Data.RoundRoster.Count,48,228,1100,50,23,InkText);
-   UButton(homeRoot,"HomeNav角色","角色",58,541,474,115,()=>OpenFeature("角色"));
-   UButton(homeRoot,"HomeNav"+FormationRoute,FormationRoute,563,541,474,115,()=>OpenFeature(FormationRoute));
-   UButton(homeRoot,"HomeNav"+DemoBattleRoute,DemoBattleRoute,1068,541,474,115,BeginRoundDemo,primary:true);
+   UButton(homeRoot,HomeNavName(PageRoute.Characters),RouteLabel(PageRoute.Characters),58,541,474,115,()=>OpenFeature(PageRoute.Characters));
+   UButton(homeRoot,HomeNavName(PageRoute.Formation),RouteLabel(PageRoute.Formation),563,541,474,115,()=>OpenFeature(PageRoute.Formation));
+   UButton(homeRoot,HomeNavName(PageRoute.BattleDemo),RouteLabel(PageRoute.BattleDemo),1068,541,474,115,BeginRoundDemo,primary:true);
    UButton(homeRoot,"HomeSettings","声音与显示",58,718,240,44,ShowAudioSettings);
    homeNotice=UText(homeRoot,"HomeNotice","",58,797,1484,47,18,InkText);
    RefreshHomeNotice();
-   if(EventSystem.current!=null){var b=homeRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(x=>x.name==focus&&x.interactable);EventSystem.current.SetSelectedGameObject(b!=null?b.gameObject:ActiveBackButton(homeRoot,"HomeNav角色"));}
+   if(EventSystem.current!=null){var b=homeRoot.GetComponentsInChildren<UI.Button>().FirstOrDefault(x=>x.name==focus&&x.interactable);EventSystem.current.SetSelectedGameObject(b!=null?b.gameObject:ActiveBackButton(homeRoot,HomeNavName(PageRoute.Characters)));}
   }
   void RefreshHomeNotice(){if(homeNotice!=null)homeNotice.text=saveError!=""?saveError:Time.unscaledTime<toastUntil?notice:"";}
   void DrawShellLoading(){
@@ -63,14 +62,14 @@ namespace DragonIdle {
     .Concat(Data.RoundRoster.Select(id=>"Art/"+PortraitKey(Data.Index(id))))
     .Distinct().ToArray();
   }
-  void BeginShellLoad(string target){
+  void BeginShellLoad(PageRoute target){
    EnsureGallery();
    var paths=StartupResourcePaths();
    int generation=shellLoad.Begin(paths.Length);
-   page="加载";CloseGalleryDialog();DrawShellLoading();RefreshModernFrame();galleryCanvas.SetActive(true);previousPage=page;
+   page=PageRoute.Loading;CloseGalleryDialog();DrawShellLoading();RefreshModernFrame();galleryCanvas.SetActive(true);previousPage=page;
    StartCoroutine(LoadShellResources(generation,target,paths));
   }
-  IEnumerator LoadShellResources(int generation,string target,string[] paths){
+  IEnumerator LoadShellResources(int generation,PageRoute target,string[] paths){
    yield return null;
    foreach(string path in paths){
     if(!shellLoad.IsCurrent(generation))yield break;
