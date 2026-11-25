@@ -1,12 +1,12 @@
 # 龙珠爆裂激斗 — Unity 技术 Demo
-开发源码 **v0.18.2 九宫格回合制**。本版收尾包括连击、固定追打时长和六张确认卡的素材。[本地 Windows 候选包](Builds/Releases/v0.18.2/龙珠爆裂激斗-v0.18.2-Windows-x64.zip) · [v0.18.2 收尾说明](Releases/v0.18.2.md)。
+开发源码 **v0.19.0**，当前为准备阶段。正式版 **v0.18.2** 已发布。[Windows x64 与校验和](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.18.2) · [v0.18.2 发布记录](Releases/v0.18.2.md)。
 GitHub：https://github.com/Icein61/dragonball-idle-unity
 
 开发指令与试玩反馈：[v0.19.0 开发单](docs/release-plans/v0.19.0.md) · [v0.18.2 开发单](docs/release-plans/v0.18.2.md) · [v0.18.1 开发单](docs/release-plans/v0.18.1.md) · [v0.18.0 开发单](docs/release-plans/v0.18.0.md) · [v0.17.4 开发单](docs/release-plans/v0.17.4.md) · [v0.17.3 开发单](docs/release-plans/v0.17.3.md) · [v0.17.2 开发单](docs/release-plans/v0.17.2.md) · [v0.17.1 开发单](docs/release-plans/v0.17.1.md) · [v0.17.0 开发单](docs/release-plans/v0.17.0.md) · [v0.16.2 开发单](docs/release-plans/v0.16.2.md) · [v0.16.1 开发单](docs/release-plans/v0.16.1.md) · [v0.16.0 开发单](docs/release-plans/v0.16.0.md) · [v0.15.4 开发单](docs/release-plans/v0.15.4.md) · [v0.15.3 开发单](docs/release-plans/v0.15.3.md) · [v0.15.2 开发单](docs/release-plans/v0.15.2.md) · [v0.15.1 开发单](docs/release-plans/v0.15.1.md) · [v0.15.0 开发单](docs/release-plans/v0.15.0.md) · [v0.14.5 开发单](docs/release-plans/v0.14.5.md) · [v0.14.4 开发单](docs/release-plans/v0.14.4.md) · [v0.14.3 开发单](docs/release-plans/v0.14.3.md) · [v0.14.2 开发单](docs/release-plans/v0.14.2.md) · [v0.14.1 开发单](docs/release-plans/v0.14.1.md) · [v0.14.0 开发单](docs/release-plans/v0.14.0.md) · [v0.13.10 开发单](docs/release-plans/v0.13.10.md) · [v0.13.9 开发单](docs/release-plans/v0.13.9.md) · [v0.13.8 开发单](docs/release-plans/v0.13.8.md) · [v0.13.7 开发单](docs/release-plans/v0.13.7.md) · [v0.13.6 开发单](docs/release-plans/v0.13.6.md) · [v0.13.5 开发单](docs/release-plans/v0.13.5.md) · [v0.13.4 开发单](docs/release-plans/v0.13.4.md) · [v0.13.3 开发单](docs/release-plans/v0.13.3.md) · [v0.13.2 开发单](docs/release-plans/v0.13.2.md) · [v0.13.1 开发单](docs/release-plans/v0.13.1.md) · [v0.13.0 开发单](docs/release-plans/v0.13.0.md) · [v0.12.8 试玩反馈](docs/release-plans/v0.12.8.md) · [全部版本](docs/release-plans/README.md)。
 
 ## 下载与试玩
 [查看 Windows x64 Demo 发布附件](https://github.com/Icein61/dragonball-idle-unity/releases)。
-下载对应版本的 Windows x64 ZIP，完整解压后运行龙珠爆裂激斗.exe。[v0.18.1 GitHub 版本](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.18.1)。[参考视频恢复说明](docs/engineering/handoff.md#参考视频的归档与本地清理)。
+下载对应版本的 Windows x64 ZIP，完整解压后运行龙珠爆裂激斗.exe。[v0.18.2 GitHub 版本](https://github.com/Icein61/dragonball-idle-unity/releases/tag/v0.18.2)。[参考视频恢复说明](docs/engineering/handoff.md#参考视频的归档与本地清理)。
 需要Windows，不需要Unity、开发账号或联网。请保留Data目录及附带运行库，不要只复制EXE。
 
 启动时加载稀有度徽章和九张上线立绘。主页提供角色、编队、战斗 Demo 以及声音与显示设置；存档可从设置中打开目录备份。
