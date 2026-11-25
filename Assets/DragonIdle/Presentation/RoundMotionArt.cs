@@ -7,12 +7,21 @@ namespace DragonIdle {
  internal sealed class RoundMotionArt {
   internal const string CardId = "goku-test",VegetaCardId="vegeta-test",PiccoloCardId="piccolo-test",GohanCardId="gohan-test",KrillinCardId="krillin-test",RaditzCardId=Data.RaditzId,YamchaCardId=Data.YamchaId,TienCardId=Data.TienId,SaibamanCardId=Data.SaibamanId;
   internal const string OpeningSkill = "修炼的成果";
+  internal const string GokuFolder = "Art/V0182/Goku/";
+  internal const string PiccoloFolder = "Art/V0182/Piccolo/";
+  internal const string KrillinFolder = "Art/V0182/Krillin/";
+  internal const string RaditzFolder = "Art/V0182/Raditz/";
+  internal const string YamchaFolder = "Art/V0182/Yamcha/";
+  internal const float SaibamanPushOff=410,SaibamanLanding=758,SaibamanClasp=875;
   const string Folder = "Art/V0180/Battle/Goku/";
   const string Icon = "Art/V0131/Goku/passive-training";
 
   [Serializable] internal sealed class Pose {
    public string image;
-   public int[] crop, pivot, hit, beam;
+   public int[] crop, pivot, hit, beam, offhand, rightFingertips;
+   internal bool HasRightFingertips=>rightFingertips?.Length==4;
+   internal Vector2 RightFingertipCenter=>new Vector2(
+    (rightFingertips[0]+rightFingertips[2])*.5f,(rightFingertips[1]+rightFingertips[3])*.5f);
    public float zoom;
    [NonSerialized] public Texture2D Texture;
   }
@@ -32,11 +41,11 @@ namespace DragonIdle {
   }
 
   [Serializable] internal sealed class Clip {
-   public string id, title, fx;
+   public string id, title, fx, fxStyle;
    public int duration, impactAt, haloFrom, haloTo, returnAt, launchAt, depthAlignAt;
    public int runUntil,hopDrawing,approachDrawing,reactionHoldAt;
    public int[] runFrames;
-   public bool fullStride;
+   public bool fullStride, holdChainedPose;
    public float returnHop;
    public Cue[] poses, impacts;
    public RootKey[] root;
@@ -126,12 +135,16 @@ namespace DragonIdle {
   }
 
   internal static RoundMotionArt Load(string folder=Folder,string resource="Motion") {
-   var manifest = Resources.Load<TextAsset>(folder + resource);
+   string path=folder.TrimEnd('/');
+   string updated="Art/V0182/"+path.Substring(path.LastIndexOf('/')+1)+"/";
+   var manifest=Resources.Load<TextAsset>(updated+resource);
+   if(manifest!=null)folder=updated;
+   else manifest=Resources.Load<TextAsset>(folder+resource);
    if (manifest == null) throw new InvalidOperationException("Missing motion manifest: "+folder+resource);
    return new RoundMotionArt(JsonUtility.FromJson<Manifest>(manifest.text),folder);
   }
 
-  internal static Texture2D LoadOpeningIcon() => Resources.Load<Texture2D>(Icon);
+  internal static Texture2D LoadOpeningIcon() => Resources.Load<Texture2D>(GokuFolder+"skill-images")??Resources.Load<Texture2D>(Icon);
 
   internal Pose At(Clip clip, float time) => data.atlas[clip.poses[clip.KeyAt(time)].drawing];
 
@@ -149,8 +162,10 @@ namespace DragonIdle {
     rect[3] / (float)t.height);
   }
 
-  internal static Vector2 Anchor(Pose pose, int[] point, Vector2 ground, float scale) {
-   return ground + new Vector2(point[0] - pose.pivot[0], point[1] - pose.pivot[1]) * (scale * pose.zoom);
-  }
+  internal static Vector2 Anchor(Pose pose, int[] point, Vector2 ground, float scale) =>
+   Anchor(pose,new Vector2(point[0],point[1]),ground,scale);
+
+  internal static Vector2 Anchor(Pose pose,Vector2 point,Vector2 ground,float scale) =>
+   ground+(point-new Vector2(pose.pivot[0],pose.pivot[1]))*(scale*pose.zoom);
  }
 }

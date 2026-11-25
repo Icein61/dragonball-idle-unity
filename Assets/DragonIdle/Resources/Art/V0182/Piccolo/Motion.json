@@ -1,0 +1,1809 @@
+{
+ "atlas": [
+  {
+   "image": "rework-base",
+   "crop": [
+    38,
+    10,
+    404,
+    470
+   ],
+   "pivot": [
+    240,
+    476
+   ],
+   "beam": [
+    356,
+    161
+   ],
+   "hit": [
+    248,
+    150
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-base",
+   "crop": [
+    540,
+    18,
+    399,
+    461
+   ],
+   "pivot": [
+    752,
+    475
+   ],
+   "beam": [
+    876,
+    164
+   ],
+   "hit": [
+    784,
+    152
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-melee",
+   "crop": [
+    32,
+    14,
+    409,
+    459
+   ],
+   "pivot": [
+    240,
+    469
+   ],
+   "beam": [
+    345,
+    144
+   ],
+   "hit": [
+    271,
+    152
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-melee",
+   "crop": [
+    524,
+    28,
+    449,
+    449
+   ],
+   "pivot": [
+    747,
+    472
+   ],
+   "beam": [
+    909,
+    131
+   ],
+   "hit": [
+    921,
+    134
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-melee",
+   "crop": [
+    1050,
+    17,
+    456,
+    461
+   ],
+   "pivot": [
+    1261,
+    474
+   ],
+   "beam": [
+    1484,
+    139
+   ],
+   "hit": [
+    1478,
+    139
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-melee",
+   "crop": [
+    35,
+    560,
+    427,
+    444
+   ],
+   "pivot": [
+    242,
+    1000
+   ],
+   "beam": [
+    242,
+    931
+   ],
+   "hit": [
+    264,
+    739
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-melee",
+   "crop": [
+    518,
+    557,
+    427,
+    447
+   ],
+   "pivot": [
+    737,
+    1000
+   ],
+   "beam": [
+    897,
+    867
+   ],
+   "hit": [
+    889,
+    867
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-melee",
+   "crop": [
+    1047,
+    514,
+    443,
+    491
+   ],
+   "pivot": [
+    1262,
+    1001
+   ],
+   "beam": [
+    1436,
+    565
+   ],
+   "hit": [
+    1429,
+    578
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-transitions",
+   "crop": [
+    95,
+    518,
+    300,
+    491
+   ],
+   "pivot": [
+    232,
+    1004
+   ],
+   "beam": [
+    340,
+    658
+   ],
+   "hit": [
+    245,
+    670
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-cast",
+   "crop": [
+    38,
+    12,
+    408,
+    466
+   ],
+   "pivot": [
+    242,
+    473
+   ],
+   "beam": [
+    224,
+    72
+   ],
+   "hit": [
+    238,
+    146
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-cast",
+   "crop": [
+    551,
+    13,
+    408,
+    465
+   ],
+   "pivot": [
+    754,
+    473
+   ],
+   "beam": [
+    856,
+    82
+   ],
+   "hit": [
+    750,
+    149
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-cast",
+   "crop": [
+    1063,
+    13,
+    408,
+    465
+   ],
+   "pivot": [
+    1266,
+    473
+   ],
+   "beam": [
+    1478,
+    91
+   ],
+   "hit": [
+    1472,
+    97
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-base",
+   "crop": [
+    1064,
+    526,
+    430,
+    480
+   ],
+   "pivot": [
+    1270,
+    1002
+   ],
+   "beam": [
+    1372,
+    633
+   ],
+   "hit": [
+    1276,
+    663
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-melee",
+   "crop": [
+    1047,
+    514,
+    443,
+    491
+   ],
+   "pivot": [
+    1262,
+    1001
+   ],
+   "beam": [
+    1436,
+    565
+   ],
+   "hit": [
+    1429,
+    578
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-base",
+   "crop": [
+    1064,
+    526,
+    430,
+    480
+   ],
+   "pivot": [
+    1270,
+    1002
+   ],
+   "beam": [
+    1372,
+    633
+   ],
+   "hit": [
+    1276,
+    663
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-reactions",
+   "crop": [
+    917,
+    31,
+    245,
+    369
+   ],
+   "pivot": [
+    1042,
+    398
+   ],
+   "beam": [
+    1090,
+    84
+   ],
+   "hit": [
+    1044,
+    157
+   ],
+   "zoom": 1.34
+  },
+  {
+   "image": "rework-reactions",
+   "crop": [
+    75,
+    14,
+    277,
+    393
+   ],
+   "pivot": [
+    210,
+    404
+   ],
+   "beam": [
+    167,
+    79
+   ],
+   "hit": [
+    188,
+    153
+   ],
+   "zoom": 1.34
+  },
+  {
+   "image": "rework-reactions",
+   "crop": [
+    859,
+    474,
+    353,
+    276
+   ],
+   "pivot": [
+    1039,
+    747
+   ],
+   "beam": [
+    943,
+    537
+   ],
+   "hit": [
+    968,
+    571
+   ],
+   "zoom": 1.34
+  },
+  {
+   "image": "rework-reactions",
+   "crop": [
+    82,
+    428,
+    264,
+    372
+   ],
+   "pivot": [
+    210,
+    797
+   ],
+   "beam": [
+    162,
+    488
+   ],
+   "hit": [
+    196,
+    562
+   ],
+   "zoom": 1.34
+  },
+  {
+   "image": "rework-reactions",
+   "crop": [
+    13,
+    952,
+    393,
+    191
+   ],
+   "pivot": [
+    202,
+    1140
+   ],
+   "beam": [
+    71,
+    1013
+   ],
+   "hit": [
+    116,
+    1059
+   ],
+   "zoom": 1.34
+  },
+  {
+   "image": "rework-reactions",
+   "crop": [
+    434,
+    1010,
+    388,
+    125
+   ],
+   "pivot": [
+    632,
+    1131
+   ],
+   "beam": [
+    488,
+    1048
+   ],
+   "hit": [
+    548,
+    1084
+   ],
+   "zoom": 1.34
+  },
+  {
+   "image": "rework-cast",
+   "crop": [
+    38,
+    526,
+    409,
+    466
+   ],
+   "pivot": [
+    242,
+    988
+   ],
+   "beam": [
+    254,
+    622
+   ],
+   "hit": [
+    240,
+    659
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-cast",
+   "crop": [
+    551,
+    526,
+    408,
+    466
+   ],
+   "pivot": [
+    754,
+    988
+   ],
+   "beam": [
+    838,
+    623
+   ],
+   "hit": [
+    834,
+    633
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-transitions",
+   "crop": [
+    1100,
+    520,
+    311,
+    476
+   ],
+   "pivot": [
+    1248,
+    992
+   ],
+   "beam": [
+    1348,
+    686
+   ],
+   "hit": [
+    1272,
+    670
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-base",
+   "crop": [
+    38,
+    10,
+    404,
+    470
+   ],
+   "pivot": [
+    240,
+    476
+   ],
+   "beam": [
+    356,
+    161
+   ],
+   "hit": [
+    248,
+    150
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-melee",
+   "crop": [
+    524,
+    28,
+    449,
+    449
+   ],
+   "pivot": [
+    747,
+    472
+   ],
+   "beam": [
+    909,
+    131
+   ],
+   "hit": [
+    921,
+    134
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-base",
+   "crop": [
+    1049,
+    14,
+    453,
+    466
+   ],
+   "pivot": [
+    1266,
+    477
+   ],
+   "beam": [
+    1470,
+    118
+   ],
+   "hit": [
+    1472,
+    121
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-melee",
+   "crop": [
+    518,
+    557,
+    427,
+    447
+   ],
+   "pivot": [
+    737,
+    1000
+   ],
+   "beam": [
+    897,
+    867
+   ],
+   "hit": [
+    889,
+    867
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-cast",
+   "crop": [
+    38,
+    12,
+    408,
+    466
+   ],
+   "pivot": [
+    242,
+    473
+   ],
+   "beam": [
+    224,
+    72
+   ],
+   "hit": [
+    238,
+    146
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-melee",
+   "crop": [
+    35,
+    560,
+    427,
+    444
+   ],
+   "pivot": [
+    242,
+    1000
+   ],
+   "beam": [
+    242,
+    931
+   ],
+   "hit": [
+    264,
+    739
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-melee",
+   "crop": [
+    1050,
+    17,
+    456,
+    461
+   ],
+   "pivot": [
+    1261,
+    474
+   ],
+   "beam": [
+    1484,
+    139
+   ],
+   "hit": [
+    1478,
+    139
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-cast",
+   "crop": [
+    551,
+    526,
+    408,
+    466
+   ],
+   "pivot": [
+    754,
+    988
+   ],
+   "beam": [
+    838,
+    623
+   ],
+   "hit": [
+    834,
+    633
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-melee",
+   "crop": [
+    35,
+    560,
+    427,
+    444
+   ],
+   "pivot": [
+    242,
+    1000
+   ],
+   "beam": [
+    242,
+    931
+   ],
+   "hit": [
+    264,
+    739
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-transitions",
+   "crop": [
+    530,
+    526,
+    383,
+    442
+   ],
+   "pivot": [
+    726,
+    964
+   ],
+   "beam": [
+    886,
+    689
+   ],
+   "hit": [
+    776,
+    653
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-melee",
+   "crop": [
+    1047,
+    514,
+    443,
+    491
+   ],
+   "pivot": [
+    1262,
+    1001
+   ],
+   "beam": [
+    1436,
+    565
+   ],
+   "hit": [
+    1429,
+    578
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-base",
+   "crop": [
+    1064,
+    526,
+    430,
+    480
+   ],
+   "pivot": [
+    1270,
+    1002
+   ],
+   "beam": [
+    1372,
+    633
+   ],
+   "hit": [
+    1276,
+    663
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-cast",
+   "crop": [
+    38,
+    526,
+    409,
+    466
+   ],
+   "pivot": [
+    242,
+    988
+   ],
+   "beam": [
+    254,
+    622
+   ],
+   "hit": [
+    240,
+    659
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-cast",
+   "crop": [
+    551,
+    526,
+    408,
+    466
+   ],
+   "pivot": [
+    754,
+    988
+   ],
+   "beam": [
+    838,
+    623
+   ],
+   "hit": [
+    834,
+    633
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-cast",
+   "crop": [
+    1063,
+    526,
+    410,
+    466
+   ],
+   "pivot": [
+    1262,
+    988
+   ],
+   "beam": [
+    1444,
+    615
+   ],
+   "hit": [
+    1440,
+    621
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-base",
+   "crop": [
+    1064,
+    526,
+    430,
+    480
+   ],
+   "pivot": [
+    1270,
+    1002
+   ],
+   "beam": [
+    1372,
+    633
+   ],
+   "hit": [
+    1276,
+    663
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-base",
+   "crop": [
+    40,
+    526,
+    412,
+    480
+   ],
+   "pivot": [
+    243,
+    1001
+   ],
+   "beam": [
+    287,
+    589
+   ],
+   "hit": [
+    251,
+    662
+   ],
+   "zoom": 1.09,
+   "rightFingertips": [
+    280,
+    589,
+    287,
+    592
+   ]
+  },
+  {
+   "image": "rework-cast",
+   "crop": [
+    38,
+    12,
+    408,
+    466
+   ],
+   "pivot": [
+    242,
+    473
+   ],
+   "beam": [
+    224,
+    72
+   ],
+   "hit": [
+    238,
+    146
+   ],
+   "zoom": 1.09,
+   "rightFingertips": [
+    270,
+    78,
+    278,
+    80
+   ]
+  },
+  {
+   "image": "rework-cast",
+   "crop": [
+    551,
+    13,
+    408,
+    465
+   ],
+   "pivot": [
+    754,
+    473
+   ],
+   "beam": [
+    856,
+    82
+   ],
+   "hit": [
+    750,
+    149
+   ],
+   "zoom": 1.09
+  },
+  {
+   "image": "rework-cast",
+   "crop": [
+    1063,
+    13,
+    408,
+    465
+   ],
+   "pivot": [
+    1266,
+    473
+   ],
+   "beam": [
+    1478,
+    91
+   ],
+   "hit": [
+    1472,
+    97
+   ],
+   "zoom": 1.09,
+   "rightFingertips": [
+    1390,
+    104,
+    1395,
+    111
+   ]
+  },
+  {
+   "image": "rework-transitions",
+   "crop": [
+    38,
+    13,
+    408,
+    466
+   ],
+   "pivot": [
+    242,
+    475
+   ],
+   "beam": [
+    286,
+    79
+   ],
+   "hit": [
+    250,
+    147
+   ],
+   "zoom": 1.09,
+   "rightFingertips": [
+    282,
+    79,
+    289,
+    81
+   ]
+  },
+  {
+   "image": "rework-transitions",
+   "crop": [
+    549,
+    13,
+    409,
+    466
+   ],
+   "pivot": [
+    754,
+    474
+   ],
+   "beam": [
+    852,
+    92
+   ],
+   "hit": [
+    760,
+    145
+   ],
+   "zoom": 1.09,
+   "rightFingertips": [
+    850,
+    89,
+    856,
+    92
+   ]
+  },
+  {
+   "image": "rework-transitions",
+   "crop": [
+    1061,
+    13,
+    409,
+    466
+   ],
+   "pivot": [
+    1264,
+    474
+   ],
+   "beam": [
+    1390,
+    56
+   ],
+   "hit": [
+    1270,
+    144
+   ],
+   "zoom": 1.09,
+   "rightFingertips": [
+    1385,
+    54,
+    1393,
+    57
+   ]
+  }
+ ],
+ "clips": [
+  {
+   "id": "idle",
+   "title": "站立待机",
+   "duration": 1650,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 680,
+     "drawing": 14
+    },
+    {
+     "at": 925,
+     "drawing": 0
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "accent",
+   "title": "待机动作",
+   "duration": 700,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 135,
+     "drawing": 14
+    },
+    {
+     "at": 410,
+     "drawing": 0
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "entry",
+   "title": "入场",
+   "duration": 900,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 8
+    },
+    {
+     "at": 285,
+     "drawing": 1
+    },
+    {
+     "at": 455,
+     "drawing": 15
+    },
+    {
+     "at": 620,
+     "drawing": 14
+    },
+    {
+     "at": 770,
+     "drawing": 0
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "basic",
+   "title": "格斗攻击",
+   "duration": 830,
+   "impactAt": 401,
+   "returnAt": 500,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 24
+    },
+    {
+     "at": 221,
+     "drawing": 25
+    },
+    {
+     "at": 307,
+     "drawing": 26
+    },
+    {
+     "at": 401,
+     "drawing": 26
+    },
+    {
+     "at": 616,
+     "drawing": 24
+    }
+   ],
+   "impacts": [
+    {
+     "at": 307,
+     "drawing": 26,
+     "kind": "jab"
+    },
+    {
+     "at": 401,
+     "drawing": 26,
+     "kind": "body"
+    }
+   ],
+   "root": [
+    {
+     "at": 0,
+     "x": 0
+    },
+    {
+     "at": 54,
+     "x": 0.015
+    },
+    {
+     "at": 119,
+     "x": 0.21
+    },
+    {
+     "at": 179,
+     "x": 0.51
+    },
+    {
+     "at": 231,
+     "x": 0.71
+    },
+    {
+     "at": 278,
+     "x": 0.86
+    },
+    {
+     "at": 310,
+     "x": 0.86
+    },
+    {
+     "at": 390,
+     "x": 0.96
+    },
+    {
+     "at": 412,
+     "x": 1
+    },
+    {
+     "at": 500,
+     "x": 1
+    },
+    {
+     "at": 655,
+     "x": 0
+    }
+   ],
+   "runFrames": [
+    1,
+    2
+   ],
+   "hopDrawing": 23,
+   "runUntil": 275,
+   "returnHop": 17,
+   "fxStyle": "Piccolo"
+  },
+  {
+   "id": "slam",
+   "title": "格斗攻击",
+   "duration": 930,
+   "impactAt": 530,
+   "returnAt": 614,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 24
+    },
+    {
+     "at": 292,
+     "drawing": 25
+    },
+    {
+     "at": 307,
+     "drawing": 25
+    },
+    {
+     "at": 530,
+     "drawing": 27
+    },
+    {
+     "at": 730,
+     "drawing": 27
+    },
+    {
+     "at": 846,
+     "drawing": 24
+    }
+   ],
+   "impacts": [
+    {
+     "at": 307,
+     "drawing": 25,
+     "kind": "jab"
+    },
+    {
+     "at": 530,
+     "drawing": 27,
+     "kind": "sweep"
+    }
+   ],
+   "root": [
+    {
+     "at": 0,
+     "x": 0
+    },
+    {
+     "at": 54,
+     "x": 0.015
+    },
+    {
+     "at": 119,
+     "x": 0.21
+    },
+    {
+     "at": 179,
+     "x": 0.51
+    },
+    {
+     "at": 231,
+     "x": 0.71
+    },
+    {
+     "at": 278,
+     "x": 0.86
+    },
+    {
+     "at": 310,
+     "x": 0.86
+    },
+    {
+     "at": 390,
+     "x": 0.96
+    },
+    {
+     "at": 541,
+     "x": 1
+    },
+    {
+     "at": 614,
+     "x": 1
+    },
+    {
+     "at": 769,
+     "x": 0
+    }
+   ],
+   "runFrames": [
+    1,
+    2
+   ],
+   "hopDrawing": 23,
+   "runUntil": 275,
+   "returnHop": 17,
+   "fxStyle": "Piccolo"
+  },
+  {
+   "id": "pursuit",
+   "title": "魔翔爬升斩",
+   "duration": 650,
+   "impactAt": 290,
+   "returnAt": 402,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 32
+    },
+    {
+     "at": 160,
+     "drawing": 33
+    },
+    {
+     "at": 290,
+     "drawing": 34
+    },
+    {
+     "at": 470,
+     "drawing": 35
+    }
+   ],
+   "impacts": [
+    {
+     "at": 290,
+     "drawing": 34,
+     "kind": "lift"
+    }
+   ],
+   "root": [
+    {
+     "at": 0,
+     "x": 0
+    },
+    {
+     "at": 85,
+     "x": 0.09
+    },
+    {
+     "at": 149,
+     "x": 0.32
+    },
+    {
+     "at": 216,
+     "x": 0.78
+    },
+    {
+     "at": 285,
+     "x": 1
+    },
+    {
+     "at": 402,
+     "x": 1
+    },
+    {
+     "at": 562,
+     "x": 0
+    }
+   ],
+   "runFrames": [
+    1,
+    2
+   ],
+   "hopDrawing": 23,
+   "runUntil": 211,
+   "returnHop": 17,
+   "approachDrawing": 33,
+   "fxStyle": "Piccolo"
+  },
+  {
+   "id": "piccoloCharge",
+   "title": "魔贯光杀炮 · 蓄力",
+   "duration": 1110,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 120,
+   "haloTo": 1070,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 40
+    },
+    {
+     "at": 220,
+     "drawing": 41
+    },
+    {
+     "at": 560,
+     "drawing": 40
+    },
+    {
+     "at": 680,
+     "drawing": 41
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "fxStyle": "Piccolo"
+  },
+  {
+   "id": "specialBeam",
+   "title": "魔贯光杀炮",
+   "duration": 1470,
+   "impactAt": 690,
+   "returnAt": 0,
+   "launchAt": 490,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 41
+    },
+    {
+     "at": 125,
+     "drawing": 44
+    },
+    {
+     "at": 242,
+     "drawing": 45
+    },
+    {
+     "at": 354,
+     "drawing": 46
+    },
+    {
+     "at": 455,
+     "drawing": 43
+    },
+    {
+     "at": 490,
+     "drawing": 43
+    },
+    {
+     "at": 1340,
+     "drawing": 31
+    },
+    {
+     "at": 1370,
+     "drawing": 24
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "beam": {
+    "gather": 100,
+    "compress": 285,
+    "push": 438,
+    "fire": 490,
+    "flight": 200,
+    "cut": 1020,
+    "extinguish": 1340
+   },
+   "fxStyle": "Piccolo"
+  },
+  {
+   "id": "piccoloCounter",
+   "title": "反魔爆裂光",
+   "duration": 865,
+   "impactAt": 525,
+   "returnAt": 0,
+   "launchAt": 270,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 36
+    },
+    {
+     "at": 148,
+     "drawing": 37
+    },
+    {
+     "at": 270,
+     "drawing": 38
+    },
+    {
+     "at": 525,
+     "drawing": 38
+    },
+    {
+     "at": 568,
+     "drawing": 39
+    }
+   ],
+   "impacts": [
+    {
+     "at": 525,
+     "drawing": 38,
+     "kind": "body"
+    }
+   ],
+   "root": [],
+   "fxStyle": "Piccolo"
+  },
+  {
+   "id": "evade",
+   "title": "闪避",
+   "duration": 410,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 12
+    },
+    {
+     "at": 180,
+     "drawing": 14
+    },
+    {
+     "at": 331,
+     "drawing": 0
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "standing",
+   "reactionHoldAt": 142,
+   "title": "受击",
+   "duration": 465,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 16
+    },
+    {
+     "at": 142,
+     "drawing": 17
+    },
+    {
+     "at": 274,
+     "drawing": 14
+    },
+    {
+     "at": 391,
+     "drawing": 0
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockback",
+   "reactionHoldAt": 158,
+   "title": "击退",
+   "duration": 540,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 17
+    },
+    {
+     "at": 158,
+     "drawing": 18
+    },
+    {
+     "at": 305,
+     "drawing": 15
+    },
+    {
+     "at": 451,
+     "drawing": 0
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "smallFloat",
+   "reactionHoldAt": 105,
+   "title": "小浮空",
+   "duration": 530,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 16
+    },
+    {
+     "at": 105,
+     "drawing": 18
+    },
+    {
+     "at": 295,
+     "drawing": 15
+    },
+    {
+     "at": 441,
+     "drawing": 0
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "largeFloat",
+   "reactionHoldAt": 120,
+   "title": "大浮空",
+   "duration": 635,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 18
+    },
+    {
+     "at": 120,
+     "drawing": 19
+    },
+    {
+     "at": 340,
+     "drawing": 18
+    },
+    {
+     "at": 457,
+     "drawing": 15
+    },
+    {
+     "at": 555,
+     "drawing": 0
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockdown",
+   "reactionHoldAt": 237,
+   "title": "倒地",
+   "duration": 650,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 17
+    },
+    {
+     "at": 119,
+     "drawing": 19
+    },
+    {
+     "at": 237,
+     "drawing": 20
+    },
+    {
+     "at": 382,
+     "drawing": 15
+    },
+    {
+     "at": 545,
+     "drawing": 0
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "defeat",
+   "title": "战败",
+   "duration": 910,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 17
+    },
+    {
+     "at": 170,
+     "drawing": 19
+    },
+    {
+     "at": 372,
+     "drawing": 20
+    },
+    {
+     "at": 900,
+     "drawing": 20
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "counterPrepare",
+   "title": "反魔爆裂光 · 预备",
+   "duration": 430,
+   "impactAt": 0,
+   "returnAt": 0,
+   "launchAt": 0,
+   "haloFrom": 0,
+   "haloTo": 0,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 21
+    },
+    {
+     "at": 145,
+     "drawing": 22
+    },
+    {
+     "at": 333,
+     "drawing": 21
+    }
+   ],
+   "impacts": [],
+   "root": []
+  }
+ ]
+}

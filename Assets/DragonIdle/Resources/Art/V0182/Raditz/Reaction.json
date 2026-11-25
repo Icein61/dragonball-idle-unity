@@ -1,0 +1,413 @@
+{
+ "atlas": [
+  {
+   "image": "review-reactions",
+   "crop": [
+    14,
+    572,
+    460,
+    382
+   ],
+   "pivot": [
+    244,
+    949
+   ],
+   "hit": [
+    244,
+    763
+   ],
+   "beam": [
+    244,
+    763
+   ],
+   "zoom": 1.01367
+  },
+  {
+   "image": "review-reactions",
+   "crop": [
+    494,
+    576,
+    452,
+    361
+   ],
+   "pivot": [
+    720,
+    932
+   ],
+   "hit": [
+    720,
+    756
+   ],
+   "beam": [
+    720,
+    756
+   ],
+   "zoom": 1.01367
+  },
+  {
+   "image": "review-reactions",
+   "crop": [
+    560,
+    22,
+    345,
+    462
+   ],
+   "pivot": [
+    732,
+    479
+   ],
+   "hit": [
+    732,
+    253
+   ],
+   "beam": [
+    732,
+    253
+   ],
+   "zoom": 1.01367
+  },
+  {
+   "image": "review-reactions",
+   "crop": [
+    92,
+    47,
+    375,
+    446
+   ],
+   "pivot": [
+    279,
+    488
+   ],
+   "hit": [
+    279,
+    270
+   ],
+   "beam": [
+    279,
+    270
+   ],
+   "zoom": 1.01367
+  },
+  {
+   "image": "review-reactions",
+   "crop": [
+    560,
+    22,
+    345,
+    462
+   ],
+   "pivot": [
+    732,
+    479
+   ],
+   "hit": [
+    732,
+    253
+   ],
+   "beam": [
+    732,
+    253
+   ],
+   "zoom": 1.01367
+  },
+  {
+   "image": "review-reactions",
+   "crop": [
+    1110,
+    17,
+    269,
+    433
+   ],
+   "pivot": [
+    1244,
+    445
+   ],
+   "hit": [
+    1244,
+    233
+   ],
+   "beam": [
+    1244,
+    233
+   ],
+   "zoom": 1.01367
+  },
+  {
+   "image": "review-reactions",
+   "crop": [
+    494,
+    576,
+    452,
+    361
+   ],
+   "pivot": [
+    720,
+    932
+   ],
+   "hit": [
+    720,
+    756
+   ],
+   "beam": [
+    720,
+    756
+   ],
+   "zoom": 1.01367
+  },
+  {
+   "image": "review-reactions",
+   "crop": [
+    985,
+    720,
+    530,
+    210
+   ],
+   "pivot": [
+    1250,
+    925
+   ],
+   "hit": [
+    1250,
+    825
+   ],
+   "beam": [
+    1250,
+    825
+   ],
+   "zoom": 1.01367
+  },
+  {
+   "image": "review-reactions",
+   "crop": [
+    14,
+    572,
+    460,
+    382
+   ],
+   "pivot": [
+    244,
+    949
+   ],
+   "hit": [
+    244,
+    763
+   ],
+   "beam": [
+    244,
+    763
+   ],
+   "zoom": 1.01367
+  },
+  {
+   "image": "review-reactions",
+   "crop": [
+    494,
+    576,
+    452,
+    361
+   ],
+   "pivot": [
+    720,
+    932
+   ],
+   "hit": [
+    720,
+    756
+   ],
+   "beam": [
+    720,
+    756
+   ],
+   "zoom": 1.01367
+  },
+  {
+   "image": "review-reactions",
+   "crop": [
+    985,
+    720,
+    530,
+    210
+   ],
+   "pivot": [
+    1250,
+    925
+   ],
+   "hit": [
+    1250,
+    825
+   ],
+   "beam": [
+    1250,
+    825
+   ],
+   "zoom": 1.01367
+  },
+  {
+   "image": "review-reactions",
+   "crop": [
+    92,
+    47,
+    375,
+    446
+   ],
+   "pivot": [
+    279,
+    488
+   ],
+   "hit": [
+    279,
+    270
+   ],
+   "beam": [
+    279,
+    270
+   ],
+   "zoom": 1.01367
+  },
+  {
+   "image": "review-movement",
+   "crop": [
+    88,
+    35,
+    346,
+    442
+   ],
+   "pivot": [
+    260,
+    472
+   ],
+   "hit": [
+    265,
+    215
+   ],
+   "beam": [
+    385,
+    256
+   ],
+   "zoom": 1.01367
+  }
+ ],
+ "clips": [
+  {
+   "id": "knockback",
+   "reactionHoldAt": 146,
+   "title": "击退",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 0
+    },
+    {
+     "at": 114,
+     "drawing": 1
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "smallFloat",
+   "reactionHoldAt": 145,
+   "title": "小浮空",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 2
+    },
+    {
+     "at": 113,
+     "drawing": 3
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "largeFloat",
+   "reactionHoldAt": 196,
+   "title": "大浮空",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 4
+    },
+    {
+     "at": 164,
+     "drawing": 5
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockdown",
+   "reactionHoldAt": 146,
+   "title": "倒地",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 6
+    },
+    {
+     "at": 114,
+     "drawing": 7
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "defeat",
+   "title": "退场",
+   "duration": 590,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 8,
+     "kind": ""
+    },
+    {
+     "at": 100,
+     "drawing": 9,
+     "kind": ""
+    },
+    {
+     "at": 277,
+     "drawing": 10,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "standing",
+   "reactionHoldAt": 180,
+   "title": "受击",
+   "duration": 340,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 11,
+     "kind": ""
+    },
+    {
+     "at": 180,
+     "drawing": 8,
+     "kind": ""
+    },
+    {
+     "at": 270,
+     "drawing": 12,
+     "kind": ""
+    }
+   ],
+   "impacts": [],
+   "root": []
+  }
+ ]
+}

@@ -11,6 +11,7 @@ namespace DragonIdle {
  [Serializable] public sealed class RoundSkillIcon {
   public string resource;
   public int[] region;
+  public bool framed;
  }
  [Serializable] public sealed class RoundAbility {
   public RoundSkillIcon icon;
@@ -18,7 +19,7 @@ namespace DragonIdle {
   public RoundHitState reaction;
   public string[] resistTags,teamAttackTags;
   public double value,allyDefense,finalReduction,chance,lateAttackPenalty,lateDefense,reviveAttackBonus,defeatAttackBonus;
-  public int phaseRound,usesPerRound;
+  public int phaseRound,usesPerRound,comboHits;
  }
  [Serializable] public sealed class RoundTechnique {
   public double basicReactionChance,basicEnhancedChance,basicEnhancedPower,ultimateAttackBonus,ultimateHealthCost;
@@ -26,6 +27,7 @@ namespace DragonIdle {
   public string pursuitSourceTag;
   public bool ultimateFrontRow,ultimateFrontColumn,basicRandomTarget,basicHealsSelf,ultimateHighestAttack,ultimateLowestDefense,ultimateDistinctVolley;
   public int pursuitLimit,ultimateHits,ultimateChargeRounds,pursuitCombo,pursuitHits;
+  public int basicComboHits,ultimateComboHits,pursuitComboHits;
   public double ultimateChargeReduction,ultimateDefenseReduction,pursuitDefenseIncrease,pursuitDodgeIncrease;
   public int ultimateDefenseRounds,pursuitDefenseRounds,pursuitDodgeRounds;
   public RoundHitState basicReaction;
@@ -66,7 +68,8 @@ namespace DragonIdle {
      k.skills==null||k.skills.Length!=(c.Rarity=="C"?1:2)||k.skills.Any(s=>!ValidSkill(s))||
      k.techniques!=null&&(!(k.techniques.basicReactionChance>=0&&k.techniques.basicReactionChance<=1)||
       k.techniques.pursuitLimit<0||k.techniques.pursuitLimit>2||
-      k.techniques.pursuitCombo<0||k.techniques.pursuitCombo>10||
+      !ValidComboHits(k.techniques.basicComboHits)||!ValidComboHits(k.techniques.ultimateComboHits)||
+      !ValidComboHits(k.techniques.pursuitComboHits)||k.techniques.pursuitCombo<0||k.techniques.pursuitCombo>10||
       (k.techniques.pursuitCombo==0?k.techniques.pursuitHits!=0||k.techniques.pursuitDodgeIncrease!=0||k.techniques.pursuitDodgeRounds!=0:
        k.techniques.pursuitHits<1||k.techniques.pursuitHits>10||k.techniques.pursuitTrigger!=RoundHitState.None||
        !Bounded(k.techniques.pursuitDodgeIncrease,1)||k.techniques.pursuitDodgeRounds< -1)||
@@ -108,11 +111,12 @@ namespace DragonIdle {
    bool distinctVolley=!rules.ultimateDistinctVolley||rules.ultimateHits>0;
    return enhanced&&multi&&tagged&&distinctVolley;
   }
+  static bool ValidComboHits(int count){return count>=0&&count<=10;}
   static bool ValidDefenseChange(double factor,int rounds){
    return rounds==0?factor==0:rounds>=-1&&Bounded(factor,1);
   }
   static bool ValidSkill(RoundAbility s){
-   if(s==null||string.IsNullOrEmpty(s.name))return false;
+   if(s==null||string.IsNullOrEmpty(s.name)||!ValidComboHits(s.comboHits))return false;
    if(s.trigger=="onRoundStart")
     return s.effect=="strike"&&Bounded(s.value,4)&&s.chance==0&&s.finalReduction==0&&s.reviveAttackBonus==0&&
      (s.teamAttackTags==null||s.teamAttackTags.Length==0)&&string.IsNullOrEmpty(s.allyTag)&&s.allyDefense==0;
@@ -225,6 +229,9 @@ namespace DragonIdle {
   public double DefenseDelta,DodgeDelta,ActorHPCost;
   public string AvoidanceText {get{return CounterAbility==null?"闪避":CounterAbility.name+" · 免伤";}}
   public bool SequentialHits,Charging,Countered,EnhancedBasic;
+  public bool ComboAttack {get;internal set;}
+  public int ComboHits {get;internal set;}
+  public int ComboAfter {get;internal set;}
   public bool Critical,Healing,Dodged,TriggersPursuit;
   public bool Revives {get{return Ability!=null&&Ability.trigger=="onDefeat"&&Ability.effect=="revive";}}
   public bool Detonates {get{return Ability!=null&&Ability.trigger=="onDefeat"&&Ability.effect=="detonate";}}
@@ -237,9 +244,11 @@ namespace DragonIdle {
   readonly List<RoundAction> triggered=new List<RoundAction>();
   readonly Queue<RoundAction> pending=new Queue<RoundAction>(), roundStartActions=new Queue<RoundAction>();
   readonly RoundFighter[] order;
-  readonly int[] roundHits=new int[2];
   readonly System.Collections.ObjectModel.ReadOnlyCollection<RoundFighter> view;
   int cursor;
+  int comboBudget;
+  public int ComboSide {get;private set;}
+  public int ComboCount {get;private set;}
   public int Round {get;private set;}
   public int Result {get;private set;} // 0 running, 1 player, -1 enemy, 2 draw
   public IReadOnlyList<RoundFighter> Order {get{return view;}}
@@ -265,11 +274,11 @@ namespace DragonIdle {
    for(int i=0;i<order.Length;i++){
     var f=order[i];f.Hand=i+1;defs.ApplyOpening(f,order);
    }
+   ComboSide=-1;
    BeginRound();
   }
   void BeginRound(){
    Round++;
-   Array.Clear(roundHits,0,roundHits.Length);
    foreach(var fighter in order){
     var skills=defs.For(fighter.CardId).skills;
     var counter=skills.FirstOrDefault(skill=>skill.trigger=="onSingleTarget");
@@ -300,15 +309,39 @@ namespace DragonIdle {
    return recipient.Attack*Math.Max(0,1+opening+temporary)/(1+opening);
   }
   void CountCombo(RoundAction hit){
-   if(hit.Dodged||hit.Healing)return;
    int side=hit.Actor.Side;
-   roundHits[side]++;
-   if(Result!=0)return;
+   hit.ComboAttack=true;
+   if(ComboSide!=side){ComboSide=side;ComboCount=0;}
+   if(!hit.Dodged){
+    var rules=defs.For(hit.Actor.CardId).techniques;
+    bool grouped=false;
+    int configured=hit.Ability==null?0:hit.Ability.comboHits;
+    int fallback=1;
+    if(rules!=null){
+     if(hit.Move==RoundMove.Basic)configured=rules.basicComboHits;
+     else if(hit.Move==RoundMove.Ultimate){
+      configured=rules.ultimateComboHits;
+      fallback=Math.Max(1,Math.Max(rules.ultimateHits,rules.ultimateTargets));
+      if(rules.ultimateFrontRow||rules.ultimateFrontColumn)fallback=3;
+      grouped=fallback>1;
+     }else if(hit.Move==RoundMove.Pursuit){
+      configured=rules.pursuitComboHits;
+      fallback=Math.Max(1,rules.pursuitHits);
+      grouped=fallback>1;
+     }
+    }
+    if(comboBudget<0)comboBudget=configured>0?configured:fallback;
+    hit.ComboHits=grouped?Math.Min(1,comboBudget):comboBudget;
+    comboBudget-=hit.ComboHits;
+    ComboCount+=hit.ComboHits;
+   }
+   hit.ComboAfter=ComboCount;
+   if(hit.ComboHits==0||Result!=0)return;
    foreach(var follower in order){
     if(follower.Side!=side||!follower.Alive||follower.IsCharging||follower.ComboQueuedRound==Round||!CanPursue(follower))continue;
     var kit=defs.For(follower.CardId);
     int threshold=kit.techniques==null?0:kit.techniques.pursuitCombo;
-    if(threshold==0||roundHits[side]<threshold)continue;
+    if(threshold==0||ComboCount<threshold)continue;
     follower.ComboQueuedRound=Round;
     Enqueue(follower,hit.Target,kit.pursuit,kit.pursuitPower,RoundMove.Pursuit,false);
     hit.TriggersPursuit=true;
@@ -347,6 +380,9 @@ namespace DragonIdle {
     var next=pending.FirstOrDefault(CanUseQueued);
     return next!=null&&next.Move==RoundMove.Pursuit?next.Target:null;
    }
+  }
+  internal RoundFighter NextRevivingFighter {
+   get {var next=NextTriggered();return next!=null&&next.Revives?next.Actor:null;}
   }
   public bool PursuitNext {get{return NextPursuitTarget!=null;}}
   public bool ReactionSkillNext {get{return Result==0&&(NextTriggered()!=null||roundStartActions.Any(CanUseQueued));}}
@@ -405,7 +441,7 @@ namespace DragonIdle {
 
   RoundAction ResolveDetonation(RoundAction action){
    action.Actor.HasDetonated=true;
-   var hit=action.Target.Alive?Strike(action.Actor,action.Target,action.Name,action.Amount,RoundMove.Skill,allowCounter:false):
+   var hit=action.Target.Alive?Strike(action.Actor,action.Target,action.Name,action.Amount,RoundMove.Skill,allowCounter:false,ability:action.Ability):
     new RoundAction{Actor=action.Actor,Target=action.Target,Name=action.Name,Move=RoundMove.Skill,Round=Round,
      TargetHPAfter=action.Target.HP,TargetShieldAfter=action.Target.Shield,TargetRageAfter=action.Target.Rage};
    hit.Ability=action.Ability;
@@ -438,8 +474,7 @@ namespace DragonIdle {
    var target=action.Ability!=null&&action.Ability.trigger=="onRoundStart"?RandomEnemy(action.Actor):
     action.Target.Alive?action.Target:Enemy(action.Actor);
    var hit=Strike(action.Actor,target,action.Name,action.Amount,
-    action.Move,allowCounter:action.Ability==null||action.Ability.effect!="counter");
-   hit.Ability=action.Ability;
+    action.Move,allowCounter:action.Ability==null||action.Ability.effect!="counter",ability:action.Ability);
    if(hit.Ability!=null&&hit.Ability.trigger=="onSingleTarget"&&!hit.Dodged)hit.TargetState=hit.Ability.reaction;
    if(hit.Move==RoundMove.Pursuit){
     if(hit.Dodged&&action.HitSource!=null&&hit.Target.HitSource==action.HitSource){
@@ -457,6 +492,7 @@ namespace DragonIdle {
 
   public RoundAction Step(){
    if(Result!=0)return null;
+   comboBudget=-1;
    var interrupt=TakeTriggered();
    if(interrupt!=null)return ResolveQueued(interrupt);
    var opening=TakeQueued(roundStartActions);
@@ -639,13 +675,17 @@ namespace DragonIdle {
    Enqueue(defender,attacker,ability.name,ability.value,RoundMove.Skill,false,ability:ability);
    return ability;
   }
-  RoundAction Strike(RoundFighter actor,RoundFighter target,string name,double power,RoundMove move,bool allowCounter=true){
+  RoundAction Strike(RoundFighter actor,RoundFighter target,string name,double power,RoundMove move,
+   bool allowCounter=true,RoundAbility ability=null){
    if(move==RoundMove.Basic)actor.Rage=Math.Min(RageCap,actor.Rage+35);
    bool dodged=random.NextDouble()<target.EffectiveDodge(Round,actor.Accuracy);
    var counter=!dodged&&allowCounter&&move!=RoundMove.Basic?TryCounter(actor,target):null;
-   if(dodged||counter!=null)
-    return new RoundAction{Actor=actor,Target=target,Name=name,Dodged=true,Countered=counter!=null,CounterAbility=counter,Move=move,Round=Round,
-     TargetHPAfter=target.HP,TargetShieldAfter=target.Shield,TargetRageAfter=target.Rage};
+   if(dodged||counter!=null){
+    var avoided=new RoundAction{Actor=actor,Target=target,Name=name,Dodged=true,Countered=counter!=null,CounterAbility=counter,
+     Ability=ability,Move=move,Round=Round,TargetHPAfter=target.HP,TargetShieldAfter=target.Shield,TargetRageAfter=target.Rage};
+    CountCombo(avoided);
+    return avoided;
+   }
    double critChance=RoundFighter.UnitProbability(actor.Crit-target.Tenacity);
    bool crit=(move==RoundMove.Basic||critChance>0)&&random.NextDouble()<critChance;
    double defense=target.EffectiveDefense(Round)*(1-RoundFighter.UnitProbability(actor.Penetration));
@@ -667,7 +707,7 @@ namespace DragonIdle {
     SettleBattleResult();
    }
    var hit=new RoundAction{Actor=actor,Target=target,Name=name,Amount=damage,Critical=crit,Move=move,Round=Round,
-    GuardAbility=guard,TargetState=HitState(actor,move),TargetHPAfter=target.HP,TargetShieldAfter=target.Shield,
+    Ability=ability,GuardAbility=guard,TargetState=HitState(actor,move),TargetHPAfter=target.HP,TargetShieldAfter=target.Shield,
     TargetRageAfter=target.Rage,HealthDamage=healthBefore-target.HP,ShieldDamage=shield};
    CountCombo(hit);
    return hit;

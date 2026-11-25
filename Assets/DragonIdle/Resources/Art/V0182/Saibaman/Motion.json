@@ -1,0 +1,1305 @@
+{
+ "atlas": [
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    73,
+    16,
+    206,
+    251
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    174,
+    264
+   ],
+   "hit": [
+    188,
+    139
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    435,
+    16,
+    192,
+    251
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    529,
+    264
+   ],
+   "hit": [
+    543,
+    139
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    763,
+    19,
+    234,
+    244
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    878,
+    260
+   ],
+   "hit": [
+    894,
+    139
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    1115,
+    5,
+    289,
+    235
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    1257,
+    237
+   ],
+   "hit": [
+    1277,
+    120
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    47,
+    293,
+    213,
+    234
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    151,
+    524
+   ],
+   "hit": [
+    166,
+    408
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    393,
+    297,
+    295,
+    233
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    538,
+    527
+   ],
+   "hit": [
+    670,
+    439
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    758,
+    283,
+    291,
+    244
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    901,
+    524
+   ],
+   "hit": [
+    1032,
+    342
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    1160,
+    291,
+    225,
+    238
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    1270,
+    526
+   ],
+   "hit": [
+    1286,
+    408
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    64,
+    568,
+    237,
+    241
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    180,
+    806
+   ],
+   "hit": [
+    197,
+    686
+   ],
+   "beam": [
+    204,
+    597
+   ]
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    410,
+    565,
+    271,
+    242
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    543,
+    804
+   ],
+   "hit": [
+    562,
+    684
+   ],
+   "beam": [
+    570,
+    594
+   ]
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    781,
+    570,
+    252,
+    237
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    904,
+    804
+   ],
+   "hit": [
+    922,
+    686
+   ],
+   "beam": [
+    930,
+    598
+   ]
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    1125,
+    547,
+    277,
+    262
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    1261,
+    806
+   ],
+   "hit": [
+    1280,
+    675
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    26,
+    870,
+    305,
+    208
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    175,
+    1075
+   ],
+   "hit": [
+    310,
+    1059
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    413,
+    844,
+    237,
+    231
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    529,
+    1072
+   ],
+   "hit": [
+    600,
+    1057
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    755,
+    838,
+    256,
+    241
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    880,
+    1076
+   ],
+   "hit": [
+    898,
+    956
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/moves",
+   "crop": [
+    1117,
+    834,
+    256,
+    245
+   ],
+   "zoom": 1.7330677290836654,
+   "pivot": [
+    1242,
+    1076
+   ],
+   "hit": [
+    1260,
+    954
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    5,
+    5,
+    268,
+    241
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    136,
+    243
+   ],
+   "hit": [
+    155,
+    123
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    449,
+    5,
+    301,
+    314
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    596,
+    316
+   ],
+   "hit": [
+    618,
+    159
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    893,
+    5,
+    380,
+    163
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    1079,
+    165
+   ],
+   "hit": [
+    1106,
+    85
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    1337,
+    5,
+    294,
+    226
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    1481,
+    228
+   ],
+   "hit": [
+    1502,
+    116
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    5,
+    343,
+    389,
+    197
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    196,
+    537
+   ],
+   "hit": [
+    223,
+    440
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    449,
+    343,
+    402,
+    220
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    646,
+    560
+   ],
+   "hit": [
+    674,
+    451
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    893,
+    343,
+    411,
+    272
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    1094,
+    612
+   ],
+   "hit": [
+    1123,
+    476
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    1337,
+    343,
+    413,
+    258
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    1539,
+    598
+   ],
+   "hit": [
+    1568,
+    469
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    5,
+    681,
+    373,
+    328
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    188,
+    1006
+   ],
+   "hit": [
+    214,
+    842
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    449,
+    681,
+    395,
+    264
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    643,
+    942
+   ],
+   "hit": [
+    670,
+    810
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    893,
+    681,
+    412,
+    207
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    1095,
+    885
+   ],
+   "hit": [
+    1124,
+    782
+   ],
+   "beam": []
+  },
+  {
+   "image": "Art/V0181/Saibaman/reactions",
+   "crop": [
+    1337,
+    681,
+    434,
+    162
+   ],
+   "zoom": 1.6390041493775933,
+   "pivot": [
+    1550,
+    840
+   ],
+   "hit": [
+    1580,
+    760
+   ],
+   "beam": []
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    6,
+    6,
+    199,
+    238
+   ],
+   "pivot": [
+    106,
+    242
+   ],
+   "hit": [
+    149,
+    96
+   ],
+   "beam": [
+    149,
+    96
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    311,
+    6,
+    200,
+    257
+   ],
+   "pivot": [
+    411,
+    261
+   ],
+   "hit": [
+    455,
+    104
+   ],
+   "beam": [
+    455,
+    104
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    616,
+    6,
+    221,
+    230
+   ],
+   "pivot": [
+    726,
+    234
+   ],
+   "hit": [
+    775,
+    93
+   ],
+   "beam": [
+    775,
+    93
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    921,
+    6,
+    233,
+    234
+   ],
+   "pivot": [
+    1037,
+    238
+   ],
+   "hit": [
+    1089,
+    95
+   ],
+   "beam": [
+    1089,
+    95
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    6,
+    281,
+    202,
+    215
+   ],
+   "pivot": [
+    107,
+    494
+   ],
+   "hit": [
+    151,
+    363
+   ],
+   "beam": [
+    151,
+    363
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    311,
+    281,
+    251,
+    242
+   ],
+   "pivot": [
+    437,
+    521
+   ],
+   "hit": [
+    547,
+    390
+   ],
+   "beam": [
+    547,
+    390
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    616,
+    281,
+    203,
+    242
+   ],
+   "pivot": [
+    718,
+    521
+   ],
+   "hit": [
+    801,
+    400
+   ],
+   "beam": [
+    801,
+    400
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    921,
+    281,
+    214,
+    209
+   ],
+   "pivot": [
+    1028,
+    488
+   ],
+   "hit": [
+    1075,
+    360
+   ],
+   "beam": [
+    1075,
+    360
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    6,
+    556,
+    229,
+    233
+   ],
+   "pivot": [
+    120,
+    787
+   ],
+   "hit": [
+    125,
+    579
+   ],
+   "beam": [
+    125,
+    579
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    311,
+    556,
+    287,
+    243
+   ],
+   "pivot": [
+    455,
+    797
+   ],
+   "hit": [
+    475,
+    585
+   ],
+   "beam": [
+    475,
+    585
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    616,
+    556,
+    230,
+    259
+   ],
+   "pivot": [
+    731,
+    813
+   ],
+   "hit": [
+    722,
+    587
+   ],
+   "beam": [
+    722,
+    587
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    921,
+    556,
+    266,
+    207
+   ],
+   "pivot": [
+    1054,
+    761
+   ],
+   "hit": [
+    1097,
+    736
+   ],
+   "beam": [
+    1097,
+    736
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    6,
+    831,
+    270,
+    236
+   ],
+   "pivot": [
+    141,
+    1065
+   ],
+   "hit": [
+    200,
+    921
+   ],
+   "beam": [
+    200,
+    921
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    311,
+    831,
+    293,
+    237
+   ],
+   "pivot": [
+    457,
+    1066
+   ],
+   "hit": [
+    522,
+    921
+   ],
+   "beam": [
+    522,
+    921
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    616,
+    831,
+    217,
+    239
+   ],
+   "pivot": [
+    724,
+    1068
+   ],
+   "hit": [
+    772,
+    922
+   ],
+   "beam": [
+    772,
+    922
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "skill-motion",
+   "crop": [
+    921,
+    831,
+    281,
+    263
+   ],
+   "pivot": [
+    1061,
+    1092
+   ],
+   "hit": [
+    1123,
+    931
+   ],
+   "beam": [
+    1123,
+    931
+   ],
+   "zoom": 1.82773
+  },
+  {
+   "image": "detonation-poses",
+   "crop": [
+    16,
+    28,
+    439,
+    389
+   ],
+   "pivot": [
+    236,
+    416
+   ],
+   "zoom": 1.11825,
+   "hit": [
+    341,
+    222
+   ],
+   "beam": [
+    341,
+    222
+   ]
+  },
+  {
+   "image": "detonation-poses",
+   "crop": [
+    527,
+    58,
+    359,
+    328
+   ],
+   "pivot": [
+    707,
+    385
+   ],
+   "zoom": 1.11825,
+   "hit": [
+    793,
+    222
+   ],
+   "beam": [
+    793,
+    222
+   ]
+  },
+  {
+   "image": "detonation-poses",
+   "crop": [
+    965,
+    50,
+    425,
+    344
+   ],
+   "pivot": [
+    1177,
+    393
+   ],
+   "zoom": 1.11825,
+   "hit": [
+    1279,
+    222
+   ],
+   "beam": [
+    1279,
+    222
+   ]
+  },
+  {
+   "image": "detonation-poses",
+   "crop": [
+    78,
+    483,
+    314,
+    369
+   ],
+   "pivot": [
+    235,
+    851
+   ],
+   "zoom": 1.11825,
+   "hit": [
+    364,
+    667
+   ],
+   "beam": [
+    364,
+    667
+   ]
+  },
+  {
+   "image": "detonation-poses",
+   "crop": [
+    477,
+    451,
+    459,
+    433
+   ],
+   "pivot": [
+    707,
+    883
+   ],
+   "zoom": 1.11825,
+   "hit": [
+    895,
+    667
+   ],
+   "beam": [
+    895,
+    667
+   ]
+  },
+  {
+   "image": "detonation-poses",
+   "crop": [
+    979,
+    457,
+    396,
+    421
+   ],
+   "pivot": [
+    1177,
+    877
+   ],
+   "zoom": 1.11825,
+   "hit": [
+    1339,
+    667
+   ],
+   "beam": [
+    1339,
+    667
+   ]
+  }
+ ],
+ "clips": [
+  {
+   "id": "idle",
+   "title": "站立待机",
+   "duration": 1530,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 28
+    },
+    {
+     "at": 765,
+     "drawing": 29
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "fxStyle": "Saibaman"
+  },
+  {
+   "id": "accent",
+   "title": "待机小动作",
+   "duration": 860,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 28
+    },
+    {
+     "at": 287,
+     "drawing": 29
+    },
+    {
+     "at": 573,
+     "drawing": 28
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "fxStyle": "Saibaman"
+  },
+  {
+   "id": "entry",
+   "title": "入场",
+   "duration": 765,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 30
+    },
+    {
+     "at": 191,
+     "drawing": 31
+    },
+    {
+     "at": 382,
+     "drawing": 28
+    },
+    {
+     "at": 574,
+     "drawing": 29
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "fxStyle": "Saibaman"
+  },
+  {
+   "id": "saibaBasic",
+   "title": "格斗攻击",
+   "duration": 750,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 32
+    },
+    {
+     "at": 162,
+     "drawing": 33
+    },
+    {
+     "at": 174,
+     "drawing": 33
+    },
+    {
+     "at": 294,
+     "drawing": 34
+    },
+    {
+     "at": 522,
+     "drawing": 35
+    },
+    {
+     "at": 682,
+     "drawing": 28
+    }
+   ],
+   "impacts": [
+    {
+     "at": 174,
+     "drawing": 33,
+     "kind": "head"
+    },
+    {
+     "at": 294,
+     "drawing": 34,
+     "kind": "body"
+    }
+   ],
+   "root": [
+    {
+     "at": 0,
+     "x": 0
+    },
+    {
+     "at": 130,
+     "x": 140
+    },
+    {
+     "at": 410,
+     "x": 140
+    },
+    {
+     "at": 610,
+     "x": 0
+    }
+   ],
+   "impactAt": 294,
+   "runUntil": 130,
+   "runFrames": [
+    30,
+    31
+   ],
+   "fullStride": true,
+   "returnAt": 410,
+   "fxStyle": "Saibaman",
+   "hopDrawing": 41
+  },
+  {
+   "id": "saibaAcid",
+   "title": "溶解液",
+   "duration": 1600,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 28
+    },
+    {
+     "at": 237,
+     "drawing": 36
+    },
+    {
+     "at": 430,
+     "drawing": 37
+    },
+    {
+     "at": 880,
+     "drawing": 28
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "fx": "saibaAcid",
+   "impactAt": 650,
+   "launchAt": 430,
+   "fxStyle": "Saibaman"
+  },
+  {
+   "id": "saibaSmash",
+   "title": "下砸",
+   "duration": 840,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 28
+    },
+    {
+     "at": 162,
+     "drawing": 38
+    },
+    {
+     "at": 295,
+     "drawing": 39
+    },
+    {
+     "at": 568,
+     "drawing": 28
+    }
+   ],
+   "impacts": [
+    {
+     "at": 295,
+     "drawing": 39,
+     "kind": "hammer"
+    }
+   ],
+   "root": [
+    {
+     "at": 0,
+     "x": 0
+    },
+    {
+     "at": 165,
+     "x": 150
+    },
+    {
+     "at": 525,
+     "x": 150
+    },
+    {
+     "at": 744,
+     "x": 0
+    }
+   ],
+   "impactAt": 295,
+   "runUntil": 165,
+   "runFrames": [
+    30,
+    31
+   ],
+   "fullStride": true,
+   "returnAt": 525,
+   "fxStyle": "Saibaman",
+   "hopDrawing": 41
+  },
+  {
+   "id": "saibaDetonate",
+   "title": "自爆",
+   "duration": 2920,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 44
+    },
+    {
+     "at": 285,
+     "drawing": 45
+    },
+    {
+     "at": 410,
+     "drawing": 46
+    },
+    {
+     "at": 537,
+     "drawing": 47
+    },
+    {
+     "at": 733,
+     "drawing": 48
+    },
+    {
+     "at": 875,
+     "drawing": 49
+    }
+   ],
+   "impacts": [],
+   "root": [
+    {
+     "at": 0,
+     "x": 0
+    },
+    {
+     "at": 410,
+     "x": 0
+    },
+    {
+     "at": 758,
+     "x": 1
+    }
+   ],
+   "fx": "saibaDetonate",
+   "impactAt": 1140,
+   "launchAt": 1140,
+   "fxStyle": "Saibaman"
+  }
+ ]
+}

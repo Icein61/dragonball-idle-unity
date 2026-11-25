@@ -1,0 +1,29 @@
+[
+  {
+    "asset": "portrait.png",
+    "references": [
+      ".validation/v0182-piccolo-canon-review/portrait-full.png",
+      "Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-combat-poses.png"
+    ],
+    "transparent_background": true,
+    "prompt": "Create a fresh full-body card portrait for the user's Saiyan-era Piccolo, card 0003. Image 1 is a project reference for identity, costume, and the two-finger charging gesture. Image 2 is a reference for the costume colors and Namekian arm anatomy. Make a new composition with a roughly 30-degree three-quarter view facing frame right, a grounded one-foot-forward fighting stance with a modest bend in the legs, and tall, strong adult proportions with natural lower limbs. He looks directly toward the opponent with a focused, restrained expression. A closed left fist guards the waist. His right index and middle fingers are visibly together at the center of the forehead, with a tiny, barely luminous lavender point. Draw a clean, rounded bare cranium, two separate short antennae each starting above its corresponding brow and curving forward naturally, and pointed ears clearly separate from the head contour. Preserve a sleeveless medium-deep cool purple gi, subdued olive-green skin, muted pink segmented muscle patches, deep blue waist sash, dark red wrist wraps, muted tan boots. Clean hand-inked manga linework, confident broad matte two-tone cel shadows and light paper finish; avoid glossy skin, harsh white highlights, thick atmospheric glow, excessive folds, compressed squat and exaggerated muscles. Keep the entire figure including both boots and fingertips visible with comfortable transparent padding on every side. 2:3 vertical card illustration on genuine transparent alpha, no environment, text, border, cape or turban."
+  },
+  {
+    "asset": "skill-icons.png",
+    "references": [
+      ".validation/v0182-piccolo-canon-review/skills.png",
+      ".validation/v0182-piccolo-canon-review/portrait-full.png"
+    ],
+    "transparent_background": false,
+    "prompt": "Create one exactly square 2x2 skill-art atlas of four equal square tiles for the user's Saiyan-era Piccolo. Reference image 1 shows the established identities and order of the four skills, and image 2 shows the character's costume and anatomy. Each tile uses the same solid deep ink-teal background (#0D3534), independent composition, ample room inside the cell, clean hand-inked manga linework and matte cel shading. Make all four strong silhouettes readable at 60 pixels. The tile edges meet with no gutters or borders; the game adds its own outer frames. Upper left regular melee attack: Piccolo drives a short forward hand strike toward the viewer, compact pose, narrow cream impact lines, fist guarding close. Upper right Special Beam Cannon: a tight portrait with the right index and middle fingers held together, visibly touching the brow center, small focused violet-white point and a restrained gold spiral hint. Lower left ascending demon slash: Piccolo from a readable three-quarter angle with one hand sweeping up, a large diagonal ivory-green crescent rising behind the hand, face discernible. Lower right counter blast: the approved fan-shaped wave motif, a single clear lime-white expanding fan with restrained violet guard arcs behind it on teal, foil-like slivers count limited. Keep olive-green skin, separate short forward brow antennae, visibly rounded head, deep purple gi, pink patches and dark red wrist wraps. No captions, text, letters, badges, gold borders, tile dividers, platform or game screenshot."
+  },
+  {
+    "asset": "battle-key-poses.png",
+    "references": [
+      "Assets/DragonIdle/Resources/Art/V0182/Piccolo/corrected-combat-poses.png",
+      ".validation/v0182-piccolo-canon-review/portrait-full.png"
+    ],
+    "transparent_background": true,
+    "prompt": "Create a new first-pass 2D character animation atlas for the user's Saiyan-era Piccolo, card 0003. Exactly SIX full-body cels in a perfectly regular 3-column by 2-row grid on true transparent alpha, 3:2 canvas. Reference image 1 only supplies sprite readability, costume and existing body landmarks. Reference image 2 supplies identity and the conventional two-finger forehead pose. Draw a fresh single coherent tall and strong adult model for all cells, with matching head size, torso length, natural adult leg length, consistent side-facing three-quarter camera and foot baseline. Face frame right throughout. Bare rounded head, two distinctly rooted short forward-curved forehead antennae, pointed ears, subdued olive skin, matte cool purple sleeveless gi, muted pink arm patches, dark red wrist wraps, muted blue sash and tan boots. Use tight hand-inked outlines, simple two-tone cel shading, restrained cloth folds, and compact gesture silhouettes legible at an on-screen height of 100 pixels. Top row left to right: supported combat idle with one fist guarding; forward approach with clear rightward leaning torso and one leading foot; grounded medium forward hand strike. Bottom row left to right: two fingertips of the right hand held closed together exactly at the central forehead, left fist tucked, both boots planted; hard rightward two-finger release with those same two fingers close together and the torso rotating on the same grounded boots; same grounded leg stance as the charging cel with both forearms raised in a pre-counter guard. Each whole body including far boot and fingertips stays within its own cell and clear of edges. No skill rays, glow, swirls, particles, speed strokes, shadows, panels, symbols, text, cape, turban or additional cels. Keep all empty areas alpha transparent."
+  }
+]

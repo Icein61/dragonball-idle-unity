@@ -412,6 +412,20 @@ static class RoundChecks {
   check(!battle.ActiveTeamAttackSkills(goku).Any()&&Math.Abs(battle.EffectiveAttack(goku)-105)<.001,
    "V15406 Krillin's defeat immediately ends the aura");
 
+  var alternate=Fighter(4,1,1);
+  var ally=Fighter(0,0,1);krillin=Fighter(krillinIndex,0,9);
+  var separate=RoundCombat.Demo(new[]{ally,krillin,alternate},rules,47);
+  for(int move=0;move<3;move++){
+   var attack=separate.Step();
+   check(attack.ComboAttack&&attack.ComboHits==1&&separate.ComboSide==attack.Actor.Side&&separate.ComboCount==1,
+    "V1820 combo resets at each opposing attack and counts one landed segment");
+  }
+  alternate.Dodge=1;
+  var nextSide=separate.Step();
+  check(nextSide.Dodged&&nextSide.ComboAfter==1&&nextSide.ComboHits==0&&separate.ComboSide==0,
+   "V1821 a dodge adds nothing and keeps the current side's accumulated count");
+  check(!separate.PursuitNext&&krillin.PursuitCount==0,"V1822 alternating sides cannot build Krillin's five-hit chain");
+
   var single=Fighter(4,1,1);
   krillin=Fighter(krillinIndex,0,9);vegeta=Fighter(1,0,1);vegeta.Rage=100;
   battle=RoundCombat.Demo(new[]{krillin,vegeta,single},rules,7);

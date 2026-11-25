@@ -11,10 +11,11 @@ namespace DragonIdle {
     float launch=run.VolleyLaunch(i);
     float impact=run.VolleyImpact(i);
     float age=run.Time-launch;
-    if(age<0||run.Time>impact+185)continue;
+    if(age<0||run.Time>impact+(run.IsAcid?670:185))continue;
     var pose=run.Library.At(run.Clip,run.PoseTimeAt(launch));
-    var start=RoundMotionArt.Anchor(pose,pose.beam,ground+(run.IsScatter?run.ShiftAt(launch):Vector2.zero),scale);
-    if(run.IsRaditzTwin)start=RoundMotionFx.RaditzHand(start,scale,i);
+    bool separateHands=(run.IsScatter||run.IsRaditzTwin)&&pose.offhand?.Length==2;
+    var palm=separateHands&&i%2==1?pose.offhand:pose.beam;
+    var start=RoundMotionArt.Anchor(pose,palm,ground+(run.IsScatter?run.ShiftAt(launch):Vector2.zero),scale);
     var hit=run.VolleyHits[Math.Min(i,run.VolleyHits.Length-1)];
     var end=target(hit);
     if(run.IsRaditzTwin&&i>=run.VolleyHits.Length)end+=new Vector2(0,8);

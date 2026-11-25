@@ -1,7 +1,21 @@
 # 当前状态
-更新：2026-11-24（Asia/Shanghai）。项目：https://github.com/Icein61/dragonball-idle-unity
+更新：2026-11-25（Asia/Shanghai）。项目：https://github.com/Icein61/dragonball-idle-unity
 
 ## 当前阶段
+
+[v0.19.0 开发单](release-plans/v0.19.0.md)已建立，开发内容等待用户安排。
+
+v0.18 以 v0.18.2 收尾。已确认的连击、固定追打时长和六张角色素材纳入本地候选。其他角色优化、后续战斗系统优化和 0009 那巴开发暂缓。[收尾说明](../Releases/v0.18.2.md) · [Windows x64 候选包](../Builds/Releases/v0.18.2/龙珠爆裂激斗-v0.18.2-Windows-x64.zip)。
+
+[v0.18.2 开发单](release-plans/v0.18.2.md)已收到试玩反馈。角色表连击字段已写入，1069 项核心检查通过。固定追打时长已按用户确认接入。栽培人修正版已获确认并接入，角色表同步、Unity Windows 构建和九卡 Windows 后台逻辑验证通过。比克修正版已获确认并接入正式项目，同步角色表、图鉴、四张技能图标及战斗动作与音效。1069 项核心检查和九卡 Windows Player 后台回归通过。悟空整套素材已按用户确认接入，角色表立绘、四张图标、单层道服战斗小人和双掌蓄气的龟派气功已同步。1069 项核心检查和九卡 Windows 后台回归通过。[本地 Windows 测试包](../Builds/Windows-v0182goku/龙珠爆裂激斗.exe)。
+
+0005 克林获确认的 492 帧修订版已正式接入，角色表、全身立绘、四张图标和战斗小人已同步。气圆斩与散射后退的动作、特效和音效通过专项检查，1069 项核心检查、Unity Windows 构建和九卡后台 Player 回归通过。[Windows 测试包](../Builds/Windows-v0182krillin/龙珠爆裂激斗.exe)。
+
+0003 比克 B 版已正式接入，卡面按实际全身边界等比取景，补齐头部和鞋底的留白。无黄色弧光的立绘与四张技能图标、修订小人、右手双指聚气至出炮同步启用。保留现有特效和 13 条比克音效。角色表回读、1069 项核心检查、808 帧隐藏实战、Unity Windows 构建及九卡 Player 回归通过。[比克卡面 Windows 测试包](../Builds/Windows-v0182piccoloCard/龙珠爆裂激斗.exe)，卡面调整后九卡回归通过。
+
+0006 拉蒂兹四张技能图、2D 小人与四招演出已按用户确认正式接入。沿用原立绘和 13 条音效。普通与强化闪耀金星日、双重太阳日双掌与单双目标、踢击大浮空、第五回合被动切换均通过后台专项。角色表同步、1069 项核心检查、622 帧 Unity 隐藏回放和九卡 Windows Player 回归通过。[拉蒂兹 Windows 验证包](../Builds/Windows-v0182raditz/龙珠爆裂激斗.exe) · [后台记录](../.validation/v0182-raditz-formal-verified.json)。
+
+0007 雅木茶四张技能图、24 个全身姿态和四招演出已按用户确认正式接入。沿用原立绘和 8 条音效。狼牙末击狼头、停顿与单次结算，下段踢倒地衔接及装死的阶段和增益通过专项。角色表同步、1069 项核心检查、683 帧隐藏 Unity 回放及九卡 Windows Player 回归通过。[雅木茶专项 Windows 验证包](../Builds/Windows-v0182yamcha/龙珠爆裂激斗.exe) · [后台记录](../.validation/v0182-yamcha-formal-verified.json)。
 
 [v0.18.1](release-plans/v0.18.1.md)上线 C 级援助栽培人，接入按原作重绘的整套素材。更新战斗数据条、技能属性分行和悟空普攻落脚，完成 v0.18.0 的追打、天津饭和拉蒂兹追加反馈。角色表同步、1064 项核心检查、10 张 Unity 后台画面、Windows Player 启动及 ZIP 校验通过。[Windows 试玩包](../Builds/Releases/v0.18.1/龙珠爆裂激斗-v0.18.1-Windows-x64.zip)。
 

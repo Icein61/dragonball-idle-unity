@@ -24,7 +24,14 @@ namespace DragonIdle {
    var icon=run?.Opening?.icon??run?.Action?.Ability?.icon;
    if(run?.IsUltimate==true||run?.IsCharge==true)icon=RoundRules().For(run.Actor.CardId).ultimateIcon;
    else if(run?.Clip?.id=="tienVolley"||run?.Clip?.id=="yamchaBasic"||run?.Clip?.id=="gohanRally"||run?.Clip?.id=="krillinBasic"||run?.IsRaditzEnergy==true&&!run.IsUltimate)icon=RoundRules().For(run.Actor.CardId).basicIcon;
-   else if(run?.Clip?.id=="tienSet"||run?.Clip?.id=="yamchaSweep"||run?.Clip?.id=="gohanFlash"||run?.IsScatter==true)icon=RoundRules().For(run.Actor.CardId).pursuitIcon;
+   else if(run?.Clip?.id=="tienSet"||run?.Clip?.id=="yamchaSweep"||run?.Clip?.id=="gohanFlash"||run?.Clip?.id=="raditzKick"||run?.IsScatter==true)icon=RoundRules().For(run.Actor.CardId).pursuitIcon;
+   if(icon==null&&run?.Action!=null&&
+      (run.Actor.CardId==RoundMotionArt.SaibamanCardId||run.Actor.CardId==RoundMotionArt.PiccoloCardId||
+       run.Actor.CardId==RoundMotionArt.CardId)){
+    var kit=RoundRules().For(run.Actor.CardId);
+    if(run.Action.Move==RoundMove.Basic)icon=kit.basicIcon;
+    if(run.Action.Move==RoundMove.Pursuit)icon=kit.pursuitIcon;
+   }
    BindRoundSkillIcon(roundSkillArt,icon);
    bool hasIcon=roundSkillArt.texture!=null;
    roundSkillArt.gameObject.SetActive(hasIcon);
@@ -54,6 +61,16 @@ namespace DragonIdle {
    float left=(hasRegion?region[0]:0)+(sizeX-side)*.5f;
    float top=(hasRegion?region[1]:0)+(sizeY-side)*.5f;
    image.uvRect=new Rect(left/texture.width,1-(top+side)/texture.height,side/texture.width,side/texture.height);
+   if(!icon.framed)return;
+   var border=Resources.Load<Texture2D>("Art/V0182/skill-frame");
+   if(border==null)throw new System.InvalidOperationException("Missing shared skill icon frame");
+   var frame=new GameObject("SkillFrame",typeof(RectTransform),typeof(CanvasRenderer),typeof(RawImage)).GetComponent<RawImage>();
+   frame.transform.SetParent(image.transform,false);
+   frame.rectTransform.anchorMin=Vector2.zero;
+   frame.rectTransform.anchorMax=Vector2.one;
+   frame.rectTransform.offsetMin=frame.rectTransform.offsetMax=Vector2.zero;
+   frame.texture=border;
+   frame.raycastTarget=false;
   }
 
   void PaintRoundSkillPresentation(RectTransform world,RawImage actor,RoundMotionPlayback run,Vector2 anchor,Vector2? guardAnchor=null) {
@@ -70,6 +87,14 @@ namespace DragonIdle {
    var pivot=Vector2.Lerp(anchor,guardAnchor??anchor,guard)+new Vector2(0,roundDemo?-54:-125);
    world.localScale=new Vector3(1+zoom,1+zoom,1);
    world.anchoredPosition=new Vector2(-pivot.x*zoom,pivot.y*zoom);
+   bool beamRecoil=run?.IsGokuKamehameha==true||(run?.Clip?.id=="specialBeam"&&run.Clip.fxStyle=="Piccolo");
+   if(beamRecoil&&!ReducedRoundMotion){
+    float burst=run.Time-run.ReleaseAt;
+    if(burst>=0&&burst<143){
+     float shake=1-Mathf.SmoothStep(0,1,burst/143);
+     world.anchoredPosition+=new Vector2(Mathf.Cos(burst*.145f)*8,Mathf.Sin(burst*.173f)*3)*shake;
+    }
+   }
 
    bool visible=run?.SkillName!=null&&(opening||run.IsCharge||run.Action?.Ability!=null||run.Clip?.id=="gohanRally"||run.Time>=run.ReleaseAt-120&&run.Time<run.ImpactAt+430);
    roundSkillBadge.gameObject.SetActive(visible);

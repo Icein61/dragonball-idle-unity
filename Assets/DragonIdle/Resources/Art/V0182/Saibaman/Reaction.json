@@ -1,0 +1,332 @@
+{
+ "atlas": [
+  {
+   "image": "reactions",
+   "crop": [
+    6,
+    6,
+    267,
+    265
+   ],
+   "pivot": [
+    140,
+    269
+   ],
+   "hit": [
+    140,
+    138
+   ],
+   "zoom": 1.40777
+  },
+  {
+   "image": "reactions",
+   "crop": [
+    371,
+    6,
+    282,
+    309
+   ],
+   "pivot": [
+    512,
+    313
+   ],
+   "hit": [
+    512,
+    160
+   ],
+   "zoom": 1.40777
+  },
+  {
+   "image": "reactions",
+   "crop": [
+    736,
+    6,
+    329,
+    146
+   ],
+   "pivot": [
+    900,
+    150
+   ],
+   "hit": [
+    900,
+    79
+   ],
+   "zoom": 1.40777
+  },
+  {
+   "image": "reactions",
+   "crop": [
+    1101,
+    6,
+    290,
+    268
+   ],
+   "pivot": [
+    1246,
+    272
+   ],
+   "hit": [
+    1246,
+    140
+   ],
+   "zoom": 1.40777
+  },
+  {
+   "image": "reactions",
+   "crop": [
+    6,
+    327,
+    336,
+    212
+   ],
+   "pivot": [
+    174,
+    537
+   ],
+   "hit": [
+    174,
+    433
+   ],
+   "zoom": 1.40777
+  },
+  {
+   "image": "reactions",
+   "crop": [
+    371,
+    327,
+    329,
+    200
+   ],
+   "pivot": [
+    535,
+    525
+   ],
+   "hit": [
+    535,
+    427
+   ],
+   "zoom": 1.40777
+  },
+  {
+   "image": "reactions",
+   "crop": [
+    736,
+    327,
+    334,
+    210
+   ],
+   "pivot": [
+    903,
+    535
+   ],
+   "hit": [
+    903,
+    432
+   ],
+   "zoom": 1.40777
+  },
+  {
+   "image": "reactions",
+   "crop": [
+    1101,
+    327,
+    328,
+    223
+   ],
+   "pivot": [
+    1265,
+    548
+   ],
+   "hit": [
+    1265,
+    439
+   ],
+   "zoom": 1.40777
+  },
+  {
+   "image": "reactions",
+   "crop": [
+    6,
+    648,
+    346,
+    237
+   ],
+   "pivot": [
+    179,
+    883
+   ],
+   "hit": [
+    179,
+    766
+   ],
+   "zoom": 1.40777
+  },
+  {
+   "image": "reactions",
+   "crop": [
+    371,
+    648,
+    324,
+    201
+   ],
+   "pivot": [
+    533,
+    847
+   ],
+   "hit": [
+    533,
+    748
+   ],
+   "zoom": 1.40777
+  },
+  {
+   "image": "reactions",
+   "crop": [
+    736,
+    648,
+    347,
+    164
+   ],
+   "pivot": [
+    910,
+    810
+   ],
+   "hit": [
+    910,
+    730
+   ],
+   "zoom": 1.40777
+  },
+  {
+   "image": "reactions",
+   "crop": [
+    1101,
+    648,
+    353,
+    134
+   ],
+   "pivot": [
+    1277,
+    780
+   ],
+   "hit": [
+    1277,
+    715
+   ],
+   "zoom": 1.40777
+  }
+ ],
+ "clips": [
+  {
+   "id": "standing",
+   "title": "站立受击",
+   "duration": 330,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 1
+    },
+    {
+     "at": 190,
+     "drawing": 3
+    }
+   ],
+   "impacts": [],
+   "root": []
+  },
+  {
+   "id": "knockback",
+   "title": "击退",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 8
+    },
+    {
+     "at": 140,
+     "drawing": 9
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 178
+  },
+  {
+   "id": "smallFloat",
+   "title": "小浮空",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 4
+    },
+    {
+     "at": 113,
+     "drawing": 5
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 145
+  },
+  {
+   "id": "largeFloat",
+   "title": "大浮空",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 6
+    },
+    {
+     "at": 164,
+     "drawing": 7
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 196
+  },
+  {
+   "id": "knockdown",
+   "title": "倒地",
+   "duration": 425,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 10
+    },
+    {
+     "at": 135,
+     "drawing": 11
+    }
+   ],
+   "impacts": [],
+   "root": [],
+   "reactionHoldAt": 169
+  },
+  {
+   "id": "defeat",
+   "title": "战败",
+   "duration": 730,
+   "poses": [
+    {
+     "at": 0,
+     "drawing": 10
+    },
+    {
+     "at": 165,
+     "drawing": 11
+    },
+    {
+     "at": 320,
+     "drawing": 2
+    }
+   ],
+   "impacts": [],
+   "root": []
+  }
+ ]
+}

@@ -55,6 +55,16 @@
    "id": "piccolo-land",
    "resource": "Audio/V0138/Goku/land",
    "gain": 0.4
+  },
+  {
+   "id": "piccolo-beam-charge-sfx",
+   "resource": "Audio/V0182/Piccolo/beam-charge",
+   "gain": 0.52
+  },
+  {
+   "id": "piccolo-beam-fire-sfx",
+   "resource": "Audio/V0182/Piccolo/beam-fire",
+   "gain": 0.68
   }
  ]
 }

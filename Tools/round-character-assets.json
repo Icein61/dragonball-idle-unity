@@ -1,33 +1,49 @@
 {
  "0001": {
   "cardId": "goku-test",
-  "portrait": "V051/goku-test-portrait",
+  "portrait": "V0182/Goku/portrait",
   "moves": {
    "basicIcon": {
-    "resource": "Art/V0131/Goku/skill-icons",
+    "resource": "Art/V0182/Goku/skill-images",
     "region": [
-     67,
-     58,
-     538,
-     538
-    ]
+     6,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "ultimateIcon": {
-    "resource": "Art/V0131/Goku/skill-icons",
+    "resource": "Art/V0182/Goku/skill-images",
     "region": [
-     649,
-     58,
-     538,
-     538
-    ]
+     618,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "pursuitIcon": {
-    "resource": "Art/V0142/Goku/uppercut-icon"
+    "resource": "Art/V0182/Goku/skill-images",
+    "region": [
+     6,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   },
   "skills": [
    {
-    "resource": "Art/V0131/Goku/passive-training"
+    "resource": "Art/V0182/Goku/skill-images",
+    "region": [
+     618,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   ]
  },
@@ -77,45 +93,49 @@
  },
  "0003": {
   "cardId": "piccolo-test",
-  "portrait": "V0152/Piccolo/portrait",
+  "portrait": "V0182/Piccolo/portrait",
   "moves": {
    "basicIcon": {
-    "resource": "Art/V0143/Piccolo/skill-icons",
+    "resource": "Art/V0182/Piccolo/skill-images",
     "region": [
-     0,
-     0,
-     627,
-     627
-    ]
+     6,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "ultimateIcon": {
-    "resource": "Art/V0143/Piccolo/skill-icons",
+    "resource": "Art/V0182/Piccolo/skill-images",
     "region": [
-     627,
-     0,
-     627,
-     627
-    ]
+     618,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "pursuitIcon": {
-    "resource": "Art/V0143/Piccolo/skill-icons",
+    "resource": "Art/V0182/Piccolo/skill-images",
     "region": [
-     0,
-     627,
-     627,
-     627
-    ]
+     6,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   },
   "skills": [
    {
-    "resource": "Art/V0143/Piccolo/skill-icons",
+    "resource": "Art/V0182/Piccolo/skill-images",
     "region": [
-     627,
-     627,
-     627,
-     627
-    ]
+     618,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   ]
  },
@@ -165,45 +185,49 @@
  },
  "0005": {
   "cardId": "krillin-test",
-  "portrait": "V0154/Krillin/portrait",
+  "portrait": "V0182/Krillin/portrait",
   "moves": {
    "basicIcon": {
-    "resource": "Art/V0154/Krillin/skill-icons",
+    "resource": "Art/V0182/Krillin/skill-images",
     "region": [
-     3,
-     2,
-     623,
-     623
-    ]
+     6,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "ultimateIcon": {
-    "resource": "Art/V0154/Krillin/skill-icons",
+    "resource": "Art/V0182/Krillin/skill-images",
     "region": [
-     629,
-     2,
-     623,
-     623
-    ]
+     618,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "pursuitIcon": {
-    "resource": "Art/V0154/Krillin/skill-icons",
+    "resource": "Art/V0182/Krillin/skill-images",
     "region": [
-     3,
-     629,
-     623,
-     623
-    ]
+     6,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   },
   "skills": [
    {
-    "resource": "Art/V0154/Krillin/skill-icons",
+    "resource": "Art/V0182/Krillin/skill-images",
     "region": [
-     629,
-     629,
-     623,
-     623
-    ]
+     618,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   ]
  },
@@ -212,36 +236,46 @@
   "portrait": "V0161/Raditz/portrait",
   "moves": {
    "basicIcon": {
-    "resource": "Art/V0162/Raditz/shining-friday"
+    "resource": "Art/V0182/Raditz/skill-images",
+    "region": [
+     6,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "ultimateIcon": {
-    "resource": "Art/V0161/Raditz/skill-icons",
+    "resource": "Art/V0182/Raditz/skill-images",
     "region": [
-     627,
-     0,
-     627,
-     627
-    ]
+     618,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "pursuitIcon": {
-    "resource": "Art/V0161/Raditz/skill-icons",
+    "resource": "Art/V0182/Raditz/skill-images",
     "region": [
-     0,
-     627,
-     627,
-     627
-    ]
+     6,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   },
   "skills": [
    {
-    "resource": "Art/V0161/Raditz/skill-icons",
+    "resource": "Art/V0182/Raditz/skill-images",
     "region": [
-     627,
-     627,
-     627,
-     627
-    ]
+     618,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   ]
  },
@@ -251,42 +285,46 @@
   "defaultTitle": "地球顶尖的尖锐",
   "moves": {
    "basicIcon": {
-    "resource": "Art/V0172/Yamcha/icons-b",
+    "resource": "Art/V0182/Yamcha/skill-images",
     "region": [
-     4,
-     4,
-     619,
-     619
-    ]
+     6,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "ultimateIcon": {
-    "resource": "Art/V0172/Yamcha/icons-a",
+    "resource": "Art/V0182/Yamcha/skill-images",
     "region": [
-     631,
-     4,
-     619,
-     619
-    ]
+     618,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "pursuitIcon": {
-    "resource": "Art/V0172/Yamcha/icons-a",
+    "resource": "Art/V0182/Yamcha/skill-images",
     "region": [
-     4,
-     631,
-     619,
-     619
-    ]
+     6,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   },
   "skills": [
    {
-    "resource": "Art/V0172/Yamcha/icons-a",
+    "resource": "Art/V0182/Yamcha/skill-images",
     "region": [
-     631,
-     631,
-     619,
-     619
-    ]
+     618,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   ]
  },
@@ -338,45 +376,49 @@
  },
  "0010": {
   "cardId": "saibaman-saiyan-v030",
-  "portrait": "V0181/Saibaman/portrait",
+  "portrait": "V0182/Saibaman/portrait",
   "moves": {
    "basicIcon": {
-    "resource": "Art/V0181/Saibaman/icons",
+    "resource": "Art/V0182/Saibaman/skill-images",
     "region": [
-     2,
-     0,
-     623,
-     623
-    ]
+     6,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "ultimateIcon": {
-    "resource": "Art/V0181/Saibaman/icons",
+    "resource": "Art/V0182/Saibaman/skill-images",
     "region": [
-     633,
-     0,
-     623,
-     623
-    ]
+     618,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "pursuitIcon": {
-    "resource": "Art/V0181/Saibaman/icons",
+    "resource": "Art/V0182/Saibaman/skill-images",
     "region": [
-     2,
-     623,
-     623,
-     623
-    ]
+     6,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   },
   "skills": [
    {
-    "resource": "Art/V0181/Saibaman/icons",
+    "resource": "Art/V0182/Saibaman/skill-images",
     "region": [
-     633,
-     623,
-     623,
-     623
-    ]
+     618,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   ]
  }

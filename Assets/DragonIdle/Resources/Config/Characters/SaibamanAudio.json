@@ -3,47 +3,47 @@
  "cues": [
   {
    "id": "saiba-entry",
-   "resource": "Audio/V0181/Saibaman/entry",
-   "gain": 0.56
+   "resource": "Audio/V0182/Saibaman/entry",
+   "gain": 0.52
   },
   {
    "id": "saiba-basic",
-   "resource": "Audio/V0181/Saibaman/basic",
-   "gain": 0.62
+   "resource": "Audio/V0182/Saibaman/basic",
+   "gain": 0.6
   },
   {
    "id": "saiba-smash",
-   "resource": "Audio/V0181/Saibaman/smash",
+   "resource": "Audio/V0182/Saibaman/smash",
    "gain": 0.66
   },
   {
    "id": "saiba-acid",
-   "resource": "Audio/V0181/Saibaman/acid",
-   "gain": 0.73
-  },
-  {
-   "id": "saiba-acid-impact",
-   "resource": "Audio/V0181/Saibaman/acid-impact",
-   "gain": 0.59
-  },
-  {
-   "id": "saiba-burst-voice",
-   "resource": "Audio/V0181/Saibaman/burst-voice",
+   "resource": "Audio/V0182/Saibaman/acid",
    "gain": 0.68
   },
   {
+   "id": "saiba-acid-impact",
+   "resource": "Audio/V0182/Saibaman/acid-impact",
+   "gain": 0.49
+  },
+  {
+   "id": "saiba-burst-voice",
+   "resource": "Audio/V0182/Saibaman/burst-voice",
+   "gain": 0.62
+  },
+  {
    "id": "saiba-burst",
-   "resource": "Audio/V0181/Saibaman/burst",
-   "gain": 0.75
+   "resource": "Audio/V0182/Saibaman/burst",
+   "gain": 0.86
   },
   {
    "id": "saiba-hit-light",
-   "resource": "Audio/V0181/Saibaman/hit-light",
+   "resource": "Audio/V0182/Saibaman/hit-light",
    "gain": 0.55
   },
   {
    "id": "saiba-hit-heavy",
-   "resource": "Audio/V0181/Saibaman/hit-heavy",
+   "resource": "Audio/V0182/Saibaman/hit-heavy",
    "gain": 0.59
   }
  ]

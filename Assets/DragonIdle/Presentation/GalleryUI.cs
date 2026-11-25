@@ -91,7 +91,7 @@ namespace DragonIdle {
   static Rect? CharacterCardPortraitRegion(int index){
    if(Data.Cards[index].Id!=RoundMotionArt.PiccoloCardId)return null;
    // Frame the new figure around its painted bounds, with space for the hands and boots.
-   return new Rect(0,126f/1536,907f/1024,1145f/1536);
+   return new Rect(96f/1024,49f/1536,768f/1024,1437f/1536);
   }
   void UArt(Transform parent,int i,float x,float y,float w,float h,Rect? region=null,bool muted=false){
    var art=PortraitTexture(i);

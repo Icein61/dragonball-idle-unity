@@ -17,7 +17,7 @@ namespace DragonIdle {
 
   AudioSource roundCueAudio;
   Dictionary<string,(AudioClip Clip,float Gain)> roundCueClips;
-  int roundCueEvents;
+  int roundCueEvents,comboCueEvents;
 
   void LoadRoundCueAudio() {
    if(roundCueClips!=null)return;
@@ -32,6 +32,9 @@ namespace DragonIdle {
    LoadCueBank("TienAudio",RoundMotionArt.TienCardId,clips);
    if(Data.IsRoundCard(RoundMotionArt.SaibamanCardId))
     LoadCueBank("SaibamanAudio",RoundMotionArt.SaibamanCardId,clips);
+   var comboImpact=Resources.Load<AudioClip>("Audio/V0181/Tien/finger-impact");
+   if(comboImpact==null)throw new InvalidOperationException("缺少连击命中音效");
+   clips.Add("combo-hit",(comboImpact,.28f));
    roundCueClips=clips;
    if(clips.Values.All(cue=>cue.Clip==null))return;
    roundCueAudio=gameObject.AddComponent<AudioSource>();
@@ -55,7 +58,8 @@ namespace DragonIdle {
 
   void PlayRoundCue(string id) {
    if(roundCueAudio==null||!roundCueClips.TryGetValue(id,out var cue)||cue.Clip==null)return;
-   roundCueEvents++;
+   if(id=="combo-hit")comboCueEvents++;
+   else roundCueEvents++;
    if(!silentAudio)roundCueAudio.PlayOneShot(cue.Clip,cue.Gain);
   }
 
@@ -107,9 +111,16 @@ namespace DragonIdle {
      if(Cross(220))PlayRoundCue("piccolo-basic");
     }
     if(run.IsPursuit&&Cross(140))PlayRoundCue("piccolo-pursuit");
-    if(run.IsCharge&&Cross(80)){PlayRoundCue("piccolo-gather");PlayRoundCue("charge");}
+    bool revisedBeam=run.Clip.fxStyle=="Piccolo";
+    if(run.IsCharge&&Cross(80)){
+     PlayRoundCue("piccolo-gather");
+     PlayRoundCue(revisedBeam?"piccolo-beam-charge-sfx":"charge");
+    }
     if(run.IsCounter&&Cross(run.ReleaseAt)){PlayRoundCue("piccolo-counter");PlayRoundCue("piccolo-blast");}
-    if(run.Clip.id=="specialBeam"&&Cross(run.ReleaseAt)){PlayRoundCue("piccolo-fire");PlayRoundCue("piccolo-blast");}
+    if(run.Clip.id=="specialBeam"&&Cross(run.ReleaseAt)){
+     PlayRoundCue("piccolo-fire");
+     PlayRoundCue(revisedBeam?"piccolo-beam-fire-sfx":"piccolo-blast");
+    }
     foreach(var hit in run.Clip.impacts)
      if(Cross(hit.at)&&!run.Action.Countered)PlayRoundCue(run.Action.Dodged?"dodge":hit.kind=="sweep"?"heavy":hit.kind=="lift"?"uppercut":"punch");
     return;
@@ -140,7 +151,8 @@ namespace DragonIdle {
      if(Cross(run.Clip.impactAt)&&run.Action.Hits.Any(hit=>!hit.Dodged))PlayRoundCue("krillin-disc-cut");
     }else if(run.IsScatter){
      if(Cross(130))PlayRoundCue("krillin-scatter-charge");
-     for(int i=0;i<run.VolleyHits.Length;i+=2)
+     int shotsPerCue=run.Clip.fxStyle=="Krillin"?1:2;
+     for(int i=0;i<run.VolleyHits.Length;i+=shotsPerCue)
       if(before<run.VolleyLaunch(i)&&run.Time>=run.VolleyLaunch(i))PlayRoundCue("krillin-scatter-shot");
     }
     return;
@@ -186,7 +198,10 @@ namespace DragonIdle {
     if(run.Clip.id=="yamchaBasic"&&Cross(175))PlayRoundCue("yamcha-basic");
     if(run.Clip.id=="yamchaWolf"&&Cross(160))PlayRoundCue("yamcha-wolf");
     if(run.Clip.id=="yamchaSweep"&&Cross(115))PlayRoundCue("yamcha-sweep");
-    if(run.Clip.id=="yamchaRise"&&Cross(300))PlayRoundCue("yamcha-rise");
+    if(run.IsYamchaFeign){
+     if(Cross(812))PlayRoundCue("yamcha-rise");
+     if(Cross(run.ImpactAt))PlayRoundCue("yamcha-land");
+    }else if(run.Clip.id=="yamchaRise"&&Cross(300))PlayRoundCue("yamcha-rise");
     foreach(var cue in run.Clip.impacts){
      if(!Cross(cue.at)||run.Action.Countered)continue;
      if(run.Action.Dodged){
@@ -200,8 +215,10 @@ namespace DragonIdle {
     if(run.Clip.id=="saibaSmash"&&Cross(130))PlayRoundCue("saiba-smash");
     if(run.IsAcid&&Cross(run.ReleaseAt))PlayRoundCue("saiba-acid");
     if(run.IsDetonation){
-     if(Cross(175))PlayRoundCue("saiba-burst-voice");
-     if(Cross(run.ReleaseAt))PlayRoundCue("saiba-burst");
+     if(Cross(55))PlayRoundCue("saiba-burst-voice");
+     if(Cross(RoundMotionArt.SaibamanPushOff))PlayRoundCue("piccolo-dash");
+     if(Cross(RoundMotionArt.SaibamanClasp))PlayRoundCue("punch");
+     if(Cross(run.Clip.impactAt))PlayRoundCue("saiba-burst");
     }
     foreach(var cue in run.Clip.impacts){
      if(Cross(cue.at)&&!run.Action.Countered&&!run.Action.Dodged)

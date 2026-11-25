@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace DragonIdle {
  // The focus view uses the same right-facing ground coordinates as the approved preview.
  [RequireComponent(typeof(CanvasRenderer))]
- internal sealed class RoundMotionFx : MaskableGraphic {
+ internal sealed partial class RoundMotionFx : MaskableGraphic {
   internal const float Width = 960, Height = 404, Floor = 333, Origin = 282, Scale = .60f;
   static readonly Color Warm = new Color32(210, 145, 65, 255);
   static readonly Color Pale = new Color32(255, 242, 184, 255);
@@ -17,7 +17,7 @@ namespace DragonIdle {
   RoundMotionArt.Clip clip;
   float time, poseScale, beamEnd;
   Vector2 travelPerUnit;
-  Vector2? beamTarget;
+  Vector2? beamTarget,visibleRightFingertips;
   internal struct VolleyOrb {
    internal Vector2 Start,End,Ground;
    internal float Elapsed,Flight;
@@ -37,7 +37,7 @@ namespace DragonIdle {
    volley=orbs;
    SetVerticesDirty();
   }
-  internal struct GuardPulse {internal Vector2 Center;internal float Age;internal bool Barrier;}
+  internal struct GuardPulse {internal Vector2 Center;internal float Age;internal bool Barrier,PiccoloSurge;}
   IReadOnlyList<GuardPulse> guards;
   internal float CounterWidth {get;private set;}
   internal void PresentGuard(IReadOnlyList<GuardPulse> pulses){
@@ -69,7 +69,7 @@ namespace DragonIdle {
   internal float BeamRootDepth { get; private set; }
 
   internal void Present(RoundMotionArt library, RoundMotionArt.Clip track, float at, bool flip, bool missed, bool rear = false, Vector2? origin = null, float end = Width,
-   Vector2? travel = null, float scale = Scale, Vector2? target = null) {
+   Vector2? travel = null, float scale = Scale, Vector2? target = null, Vector2? rightFingertips = null) {
    art = library;
    clip = track;
    time = at;
@@ -81,6 +81,7 @@ namespace DragonIdle {
    poseScale = scale;
    beamEnd = end;
    beamTarget = target;
+   visibleRightFingertips=rightFingertips;
    volley=null;
    discCuts=null;
    guards=null;
@@ -93,36 +94,67 @@ namespace DragonIdle {
    BeamOpacity=BeamReach=BeamRadius=BeamTipOpacity=BeamChargeRadius=BeamRootDepth=BeamTailRadius=0;
    effectScale=1;
    CounterWidth=0;
+   RaditzSphereRadius=0;
+   RaditzBeamBranches=0;
+   BeamDissolveParticles=0;
+   KrillinDiscRadius=0;
+   KrillinDiscTrailParticles=0;
    if(clip!=null){
     if(behind){
      ScaleLocalEffect(Ground(time));
      if(clip.id=="tienCannon")DrawTienCharge(mesh);
-     else if(clip.id=="yamchaRise")DrawYamchaRise(mesh);
+     else if(clip.id=="yamchaRise"){
+      if(clip.fxStyle=="Yamcha")DrawYamchaFeignGlow(mesh);
+      else DrawYamchaRise(mesh);
+     }
      else if(clip.id=="gohanRally")DrawGohanRally(mesh);
      else if(clip.id=="gohanHeavy")DrawGohanHeavyCharge(mesh);
+     else if(clip.fx=="raditzAura"&&clip.fxStyle=="Raditz")DrawRaditzStance(mesh);
      else{DrawHalo(mesh);if(clip.fx=="krillinMuster")DrawKrillinOpening(mesh); }
     }else{
      var beam=clip.beam;
      if(clip.id=="piccoloCharge")
-      BeamChargeRadius=DrawPiccoloCharge(mesh,Palm(time,false),.86f*Mathf.InverseLerp(50,560,time),time);
-     if(clip.id=="piccoloCounter")DrawPiccoloCounter(mesh);
-     if(clip.id=="krillinDisc")DrawKrillinDisc(mesh);
+      BeamChargeRadius=clip.fxStyle=="Piccolo"?
+       DrawPiccoloBrowEnergy(mesh,PiccoloFingertips(time),Ease((time-42)/402),time):
+       DrawPiccoloCharge(mesh,Palm(time,false),.86f*Mathf.InverseLerp(50,560,time),time);
+     if(clip.id=="piccoloCounter"){
+      if(clip.fxStyle=="Piccolo")DrawPiccoloCounterSurge(mesh);
+      else DrawPiccoloCounter(mesh);
+     }
+     if(clip.id=="krillinDisc"){
+      if(clip.fxStyle=="Krillin")DrawKrillinDiscRevised(mesh);
+      else DrawKrillinDisc(mesh);
+     }
      if(clip.id=="tienCannon")DrawTienCannon(mesh);
      if(clip.id=="tienFinger")DrawTienFinger(mesh);
      if(clip.fx=="saibaDetonate")DrawSaibamanDetonation(mesh);
-     if(clip.fx=="raditzKi"&&time>=110&&time<clip.launchAt+110)DrawRaditzCharge(mesh);
+     if(clip.fx=="raditzKi"&&time>=110)DrawRaditzCharge(mesh);
      if(beam!=null&&beam.gather>0&&time<beam.extinguish){
-      if(clip.id=="specialBeam")DrawPiccoloBeam(mesh,beam);
-      else if(time>=beam.gather)DrawBeam(mesh,beam);
+      if(clip.id=="specialBeam"){
+       if(clip.fxStyle=="Piccolo")DrawPiccoloCannon(mesh,beam);
+       else DrawPiccoloBeam(mesh,beam);
+      }
+      else if(time>=beam.gather){
+       if(clip.id=="ultimate"&&clip.fxStyle=="Goku")DrawGokuKamehameha(mesh,beam);
+       else DrawBeam(mesh,beam);
+      }
      }
+     if(!string.IsNullOrEmpty(clip.fxStyle)&&clip.id!="piccoloCharge"&&clip.id!="specialBeam")
+      DrawReworkedRelease(mesh);
      foreach(var cue in clip.impacts){
       var pose=art.Atlas[cue.drawing];
       var point=RoundMotionArt.Anchor(pose,pose.hit,Ground(cue.at),poseScale);
       ScaleLocalEffect(point);
       float age=time-cue.at;
-      if(age<0&&age>=-74)DrawWindup(mesh,point,cue.kind,1+age/74);
+      if(age<0&&age>=-74&&string.IsNullOrEmpty(clip.fxStyle))DrawWindup(mesh,point,cue.kind,1+age/74);
+      if(clip.id=="yamchaWolf"&&clip.fxStyle=="Yamcha"){
+       if(age>=-42&&age<325)DrawYamchaClaw(mesh,point,age,cue.at==clip.impactAt,cue.drawing%2);
+       continue;
+      }
       if(!dodged&&age>=0&&age<355){
-       DrawImpact(mesh,point,cue.kind,age);
+       if(clip.id=="raditzKick"&&clip.fxStyle=="Raditz")DrawRaditzKick(mesh,point,age);
+       else if(string.IsNullOrEmpty(clip.fxStyle))DrawImpact(mesh,point,cue.kind,age);
+       else DrawReworkedStrike(mesh,point,cue.kind,age);
        if(clip.id=="gohanFlash")DrawGohanFlash(mesh,point,age);
        if(cue.kind=="wolf")DrawYamchaWolf(mesh,point,age);
       }
@@ -133,6 +165,7 @@ namespace DragonIdle {
     effectScale=1;
     foreach(var guard in guards){
      if(guard.Barrier)DrawGohanBarrier(mesh,guard.Center,guard.Age);
+     else if(guard.PiccoloSurge)DrawPiccoloCounterShield(mesh,guard.Center,guard.Age);
      else DrawPiccoloGuard(mesh,guard.Center,guard.Age);
     }
    }
@@ -155,8 +188,8 @@ namespace DragonIdle {
   void DrawVolleyOrb(VertexHelper mesh,VolleyOrb orb){
    if(orb.Acid){DrawSaibamanAcid(mesh,orb);return;}
    if(orb.Scatter){DrawKrillinScatter(mesh,orb);return;}
-   if(orb.TwinRay){DrawRaditzRay(mesh,orb);return;}
-   if(orb.Raditz){DrawRaditzSingleOrb(mesh,orb);return;}
+   if(orb.TwinRay){DrawRaditzTwinBeam(mesh,orb);return;}
+   if(orb.Raditz){DrawRaditzVolatileOrb(mesh,orb);return;}
    var warm=new Color32(255,199,70,255);
    var flare=new Color32(255,249,197,255);
    float age=orb.Elapsed-orb.Flight;
@@ -181,116 +214,96 @@ namespace DragonIdle {
   }
 
   void DrawSaibamanAcid(VertexHelper mesh,VolleyOrb orb){
-   var acidGreen=new Color32(160,182,66,255);
-   var drop=new Color32(231,240,142,255);
-   float t=Mathf.Clamp01(orb.Elapsed/orb.Flight);
+   var rich=new Color32(91,143,24,255);
+   var green=new Color32(172,211,53,255);
+   var yellow=new Color32(242,253,124,255);
    float age=orb.Elapsed-orb.Flight;
    if(age<0){
-    Vector2 point=Vector2.Lerp(orb.Start,orb.End,t);
-    point.y-=Mathf.Sin(t*Mathf.PI)*(31+orb.Index*6);
-    var tail=point-(orb.End-orb.Start).normalized*(14+12*t);
-    Line(mesh,tail,point,7,Alpha(acidGreen,.82f));
-    Line(mesh,tail,point,2.6f,Alpha(drop,.84f));
-    Glow(mesh,point,9,6,drop,Alpha(acidGreen,0));
-    for(int i=1;i<=3;i++){
-     var p=Vector2.Lerp(point,tail,i*.24f)+new Vector2(0,Mathf.Sin(i+t*6)*4);
-     Glow(mesh,p,4-i*.5f,3-i*.4f,Alpha(acidGreen,.85f),Alpha(drop,0));
+    float head=Mathf.Clamp01(orb.Elapsed/orb.Flight);
+    float trail=Mathf.Max(0,head-.39f);
+    Vector2 At(float fraction){
+     var path=Vector2.Lerp(orb.Start,orb.End,fraction);
+     return path+new Vector2(0,-Mathf.Sin(Mathf.PI*fraction)*(28+orb.Index*7));
+    }
+    for(int i=0;i<7;i++){
+     float p=i/7f;
+     var a=At(Mathf.Lerp(trail,head,p));
+     var b=At(Mathf.Lerp(trail,head,(i+1)/7f));
+     float width=Mathf.Lerp(3,24,p)*Mathf.Lerp(.6f,1,head);
+     Line(mesh,a,b,width,Alpha(rich,.93f));
+     Line(mesh,a+new Vector2(0,-1),b+new Vector2(0,-1),width*.74f,Alpha(green,.94f));
+     Line(mesh,a+new Vector2(0,-2),b+new Vector2(0,-2),width*.24f,Alpha(yellow,.93f));
+    }
+    var tip=At(head);
+    Glow(mesh,tip,18,12,Alpha(yellow,.94f),Alpha(green,0));
+    for(int i=0;i<4;i++){
+     var tear=At(Mathf.Lerp(trail,head,.30f+i*.15f))+new Vector2(-i*4,(i%2==0?-1:1)*(8+i*4));
+     Glow(mesh,tear,5.5f,4,Alpha(green,.88f),Alpha(yellow,0));
     }
     return;
    }
-   if(orb.Miss)return;
-   float fade=1-Ease(age/185);
-   Glow(mesh,orb.End,19+age*.09f,14+age*.024f,Alpha(drop,fade),Alpha(acidGreen,0));
+   if(orb.Miss||age>=670)return;
+   float fade=1-Ease(Mathf.InverseLerp(265,670,age));
+   float splash=1-Ease(age/245);
+   var point=orb.End;
+   var feet=orb.Ground;
+   if(splash>0){
+    Glow(mesh,point,44+age*.052f,35+age*.045f,Alpha(yellow,splash*.87f),Alpha(green,0));
+    for(int i=0;i<9;i++){
+     float angle=i*.73f;
+     var ray=new Vector2(Mathf.Cos(angle),Mathf.Sin(angle));
+     var from=point+ray*(10+age*.018f);
+     var to=from+ray*(21+age*.076f);
+     Line(mesh,from,to,2.5f+i%3,Alpha(i%3==0?yellow:green,splash));
+    }
+   }
+   Glow(mesh,point+new Vector2(0,9),24,29,Alpha(green,.58f*fade),Alpha(rich,0));
+   Arc(mesh,feet,34+age*.019f,9,0,Mathf.PI*2,.04f,Alpha(green,.72f*fade),3.4f);
    for(int i=0;i<5;i++){
-    var p=orb.End+new Vector2((i-2)*(4+age*.08f),-10-age*.05f);
-    Glow(mesh,p,3,6,Alpha(acidGreen,fade),Alpha(drop,0));
+    float fall=Mathf.Clamp01((age-i*35)/335);
+    var drip=point+new Vector2((i-2)*8,-13+fall*(26+(i%2)*10));
+    Line(mesh,drip-new Vector2(1,8+4*fall),drip,4.1f,Alpha(rich,.75f*fade));
+    Glow(mesh,drip,3.6f,5,Alpha(yellow,.84f*fade),Alpha(green,0));
+    var vapor=point+new Vector2((i-2)*9+Mathf.Sin(i+age*.012f)*7,-14-age*.065f);
+    Glow(mesh,vapor,6+i%2*2,10,Alpha(new Color32(234,249,203,255),.23f*fade),Alpha(yellow,0));
    }
   }
 
   void DrawSaibamanDetonation(VertexHelper mesh){
-   var lime=new Color32(204,192,73,255);
-   var bright=new Color32(255,254,229,255);
-   var center=Ground(time)+new Vector2(0,-24);
-   ScaleLocalEffect(center);
-   if(time<clip.launchAt){
-    float rise=Ease(Mathf.InverseLerp(130,clip.launchAt,time));
-    Glow(mesh,center,23*rise,31*rise,Alpha(bright,.72f*rise),Alpha(lime,0));
-    Arc(mesh,center,27*rise,31*rise,time*.015f,time*.015f+4.8f,0,Alpha(lime,rise),2.6f);
+   var orange=new Color32(255,157,43,255);
+   var white=new Color32(255,251,232,255);
+   float age=time-clip.impactAt;
+   effectScale=1;
+   if(age<0){
+    float thrust=time-RoundMotionArt.SaibamanPushOff;
+    float touchdown=time-RoundMotionArt.SaibamanLanding;
+    if(thrust>=0&&thrust<238)DrawSaibaDust(mesh,stageOrigin,thrust,orange);
+    if(touchdown>=0&&touchdown<215)DrawSaibaDust(mesh,Ground(RoundMotionArt.SaibamanLanding),touchdown,orange);
+    if(time>=RoundMotionArt.SaibamanClasp+40){
+     var center=(beamTarget??Ground(time))+new Vector2(0,-7);
+     float pulse=Mathf.InverseLerp(RoundMotionArt.SaibamanClasp+40,clip.impactAt,time);
+     Glow(mesh,center,18+14*pulse,16+11*pulse,Alpha(white,pulse*.68f),Alpha(orange,0));
+     Arc(mesh,center,20,16,time*.019f,time*.019f+3.5f,0,Alpha(orange,pulse*.86f),2.8f);
+    }
     return;
    }
-   float age=time-clip.launchAt;
-   float fade=1-Ease(age/360);
-   if(fade<=0)return;
-   float radius=28+87*Ease(age/280);
-   Glow(mesh,center,radius,radius*.76f,Alpha(bright,fade),Alpha(lime,0));
-   Arc(mesh,center,radius,radius*.62f,0,Mathf.PI*2,0,Alpha(lime,fade),5.5f);
-   for(int i=0;i<12;i++){
-    var ray=new Vector2(Mathf.Cos(i*.524f),Mathf.Sin(i*.524f));
-    Line(mesh,center+ray*radius*.34f,center+ray*radius,2.8f,Alpha(lime,fade));
+   if(age>=460)return;
+   var origin=(beamTarget??Ground(time))+new Vector2(0,-21);
+   float spread=1-Mathf.Exp(-age/95);
+   float opacity=1-Ease(age/460);
+   Glow(mesh,origin,104+68*spread,81+35*spread,Alpha(white,.98f*opacity),Alpha(orange,0));
+   Arc(mesh,origin,35+174*spread,20+77*spread,0,Mathf.PI*2,0,Alpha(white,opacity*.93f),6.5f);
+   for(int ray=0;ray<14;ray++){
+    var direction=new Vector2(Mathf.Cos(ray*.449f),Mathf.Sin(ray*.449f));
+    Line(mesh,origin+direction*(21+39*spread),origin+direction*(54+96*spread),2+ray%3,Alpha(orange,opacity));
    }
-   if(!dodged&&time>=clip.impactAt&&beamTarget.HasValue)
-    Glow(mesh,beamTarget.Value,34*fade,24*fade,Alpha(bright,fade),Alpha(lime,0));
   }
 
-  void DrawRaditzSingleOrb(VertexHelper mesh,VolleyOrb orb){
-   var pink=new Color32(245,45,175,255);
-   var white=new Color32(255,231,249,255);
-   float flight=Mathf.Clamp01(orb.Elapsed/orb.Flight);
-   float age=Mathf.Max(0,orb.Elapsed-orb.Flight);
-   float glow=1-Ease(age/185);
-   if(glow<=0)return;
-   float strength=orb.Enhanced?1.5f:1;
-   var point=Vector2.Lerp(orb.Start,orb.End,flight);
-   if(orb.Miss)point.y-=16*flight;
-   var tail=Vector2.Lerp(orb.Start,point,Mathf.Max(0,1-(orb.Enhanced?.68f:.48f)*flight));
-   float radius=14*strength*(1+age*.003f);
-   Line(mesh,tail,point,7*strength,Alpha(pink,glow));
-   Line(mesh,tail,point,2.8f*strength,Alpha(white,glow*.95f));
-   Glow(mesh,point,radius*1.85f,radius*1.45f,Alpha(pink,glow*.85f),Alpha(pink,0));
-   Glow(mesh,point,radius*.56f,radius*.50f,Alpha(white,glow),Alpha(pink,0));
-   if(!orb.Miss&&age>0)Arc(mesh,point,radius*1.32f,radius*.82f,0,Mathf.PI*2,0,Alpha(pink,glow),2.2f);
-  }
-
-  internal static Vector2 RaditzHand(Vector2 palm,float scale,int hand){
-   var spacing=hand==0?new Vector2(-13,-10):new Vector2(9,11);
-   return palm+spacing*Mathf.Clamp(scale/.18f,1,2.5f);
-  }
-
-  void DrawRaditzRay(VertexHelper mesh,VolleyOrb orb){
-   var magenta=new Color32(244,38,174,255);
-   var rim=new Color32(249,116,218,255);
-   var core=new Color32(255,240,251,255);
-   float progress=Mathf.Clamp01(orb.Elapsed/orb.Flight);
-   float after=Mathf.Max(0,orb.Elapsed-orb.Flight);
-   float fade=1-Mathf.Clamp01(after/185);
-   var path=orb.End-orb.Start;
-   var axis=path.normalized;
-   var normal=new Vector2(-axis.y,axis.x);
-   var head=orb.Start+path*progress;
-   if(orb.Miss)head+=normal*(12*progress);
-   var tail=Vector2.Lerp(orb.Start,head,Mathf.InverseLerp(45,185,after));
-   float width=(18+5*Mathf.Sin(progress*Mathf.PI))*fade;
-   Line(mesh,tail,head,width*1.45f,Alpha(magenta,.35f*fade));
-   Line(mesh,tail,head,width,Alpha(magenta,.83f*fade));
-   Line(mesh,tail,head,width*.56f,Alpha(rim,.94f*fade));
-   Line(mesh,tail,head,width*.29f,Alpha(core,.97f*fade));
-   float tip=(13+(after>0&&!orb.Miss?after*.065f:0))*fade;
-   Glow(mesh,head,tip,tip,Alpha(core,fade),Alpha(magenta,0));
-   if(after<=50)Glow(mesh,tail,14*fade,12*fade,Alpha(rim,.8f*fade),Alpha(magenta,0));
-  }
-
-  void DrawRaditzCharge(VertexHelper mesh){
-   var center=Palm(time,false);
-   ScaleLocalEffect(center);
-   float progress=Mathf.InverseLerp(110,clip.launchAt,time);
-   float fade=1-Mathf.InverseLerp(clip.launchAt,clip.launchAt+110,time);
-   Color pink=new Color32(246,40,183,255),white=new Color32(255,229,248,255);
-   float radius=(clip.id=="raditzSurge"?22:14)*Mathf.SmoothStep(.18f,1,progress);
-   int hands=clip.id=="raditzTwin"?2:1;
-   for(int i=0;i<hands;i++){
-    var origin=hands==1?center:RaditzHand(center,poseScale,i);
-    Glow(mesh,origin,radius,radius*.88f,Alpha(white,.84f*fade),Alpha(pink,0));
-    Arc(mesh,origin,radius*1.3f,radius*.87f,time*.026f,4.2f,-.35f,Alpha(pink,fade*.8f),2);
+  void DrawSaibaDust(VertexHelper mesh,Vector2 feet,float age,Color tint){
+   float fade=1-Ease(age/238);
+   for(int i=0;i<4;i++){
+    var puff=feet+new Vector2((i-1.9f)*(4+age*.091f),-5-age*.037f);
+    Glow(mesh,puff,10+age*.027f,5+age*.021f,Alpha(tint,.48f*fade),Alpha(tint,0));
    }
   }
 
@@ -379,6 +392,11 @@ namespace DragonIdle {
     return;
    }
    float phase=Mathf.Clamp01(orb.Elapsed/orb.Flight);
+   if(clip?.fxStyle=="Krillin"&&orb.Elapsed<58){
+    float flash=1-Ease(orb.Elapsed/58f);
+    Glow(mesh,orb.Start,17+orb.Elapsed*.09f,11+orb.Elapsed*.06f,
+     Alpha(DiscWhite,flash*.92f),Alpha(DiscGold,0));
+   }
    float bend=10+orb.Index%3*7;
    var at=Vector2.Lerp(orb.Start,orb.End,phase)+new Vector2(0,-Mathf.Sin(phase*Mathf.PI)*bend);
    var direction=(orb.End-orb.Start).normalized;
@@ -562,6 +580,60 @@ namespace DragonIdle {
    Glow(mesh,p,22+age*.09f,17+age*.06f,Alpha(white,force*.55f),Alpha(blue,0));
   }
 
+  Color ReworkedAccent(){
+   switch(clip.fxStyle){
+    case "Goku":return new Color32(88,204,254,255);
+    case "Piccolo":return new Color32(188,225,113,255);
+    case "Krillin":return new Color32(255,232,107,255);
+    case "Raditz":return new Color32(248,109,201,255);
+    case "Yamcha":return new Color32(243,178,91,255);
+    case "Tien":return new Color32(255,207,89,255);
+    default:return new Color32(215,234,120,255);
+   }
+  }
+
+  void DrawReworkedStrike(VertexHelper mesh,Vector2 point,string kind,float age){
+   float phase=Ease(age/255);
+   if(phase>=1)return;
+   bool rising=kind=="lift"||kind=="uppercut";
+   bool sweep=kind=="sweep";
+   bool down=kind=="hammer";
+   var color=ReworkedAccent();
+   Vector2 direction=rising?new Vector2(.42f,-.91f):down?Vector2.up:Vector2.right;
+   Vector2 normal=new Vector2(-direction.y,direction.x);
+   float strength=1-phase;
+   for(int i=0;i<4;i++){
+    var start=point-direction*(23+7*i+phase*11)+normal*(i-1.5f)*5;
+    var end=point+direction*(17+phase*29+i*4)+normal*(i-1.5f)*10;
+    Line(mesh,start,end,i==2?3.4f:1.7f,Alpha(i==2?Color.white:color,strength*.89f));
+   }
+   float radius=18+phase*36;
+   Arc(mesh,point,radius,radius*(sweep||down?.38f:.70f),-.25f,Mathf.PI*1.62f,
+    rising?-.7f:0,Alpha(color,strength*.89f),3.6f);
+   Glow(mesh,point,26+phase*21,20+phase*13,Alpha(Color.white,strength*.88f),Alpha(color,0));
+  }
+
+  void DrawReworkedRelease(VertexHelper mesh){
+   float fire=clip.beam!=null&&clip.beam.fire>0?clip.beam.fire:clip.launchAt;
+   bool aura=fire<=0&&clip.impacts.Length==0;
+   if(fire<=0&&!aura)return;
+   float local=aura?Mathf.InverseLerp(95,Mathf.Min(630,clip.duration*.75f),time):
+    Mathf.InverseLerp(fire-180,fire+180,time);
+   if(local<=0||local>=1)return;
+   var source=aura?Ground(time)+new Vector2(0,-88):Palm(time,false);
+   if(clip.fx=="saibaDetonate")source=Ground(time)+new Vector2(0,-48);
+   ScaleLocalEffect(source);
+   var color=ReworkedAccent();
+   float visible=Mathf.Sin(local*Mathf.PI);
+   var spread=17+38*local;
+   Arc(mesh,source,spread,spread*.54f,time*.018f,time*.018f+4.2f,-.5f,Alpha(color,visible*.84f),2.5f);
+   for(int i=0;i<6;i++){
+    var angle=i*Mathf.PI/3+time*.004f;
+    var offset=Oval(spread*1.2f,spread*.77f,angle,0);
+    Line(mesh,source+offset*.63f,source+offset,1.7f,Alpha(i%2==0?color:Color.white,visible*.82f));
+   }
+  }
+
   void DrawWindup(VertexHelper mesh, Vector2 p, string kind, float a) {
    for (int n = 0; n < 5; n++) {
     float offset = (n - 2) * 4.5f;
@@ -626,6 +698,106 @@ namespace DragonIdle {
    Glow(mesh,wrist,size*1.42f,size*1.42f,Alpha(PiccoloViolet,strength*.82f),Alpha(PiccoloViolet,0));
    Glow(mesh,wrist,size*.55f,size*.55f,Alpha(Color.white,strength),Alpha(PiccoloGold,0));
    return size;
+  }
+
+  Vector2 PiccoloFingertips(float at){
+   if(visibleRightFingertips.HasValue)return visibleRightFingertips.Value;
+   var pose=art.At(clip,at);
+   return pose.HasRightFingertips?RoundMotionArt.Anchor(pose,pose.RightFingertipCenter,Ground(at),poseScale):Palm(at,false);
+  }
+
+  float DrawPiccoloBrowEnergy(VertexHelper mesh,Vector2 point,float gain,float phase){
+   if(gain<=0)return 0;
+   BeamPalm=point;
+   effectScale=1;
+   float radius=3+5*gain+.55f*Mathf.Sin(phase*.023f);
+   Glow(mesh,point,radius*2.2f,radius*1.9f,Alpha(PiccoloViolet,.74f*gain),Alpha(PiccoloViolet,0));
+   Glow(mesh,point,radius,radius*.84f,Alpha(Color.white,gain),Alpha(PiccoloGold,0));
+   for(int i=0;i<6;i++){
+    float angle=i*Mathf.PI/3+phase*.003f;
+    float pull=1-Mathf.Repeat(phase*.0028f+i*.19f,1);
+    var direction=Oval(1,1,angle,0);
+    var end=point+direction*(radius*(.9f+pull*1.05f));
+    Line(mesh,end+direction*(2+pull*6),end,1.2f,Alpha(i%2==0?PiccoloGold:PiccoloViolet,gain*(1-pull*.65f)));
+   }
+   return radius;
+  }
+
+  void DrawPiccoloCannon(VertexHelper mesh,RoundMotionArt.Beam beam){
+   effectScale=1;
+   if(time<beam.fire){
+    var hand=PiccoloFingertips(time);
+    float wind=Ease((time-beam.compress)/(beam.fire-beam.compress));
+    BeamChargeRadius=DrawPiccoloBrowEnergy(mesh,hand,1-.22f*wind,time);
+    float whip=Mathf.InverseLerp(beam.push-48,beam.fire,time);
+    if(whip>0){
+     float length=12+whip*41;
+     for(int i=0;i<3;i++){
+      Vector2 offset=new Vector2(-4,i*5-4);
+      Line(mesh,hand+offset+new Vector2(-length,12+i*2),hand+offset,1.5f+i*.4f,
+       Alpha(i==1?Pale:PiccoloViolet,whip*.85f));
+     }
+    }
+    return;
+   }
+
+   var palm=PiccoloFingertips(beam.fire);
+   float age=time-beam.fire;
+   float reach=Mathf.Clamp01(age/beam.flight);
+   float through=Ease((age-beam.flight)/93);
+   float life=1-Ease(Mathf.InverseLerp(beam.cut,beam.extinguish,time));
+   float hitX=Mathf.Clamp(beamTarget?.x??beamEnd,palm.x+14,Width);
+   float forward=Mathf.Max(Width+190,hitX+250);
+   float headX=Mathf.Lerp(Mathf.Lerp(palm.x,hitX,reach),forward,through);
+   var tip=new Vector2(headX,palm.y);
+   float recoil=1-Ease(age/205);
+   float radius=(17+17*recoil)*Mathf.Lerp(.5f,1,life);
+   BeamPalm=palm;BeamTip=tip;BeamOpacity=life;BeamReach=reach;
+   BeamRadius=radius;BeamTipOpacity=life;BeamRootDepth=radius;
+   Glow(mesh,palm,19+radius*1.65f,12+radius*.96f,Alpha(PiccoloGold,life*(.64f+recoil*.28f)),Alpha(PiccoloViolet,0));
+   if(headX-palm.x>1){
+    var orchid=new Color32(157,53,234,255);
+    var cream=new Color32(255,248,204,255);
+    DrawWaveLayer(mesh,palm,tip,Vector2.up,radius*1.9f,life,orchid,.77f);
+    DrawWaveLayer(mesh,palm,tip,Vector2.up,radius*1.12f,life,PiccoloViolet,.94f);
+    DrawWaveLayer(mesh,palm,tip,Vector2.up,radius*.62f,life,PiccoloGold,.98f);
+    DrawWaveLayer(mesh,palm,tip,Vector2.up,radius*.25f,life,cream,1);
+    Line(mesh,palm,tip,3.5f*life,Alpha(Color.white,.94f*life));
+    var back=palm;
+    var front=palm;
+    float span=headX-palm.x;
+    for(int i=1;i<=82;i++){
+     float x=span*i/82f;
+     float turn=x*.080f-age*.040f;
+     float roll=radius*(.63f+.24f*Mathf.Sin(x*.004f))*Mathf.Sin(turn);
+     var line=palm+new Vector2(x,roll);
+     var other=palm+new Vector2(x,-roll);
+     Line(mesh,back,line,2.1f+recoil*.9f,Alpha(PiccoloGold,life*(.60f+.34f*Mathf.Cos(turn))));
+     Line(mesh,front,other,1.1f+recoil,Alpha(cream,life*(.54f-.33f*Mathf.Cos(turn))));
+     back=line;
+     front=other;
+    }
+    if(through<.98f)Glow(mesh,tip,24+19*recoil,radius,Alpha(cream,life),Alpha(PiccoloViolet,0));
+   }
+
+   float pulse=1-Ease(age/235);
+   if(pulse>0){
+    float burst=Ease(age/105);
+    Arc(mesh,palm+Vector2.right*(5+burst*49),7+22*burst,17+41*burst,-1.41f,1.41f,0,Alpha(Pale,pulse),4.7f);
+    for(int i=0;i<10;i++){
+     float slope=(i-4.5f)*.23f;
+     var tail=palm+new Vector2(4+i%3*6,slope*17);
+     var end=tail+new Vector2((43+i%4*18)*(1+burst),slope*(38+burst*46));
+     Line(mesh,tail,end,i%3==0?3.7f:1.6f,Alpha(i%2==0?Color.white:PiccoloGold,pulse*.83f));
+    }
+   }
+   float contactAge=age-beam.flight;
+   if(!dodged&&contactAge>=0&&contactAge<220){
+    float burst=Ease(contactAge/220);
+    var contact=new Vector2(hitX,palm.y);
+    Glow(mesh,contact,33+burst*51,26+burst*34,Alpha(Pale,1-burst),Alpha(PiccoloViolet,0));
+    Arc(mesh,contact,10+36*burst,25+42*burst,-1.29f,1.29f,0,Alpha(PiccoloGold,(1-burst)*.94f),3.3f);
+   }
   }
 
   void DrawPiccoloBeam(VertexHelper mesh,RoundMotionArt.Beam beam){
@@ -716,6 +888,104 @@ namespace DragonIdle {
    Glow(mesh,center,size,size*.92f,Alpha(flash,.75f*power),Alpha(PiccoloGold,0));
    Arc(mesh,center,size*.83f,size*1.25f,-2.20f,1.13f,-.42f,Alpha(flash,power),2.5f);
    Arc(mesh,center,size*.54f,size*1.44f,.55f,3.45f,.28f,Alpha(PiccoloGold,.82f*power),2);
+  }
+
+  void DrawPiccoloCounterShield(VertexHelper mesh,Vector2 center,float age){
+   effectScale=1;
+   float spread=Ease(age/185);
+   float fade=1-Ease(age/312);
+   var purple=new Color32(194,112,255,255);
+   var mint=new Color32(180,255,144,255);
+   float radius=15+spread*29;
+   Glow(mesh,center,radius,radius*.84f,Alpha(purple,fade*.62f),Alpha(purple,0));
+   Arc(mesh,center,radius*.61f,radius,-1.37f,1.37f,.09f,Alpha(purple,fade),3.5f);
+   Arc(mesh,center,radius*.44f,radius*.88f,-1.24f,1.24f,.09f,Alpha(mint,fade*.91f),2.1f);
+   for(int i=0;i<5;i++){
+    float angle=i*Mathf.PI*.40f+age*.008f;
+    var ray=Oval(1,1,angle,0);
+    Line(mesh,center+ray*(8+spread*8),center+ray*(19+spread*17),i==2?2.2f:1.4f,
+     Alpha(i%2==0?mint:purple,fade*.84f));
+   }
+  }
+
+  void DrawPiccoloCounterSurge(VertexHelper mesh){
+   if(!beamTarget.HasValue)return;
+   effectScale=1;
+   var purple=new Color32(175,95,247,255);
+   var green=new Color32(136,239,65,255);
+   var white=new Color32(247,255,206,255);
+   if(time<clip.launchAt){
+    var palm=Palm(time,false);
+    float squeeze=Ease(time/clip.launchAt);
+    float radius=Mathf.Lerp(21,9,squeeze);
+    Glow(mesh,palm,radius*2.1f,radius*1.8f,Alpha(green,.53f+squeeze*.37f),Alpha(purple,0));
+    Glow(mesh,palm,radius*.63f,radius*.63f,Alpha(white,.92f),Alpha(green,.2f));
+    for(int i=0;i<3;i++){
+     float angle=i*Mathf.PI*2/3+time*.012f;
+     Arc(mesh,palm,radius*1.34f,radius*.62f,angle,angle+1.24f,-.53f,Alpha(purple,.87f),2.45f);
+    }
+    return;
+   }
+
+   var hand=Palm(clip.launchAt,false);
+   var target=beamTarget.Value;
+   var direction=(target-hand).normalized;
+   var side=new Vector2(-direction.y,direction.x);
+   float angleOfAttack=Mathf.Atan2(direction.y,direction.x);
+   float age=Mathf.Max(0,time-clip.impactAt);
+   float power=1-Ease(age/268);
+   if(power<=0)return;
+
+   float travel=Mathf.InverseLerp(clip.launchAt,clip.impactAt,time);
+   var nose=Vector2.Lerp(hand,target,Mathf.Pow(travel,.79f))+direction*(age*.068f);
+   var root=Vector2.Lerp(hand,nose,Ease(age/230)*.76f);
+   float wing=10+44*Ease(travel)+age*.055f;
+   CounterWidth=wing*2;
+   int strip=mesh.currentVertCount;
+   for(int k=0;k<=16;k++){
+    float u=k/16f;
+    var flow=Vector2.Lerp(root,nose,u);
+    float span=Mathf.Lerp(3,wing,u*u)*(1+.075f*Mathf.Sin(u*23-time*.037f));
+    Vertex(mesh,flow-side*span,Alpha(purple,0));
+    Vertex(mesh,flow-side*span*.72f,Alpha(purple,power*.68f));
+    Vertex(mesh,flow-side*span*.38f,Alpha(green,power*.92f));
+    Vertex(mesh,flow,Alpha(white,power*.86f));
+    Vertex(mesh,flow+side*span*.38f,Alpha(green,power*.92f));
+    Vertex(mesh,flow+side*span*.72f,Alpha(purple,power*.68f));
+    Vertex(mesh,flow+side*span,Alpha(purple,0));
+    if(k==0)continue;
+    int start=strip+(k-1)*7;
+    for(int band=0;band<6;band++){
+     int row=start+band;
+     mesh.AddTriangle(row,row+1,row+7);
+     mesh.AddTriangle(row+1,row+8,row+7);
+    }
+   }
+
+   float flash=1-Ease((time-clip.launchAt)/170);
+   if(flash>0){
+    Glow(mesh,hand,28,27,Alpha(white,flash),Alpha(green,0));
+    Arc(mesh,hand+direction*(10+14*(1-flash)),7+9*(1-flash),19+18*(1-flash),-1.38f,1.38f,
+     angleOfAttack,Alpha(white,flash),3.4f);
+   }
+   for(int i=0;i<3;i++){
+    float level=1-i*.24f;
+    var curl=Vector2.Lerp(root,nose,level);
+    float swell=wing*(.55f+.45f*level);
+    Arc(mesh,curl,9+travel*15,swell,-1.34f,1.34f,angleOfAttack,Alpha(i==0?white:green,power*level),i==0?5:3.1f);
+    Arc(mesh,curl-direction*6,8+travel*11,swell*1.05f,-1.40f,1.40f,angleOfAttack,Alpha(purple,power*.84f*level),2.5f);
+   }
+
+   if(!dodged&&time>=clip.impactAt){
+    var contact=target+direction*(2+age*.11f);
+    Glow(mesh,contact,24+age*.19f,33+age*.13f,Alpha(white,power),Alpha(green,0));
+    for(int i=0;i<8;i++){
+     float spread=(i-3.5f)*.235f;
+     var ray=contact+side*(spread*wing*.64f);
+     Line(mesh,ray,ray+direction*(21+i%3*11+age*.17f)+side*(spread*(50+age*.27f)),i%3==0?3.8f:1.55f,
+      Alpha(i%2==0?white:purple,power*.90f));
+    }
+   }
   }
 
   void DrawPiccoloCounter(VertexHelper mesh){

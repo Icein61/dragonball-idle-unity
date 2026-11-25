@@ -60,10 +60,21 @@ namespace DragonIdle {
    UpdateRoundMotion(dt);
    if(presenting||roundPaused||roundBattle.Result!=0)return;
    roundClock-=dt;
-   if(roundClock<=0)AdvanceRoundPreview(false);
+   if(roundClock>0)return;
+   if(roundDemo&&!ReducedRoundMotion){
+    var reviving=roundBattle.NextRevivingFighter;
+    if(reviving?.CardId==RoundMotionArt.YamchaCardId&&demoReactions.TryGetValue(reviving,out var fall)&&
+       fall.Defeated&&fall.Active)return;
+   }
+   AdvanceRoundPreview(false);
   }
   float NormalRoundActionGap=>roundDemo&&DemoScenes().demo.actionGap>0?DemoScenes().demo.actionGap:RoundActionGap;
-  float NextRoundActionGap()=>roundBattle.ReactionSkillNext?RoundReactionGap:roundBattle.PursuitNext?RoundPursuitGap:NormalRoundActionGap;
+  float NextRoundActionGap(){
+   if(roundBattle.ReactionSkillNext)return RoundReactionGap;
+   if(!roundBattle.PursuitNext)return NormalRoundActionGap;
+   float remaining=DemoChaseRemaining();
+   return remaining>=0?Mathf.Max(0,remaining-RoundMotionPlayback.PursuitContact)/1000:RoundPursuitGap;
+  }
   void AdvanceRoundPreview(bool manual){
    if(roundBattle==null)return;
    if(roundMotion!=null){FinishRoundMotion(true);return;}
@@ -73,6 +84,7 @@ namespace DragonIdle {
    roundLast=roundBattle.Step();
    roundClock=NextRoundActionGap();
    if(roundLast!=null){
+    if(roundDemo)BeginDemoComboAction(roundLast);
     if(StartRoundActionMotion(roundLast,manual))roundBefore=before;
     else {
      PlayPursuitCue(roundLast);
@@ -83,7 +95,7 @@ namespace DragonIdle {
       PlayRoundCue("yamcha-rise");
      }
      if(!roundLast.Charging)foreach(var hit in roundLast.Hits){
-      if(roundDemo)RecordDemoHit(hit);
+      if(roundDemo){RecordDemoHit(hit);RevealDemoComboHit(hit,true);}
       PlayRoundHitVoice(hit);
      }
      if(roundDemo)demoStats.RecordCost(roundLast);

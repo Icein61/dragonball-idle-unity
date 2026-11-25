@@ -124,11 +124,11 @@ namespace DragonIdle {
    switch(cardId){
     case "goku-test":return new Vector2(.47f,.28f);
     case "vegeta-test":return new Vector2(.52f,.20f);
-    case "piccolo-test":return new Vector2(.34f,.266f);
+    case RoundMotionArt.PiccoloCardId:return new Vector2(.56f,.17f);
     case "krillin-test":return new Vector2(.616f,.381f);
     case "gohan-test":return new Vector2(.51f,.27f);
     case "tien-test":return new Vector2(.58f,.21f);
-    case Data.SaibamanId:return new Vector2(.50f,.51f);
+    case Data.SaibamanId:return new Vector2(.50f,.43f);
     case "yamcha-saiyan-v020":return new Vector2(.65f,.22f);
     case "chiaotzu-saiyan-v020":return new Vector2(.60f,.29f);
     case "goku-saiyan-kaioken-v020":return new Vector2(.53f,.26f);

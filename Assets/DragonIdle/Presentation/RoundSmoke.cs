@@ -9,7 +9,7 @@ namespace DragonIdle {
  public partial class DemoGame {
   void VerifyGokuOpenings(){
    var icon=RoundMotionArt.LoadOpeningIcon();
-   AssertSmoke(icon!=null&&icon.width==1254&&icon.height==1254&&GokuArt.Atlas.Count(pose=>pose.Texture.name=="CombatPoses")>=11&&GokuArt["opening"].duration==1050,"Missing Goku art");
+   AssertSmoke(icon!=null&&icon.width==1224&&icon.height==1224&&GokuArt.Atlas.Count(pose=>pose.Texture.name=="CombatPoses")>=11&&GokuArt["opening"].duration==1050,"Missing Goku art");
    var expected=roundBattle.Order.SelectMany(fighter=>RoundRules().For(fighter.CardId).skills
     .Where(skill=>skill.trigger=="opening"||skill.trigger=="whileAlive"||skill.trigger=="roundStart")
     .Select(skill=>(Fighter:fighter,Skill:skill))).ToArray();
@@ -32,18 +32,22 @@ namespace DragonIdle {
     bool goku=active.CardId==RoundMotionArt.CardId;
     if(goku){
      gokuOpenings++;
-     AssertSmoke(roundSkillArt.texture==icon&&roundSkillArt.gameObject.activeSelf,"Goku opening icon was replaced");
+     AssertSmoke(roundSkillArt.texture==icon&&roundSkillArt.gameObject.activeSelf&&
+      roundSkillArt.transform.Find("SkillFrame")!=null&&Mathf.Abs(roundSkillArt.uvRect.x-618f/icon.width)<.001f,
+      "Goku opening did not bind the reviewed skill region");
     }else if(active.CardId==RoundMotionArt.VegetaCardId){
      otherOpenings++;
      AssertSmoke(roundSkillArt.texture!=null&&roundSkillArt.texture.name=="saiyan-elite"&&roundMotion.Clip.id=="opening",
       "Vegeta missing the authored opening and icon");
     }else if(active.CardId==RoundMotionArt.KrillinCardId){
      otherOpenings++;
-     AssertSmoke(roundSkillArt.texture==Resources.Load<Texture2D>("Art/V0154/Krillin/skill-icons")&&
+     AssertSmoke(roundSkillArt.texture==Resources.Load<Texture2D>(RoundMotionArt.KrillinFolder+"skill-images")&&
+      roundSkillArt.transform.Find("SkillFrame")!=null&&
       roundMotion.Clip.fx=="krillinMuster","Krillin missing the authored opening and icon");
     }else if(active.CardId==RoundMotionArt.RaditzCardId){
      otherOpenings++;
-     AssertSmoke(roundSkillArt.texture==Resources.Load<Texture2D>("Art/V0161/Raditz/skill-icons")&&
+     AssertSmoke(roundSkillArt.texture==Resources.Load<Texture2D>(RoundMotionArt.RaditzFolder+"skill-images")&&
+      roundSkillArt.transform.Find("SkillFrame")!=null&&
       roundMotion.Clip.fx=="raditzAura","Raditz missing the phase skill opening art");
     }else {
      otherOpenings++;
@@ -82,7 +86,7 @@ namespace DragonIdle {
     UpdateRoundPreview((time-run.Time)/1000);
     return;
    }
-   float slowed=run.IsUltimate?Mathf.Max(0,Mathf.Min(time,run.ReleaseAt+RoundMotionPlayback.ReleaseSlowSpan)
+   float slowed=run.IsUltimate&&!run.IsGokuKamehameha?Mathf.Max(0,Mathf.Min(time,run.ReleaseAt+RoundMotionPlayback.ReleaseSlowSpan)
     -Mathf.Max(run.Time,run.ReleaseAt)):0;
    float running=run.DemoLocomotion&&!run.IsPursuit&&run.Clip!=null?
     Mathf.Max(0,Mathf.Min(time,run.Clip.runUntil)-run.Time):0;
@@ -155,15 +159,15 @@ namespace DragonIdle {
    UpdateRoundPreview(.77f/roundMotion.PlaybackRate);
    Canvas.ForceUpdateCanvases();
    AssertSmoke(roundFrontFx.GeometryCount>0&&roundMotionOutcome.text==""&&roundLog.Count==0,"Charge rendered a premature impact");
-   UpdateRoundPreview(.47f/roundMotion.PlaybackRate);
+   AdvanceToMotionTime(roundMotion.ReleaseAt+24);
    Canvas.ForceUpdateCanvases();
    AssertSmoke(roundFrontFx.GeometryCount>300&&WaitingForRoundImpact&&VisibleRoundVitals(target).HP==1,"Beam transit revealed before arrival");
-   UpdateRoundPreview(.44f/roundMotion.PlaybackRate);
+   AdvanceToMotionTime(roundMotion.ImpactAt+35);
    AssertSmoke(roundLog.Count==1&&VisibleRoundVitals(target).HP==0&&row.All(hit=>VisibleRoundVitals(hit.Target).HP==hit.Target.HP),"Beam arrival did not reveal the full row once");
-   AdvanceToMotionTime(2280);
+   AdvanceToMotionTime(roundMotion.Clip.beam.extinguish+30);
    Canvas.ForceUpdateCanvases();
    AssertSmoke(roundFrontFx.GeometryCount==0&&roundMotion!=null&&roundLog.Count==1,"Beam did not extinguish through recovery");
-   UpdateRoundPreview(.32f/roundMotion.PlaybackRate);
+   AdvanceToMotionTime(roundMotion.Duration+2);
    AssertSmoke(roundMotion==null,"Ultimate did not return to idle");
 
    audioSettings.ReducedMotion=true;
@@ -238,7 +242,7 @@ namespace DragonIdle {
      Enumerable.Range(1,RoundBoard.Cells).All(slot=>grid.Layout.Center(slot)==DemoGround(side,slot)&&
       grid.Layout.SlotAt(DemoGround(side,slot))==slot),"Battle tiles must be congruent and centered on roster anchors");
    }
-   AssertSmoke(demoReactionArt["entry"].poses.Length>1&&roundCueClips.Count==(Data.IsRoundCard(RoundMotionArt.SaibamanCardId)?106:97)&&
+   AssertSmoke(demoReactionArt["entry"].poses.Length>1&&roundCueClips.Count==(Data.IsRoundCard(RoundMotionArt.SaibamanCardId)?109:100)&&
     roundCueClips["opening-passive"].Clip!=roundCueClips["pursuit-start"].Clip&&
     roundCueClips.Values.All(cue=>cue.Clip!=null&&cue.Clip.samples>0&&cue.Gain>0)&&
     roundCueAudio!=null&&roundCueAudio.volume==0&&!roundCueAudio.isPlaying&&Resources.LoadAll<AudioClip>("Audio/V0132/Goku").Length==0&&Resources.LoadAll<AudioClip>("Audio/V0133/Goku").Length==0,
@@ -261,52 +265,55 @@ namespace DragonIdle {
     demoReactions[opponent].Track==null&&VisibleRoundVitals(opponent).HP==opponent.MaxHP,"Duel revealed hit before the beam");
 
    cues=roundCueEvents;
-   UpdateRoundPreview(.67f/roundMotion.PlaybackRate);
+   var beam=roundMotion.Clip.beam;
+   AdvanceToMotionTime(510);
    Canvas.ForceUpdateCanvases();
-   float chargeRadius=demoFrontFx.BeamChargeRadius;
-   AssertSmoke(roundCueEvents==cues+2&&demoFrontFx.GeometryCount>0&&chargeRadius>23,"Charge needs a voice and an effect before release");
-   AdvanceToMotionTime(1000);
+   Vector2 hip=demoFrontFx.BeamPalm;
+   AssertGokuPalmCharge(goku,22);
+   AdvanceToMotionTime(720);
+   Canvas.ForceUpdateCanvases();
+   AssertGokuPalmCharge(goku,23);
+   AssertSmoke(Vector2.Distance(hip,demoFrontFx.BeamPalm)>5&&roundCueEvents==cues+2&&
+    demoFrontFx.GeometryCount>0&&roundCueClips["beam"].Clip.name=="beam-sustain"&&roundCueClips["beam"].Clip.length>3.25f,
+    "The charge needs its second palm anchor and the sustained release audio");
+   AdvanceToMotionTime(roundMotion.ReleaseAt-20);
    var castLabel=roundSkillBadge.anchoredPosition;
    AssertSmoke(demoStage.localScale==Vector3.one&&demoStage.anchoredPosition==Vector2.zero&&
     roundSkillBadge.gameObject.activeSelf&&roundSkillBadge.parent==demoViewport&&roundSkillText.text==last.Name&&
-    roundSkillArt.gameObject.activeSelf&&roundSkillArt.texture.name=="skill-icons"&&roundSkillArt.texture.width==1254&&
-    Mathf.Abs(roundSkillArt.uvRect.x-649f/1254)<.001f&&Mathf.Abs(roundSkillArt.uvRect.width-538f/1254)<.001f,
-    "Pre-release framing or original skill-art binding failed");
-   UpdateRoundPreview(.07f/roundMotion.PlaybackRate);
-   float earlyZoom=demoStage.localScale.x;
-   AssertSmoke(Mathf.Abs(roundMotion.Time-(roundMotion.ReleaseAt+50*RoundMotionPlayback.ReleaseRate))<.1f&&
-    roundCutShade.color.a>0&&earlyZoom>1&&earlyZoom<1.025f&&roundSkillBadge.anchoredPosition==castLabel,
-    "Ultimate camera must ease in while the badge stays fixed");
-   AdvanceToMotionTime(1230);
-   AssertSmoke(Mathf.Abs(demoStage.localScale.x-1.075f)<.001f&&roundSkillBadge.anchoredPosition==castLabel,
-    "Camera did not reach its restrained zoom or the badge moved");
-   AssertSmoke(roundCueEvents==cues+4&&demoReactions[opponent].Track==null&&roundLog.Count==0,
-    "Beam sound and flight started after or revealed too early");
-   AdvanceToMotionTime(1350);
+    roundSkillArt.gameObject.activeSelf&&roundSkillArt.texture==RoundMotionArt.LoadOpeningIcon()&&
+    roundSkillArt.transform.Find("SkillFrame")!=null&&
+    Mathf.Abs(roundSkillArt.uvRect.x-618f/1224)<.001f&&Mathf.Abs(roundSkillArt.uvRect.width-600f/1224)<.001f,
+    "Pre-release framing or reviewed beam icon binding failed");
+   AdvanceToMotionTime(beam.fire+26);
+   Canvas.ForceUpdateCanvases();
+   AssertSmoke(Mathf.Abs(roundMotion.Time-(beam.fire+26))<.1f&&roundMotion.StagePose==GokuArt.Atlas[24]&&
+    demoFrontFx.BeamReach>0&&demoFrontFx.BeamReach<1&&roundCutShade.color.a>0&&
+    demoStage.localScale.x>1&&demoStage.localScale.x<1.025f&&roundSkillBadge.anchoredPosition==castLabel&&
+    roundCueEvents==cues+4&&demoReactions[opponent].Track==null&&roundLog.Count==0,
+    "The beam, voice and camera must react on the push without revealing damage before contact");
+   AdvanceToMotionTime(roundMotion.ImpactAt+9);
+   Canvas.ForceUpdateCanvases();
+   AssertSmoke(demoFrontFx.BeamReach==1&&demoFrontFx.BeamRadius>=42&&
+    demoFrontFx.BeamTailRadius==demoFrontFx.BeamRadius&&demoFrontFx.BeamTip.x>RoundMotionFx.Width&&
+    Mathf.Abs(demoFrontFx.BeamPalm.y-demoFrontFx.BeamTip.y)<.01f&&roundLog.Count==1&&
+    roundCueEvents==cues+5&&demoReactions[opponent].Track=="knockback",
+    "The fast full-width beam must hit once and stay level");
+   AdvanceToMotionTime(beam.fire+310);
    AssertSmoke(roundCutShade.color.a==0&&Mathf.Abs(demoStage.localScale.x-1.075f)<.001f&&
     roundSkillBadge.anchoredPosition==castLabel,"The released beam must retain framing without the shade or badge drift");
-   AssertSmoke(roundCueEvents==cues+5&&demoReactions[opponent].Track=="knockback"&&roundLog.Count==1,
-    "Beam voice, release, knockback or single reveal failed");
-   AdvanceToMotionTime(1670);
-   AssertSmoke(roundCueEvents==cues+6,"Beam fade must dispatch its tail cue");
+   AdvanceToMotionTime(beam.cut-40);
    Canvas.ForceUpdateCanvases();
-   float opacityAtTip=demoFrontFx.BeamOpacity;
-   float radiusAtTip=demoFrontFx.BeamRadius;
-   float tipLight=demoFrontFx.BeamTipOpacity;
-   AssertSmoke(demoFrontFx.BeamReach==1&&opacityAtTip>.9f&&tipLight>0&&tipLight<opacityAtTip*.6f&&
-    radiusAtTip>=20&&radiusAtTip<chargeRadius&&demoFrontFx.GeometryCount>0&&
-    demoFrontFx.BeamRootDepth>12&&demoFrontFx.BeamTailRadius>radiusAtTip*.42f&&
-    demoFrontFx.BeamTailRadius<radiusAtTip*.45f&&demoFrontFx.BeamPalm.y==demoFrontFx.BeamTip.y&&
-    demoFrontFx.BeamTip.x>DemoGround(1,8).x+70,
-    "Full-range wave needs a thicker body, a soft end and a core narrower than the charge");
-   UpdateRoundPreview(.21f/roundMotion.PlaybackRate);
+   AssertSmoke(demoFrontFx.BeamOpacity>.98f&&demoFrontFx.BeamDissolveParticles==0&&roundCueEvents==cues+5,
+    "The sustained column broke up or played its trailing sound too early");
+   AdvanceToMotionTime(beam.cut+320);
    Canvas.ForceUpdateCanvases();
-   AssertSmoke(roundCueEvents==cues+6,"Beam fade must not repeat its tail cue");
-   AssertSmoke(roundMotion.Clip.KeyAt(roundMotion.Time)>=roundMotion.Clip.KeyAt(1840)&&demoFrontFx.BeamReach==1&&
-    demoFrontFx.BeamOpacity>0&&demoFrontFx.BeamOpacity<opacityAtTip&&demoFrontFx.BeamRadius<radiusAtTip&&
-    demoFrontFx.BeamTipOpacity/tipLight<demoFrontFx.BeamOpacity/opacityAtTip&&demoFrontFx.GeometryCount>0,
-    "Beam did not remain visible and fade after the actor started lowering his hands");
-   UpdateRoundPreview(.16f);
+   AssertSmoke(demoFrontFx.BeamOpacity==0&&demoFrontFx.BeamDissolveParticles>40&&
+    roundCueEvents==cues+6&&roundMotion.StagePose==GokuArt.Atlas[25],
+    "The column must dissolve into particles through the hands-down draw with one trailing cue");
+   AdvanceToMotionTime(beam.extinguish+1);
+   Canvas.ForceUpdateCanvases();
+   AssertSmoke(demoFrontFx.BeamOpacity==0&&demoFrontFx.BeamDissolveParticles==0&&roundCueEvents==cues+6,
+    "The beam or tail cue lingered after recovery");
    var pushed=demoReactions[opponent].Offset;
    GalleryTestButton("PauseRound").onClick.Invoke();
    float elapsed=roundMotion.Time,pausedZoom=demoStage.localScale.x;
@@ -315,7 +322,7 @@ namespace DragonIdle {
    AssertSmoke(roundMotion.Time==elapsed&&demoReactions[opponent].Offset==pushed&&
     demoStage.localScale.x==pausedZoom&&demoStage.anchoredPosition==pausedOffset,"Pause advanced the camera or hit reaction");
    GalleryTestButton("PauseRound").onClick.Invoke();
-   AdvanceToMotionTime(2390);
+   AdvanceToMotionTime(roundMotion.Duration-190);
    AssertSmoke(demoStage.localScale.x>1.03f&&demoStage.localScale.x<1.05f,"Recovery must ease the camera outward");
    AdvanceToMotionTime(roundMotion.Duration-1);
    AssertSmoke(Mathf.Abs(demoStage.localScale.x-1)<.001f&&demoStage.anchoredPosition.sqrMagnitude<.01f,
@@ -354,7 +361,7 @@ namespace DragonIdle {
    var sheen=model.transform.Find("PursuitSheen").GetComponent<UI.RawImage>();
    var material=sheen.material;
    float lowerBand=material.GetFloat(SheenBandY);
-   AssertSmoke(roundMotion.Duration==465&&roundMotion.ImpactAt>96&&roundMotion.ShiftAt(roundMotion.Time)==Vector2.zero&&
+   AssertSmoke(roundMotion.Duration==RoundMotionPlayback.PursuitLength&&roundMotion.ImpactAt==RoundMotionPlayback.PursuitContact&&roundMotion.ShiftAt(roundMotion.Time)==Vector2.zero&&
     sheen.texture==model.texture&&sheen.uvRect==model.uvRect&&sheen.isActiveAndEnabled&&sheen.color.a>0&&sheen.color.a<.44f&&
     material.shader.name=="DragonIdle/UI/PursuitSheen"&&WaitingForRoundImpact,
     "The pursuit sheen must use the acting sprite silhouette before moving");
@@ -487,8 +494,10 @@ namespace DragonIdle {
    roundBattle=RoundCombat.Demo(new[]{goku,piccolo},RoundRules(),2);
    StartRoundPresentation();
    while(roundMotion!=null||roundOpenings.Count>0)AdvanceRoundPreview(true);
-   AssertSmoke(!RoundRules().OpeningSkills(piccolo.CardId).Any()&&PiccoloArt.Atlas.Length>=24&&
-    roundCueClips.Count(c=>c.Key.StartsWith("piccolo-"))==11&&roundCueClips.Where(c=>c.Key.StartsWith("piccolo-"))
+   var reactionArt=BattleReactionLibrary(piccolo.CardId);
+   AssertSmoke(!RoundRules().OpeningSkills(piccolo.CardId).Any()&&PiccoloArt.Atlas.Length==47&&reactionArt.Atlas.Length==16&&
+    PiccoloArt.Atlas.Concat(reactionArt.Atlas).All(pose=>pose.Texture.name.StartsWith("rework-",StringComparison.Ordinal))&&
+    roundCueClips.Count(c=>c.Key.StartsWith("piccolo-"))==13&&roundCueClips.Where(c=>c.Key.StartsWith("piccolo-"))
      .All(c=>c.Value.Clip!=null&&c.Value.Clip.samples>0),"Piccolo assets or trigger type did not load");
    AdvanceRoundPreview(true);
    AssertSmoke(roundLast.TriggersPursuit&&!roundLast.Countered&&roundLast.Target==piccolo,
@@ -511,8 +520,15 @@ namespace DragonIdle {
    AdvanceRoundPreview(true);
    AdvanceRoundPreview(true);
    AssertSmoke(roundMotion.IsCounter&&roundMotion.Clip.id=="piccoloCounter"&&roundSkillBadge.gameObject.activeSelf&&
-    roundSkillArt.texture==Resources.Load<Texture2D>("Art/V0143/Piccolo/skill-icons")&&
+    roundSkillArt.texture==Resources.Load<Texture2D>(RoundMotionArt.PiccoloFolder+"skill-images")&&
+    roundSkillArt.transform.Find("SkillFrame")!=null&&
     roundSkillText.text=="反魔爆裂光","Counter icon and name not shown during the triggered action");
+   var guarding=BattleReactionLibrary(piccolo.CardId).Atlas.Skip(14).Take(2);
+   var stance=PiccoloArt.Atlas.Skip(36).Take(4).Concat(guarding).ToArray();
+   AssertSmoke(stance.All(pose=>pose.zoom==1.09f&&
+     Mathf.Abs(pose.pivot[1]-pose.crop[1]-pose.crop[3])<=5)&&
+     stance.Max(pose=>pose.crop[3])-stance.Min(pose=>pose.crop[3])<=16,
+     "Counter must hold one body scale and ground anchor");
    int cueCount=roundCueEvents;
    AdvanceToMotionTime(320);
    Canvas.ForceUpdateCanvases();
@@ -541,7 +557,7 @@ namespace DragonIdle {
    float travel=run.ShiftAt(run.Time).x;
    AdvanceToMotionTime(155);
    AssertSmoke(run.ShiftAt(run.Time).x>travel&&running!=demoActors[piccolo].uvRect&&
-    demoActors[piccolo].texture.name=="combat-poses","Piccolo must alternate locomotion frames while advancing");
+    run.StagePose==PiccoloArt.Atlas[run.Clip.runFrames[1]],"Piccolo must alternate locomotion frames while advancing");
    AdvanceToMotionTime(run.ClockAtPose(run.Clip.returnAt+74));
    AssertSmoke(run.ShiftAt(run.Time).y<run.Clip.PlanarShift(run.PoseTime,run.Travel).y-8&&
     run.StagePose==PiccoloArt.Atlas[run.Clip.hopDrawing],"Piccolo must use an airborne return");
@@ -550,9 +566,12 @@ namespace DragonIdle {
    AdvanceRoundPreview(true);
    AssertSmoke(piccolo.IsCharging&&roundMotion.IsCharge&&!WaitingForRoundImpact&&roundSkillArt.texture!=null,
     "Charge action must show its skill and leave damage unrevealed");
+   AdvanceToMotionTime(180);
+   var firstChargeTip=VerifyPiccoloFingertipPosition(piccolo,40);
    AdvanceToMotionTime(710);
-   Canvas.ForceUpdateCanvases();
-   AssertSmoke(demoFrontFx.BeamChargeRadius>0&&demoStage.Find("DemoSlot0_2/Buffs/Charge")!=null,
+   var secondChargeTip=VerifyPiccoloFingertipPosition(piccolo,41);
+   AssertSmoke(Vector2.Distance(firstChargeTip,secondChargeTip)>.35f&&demoFrontFx.BeamChargeRadius>0&&
+    demoStage.Find("DemoSlot0_2/Buffs/Charge")!=null,
     "Charge pose or persistent status is missing");
    AdvanceRoundPreview(true);
    Canvas.ForceUpdateCanvases();
@@ -563,8 +582,10 @@ namespace DragonIdle {
    AssertSmoke(roundMotion?.Actor==goku,"Expected opponent's action while Piccolo holds his charge");
    AdvanceToMotionTime(roundMotion.ImpactAt+8);
    Canvas.ForceUpdateCanvases();
-   AssertSmoke(roundMotion!=null&&piccolo.IsCharging&&demoFrontFx.VisibleHeldCharges==1,
-    "Incoming combat must not clear Piccolo's charge aura");
+   var heldFrame=demoReactions[piccolo].Pose??PiccoloIdlePose(piccolo);
+   AssertSmoke(roundMotion!=null&&piccolo.IsCharging&&demoStage.Find("DemoSlot0_2/Buffs/Charge")!=null&&
+    demoFrontFx.VisibleHeldCharges==(heldFrame.HasRightFingertips?1:0),
+    "Incoming combat must keep the charge status and draw its glow only on the actual fingertips");
    AdvanceRoundPreview(true);
    int guard=0;
    do{
@@ -574,16 +595,30 @@ namespace DragonIdle {
    }while(++guard<10);
    AssertSmoke(roundMotion?.Clip?.id=="specialBeam"&&!piccolo.IsCharging,"Piccolo's next round did not release the charged special");
    Canvas.ForceUpdateCanvases();
-   AssertSmoke(demoFrontFx.VisibleHeldCharges==0&&demoFrontFx.BeamChargeRadius>8&&
+   AssertSmoke(demoFrontFx.VisibleHeldCharges==0&&demoFrontFx.BeamChargeRadius>=7.9f&&
     demoStage.Find("DemoSlot0_2/Buffs/Charge")==null,
     "The held charge must flow into the beam wind-up without a blank frame or duplicate aura");
+   var chargeStart=VerifyPiccoloFingertipPosition(piccolo,41);
+   AdvanceToMotionTime(165);
+   var lift=VerifyPiccoloFingertipPosition(piccolo,44);
+   AdvanceToMotionTime(275);
+   var across=VerifyPiccoloFingertipPosition(piccolo,45);
+   AdvanceToMotionTime(380);
+   var shoulder=VerifyPiccoloFingertipPosition(piccolo,46);
+   AssertSmoke(Vector2.Distance(lift,chargeStart)>.5f&&across.x>lift.x+5&&shoulder.y<across.y-3&&
+    demoFrontFx.BeamOpacity==0&&!roundMotion.Revealed,"The right hand must lift, cross and clear the shoulder before release");
+   int releaseCues=roundCueEvents;
    AdvanceToMotionTime(585);
-   Canvas.ForceUpdateCanvases();
-   AssertSmoke(demoFrontFx.BeamReach>0&&demoFrontFx.BeamReach<1&&demoFrontFx.GeometryCount>200&&
+   VerifyPiccoloFingertipPosition(piccolo,43);
+   AssertSmoke(roundCueEvents>=releaseCues+2&&demoFrontFx.BeamReach>0&&demoFrontFx.BeamReach<1&&demoFrontFx.GeometryCount>200&&
     Mathf.Abs(demoFrontFx.BeamTip.y-demoFrontFx.BeamPalm.y)<.01f&&roundMotion.Travel.y!=0&&
     VisibleRoundVitals(goku).HP>goku.HP,"Special beam geometry or delayed damage was lost");
    AdvanceToMotionTime(700);
    AssertSmoke(VisibleRoundVitals(goku).HP==goku.HP,"Special beam did not reveal on arrival");
+   AdvanceToMotionTime(850);
+   Canvas.ForceUpdateCanvases();
+   AssertSmoke(demoFrontFx.BeamTip.x>RoundMotionFx.Width&&roundMotion.StagePose==PiccoloArt.Atlas[43],
+    "The cannon must extend through the arena with the revised release pose");
    AdvanceRoundPreview(true);
    piccolo.ChargeReadyRound=roundBattle.Round+1;
    audioSettings.ReducedMotion=true;
@@ -595,6 +630,24 @@ namespace DragonIdle {
     "A defeated charger left an aura or status icon on the field");
    audioSettings.ReducedMotion=false;
    NavigateGallery("主页");
+  }
+
+  Vector2 VerifyPiccoloFingertipPosition(RoundFighter fighter,int drawing){
+   Canvas.ForceUpdateCanvases();
+   var pose=roundMotion.StagePose;
+   var image=demoActors[fighter];
+   AssertSmoke(pose==PiccoloArt.Atlas[drawing]&&pose.HasRightFingertips&&image.texture==pose.Texture,
+    "The active Piccolo pose must use the approved right-hand drawing");
+   var rect=pose.crop;
+   var tip=pose.RightFingertipCenter;
+   bool mirrored=fighter.Side==1;
+   float x=mirrored?rect[0]+rect[2]-tip.x:tip.x-rect[0];
+   var top=image.rectTransform.anchoredPosition;
+   var point=new Vector2(top.x,-top.y)+new Vector2(x,tip.y-rect[1])*DemoScale(fighter)*pose.zoom;
+   var expected=FacingSpace(point,mirrored);
+   AssertSmoke(Vector2.Distance(expected,demoFrontFx.BeamPalm)<.08f,
+    "Piccolo's charge or beam origin drifted off the rendered right fingertips");
+   return expected;
   }
 
   void VerifyPiccoloApproach(){
@@ -630,23 +683,25 @@ namespace DragonIdle {
    AdvanceRoundPreview(true);
    AdvanceRoundPreview(true);
    var chase=roundMotion;
-   AssertSmoke(chase.Actor==piccolo&&chase.IsPursuit&&chase.ApproachDuration>=265&&chase.ApproachDuration<=390&&
-    chase.PiccoloReturnDuration>=250&&chase.ShiftAt(chase.ApproachStart)==Vector2.zero,
-    "Pursuit must wait for its cue and use readable jump durations");
-   AdvanceToMotionTime(chase.ApproachStart+50);
-   var airborne=demoActors[piccolo].uvRect;
-   AdvanceToMotionTime(chase.ApproachStart+chase.ApproachDuration*.5f);
+   AssertSmoke(chase.Actor==piccolo&&chase.IsPursuit&&chase.Duration==RoundMotionPlayback.PursuitLength&&
+    chase.ImpactAt==RoundMotionPlayback.PursuitContact&&chase.ShiftAt(chase.ApproachStart)==Vector2.zero,
+    "Piccolo pursuit escaped the fixed action timeline");
+   float approach=chase.ImpactAt-chase.ApproachStart;
+   AdvanceToMotionTime(chase.ApproachStart+approach*chase.Clip.runUntil/chase.Clip.impactAt*.5f);
    var shift=chase.ShiftAt(chase.Time);
-   var landing=chase.ShiftAt(chase.ApproachStart+chase.ApproachDuration);
-   AssertSmoke(airborne==demoActors[piccolo].uvRect&&WaitingForRoundImpact&&shift.x>0&&
-    Mathf.Abs(shift.y-landing.y*.5f+22)<.1f,"Forward jump lost its arc or used running sprites");
+   var ground=chase.Clip.PlanarShift(chase.PoseTime,chase.Travel,true);
+   AssertSmoke(chase.StagePose==PiccoloArt.Atlas[chase.Clip.approachDrawing]&&WaitingForRoundImpact&&shift.x>0&&
+    Mathf.Abs(shift.y-ground.y+22)<.1f,"Forward jump lost its arc or used running sprites");
    AdvanceToMotionTime(chase.ImpactAt+8);
    AssertSmoke(chase.Revealed&&roundLast.Target==target&&roundLast.TargetState==RoundHitState.LargeFloat,
     "The jumping pursuit did not resolve its configured hit");
-   float returnAt=chase.ClockAtPose(chase.Clip.returnAt);
-   AdvanceToMotionTime(returnAt+chase.PiccoloReturnDuration*.5f);
+   float midReturn=(chase.Clip.returnAt+chase.Clip.root[chase.Clip.root.Length-1].at)*.5f;
+   float savedTime=chase.Time;
+   chase.Time=Mathf.Lerp(chase.ImpactAt,chase.Duration,
+    Mathf.InverseLerp(chase.Clip.impactAt,chase.Clip.duration,midReturn));
    AssertSmoke(chase.StagePose==PiccoloArt.Atlas[chase.Clip.hopDrawing]&&chase.ShiftAt(chase.Time).x>0&&
     chase.ShiftAt(chase.Duration).sqrMagnitude<.001f,"The backward hop must return to the original position");
+   chase.Time=savedTime;
    NavigateGallery("主页");
   }
 
@@ -806,10 +861,10 @@ namespace DragonIdle {
     otherLane.HP==otherLane.MaxHP&&roundMotion.BeamTarget.x>DemoGround(1,9).x+70&&
     roundMotion.ShiftAt(roundMotion.ReleaseAt).y==depth&&roundMotion.ShiftAt(roundMotion.Duration)==Vector2.zero,
     "Row beam did not aim at all affected enemies or leaked health early");
-   AdvanceToMotionTime(1220);
+   AdvanceToMotionTime(roundMotion.ReleaseAt+24);
    Canvas.ForceUpdateCanvases();
    AssertSmoke(demoFrontFx.GeometryCount>300&&WaitingForRoundImpact&&roundMotion.SeenHits.Count==0,"Traveling effects or current hit reveal timing failed");
-   AdvanceToMotionTime(1470);
+   AdvanceToMotionTime(roundMotion.ImpactAt+72);
    Canvas.ForceUpdateCanvases();
    AssertSmoke(demoFrontFx.BeamTip.y==demoFrontFx.BeamPalm.y&&demoFrontFx.BeamTip.x>DemoGround(1,9).x+70,
     "Cross-row beam did not sweep every slot horizontally");
@@ -822,6 +877,17 @@ namespace DragonIdle {
    AssertSmoke(demoStage.localScale==Vector3.one&&demoStage.anchoredPosition==Vector2.zero&&
     !roundSkillBadge.gameObject.activeSelf,"Skipping an ultimate did not restore its view");
    GalleryTestButton("LeaveRoundPreview").onClick.Invoke();
+  }
+
+  void AssertGokuPalmCharge(RoundFighter actor,int drawing){
+   var cel=roundMotion.StagePose;
+   var origin=demoActors[actor].rectTransform.anchoredPosition;
+   float scale=DemoScale(actor)*cel.zoom;
+   var expected=new Vector2(origin.x+(cel.beam[0]-cel.crop[0])*scale,
+    -origin.y+(cel.beam[1]-cel.crop[1])*scale);
+   AssertSmoke(cel==GokuArt.Atlas[drawing]&&Vector2.Distance(demoFrontFx.BeamPalm,expected)<.15f&&
+    demoFrontFx.BeamChargeRadius>=7&&demoFrontFx.BeamChargeRadius<16&&demoFrontFx.BeamOpacity==0&&!roundMotion.Revealed,
+    "The charge sphere must stay inside the cupped hands before the push");
   }
 
   float RenderedGokuGroundY(RoundFighter fighter) {
@@ -865,14 +931,16 @@ namespace DragonIdle {
     playback.Advance(500);
     AssertSmoke(Mathf.Abs(playback.Time-item.Item2)<.001f,"Unexpected clock rate for "+item.Item1);
    }
-   var newAtlas=GokuArt.Atlas.Where(pose=>pose.Texture.name=="BeamPoses").ToArray();
-   AssertSmoke(newAtlas.Length==6&&newAtlas.All(pose=>pose.beam.Length==2)&&
-    newAtlas.Select(pose=>(pose.crop[0],pose.crop[1])).Distinct().Count()==6,
-    "Goku ultimate atlas was rescaled or its crop positions shifted");
    var basic=GokuArt["basic"];
    var sweep=GokuArt["sweep"];
    var uppercut=GokuArt["pursuit"];
    var ultimate=GokuArt["ultimate"];
+   var beamPoses=ultimate.poses.Select(pose=>GokuArt.Atlas[pose.drawing]).ToArray();
+   AssertSmoke(ultimate.fxStyle=="Goku"&&ultimate.poses.Length==4&&
+    ultimate.poses.Select(pose=>pose.drawing).SequenceEqual(new[]{22,23,24,25})&&
+    beamPoses.All(pose=>pose.Texture.name=="skill-motion"&&pose.beam.Length==2)&&
+    ultimate.poses[2].at==ultimate.beam.fire&&ultimate.beam.flight<=50&&ultimate.beam.cut-ultimate.beam.fire>=900,
+    "The approved motion poses and release beats are missing");
    AssertSmoke(basic.Travel(113)==basic.Travel(300)&&basic.Travel(113)==basic.Travel(350)&&sweep.Travel(113)==sweep.Travel(672)&&basic.Travel(110)>110&&
     sweep.impacts.Last().at-sweep.impacts[1].at>330&&
     uppercut.Travel(232)==uppercut.Travel(285)&&
@@ -1009,7 +1077,9 @@ namespace DragonIdle {
    var modal=dialogRoot.Find("Modal");
    var scroll=modal.Find("FormationCardScroll").GetComponent<UI.ScrollRect>();
    AssertSmoke(page==FormationRoute&&modal.Find("Title").GetComponent<UI.Text>().text==Data.Cards[id].Name&&
-    scroll.content.Find("StatTile0")!=null&&scroll.content.GetComponentsInChildren<UI.RawImage>().Length==4&&
+    scroll.content.Find("StatTile0")!=null&&
+    scroll.content.GetComponentsInChildren<UI.RawImage>().Count(icon=>icon.name!="SkillFrame")==4&&
+    scroll.content.GetComponentsInChildren<UI.RawImage>().Count(icon=>icon.name=="SkillFrame")==4&&
     scroll.content.rect.height>scroll.viewport.rect.height&&!tile.interactable,
     "Formation preview is missing portrait, stats, scrollable skills or modal isolation");
    CloseGalleryDialog();
@@ -1172,22 +1242,34 @@ namespace DragonIdle {
    Stage(Slots(id),Slots(RoundMotionArt.CardId,RoundMotionArt.VegetaCardId));
    var yamcha=roundBattle.Order[0];var near=roundBattle.Order[1];var far=roundBattle.Order[2];
    far.Defense=0;near.Defense=90;
-   AssertSmoke(YamchaArt.Atlas.Length==16&&roundCueClips.Count(c=>c.Key.StartsWith("yamcha-")&&c.Value.Clip!=null)==8&&
+   AssertSmoke(YamchaArt.Atlas.Length==24&&BattleReactionLibrary(id).Atlas.Length==24&&roundCueClips.Count(c=>c.Key.StartsWith("yamcha-")&&c.Value.Clip!=null)==8&&
     PortraitTexture(Data.Index(id))==Resources.Load<Texture2D>("Art/V0172/Yamcha/portrait"),"Yamcha art or local cues are missing");
    AdvanceRoundPreview(true);
    var basic=roundMotion;
+   bool YamchaBadge()=>roundSkillArt.texture==Resources.Load<Texture2D>(RoundMotionArt.YamchaFolder+"skill-images")&&
+    roundSkillArt.transform.Find("SkillFrame")!=null;
    var landed=VisibleRoundVitals(near).HP;
    AdvanceToMotionTime(basic.Clip.impacts[1].at+8);
    AssertSmoke(basic.Clip.id=="yamchaBasic"&&basic.Clip.impacts.Length==3&&!basic.Revealed&&VisibleRoundVitals(near).HP==landed&&
-    roundSkillArt.texture.name=="icons-b","Yamcha basic revealed damage before the double strike or lost the B icon");
+    YamchaBadge(),"Yamcha basic revealed damage before the closing punch or lost the new icon");
    AdvanceToMotionTime(basic.ImpactAt+6);
    AssertSmoke(basic.Revealed&&basic.StagePose==YamchaArt.Atlas[2]&&VisibleRoundVitals(near).HP<landed,"Third strike did not reveal the hit");
    AdvanceRoundPreview(true);yamcha.Rage=100;AdvanceRoundPreview(true);
    var wolf=roundMotion;
-   AdvanceToMotionTime(wolf.ImpactAt+24);
+   double beforeWolf=VisibleRoundVitals(far).HP;
+   UpdateRoundPreview((wolf.ImpactAt-90)/(1000*wolf.PlaybackRate));
+   AssertSmoke(roundLast.Target==far&&wolf.IsYamchaWolf&&wolf.Travel.x>0&&YamchaBadge()&&
+    wolf.RevealedCount==0&&VisibleRoundVitals(far).HP==beforeWolf&&!demoYamchaWolf.enabled,
+    "Wolf Fang selected the wrong target or revealed the finisher early");
+   int held=0;
+   for(int i=0;i<10;i++){
+    UpdateRoundPreview(1f/30);
+    if(wolf.Revealed&&Mathf.Abs(wolf.Time-wolf.ImpactAt)<.01f)held++;
+   }
    Canvas.ForceUpdateCanvases();
-   AssertSmoke(roundLast.Target==far&&wolf.Clip.id=="yamchaWolf"&&wolf.Travel.x>0&&wolf.Revealed&&demoFrontFx.GeometryCount>0&&
-    roundSkillArt.texture.name=="icons-a","Wolf Fang motion, lowest-defense target or final impact effect failed");
+   AssertSmoke(held>=3&&wolf.RevealedCount==1&&wolf.Action.Hits.Count()==1&&VisibleRoundVitals(far).HP<beforeWolf&&
+    demoYamchaWolf.enabled&&demoYamchaWolf.texture?.name=="wolf-finisher"&&demoFrontFx.GeometryCount>0,
+    "Wolf Fang finisher art, hold or single damage settlement was missing");
 
    Stage(Slots(RoundMotionArt.CardId,id),Slots(RoundMotionArt.VegetaCardId));
    roundBattle.Order[0].Crit=0;
@@ -1197,8 +1279,9 @@ namespace DragonIdle {
    var shown=roundBattle.Order.Single(f=>f.CardId==id);
    StartRoundActionMotion(new RoundAction{Actor=shown,Target=roundBattle.Order[1],Move=RoundMove.Pursuit,
     Name="下段踢",TargetState=RoundHitState.Knockdown},true);
-   AssertSmoke(roundMotion.Clip.id=="yamchaSweep"&&roundMotion.Clip.impacts[0].drawing==5&&roundMotion.Travel.x>0,
-    "Yamcha pursuit did not bind the low sweep");
+   AssertSmoke(roundMotion.Clip.id=="yamchaSweep"&&roundMotion.ImpactAt==330&&roundMotion.Duration==840&&
+    roundMotion.Clip.impacts[0].drawing==10&&roundMotion.Travel.x>0,
+    "Yamcha pursuit did not bind the low sweep at the fixed contact time");
    GalleryTestButton("LeaveRoundPreview").onClick.Invoke();
 
    Stage(Slots(RoundMotionArt.VegetaCardId),Slots(id,RoundMotionArt.CardId));
@@ -1209,10 +1292,20 @@ namespace DragonIdle {
    AssertSmoke(roundBattle.ReactionSkillNext&&VisibleRoundVitals(yamcha).HP==0&&demoReactions[yamcha].Track=="defeat","Yamcha did not play the fall before revival");
    AdvanceRoundPreview(true);AdvanceRoundPreview(true);
    var rise=roundMotion;
-   AdvanceToMotionTime(480);
+   AdvanceToMotionTime(350);
+   AssertSmoke(rise.IsYamchaFeign&&rise.StagePose==YamchaArt.Atlas[13]&&VisibleRoundVitals(yamcha).HP==0,
+    "Feign Death lost the grounded hold");
+   AdvanceToMotionTime(595);
    Canvas.ForceUpdateCanvases();
-   AssertSmoke(rise.Clip.id=="yamchaRise"&&VisibleRoundVitals(yamcha).HP==0&&demoRearFx.GeometryCount>0&&roundSkillText.text=="装死",
-    "Revival windup or skill badge failed");
+   AssertSmoke(rise.StagePose==YamchaArt.Atlas[14]&&VisibleRoundVitals(yamcha).HP==0&&
+    demoRearFx.GeometryCount>0&&roundSkillText.text=="装死"&&YamchaBadge(),
+    "Feign Death peek or skill badge was missing");
+   AdvanceToMotionTime(1150);
+   AssertSmoke(rise.StagePose==YamchaArt.Atlas[16]&&!rise.Revealed&&VisibleRoundVitals(yamcha).HP==0&&
+    !VisibleRoundVitals(ally).AttackChanges.Any(change=>change.Source==rise.Action.Ability),
+    "Feign Death must hold the kneeling pose with zero HP and no allied buff");
+   AdvanceToMotionTime(1302);
+   AssertSmoke(rise.StagePose==YamchaArt.Atlas[17]&&!rise.Revealed,"Feign Death must brace before revealing revival");
    AdvanceToMotionTime(rise.ImpactAt+18);
    AssertSmoke(rise.Revealed&&Math.Abs(VisibleRoundVitals(yamcha).HP/yamcha.MaxHP-.2)<.001&&
     demoReactions[yamcha].Pose==null&&ally.AttackChanges.Any(change=>change.Source==rise.Action.Ability)&&
@@ -1227,9 +1320,9 @@ namespace DragonIdle {
    BeginRoundDemo(new RoundDemoSetup{allies=new[]{id,"","","","","","","",""},
     enemies=new[]{RoundMotionArt.CardId,RoundMotionArt.VegetaCardId,RoundMotionArt.YamchaCardId,"","","","","",""}});
    roundPaused=true;
-   AssertSmoke(Data.Cards[Data.Index(id)].CatalogNumber==10&&SaibamanArt.Atlas.Length==28&&
+   AssertSmoke(Data.Cards[Data.Index(id)].CatalogNumber==10&&SaibamanArt.Atlas.Count(pose=>pose.Texture.name=="detonation-poses")==6&&
     roundCueClips.Count(c=>c.Key.StartsWith("saiba-")&&c.Value.Clip!=null)==9&&
-    PortraitTexture(Data.Index(id))==Resources.Load<Texture2D>("Art/V0181/Saibaman/portrait"),
+    PortraitTexture(Data.Index(id))==Resources.Load<Texture2D>("Art/V0182/Saibaman/portrait"),
     "Saibaman's portrait, authored sprites or local sound bank is missing");
    while(roundMotion!=null||roundOpenings.Count>0)AdvanceRoundPreview(true);
    foreach(var unit in roundBattle.Order)unit.Dodge=0;
@@ -1257,15 +1350,29 @@ namespace DragonIdle {
    AdvanceRoundPreview(true);
    AdvanceRoundPreview(true);
    var burst=roundMotion;
-   var close=burst.ShiftAt(415);
+   var close=burst.ShiftAt(RoundMotionArt.SaibamanLanding);
+   float scaleRatio=SaibamanArt.At(SaibamanArt["idle"],0).crop[3]*SaibamanArt.At(SaibamanArt["idle"],0).zoom*DemoScale(victim)/
+    (GokuArt.At(GokuArt["idle"],0).crop[3]*GokuArt.At(GokuArt["idle"],0).zoom*DemoScale(goku));
+   AssertSmoke(scaleRatio>.48f&&scaleRatio<.53f&&BattleReactionLibrary(id).Atlas.Select(pose=>pose.zoom).Distinct().Count()==1,
+    "Saibaman scale or fixed reaction proportions are wrong");
+   AssertSmoke(burst.ShiftAt(400)==Vector2.zero&&burst.ShiftAt(586).y<-42,
+    "Saibaman has to wind up on the ground and jump");
    float blastX=DemoGround(victim).x-close.x;
    AssertSmoke(burst.IsDetonation&&burst.Action.Target==goku&&roundSkillText.text=="自爆"&&
     close.x!=0&&Mathf.Abs(blastX-DemoGround(goku).x)<=25,
     "Detonation did not target the killer before leaving the battlefield");
-   AdvanceToMotionTime(burst.ImpactAt+20);
+   AdvanceToMotionTime(burst.ImpactAt-112);
+   AssertSmoke(!burst.Revealed&&demoActors[victim].enabled&&!demoDetonationCloud.enabled&&
+    burst.StagePose==SaibamanArt.At(burst.Clip,RoundMotionArt.SaibamanClasp),
+    "The clasp should finish before the blast begins");
+   AdvanceToMotionTime(burst.ImpactAt+74);
    Canvas.ForceUpdateCanvases();
-   AssertSmoke(burst.Revealed&&demoFrontFx.GeometryCount>0&&demoActors[victim].texture==SaibamanArt.At(burst.Clip,burst.PoseTime).Texture,
-    "A defeated Saibaman failed to display the detonation burst");
+   AssertSmoke(burst.Revealed&&demoFrontFx.GeometryCount>0&&demoDetonationCloud.enabled&&
+    demoDetonationCloud.texture.name=="detonation-clouds"&&!demoActors[victim].enabled,
+    "Saibaman should leave the field under the blast cover");
+   AdvanceToMotionTime(burst.ImpactAt+735);
+   AssertSmoke(demoDetonationCloud.enabled&&demoDetonationCloud.color.a>.48f&&!demoActors[victim].enabled,
+    "Pale smoke failed to outlast the explosion");
    AssertSmoke(roundBattle.Result==1&&VisibleRoundResult==0,"Battle result was shown during the final detonation");
    AdvanceRoundPreview(true);
    AssertSmoke(VisibleRoundResult==1,"Battle result failed to appear after the final detonation");
@@ -1282,7 +1389,12 @@ namespace DragonIdle {
      var clip=library[track];
      bool floats=track=="smallFloat"||track=="largeFloat";
      string atlas=id==RoundMotionArt.SaibamanCardId?"reactions":floats?"FloatPoses":"ReactionPoses";
-     AssertSmoke(clip.poses.Length>=2&&clip.poses.All(cue=>library.Atlas[cue.drawing].Texture.name==atlas),
+     if(id==RoundMotionArt.PiccoloCardId)atlas="rework-reactions";
+     else if(id==RoundMotionArt.RaditzCardId)atlas="review-reactions";
+     bool yamcha=id==RoundMotionArt.YamchaCardId;
+     bool ApprovedPose(RoundMotionArt.Pose candidate)=>yamcha?
+      candidate.Texture.name.StartsWith("trial-",StringComparison.Ordinal):candidate.Texture.name==atlas;
+     AssertSmoke(clip.poses.Length>=2&&clip.poses.All(cue=>ApprovedPose(library.Atlas[cue.drawing])),
       "Missing the approved first and held reaction drawings for "+id+" "+track);
      var reaction=new DuelReaction(library);
      reaction.Hit(track,1,true,idle);
@@ -1290,12 +1402,13 @@ namespace DragonIdle {
       reaction.Advance(18);
       AssertSmoke(reaction.Pose==idle&&reaction.Offset==Vector2.zero,"A fighter started to rise before taking the hit");
       reaction.Advance(45);
-      AssertSmoke(reaction.Pose.Texture.name==atlas&&reaction.Offset.y<0,"Float launch did not start on the hit drawing");
+      AssertSmoke(ApprovedPose(reaction.Pose)&&reaction.Offset.y<0,"Float launch did not start on the hit drawing");
      }
      reaction.Advance(2000);
      var pose=reaction.Pose;
      var offset=reaction.Offset;
      AssertSmoke(reaction.Active&&pose!=null&&pose!=idle,"Queued chase lost "+id+" "+track);
+     if(yamcha)AssertSmoke(pose==library.At(clip,clip.reactionHoldAt),"Yamcha stood up during a held chase reaction");
      var fixedSpot=track=="smallFloat"?new Vector2(0,-25):track=="largeFloat"?new Vector2(0,-51):
       track=="knockback"?new Vector2(60,0):Vector2.zero;
      AssertSmoke(offset==fixedSpot,"Held reaction is not at its required reference position");
@@ -1331,15 +1444,20 @@ namespace DragonIdle {
    roundBattle.Order[1].Dodge=0;
    AdvanceRoundPreview(false);
    AssertSmoke(roundMotion.Clip.id=="sweep"&&roundBattle.PursuitNext,"Expected the forced knockdown pursuit");
-   var first=roundLast;
-   AdvanceToMotionTime(roundMotion.Duration+1);
-   AssertSmoke(roundMotion==null&&roundLast==first&&Mathf.Abs(roundClock-.14f)<.001f,
-    "Follow-up did not use its more readable handoff");
-   UpdateRoundPreview(.13f);
-   AssertSmoke(roundMotion==null&&roundLast==first,"Follow-up skipped its handoff");
-   UpdateRoundPreview(.02f);
-   AssertSmoke(roundLast.Move==RoundMove.Pursuit&&roundMotion!=null&&roundMotion.Duration==465,
-    "Follow-up did not launch within its short window");
+   var receiver=roundLast.Target;
+   var starter=roundLast;
+   for(int frame=0;roundLast==starter&&frame<500;frame++)UpdateRoundPreview(.005f);
+   AssertSmoke(roundLast.Move==RoundMove.Pursuit&&roundMotion!=null&&roundMotion.Duration==RoundMotionPlayback.PursuitLength,
+    "Follow-up did not launch with the fixed duration");
+   var previous=demoReactions[receiver];
+   AssertSmoke(Mathf.Abs(previous.ChainRemaining-RoundMotionPlayback.PursuitContact)<=10,
+    "Follow-up approach was not synchronized with the end of the target reaction");
+   AdvanceToMotionTime(roundMotion.ImpactAt-5);
+   AssertSmoke(previous.ChainRemaining<=15&&previous.Track=="knockdown"&&!roundMotion.Revealed,
+    "The prior stance froze before the next attack arrived");
+   UpdateRoundPreview(.01f);
+   AssertSmoke(roundMotion.Revealed&&previous.Track=="smallFloat",
+    "The pursuit did not carry the prior stance into the new hit");
    GalleryTestButton("LeaveRoundPreview").onClick.Invoke();
   }
 
@@ -1454,17 +1572,23 @@ namespace DragonIdle {
    NavigateGallery("主页");
    BeginRoundDemo(FiveCardDemoFixture());
    AssertSmoke(roundBattle.Order.Count(f=>f.CardId==RoundMotionArt.KrillinCardId)==2&&
-    KrillinArt.Atlas.Length==18&&KrillinArt.Atlas[16].crop.SequenceEqual(new[]{505,534,350,345})&&
+    KrillinArt.Atlas.Length==38&&KrillinArt.Atlas.Count(pose=>pose.Texture.name=="disc-orbit")==4&&KrillinArt.Atlas[16].crop.SequenceEqual(new[]{505,534,350,345})&&
     KrillinArt.Atlas[17].crop.SequenceEqual(new[]{839,796,670,180})&&GokuArt["basic"].runFrames.Distinct().Count()>=2&&VegetaArt["basic"].runFrames.Length==4,
     "Krillin, Goku or Vegeta movement art was not loaded");
    while(roundMotion!=null||roundOpenings.Count>0)AdvanceRoundPreview(true);
    var krillin=roundBattle.Order.First(f=>f.Side==0&&f.CardId==RoundMotionArt.KrillinCardId);
    var slot=demoStage.Find("DemoSlot0_"+krillin.Position);
    var passive=slot.Find("Buffs/TeamAttack").GetComponent<UI.RawImage>();
-   AssertSmoke(passive.texture.name=="skill-icons"&&passive.texture==
-    Resources.Load<Texture2D>("Art/V0154/Krillin/skill-icons"),"Krillin aura did not bind its authored skill icon");
+   string iconResource=RoundMotionArt.KrillinFolder+"skill-images";
+   var kit=RoundRules().For(RoundMotionArt.KrillinCardId);
+   var icons=new[]{kit.basicIcon,kit.ultimateIcon,kit.pursuitIcon,kit.skills.Single().icon};
+   var portrait=Resources.Load<Texture2D>(RoundMotionArt.KrillinFolder+"portrait");
+   AssertSmoke(icons.All(icon=>icon.resource==iconResource&&icon.framed&&icon.region.Skip(2).SequenceEqual(new[]{600,600}))&&
+    passive.texture==Resources.Load<Texture2D>(iconResource)&&portrait!=null&&portrait.width==1024&&portrait.height==1536,
+    "Krillin's four framed icons and full portrait must resolve from the approved assets");
    AssertSmoke(roundCueClips.Where(pair=>pair.Key.StartsWith("krillin-")).Count()==14&&
-    roundCueClips.Where(pair=>pair.Key.StartsWith("krillin-")).All(pair=>pair.Value.Clip.samples>0),
+    roundCueClips.Where(pair=>pair.Key.StartsWith("krillin-")).All(pair=>pair.Value.Clip.samples>0)&&
+    roundCueClips["krillin-scatter-shot"].Clip.name=="scatter-shot-short",
     "Krillin's audio bank is incomplete");
    var vegeta=roundBattle.Order.First(f=>f.Side==0&&f.CardId==RoundMotionArt.VegetaCardId);
    var front=new[]{RoundMotionArt.CardId,RoundMotionArt.GohanCardId,RoundMotionArt.PiccoloCardId}
@@ -1478,20 +1602,36 @@ namespace DragonIdle {
    var disc=roundMotion;
    AssertSmoke(disc.Clip.id=="krillinDisc"&&disc.Action.Hits.Count()==3&&disc.Action.Hits.All(hit=>hit.DefenseDelta<0),
     "Disc did not use the dedicated animation and three front-column targets");
+   int[] circle=disc.Clip.poses.Where(pose=>pose.at>=450&&pose.at<890).Select(pose=>pose.drawing).ToArray();
+   AssertSmoke(circle.Length==4&&circle.Distinct().Count()==4&&disc.Clip.poses.Where(pose=>pose.at>=890&&pose.at<1330)
+    .Select(pose=>pose.drawing).SequenceEqual(circle)&&disc.ReleaseAt==1410,"Disc did not wind up with two palm circles");
    AdvanceToMotionTime(disc.ReleaseAt-60);
    Canvas.ForceUpdateCanvases();
    AssertSmoke(demoFrontFx.GeometryCount>120&&disc.RevealedCount==0,"Disc charge was missing or revealed damage early");
+   int beforeComboCues=comboCueEvents;
    AdvanceToMotionTime(disc.ImpactAt+16);
    Canvas.ForceUpdateCanvases();
    AssertSmoke(disc.RevealedCount==3&&demoFrontFx.GeometryCount>120,
     "Disc did not reveal casts and actual column hits together");
+   AssertSmoke(demoComboCount==3&&demoComboSide==0&&demoComboCuePending==2&&comboCueEvents==beforeComboCues+1&&
+    roundPreviewRoot.Find("DemoBoard/DemoCombo0/ComboCount").GetComponent<UI.Text>().text=="3 连击",
+    "Combo counter did not use actual attacks and queue one cue per hit");
+   AdvanceToMotionTime(disc.ImpactAt+180);
+   Canvas.ForceUpdateCanvases();
+   AssertSmoke(demoFrontFx.KrillinDiscCenter.x>disc.BeamTarget.x+24&&demoFrontFx.KrillinDiscTrailParticles>=12,
+    "The disc must cross the target before dissolving");
+   AdvanceToMotionTime(disc.ImpactAt+350);
+   Canvas.ForceUpdateCanvases();
+   AssertSmoke(demoFrontFx.KrillinDiscRadius==0&&demoFrontFx.KrillinDiscTrailParticles==0,"Disc residue did not finish");
    AdvanceRoundPreview(true);
    vegeta.Rage=100;
    AdvanceRoundPreview(true);
    AdvanceRoundPreview(true);
    AdvanceRoundPreview(true);
    var scatter=roundMotion;
-   AssertSmoke(scatter.IsScatter&&scatter.VolleyHits.Length==10&&scatter.Travel.x<0,
+   AssertSmoke(scatter.IsScatter&&scatter.VolleyHits.Length==10&&scatter.Travel.x<0&&
+    scatter.Duration==1120&&scatter.ImpactAt==330&&scatter.VolleyLaunch(1)-scatter.VolleyLaunch(0)==60&&
+    scatter.VolleyImpact(9)==870&&scatter.ShiftAt(450).x<scatter.ShiftAt(415).x,
     "Scatter did not follow five allied hits or retreat");
    AdvanceToMotionTime(scatter.VolleyLaunch(0)+45);
    Canvas.ForceUpdateCanvases();
@@ -1574,12 +1714,13 @@ namespace DragonIdle {
     "The combined information dialog lost attribute rows, combat rules or modal isolation");
    CloseGalleryDialog();
    detailTab=1;DrawGalleryDetail();
-   var icons=Resources.Load<Texture2D>("Art/V0161/Raditz/skill-icons");
-   var friday=Resources.Load<Texture2D>("Art/V0162/Raditz/shining-friday");
-   AssertSmoke(PortraitTexture(raditz)==Resources.Load<Texture2D>("Art/V0161/Raditz/portrait")&&icons!=null&&friday!=null&&
-    detailRoot.GetComponentsInChildren<UI.RawImage>().Count(image=>image.texture==icons)==3&&
-    detailBody.GetComponentsInChildren<UI.RawImage>().Any(image=>image.texture==friday&&image.uvRect==new Rect(0,0,1,1)),
-    "Raditz's new basic icon or the three original skill icons did not load");
+   var icons=Resources.Load<Texture2D>(RoundMotionArt.RaditzFolder+"skill-images");
+   var skillImages=detailRoot.GetComponentsInChildren<UI.RawImage>().Where(image=>image.texture==icons).ToArray();
+   AssertSmoke(PortraitTexture(raditz)==Resources.Load<Texture2D>("Art/V0161/Raditz/portrait")&&icons!=null&&
+    skillImages.Length==4&&skillImages.Select(image=>image.uvRect).Distinct().Count()==4&&
+    skillImages.All(image=>Mathf.Abs(image.uvRect.width*icons.width-600)<.01f&&
+     Mathf.Abs(image.uvRect.height*icons.height-600)<.01f&&image.transform.Find("SkillFrame")!=null),
+    "Raditz's gallery did not load the unchanged portrait and four new framed skill icons");
    ReturnToCards();
   }
 
@@ -1589,7 +1730,7 @@ namespace DragonIdle {
     enemies=new[]{RoundMotionArt.CardId,RoundMotionArt.VegetaCardId,"","","","","","",""}});
    roundPaused=true;
    var raditz=roundBattle.Order[0];
-   AssertSmoke(raditz.CardId==id&&RaditzArt.Atlas.Length==18&&
+   AssertSmoke(raditz.CardId==id&&RaditzArt.Atlas.Length==19&&BattleReactionLibrary(id).Atlas.Length==13&&
     roundCueClips.Count(pair=>pair.Key.StartsWith("raditz-"))==13&&
     GokuArt["basic"].runFrames.All(frame=>GokuArt.Atlas[frame].Texture.name=="CombatPoses")&&
      GokuArt["basic"].returnHop==0,"Raditz cue/pose library or grounded Goku movement is missing");
@@ -1598,8 +1739,8 @@ namespace DragonIdle {
    raditz.Rage=100;
    AdvanceRoundPreview(true);
    var twin=roundMotion;
-   AssertSmoke(twin.Clip.id=="raditzTwin"&&twin.VolleyHits.Length==2&&
-    twin.VolleyHits[0].Target!=twin.VolleyHits[1].Target,"Raditz ultimate did not anchor two distinct shots");
+   AssertSmoke(twin.Clip.id=="raditzTwin"&&twin.VolleyHits.Length==2&&twin.VolleyLaunch(0)==twin.VolleyLaunch(1)&&
+    twin.VolleyHits[0].Target!=twin.VolleyHits[1].Target,"Raditz ultimate did not launch together at two distinct targets");
    AdvanceToMotionTime(twin.VolleyLaunch(1)+20);
    Canvas.ForceUpdateCanvases();
    AssertSmoke(demoFrontFx.VisibleVolleyOrbs==2&&demoFrontFx.GeometryCount>115&&twin.RevealedCount==0,"Raditz's paired projectiles did not launch before damage");
@@ -1611,8 +1752,9 @@ namespace DragonIdle {
     StartRoundActionMotion(new RoundAction{Actor=raditz,Target=guardedTarget,Name="闪耀金星日",
      Move=RoundMove.Basic,EnhancedBasic=enhanced},true);
     CreateRoundSkillBadge(demoViewport,roundMotion);
-    AssertSmoke(roundSkillArt.texture==Resources.Load<Texture2D>("Art/V0162/Raditz/shining-friday")&&roundMotion.Clip.id==(enhanced?"raditzSurge":"raditzShot")&&
-     roundMotion.Clip.duration==(enhanced?970:640),"Enhanced basic did not play the longer authored variant");
+    AssertSmoke(roundSkillArt.texture==Resources.Load<Texture2D>(RoundMotionArt.RaditzFolder+"skill-images")&&
+     roundSkillArt.transform.Find("SkillFrame")!=null&&roundMotion.Clip.id==(enhanced?"raditzSurge":"raditzShot")&&
+     roundMotion.Clip.duration==(enhanced?1710:1400),"Enhanced basic did not play the longer authored variant");
     roundBefore=roundBattle.Order.ToDictionary(f=>f,f=>new RoundVitals(f,freezeDefense:true));
     AdvanceToMotionTime(roundMotion.ReleaseAt+55);
     Canvas.ForceUpdateCanvases();
@@ -1724,7 +1866,16 @@ namespace DragonIdle {
    var order=renderedCards.ToArray();
    foreach(int index in order){
     SwitchDetailCard(index);
-    var icons=detailBody.GetComponentsInChildren<UI.RawImage>();
+    var images=detailBody.GetComponentsInChildren<UI.RawImage>();
+    var icons=images.Where(image=>image.name!="SkillFrame").ToArray();
+    var frames=images.Where(image=>image.name=="SkillFrame").ToArray();
+    var id=Data.Cards[index].Id;
+    bool useFrame=id==RoundMotionArt.SaibamanCardId||id==RoundMotionArt.PiccoloCardId||
+     id==RoundMotionArt.CardId||id==RoundMotionArt.KrillinCardId||id==RoundMotionArt.RaditzCardId||id==RoundMotionArt.YamchaCardId;
+    AssertSmoke(frames.Length==(useFrame?icons.Length:0)&&frames.All(frame=>
+     frame.texture==Resources.Load<Texture2D>("Art/V0182/skill-frame")&&
+     icons.Any(icon=>frame.transform.parent==icon.transform)),
+     "The approved shared frame must overlay each skill icon for the updated cards");
     int skillCount=RoundRules().For(Data.Cards[index].Id).skills.Count(s=>s.trigger!="reserved");
     AssertSmoke(icons.Length==3+skillCount&&icons.All(icon=>icon.rectTransform.rect.width==icon.rectTransform.rect.height&&
      Mathf.Abs(icon.texture.width*icon.uvRect.width-icon.texture.height*icon.uvRect.height)<.02f),
@@ -1806,13 +1957,14 @@ namespace DragonIdle {
     AssertSmoke(sections.Length==4&&sections.Any(t=>t.StartsWith("追打"))&&sections.Any(t=>t.StartsWith("被动型技能")),
      "The gallery rendered a reserved skill or omitted a configured skill");
     var gokuIcons=detailBody.GetComponentsInChildren<UI.RawImage>().Where(icon=>icon.name=="RoundSkillIcon").ToArray();
-    var gokuAtlas=Resources.Load<Texture2D>("Art/V0131/Goku/skill-icons");
-    var uppercutIcon=Resources.Load<Texture2D>("Art/V0142/Goku/uppercut-icon");
-    AssertSmoke(gokuIcons.Length==3&&gokuIcons.All(icon=>icon.isActiveAndEnabled)&&
-     gokuIcons[0].texture==gokuAtlas&&gokuIcons[0].uvRect.x<.1f&&
-     gokuIcons[1].texture==gokuAtlas&&gokuIcons[1].uvRect.x>.5f&&uppercutIcon!=null&&
-     gokuIcons[2].texture==uppercutIcon&&gokuIcons[2].uvRect==new Rect(0,0,1,1),
-     "Goku's combo, beam or pursuit icon is missing or miscropped");
+    var gokuAtlas=RoundMotionArt.LoadOpeningIcon();
+    AssertSmoke(PortraitTexture(selectedCard)==Resources.Load<Texture2D>(RoundMotionArt.GokuFolder+"portrait")&&
+     gokuIcons.Length==3&&gokuIcons.All(icon=>icon.isActiveAndEnabled&&icon.texture==gokuAtlas&&
+      icon.transform.Find("SkillFrame")!=null&&Mathf.Abs(icon.uvRect.width-600f/1224)<.001f)&&
+     gokuIcons[0].uvRect.x<.1f&&gokuIcons[0].uvRect.y>.5f&&
+     gokuIcons[1].uvRect.x>.5f&&gokuIcons[1].uvRect.y>.5f&&
+     gokuIcons[2].uvRect.x<.1f&&gokuIcons[2].uvRect.y<.1f,
+     "Goku's reviewed portrait, combo, beam or pursuit icon is missing or miscropped");
     var paragraphs=detailBody.GetComponentsInChildren<UI.Text>().Where(t=>t.name=="Paragraph").ToArray();
     AssertSmoke(paragraphs.Length==4&&paragraphs.All(t=>t.supportRichText&&t.preferredHeight<=t.rectTransform.rect.height+1)&&
      paragraphs[0].text.Contains("<color=#27683F>60</color>")&&
@@ -1824,7 +1976,8 @@ namespace DragonIdle {
     VerifySkillDescriptionLayout();
     VerifyAvatarSwipe();
     var training=detailBody.GetComponentsInChildren<UI.RawImage>().Single(i=>i.name=="RoundOpeningSkillIcon");
-    AssertSmoke(training.texture==RoundMotionArt.LoadOpeningIcon()&&sections.Contains("被动型技能 · 修炼的成果"),"Gallery did not bind the new opening icon");
+    AssertSmoke(training.texture==RoundMotionArt.LoadOpeningIcon()&&training.transform.Find("SkillFrame")!=null&&
+     training.uvRect.x>.5f&&training.uvRect.y<.1f&&sections.Contains("被动型技能 · 修炼的成果"),"Gallery did not bind the new opening icon");
     var startingAvatar=(RectTransform)detailRoot.Find("CharacterSwitch/CurrentAvatar");
     var next=GalleryTestButton("NextCard");
     var nextFrame=(RectTransform)next.transform;
@@ -1862,8 +2015,13 @@ namespace DragonIdle {
      "Removed round attribute heading is still visible");
     GalleryTestButton("DetailTab1").onClick.Invoke();
     SwitchDetailCard(Data.Index(RoundMotionArt.PiccoloCardId));
-    AssertSmoke(selectedCard==Data.Index(RoundMotionArt.PiccoloCardId)&&
-     PortraitTexture(selectedCard)==Resources.Load<Texture2D>("Art/V0152/Piccolo/portrait")&&
+    var piccoloPortrait=Resources.Load<Texture2D>(RoundMotionArt.PiccoloFolder+"portrait");
+    var piccoloIcons=detailBody.GetComponentsInChildren<UI.RawImage>()
+     .Where(icon=>icon.name=="RoundSkillIcon"||icon.name=="RoundOpeningSkillIcon").ToArray();
+    AssertSmoke(selectedCard==Data.Index(RoundMotionArt.PiccoloCardId)&&PortraitTexture(selectedCard)==piccoloPortrait&&
+     piccoloPortrait.width==1024&&piccoloPortrait.height==1536&&piccoloIcons.Length==4&&
+     piccoloIcons.All(icon=>icon.texture==Resources.Load<Texture2D>(RoundMotionArt.PiccoloFolder+"skill-images")&&
+      icon.transform.Find("SkillFrame")!=null)&&piccoloIcons.Select(icon=>icon.uvRect).Distinct().Count()==4&&
      detailBody.GetComponentsInChildren<UI.Text>().Count(t=>t.name=="Paragraph")==4,
      "Piccolo's revised authored kit or portrait was not loaded");
     SwitchDetailCard(renderedCards[1]);
@@ -1918,7 +2076,7 @@ namespace DragonIdle {
     VerifyQuickPursuitHandoff();
     VerifySaibamanPresentation();
     VerifyBrokenPursuitRecovery();
-    File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"roundCombat\":true,\"gokuMotion\":true,\"openingIcon\":true,\"gridDemo\":true,\"gridMultiTarget\":true,\"fullGridReadability\":true,\"groundedMotion\":true,\"contrastTiming\":true,\"waveFeather\":true,\"thickerWave\":true,\"expandedBattlefield\":true,\"hiddenBattleSlotNumbers\":true,\"upwardPursuitSheen\":true,\"ultimateAtlasSize\":true,\"pursuitFlash\":true,\"quickPursuitHandoff\":true,\"roundedVitals\":true,\"slotVitals\":true,\"actionGap\":true,\"actualHitFeedback\":true,\"battleStats\":true,\"battleSidebarBars\":true,\"saibamanPresentation\":"+Data.IsRoundCard(RoundMotionArt.SaibamanCardId).ToString().ToLowerInvariant()+",\"shortOpening\":true,\"reactionTransitions\":25,\"gokuAudioCues\":21,\"vegetaAudioCues\":9,\"savedFiveEnemyDemo\":true,\"characterSheetConfiguration\":true,\"vegetaVolley\":true,\"vegetaArt\":true,\"piccoloPresentation\":true,\"piccoloHeldCharge\":true,\"piccoloApproachPacing\":true,\"piccoloPursuitHop\":true,\"galleryOwnershipGroups\":true,\"galleryNumberSort\":true,\"galleryElasticSkills\":true,\"characterPageLoop\":true,\"characterPageSessionSort\":true,\"characterSkillFourLines\":true,\"sharedMenuLoop\":true,\"avatarSwipe\":true,\"roundStatusHud\":true,\"piccoloFingerGlow\":true,\"gohanHairArt\":true,\"gohanHeavyWindup\":true,\"gohanPresentation\":true,\"guardCounterPriority\":true,\"brokenPursuitRecovery\":true,\"raditzPresentation\":true,\"twinRaysAndSingleHit\":true,\"krillinReactionCrop\":true,\"formationDragAndSave\":true,\"formationExplicitSave\":true,\"yamchaPresentation\":true,\"tienPresentation\":true,\"roleArtwork\":true,\"greenBadgeAndRadar\":true,\"combinedStatGuide\":true,\"galleryRarityBackdrops\":true,\"multiCardHeldSwipe\":true,\"groundedGokuKit\":true,\"approvedReactionArt\":true,\"floatLaunchArtwork\":true,\"activeRoster\":"+Data.RoundRoster.Count+",\"krillinPresentation\":true,\"galleryFavorites\":true,\"avatarElasticDrag\":true,\"authoredBuffIcons\":true,\"savedLevel100Demo\":true,\"ultimateCutIn\":true,\"smoothCameraRestore\":true,\"stableSkillBadge\":true,\"authoredSkillIcons\":true,\"beamTailWidened\":true,\"sharedOpeningFx\":true,\"battleSkillBadges\":true,\"congruentGridTiles\":true,\"horizontalRowBeam\":true,\"referenceTiming\":true,\"referenceVideoExcluded\":true,\"formationSave\":true,\"twoRoutes\":true,\"galleryDetails\":true,\"galleryCurrentAvatar\":true,\"gallerySkillColors\":true,\"gokuGalleryIcons\":true,\"neighborRarityBadges\":true,\"startupArt\":true,\"noRewards\":true,\"soundSilent\":true,\"homeAndBattleBgm\":true,\"compactBattleGrid\":true,\"actionRates\":true,\"vegetaScaleStable\":true,\"renderVerified\":false,\"actions\":"+events+"}");
+    File.WriteAllText(Path.Combine(dir,"smoke-result.json"),"{\"roundCombat\":true,\"gokuMotion\":true,\"openingIcon\":true,\"gridDemo\":true,\"gridMultiTarget\":true,\"fullGridReadability\":true,\"groundedMotion\":true,\"contrastTiming\":true,\"waveFeather\":true,\"thickerWave\":true,\"expandedBattlefield\":true,\"hiddenBattleSlotNumbers\":true,\"upwardPursuitSheen\":true,\"ultimateAtlasSize\":true,\"pursuitFlash\":true,\"quickPursuitHandoff\":true,\"roundedVitals\":true,\"slotVitals\":true,\"actionGap\":true,\"actualHitFeedback\":true,\"battleStats\":true,\"battleSidebarBars\":true,\"saibamanPresentation\":"+Data.IsRoundCard(RoundMotionArt.SaibamanCardId).ToString().ToLowerInvariant()+",\"shortOpening\":true,\"reactionTransitions\":25,\"gokuAudioCues\":21,\"vegetaAudioCues\":9,\"savedFiveEnemyDemo\":true,\"characterSheetConfiguration\":true,\"vegetaVolley\":true,\"vegetaArt\":true,\"piccoloPresentation\":true,\"piccoloHeldCharge\":true,\"piccoloApproachPacing\":true,\"piccoloPursuitHop\":true,\"galleryOwnershipGroups\":true,\"galleryNumberSort\":true,\"galleryElasticSkills\":true,\"characterPageLoop\":true,\"characterPageSessionSort\":true,\"characterSkillFourLines\":true,\"sharedMenuLoop\":true,\"avatarSwipe\":true,\"roundStatusHud\":true,\"piccoloFingerGlow\":true,\"piccoloRightHandCannon\":true,\"gohanHairArt\":true,\"gohanHeavyWindup\":true,\"gohanPresentation\":true,\"guardCounterPriority\":true,\"brokenPursuitRecovery\":true,\"raditzPresentation\":true,\"twinRaysAndSingleHit\":true,\"krillinReactionCrop\":true,\"formationDragAndSave\":true,\"formationExplicitSave\":true,\"yamchaPresentation\":true,\"tienPresentation\":true,\"roleArtwork\":true,\"greenBadgeAndRadar\":true,\"combinedStatGuide\":true,\"galleryRarityBackdrops\":true,\"multiCardHeldSwipe\":true,\"groundedGokuKit\":true,\"approvedReactionArt\":true,\"floatLaunchArtwork\":true,\"activeRoster\":"+Data.RoundRoster.Count+",\"krillinPresentation\":true,\"galleryFavorites\":true,\"avatarElasticDrag\":true,\"authoredBuffIcons\":true,\"savedLevel100Demo\":true,\"ultimateCutIn\":true,\"smoothCameraRestore\":true,\"stableSkillBadge\":true,\"authoredSkillIcons\":true,\"beamTailWidened\":true,\"sharedOpeningFx\":true,\"battleSkillBadges\":true,\"congruentGridTiles\":true,\"horizontalRowBeam\":true,\"referenceTiming\":true,\"referenceVideoExcluded\":true,\"formationSave\":true,\"twoRoutes\":true,\"galleryDetails\":true,\"galleryCurrentAvatar\":true,\"gallerySkillColors\":true,\"gokuGalleryIcons\":true,\"neighborRarityBadges\":true,\"startupArt\":true,\"noRewards\":true,\"soundSilent\":true,\"homeAndBattleBgm\":true,\"compactBattleGrid\":true,\"actionRates\":true,\"vegetaScaleStable\":true,\"renderVerified\":false,\"actions\":"+events+"}");
     Application.Quit(0);
    }catch(Exception ex){File.WriteAllText(Path.Combine(dir,"smoke-failure.txt"),ex.ToString());Debug.LogError(ex);Application.Quit(1);}
   }

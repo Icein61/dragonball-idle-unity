@@ -19,7 +19,10 @@
     "pursuitLimit": 2,
     "basicText": "对正面敌方造成[60]伤害，一定概率造成{倒地}",
     "ultimateText": "对正面横排造成[80]伤害，随机目标造成{击退}",
-    "pursuitText": "追打{倒地}，造成[20]伤害和{小浮空}，每回合至多2次"
+    "pursuitText": "追打{倒地}，造成[20]伤害和{小浮空}，每回合至多2次",
+    "basicComboHits": 1,
+    "ultimateComboHits": 3,
+    "pursuitComboHits": 1
    },
    "skills": [
     {
@@ -30,8 +33,16 @@
      "value": 0.2,
      "allyTag": "劲敌",
      "allyDefense": 0.2,
+     "comboHits": 0,
      "icon": {
-      "resource": "Art/V0131/Goku/passive-training"
+      "resource": "Art/V0182/Goku/skill-images",
+      "region": [
+       618,
+       618,
+       600,
+       600
+      ],
+      "framed": true
      }
     },
     {
@@ -42,25 +53,34 @@
     }
    ],
    "basicIcon": {
-    "resource": "Art/V0131/Goku/skill-icons",
+    "resource": "Art/V0182/Goku/skill-images",
     "region": [
-     67,
-     58,
-     538,
-     538
-    ]
+     6,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "ultimateIcon": {
-    "resource": "Art/V0131/Goku/skill-icons",
+    "resource": "Art/V0182/Goku/skill-images",
     "region": [
-     649,
-     58,
-     538,
-     538
-    ]
+     618,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "pursuitIcon": {
-    "resource": "Art/V0142/Goku/uppercut-icon"
+    "resource": "Art/V0182/Goku/skill-images",
+    "region": [
+     6,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   },
   {
@@ -81,7 +101,10 @@
     "pursuitLimit": 2,
     "basicText": "对正面敌方造成[60]伤害，一定概率造成{击退}",
     "ultimateText": "对随机至多六名随机敌方造成[35]伤害，造成{6连击}",
-    "pursuitText": "追打{大浮空}，造成[25]伤害和{倒地}，每回合至多2次"
+    "pursuitText": "追打{大浮空}，造成[25]伤害和{倒地}，每回合至多2次",
+    "basicComboHits": 1,
+    "ultimateComboHits": 6,
+    "pursuitComboHits": 1
    },
    "skills": [
     {
@@ -95,6 +118,7 @@
       "下级战士"
      ],
      "finalReduction": 0.2,
+     "comboHits": 0,
      "icon": {
       "resource": "Art/V0151/Vegeta/saiyan-elite",
       "region": [
@@ -160,7 +184,10 @@
     "basicText": "对随机敌方造成[50]伤害，一定概率造成{倒地}",
     "ultimateText": "进入【蓄力】状态一回合，随后对生命最低敌方造成[200]伤害",
     "pursuitText": "追打{击退}，造成[40]伤害和{大浮空}",
-    "ultimateNote": "【蓄力】 期间无法攻击，伤害减免[50]"
+    "ultimateNote": "【蓄力】 期间无法攻击，伤害减免[50]",
+    "basicComboHits": 1,
+    "ultimateComboHits": 1,
+    "pursuitComboHits": 1
    },
    "skills": [
     {
@@ -171,43 +198,48 @@
      "value": 1.0,
      "reaction": 2,
      "usesPerRound": 1,
+     "comboHits": 1,
      "icon": {
-      "resource": "Art/V0143/Piccolo/skill-icons",
+      "resource": "Art/V0182/Piccolo/skill-images",
       "region": [
-       627,
-       627,
-       627,
-       627
-      ]
+       618,
+       618,
+       600,
+       600
+      ],
+      "framed": true
      }
     }
    ],
    "basicIcon": {
-    "resource": "Art/V0143/Piccolo/skill-icons",
+    "resource": "Art/V0182/Piccolo/skill-images",
     "region": [
-     0,
-     0,
-     627,
-     627
-    ]
+     6,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "ultimateIcon": {
-    "resource": "Art/V0143/Piccolo/skill-icons",
+    "resource": "Art/V0182/Piccolo/skill-images",
     "region": [
-     627,
-     0,
-     627,
-     627
-    ]
+     618,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "pursuitIcon": {
-    "resource": "Art/V0143/Piccolo/skill-icons",
+    "resource": "Art/V0182/Piccolo/skill-images",
     "region": [
-     0,
-     627,
-     627,
-     627
-    ]
+     6,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   },
   {
@@ -230,7 +262,10 @@
     "pursuitDefenseRounds": 2,
     "basicText": "为自身回复[30]",
     "ultimateText": "对攻击最高敌方造成[60]伤害，降低目标[20]防御{2}回合",
-    "pursuitText": "追打{小浮空}，造成[30]伤害和{大浮空}，提升[20]防御{2}回合"
+    "pursuitText": "追打{小浮空}，造成[30]伤害和{大浮空}，提升[20]防御{2}回合",
+    "basicComboHits": 0,
+    "ultimateComboHits": 1,
+    "pursuitComboHits": 1
    },
    "skills": [
     {
@@ -240,6 +275,7 @@
      "effect": "mitigate",
      "value": 0.3,
      "chance": 0.3,
+     "comboHits": 0,
      "icon": {
       "resource": "Art/V0151/Gohan/skill-icons",
       "region": [
@@ -301,7 +337,10 @@
     "pursuitDodgeRounds": 1,
     "basicText": "对正面敌方造成[60]伤害，一定概率造成{小浮空}",
     "ultimateText": "对正面一列造成[60]伤害，降低目标[20]防御，持续[1]回合",
-    "pursuitText": "追打{5连击}，对随机单位造成[10]伤害和{10连击}，自身提升[10]闪避，持续[1]回合"
+    "pursuitText": "追打{5连击}，对随机单位造成[10]伤害和{10连击}，自身提升[10]闪避，持续[1]回合",
+    "basicComboHits": 1,
+    "ultimateComboHits": 3,
+    "pursuitComboHits": 10
    },
    "skills": [
     {
@@ -314,43 +353,48 @@
       "赛亚人篇"
      ],
      "value": 0.1,
+     "comboHits": 0,
      "icon": {
-      "resource": "Art/V0154/Krillin/skill-icons",
+      "resource": "Art/V0182/Krillin/skill-images",
       "region": [
-       629,
-       629,
-       623,
-       623
-      ]
+       618,
+       618,
+       600,
+       600
+      ],
+      "framed": true
      }
     }
    ],
    "basicIcon": {
-    "resource": "Art/V0154/Krillin/skill-icons",
+    "resource": "Art/V0182/Krillin/skill-images",
     "region": [
-     3,
-     2,
-     623,
-     623
-    ]
+     6,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "ultimateIcon": {
-    "resource": "Art/V0154/Krillin/skill-icons",
+    "resource": "Art/V0182/Krillin/skill-images",
     "region": [
-     629,
-     2,
-     623,
-     623
-    ]
+     618,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "pursuitIcon": {
-    "resource": "Art/V0154/Krillin/skill-icons",
+    "resource": "Art/V0182/Krillin/skill-images",
     "region": [
-     3,
-     629,
-     623,
-     623
-    ]
+     6,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   },
   {
@@ -373,7 +417,10 @@
     "pursuitLimit": 1,
     "basicText": "对随机敌方造成[50]伤害，一定概率造成[80]伤害",
     "ultimateText": "对随机两名敌方造成[80]伤害，提升自身[20]攻击[2]回合",
-    "pursuitText": "追打【赛亚人】角色造成的追打状态，造成[20]伤害和{大浮空}"
+    "pursuitText": "追打【赛亚人】角色造成的追打状态，造成[20]伤害和{大浮空}",
+    "basicComboHits": 1,
+    "ultimateComboHits": 2,
+    "pursuitComboHits": 1
    },
    "skills": [
     {
@@ -385,37 +432,48 @@
      "phaseRound": 5,
      "lateAttackPenalty": 0.2,
      "lateDefense": 0.2,
+     "comboHits": 0,
      "icon": {
-      "resource": "Art/V0161/Raditz/skill-icons",
+      "resource": "Art/V0182/Raditz/skill-images",
       "region": [
-       627,
-       627,
-       627,
-       627
-      ]
+       618,
+       618,
+       600,
+       600
+      ],
+      "framed": true
      }
     }
    ],
    "basicIcon": {
-    "resource": "Art/V0162/Raditz/shining-friday"
+    "resource": "Art/V0182/Raditz/skill-images",
+    "region": [
+     6,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "ultimateIcon": {
-    "resource": "Art/V0161/Raditz/skill-icons",
+    "resource": "Art/V0182/Raditz/skill-images",
     "region": [
-     627,
-     0,
-     627,
-     627
-    ]
+     618,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "pursuitIcon": {
-    "resource": "Art/V0161/Raditz/skill-icons",
+    "resource": "Art/V0182/Raditz/skill-images",
     "region": [
-     0,
-     627,
-     627,
-     627
-    ]
+     6,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   },
   {
@@ -436,7 +494,10 @@
     "pursuitLimit": 1,
     "basicText": "对正面敌方造成[60]伤害，一定概率造成{击退}",
     "ultimateText": "对防御最低敌方造成[100]伤害",
-    "pursuitText": "追打{倒地}，造成[30]伤害和{倒地}"
+    "pursuitText": "追打{倒地}，造成[30]伤害和{倒地}",
+    "basicComboHits": 1,
+    "ultimateComboHits": 1,
+    "pursuitComboHits": 1
    },
    "skills": [
     {
@@ -449,43 +510,48 @@
       "Z战士"
      ],
      "reviveAttackBonus": 0.2,
+     "comboHits": 0,
      "icon": {
-      "resource": "Art/V0172/Yamcha/icons-a",
+      "resource": "Art/V0182/Yamcha/skill-images",
       "region": [
-       631,
-       631,
-       619,
-       619
-      ]
+       618,
+       618,
+       600,
+       600
+      ],
+      "framed": true
      }
     }
    ],
    "basicIcon": {
-    "resource": "Art/V0172/Yamcha/icons-b",
+    "resource": "Art/V0182/Yamcha/skill-images",
     "region": [
-     4,
-     4,
-     619,
-     619
-    ]
+     6,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "ultimateIcon": {
-    "resource": "Art/V0172/Yamcha/icons-a",
+    "resource": "Art/V0182/Yamcha/skill-images",
     "region": [
-     631,
-     4,
-     619,
-     619
-    ]
+     618,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "pursuitIcon": {
-    "resource": "Art/V0172/Yamcha/icons-a",
+    "resource": "Art/V0182/Yamcha/skill-images",
     "region": [
-     4,
-     631,
-     619,
-     619
-    ]
+     6,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   },
   {
@@ -507,7 +573,10 @@
     "pursuitLimit": 1,
     "basicText": "对正面敌方造成[80]伤害，一定概率造成{倒地}",
     "ultimateText": "损失[5]血量，对正面横排敌方造成[100]伤害",
-    "pursuitText": "追打{大浮空}，造成[20]伤害和{小浮空}"
+    "pursuitText": "追打{大浮空}，造成[20]伤害和{小浮空}",
+    "basicComboHits": 1,
+    "ultimateComboHits": 3,
+    "pursuitComboHits": 1
    },
    "skills": [
     {
@@ -516,6 +585,7 @@
      "trigger": "onRoundStart",
      "effect": "strike",
      "value": 0.6,
+     "comboHits": 1,
      "icon": {
       "resource": "Art/V0173/Tien/skills-b",
       "region": [
@@ -572,7 +642,10 @@
     "pursuitLimit": 1,
     "basicText": "对正面敌方造成[40]伤害",
     "ultimateText": "对随机至多三名随机敌方造成[50]伤害，造成{3连击}",
-    "pursuitText": "追打{小浮空}，造成[20]伤害和{倒地}"
+    "pursuitText": "追打{小浮空}，造成[20]伤害和{倒地}",
+    "basicComboHits": 1,
+    "ultimateComboHits": 3,
+    "pursuitComboHits": 1
    },
    "skills": [
     {
@@ -585,43 +658,48 @@
       "赛亚人军团"
      ],
      "defeatAttackBonus": 0.2,
+     "comboHits": 1,
      "icon": {
-      "resource": "Art/V0181/Saibaman/icons",
+      "resource": "Art/V0182/Saibaman/skill-images",
       "region": [
-       633,
-       623,
-       623,
-       623
-      ]
+       618,
+       618,
+       600,
+       600
+      ],
+      "framed": true
      }
     }
    ],
    "basicIcon": {
-    "resource": "Art/V0181/Saibaman/icons",
+    "resource": "Art/V0182/Saibaman/skill-images",
     "region": [
-     2,
-     0,
-     623,
-     623
-    ]
+     6,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "ultimateIcon": {
-    "resource": "Art/V0181/Saibaman/icons",
+    "resource": "Art/V0182/Saibaman/skill-images",
     "region": [
-     633,
-     0,
-     623,
-     623
-    ]
+     618,
+     6,
+     600,
+     600
+    ],
+    "framed": true
    },
    "pursuitIcon": {
-    "resource": "Art/V0181/Saibaman/icons",
+    "resource": "Art/V0182/Saibaman/skill-images",
     "region": [
-     2,
-     623,
-     623,
-     623
-    ]
+     6,
+     618,
+     600,
+     600
+    ],
+    "framed": true
    }
   }
  ]

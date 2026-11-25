@@ -149,6 +149,30 @@ def compile_moves(cells, row):
     return bp, up, pp, moves
 
 
+def combo_field(cells, row, default, capacity=10):
+    address = f"N{row}"
+    raw = cells.get(address)
+    if raw is None:
+        return default
+    if not isinstance(raw, str) or not re.fullmatch(r"(?:0|[1-9]|10)", raw):
+        raise ValueError(f"{address} 的技能连击数须为 0 至 10 的整数")
+    value = int(raw)
+    if (value == 0) != (default == 0) or value > capacity:
+        raise ValueError(f"{address} 的技能连击数与招式实际攻击次数不符")
+    return value
+
+
+def move_combo_defaults(techniques):
+    ultimate = max(1, techniques.get("ultimateTargets", 0), techniques.get("ultimateHits", 0))
+    if techniques.get("ultimateFrontRow") or techniques.get("ultimateFrontColumn"):
+        ultimate = 3
+    return (0 if techniques.get("basicHealsSelf") else 1, ultimate, techniques.get("pursuitHits", 1))
+
+
+def skill_combo_default(skill):
+    return int(skill["effect"] in ("strike", "counter", "detonate"))
+
+
 def compile_skill(name, value, kind, address):
     text = sheet_text(value)
     if kind == "被动" and text.startswith("攻击提升"):
@@ -373,12 +397,16 @@ def parse_cards(cells, bindings):
             raise ValueError(f"H{row} 缺少运行立绘：{portrait}")
         names = [cells[f"C{row+n}"] for n in (7, 8, 9)]
         bp, up, pp, techniques = compile_moves(cells, row)
+        for offset, (key, count) in enumerate(zip(("basicComboHits", "ultimateComboHits", "pursuitComboHits"),
+                                                move_combo_defaults(techniques)), 7):
+            techniques[key] = combo_field(cells, row+offset, count, capacity=count if count > 1 else 10)
         skills = []
         for index, offset in enumerate((10, 11, 12)):
             name_cell = cells.get(f"C{row+offset}", "")
             if name_cell in ("", "-", "[-]"):
                 continue
             skill = compile_skill(name_cell, cells[f"E{row+offset}"], cells[f"D{row+offset}"], f"E{row+offset}")
+            skill["comboHits"] = combo_field(cells, row+offset, skill_combo_default(skill))
             skill["icon"] = bind["skills"][index]
             skills.append(skill)
         max_skills = 1 if rarity == "C" else 2
